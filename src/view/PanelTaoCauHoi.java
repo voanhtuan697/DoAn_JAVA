@@ -40,43 +40,26 @@ public class PanelTaoCauHoi extends JPanel{
     public void init() {
         JPanel pn1 = new JPanel();
         pn1.setBackground(Color.BLUE);
-        pn1.setMaximumSize(new Dimension(2000, 50));
-        GroupLayout layoutPn1 = new GroupLayout(pn1);
-        pn1.setLayout(layoutPn1);
-        layoutPn1.setAutoCreateGaps(true);
-        layoutPn1.setAutoCreateContainerGaps(true);
+        pn1.setPreferredSize(new Dimension(0, 40));
+        pn1.setLayout(new FlowLayout(FlowLayout.LEFT,20, 10));
 
         JLabel lb_cbbMonThi = new JLabel("Tên môn:");
         String[] cacMonChinh = new String[]{"Toán", "Lý", "Sử", "Địa"};
         cbb_monThi = new JComboBox<>(cacMonChinh);
 //        Thêm môn
         cbb_monThi.addItem("Tiếng anh");
-        cbb_monThi.setMaximumSize(new Dimension(200, 0));
 
         JLabel lb_cbbTrangThaiCH = new JLabel("Trạng thái:");
         String[] kiemDuyetCH = new String[]{"Đã duyệt", "Chưa duyệt"};
         cbb_trangThaiCH = new JComboBox<>(kiemDuyetCH);
-        cbb_trangThaiCH.setMaximumSize(new Dimension(200, 0));
-
-        layoutPn1.setHorizontalGroup(
-                layoutPn1.createSequentialGroup()
-                        .addComponent(lb_cbbMonThi)
-                        .addComponent(cbb_monThi)
-                        .addComponent(lb_cbbTrangThaiCH)
-                        .addComponent(cbb_trangThaiCH)
-        );
-
-        layoutPn1.setVerticalGroup(
-                layoutPn1.createSequentialGroup()
-                        .addGroup(layoutPn1.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_cbbMonThi)
-                                .addComponent(cbb_monThi)
-                                .addComponent(lb_cbbTrangThaiCH)
-                                .addComponent(cbb_trangThaiCH))
-        );
-
+        
+        pn1.add(lb_cbbMonThi);
+        pn1.add(cbb_monThi);
+        pn1.add(lb_cbbTrangThaiCH);
+        pn1.add(cbb_trangThaiCH);
+        
+//-------------------------------------------------PANEL2------------------------------------------------------------
         JPanel pn2 = new JPanel();
-        pn2.setPreferredSize(new Dimension(0, 270));
         pn2.setLayout(new BorderLayout());
 
         Object[][] data = {
@@ -94,7 +77,6 @@ public class PanelTaoCauHoi extends JPanel{
             {"CH1", "GV3", "Will you marry me?", "Trung Bình"},
             {"CH1", "GV1", "Who are you?Who are you?", "Dễ"},
             {"CH1", "GV2", "Where do you do?", "Khó"},
-            {"CH1", "GV3", "Will you marry me?", "Trung Bình"},
             {"CH1", "GV3", "Will you marry me?", "Trung Bình"},};
 
         // Tạo tiêu đề cho bảng
@@ -121,23 +103,24 @@ public class PanelTaoCauHoi extends JPanel{
         columnModel.getColumn(3).setPreferredWidth(70); // Độ khó
 
         JScrollPane scrollPane_table = new JScrollPane(table);
-        scrollPane_table.setPreferredSize(new Dimension(0, 270));
         pn2.add(scrollPane_table, BorderLayout.CENTER);
 
+        
+//--------------------------------------------------PANEL3----------------------------------------------------------
         JPanel pn3 = new JPanel();
-        pn3.setPreferredSize(new Dimension(0, 380));
-        GroupLayout layoutPn3 = new GroupLayout(pn3);
-        pn3.setLayout(layoutPn3);
+        pn3.setLayout(new BorderLayout());
+        pn3.setPreferredSize(new Dimension(0, 300));
+        
 
         JPanel pn3_input = new JPanel();
-        pn3_input.setPreferredSize(new Dimension(700, 0));
+        pn3_input.setPreferredSize(new Dimension(600, 300));
 
         JPanel pn_lb_cauhoi = new JPanel();
-        pn_lb_cauhoi.setPreferredSize(new Dimension(0, 5));
+        pn_lb_cauhoi.setMaximumSize(new Dimension(1300, 10));
         pn_lb_cauhoi.setBackground(Color.red);
-        pn_lb_cauhoi.setLayout(new BorderLayout());
+        pn_lb_cauhoi.setLayout(new FlowLayout(FlowLayout.LEFT,10,3));
         JLabel lb_cauhoi = new JLabel("Nội dung câu hỏi");
-        pn_lb_cauhoi.add(lb_cauhoi, BorderLayout.WEST);
+        pn_lb_cauhoi.add(lb_cauhoi);
 
         JPanel pn_cauhoi = new JPanel();
         pn_cauhoi.setPreferredSize(new Dimension(0, 50));
@@ -146,17 +129,18 @@ public class PanelTaoCauHoi extends JPanel{
         txta.setLineWrap(true);// tự động xuống hàng khi văn bản quá dài
 
         JScrollPane scrollPane_cauhoi = new JScrollPane(txta);
+//        scrollPane_cauhoi.setMaximumSize(new Dimension(0,100));
         pn_cauhoi.add(scrollPane_cauhoi, BorderLayout.CENTER);
 
         JPanel pn_lb_cautraloi = new JPanel();
-        pn_lb_cautraloi.setPreferredSize(new Dimension(0, 5));
+        pn_lb_cautraloi.setMaximumSize(new Dimension(1300, 10));
         pn_lb_cautraloi.setBackground(Color.pink);
-        pn_lb_cautraloi.setLayout(new BorderLayout());
+        pn_lb_cautraloi.setLayout(new FlowLayout(FlowLayout.LEFT,10,3));
         JLabel lb_cautraloi = new JLabel("Các câu trả lời");
-        pn_lb_cautraloi.add(lb_cautraloi, BorderLayout.WEST);
+        pn_lb_cautraloi.add(lb_cautraloi);
 
         JPanel pn_cautraloi = new JPanel();
-        pn_cautraloi.setPreferredSize(new Dimension(0, 180));
+        pn_cautraloi.setPreferredSize(new Dimension(0, 700));
         pn_cautraloi.setBackground(Color.gray);
         GroupLayout layout_cauTraLoi = new GroupLayout(pn_cautraloi);
         pn_cautraloi.setLayout(layout_cauTraLoi);
@@ -228,34 +212,34 @@ public class PanelTaoCauHoi extends JPanel{
         );
 
         JPanel pn_img = new JPanel();
-        pn_img.setPreferredSize(new Dimension(0, 15));
+        pn_img.setMaximumSize(new Dimension(1300, 10));
         pn_img.setBackground(Color.green);
-        pn_img.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 3));
+        pn_img.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
-        JLabel lb_img = new JLabel("Hinh anh:");
+        JLabel lb_img = new JLabel("Hình ảnh:");
         JButton btn_img = new JButton("Upload Image");
         pn_img.add(lb_img);
         pn_img.add(btn_img);
 
         JPanel pn_doKho = new JPanel();
-        pn_doKho.setPreferredSize(new Dimension(0, 15));
+        pn_doKho.setMaximumSize(new Dimension(1300, 10));
         pn_doKho.setBackground(Color.orange);
-        JLabel lb_doKho = new JLabel("Do kho:");
-        pn_doKho.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 3));
+        JLabel lb_doKho = new JLabel("Độ khó câu hỏi:");
+        pn_doKho.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         ButtonGroup btnG_DoKho = new ButtonGroup();
 
         JRadioButton rdb_easy = new JRadioButton();
         rdb_easy.setOpaque(false);
-        JLabel lb_easy = new JLabel("De");
+        JLabel lb_easy = new JLabel("Dễ");
 
         JRadioButton rdb_medium = new JRadioButton();
         rdb_medium.setOpaque(false);
-        JLabel lb_medium = new JLabel("Trung binh");
+        JLabel lb_medium = new JLabel("Trung bình");
 
         JRadioButton rdb_hard = new JRadioButton();
         rdb_hard.setOpaque(false);
-        JLabel lb_hard = new JLabel("Kho");
+        JLabel lb_hard = new JLabel("Khó");
 
         btnG_DoKho.add(rdb_easy);
         btnG_DoKho.add(rdb_medium);
@@ -294,12 +278,9 @@ public class PanelTaoCauHoi extends JPanel{
         );
 
         JPanel pn3_btn = new JPanel();
-        pn3_btn.setMaximumSize(new Dimension(100, 500));
+        pn3_btn.setPreferredSize(new Dimension(100, 300));
         pn3_btn.setBackground(Color.yellow);
-        GroupLayout layout_btn = new GroupLayout(pn3_btn);
-        pn3_btn.setLayout(layout_btn);
-        layout_btn.setAutoCreateGaps(true);
-        layout_btn.setAutoCreateContainerGaps(true);
+        pn3_btn.setLayout(new FlowLayout(FlowLayout.CENTER,10,20));
 
         JButton btn1 = new JButton("Button 1");
         btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -313,64 +294,21 @@ public class PanelTaoCauHoi extends JPanel{
         btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         JButton btn6 = new JButton("Button 6");
         btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        pn3_btn.add(btn1);
+        pn3_btn.add(btn2);
+        pn3_btn.add(btn3);
+        pn3_btn.add(btn4);
+        pn3_btn.add(btn5);
+        pn3_btn.add(btn6);
+        
 
-        layout_btn.setHorizontalGroup(
-                layout_btn.createSequentialGroup()
-                        .addGroup(layout_btn.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(btn1)
-                                .addComponent(btn2)
-                                .addComponent(btn3)
-                                .addComponent(btn4)
-                                .addComponent(btn5)
-                                .addComponent(btn6))
-        );
+        pn3.add(pn3_input,BorderLayout.CENTER);
+        pn3.add(pn3_btn,BorderLayout.EAST);
 
-        layout_btn.setVerticalGroup(
-                layout_btn.createSequentialGroup()
-                        .addComponent(btn1)
-                        .addGap(40)
-                        .addComponent(btn2)
-                        .addGap(40)
-                        .addComponent(btn3)
-                        .addGap(40)
-                        .addComponent(btn4)
-                        .addGap(40)
-                        .addComponent(btn5)
-                        .addGap(40)
-                        .addComponent(btn6)
-        );
-
-        layoutPn3.setHorizontalGroup(
-                layoutPn3.createSequentialGroup()
-                        .addComponent(pn3_input)
-                        .addComponent(pn3_btn)
-        );
-
-        layoutPn3.setVerticalGroup(
-                layoutPn3.createSequentialGroup()
-                        .addGroup(layoutPn3.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(pn3_input)
-                                .addComponent(pn3_btn))
-        );
-
-        GroupLayout layoutMain = new GroupLayout(this);
-        this.setLayout(layoutMain);
-
-//        layout.setAutoCreateGaps(true);
-//        layout.setAutoCreateContainerGaps(true);
-        layoutMain.setHorizontalGroup(
-                layoutMain.createSequentialGroup()
-                        .addGroup(layoutMain.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(pn1)
-                                .addComponent(pn2)
-                                .addComponent(pn3))
-        );
-
-        layoutMain.setVerticalGroup(
-                layoutMain.createSequentialGroup()
-                        .addComponent(pn1)
-                        .addComponent(pn2)
-                        .addComponent(pn3)
-        );
+        this.setLayout(new BorderLayout());
+        this.add(pn1,BorderLayout.NORTH);
+        this.add(pn2,BorderLayout.CENTER);
+        this.add(pn3,BorderLayout.SOUTH);
     }
 }

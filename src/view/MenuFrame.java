@@ -4,10 +4,16 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -20,95 +26,115 @@ import javax.swing.SwingConstants;
  *
  * @author E7250
  */
-public class MenuFrame extends JFrame{
+public class MenuFrame extends JFrame {
+
+    private JPanel cards;
+    private CardLayout cardLayout;
+    private JLabel lb_Header;
+
     public MenuFrame() {
         init();
     }
-    public void init(){
+
+    public JPanel getCards() {
+        return cards;
+    }
+
+    public void setCards(JPanel cards) {
+        this.cards = cards;
+    }
+
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    public void setCardLayout(CardLayout cardLayout) {
+        this.cardLayout = cardLayout;
+    }
+
+    public void init() {
         this.setTitle("Frame");
-        this.setSize(1366,760);
+        this.setSize(900, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.getContentPane().setLayout(new BorderLayout());
+
+        JPanel pn_left = new JPanel();
+        pn_left.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        pn_left.setPreferredSize(new Dimension(120, 0));
         
         JPanel pn_tittle = new JPanel();
-        pn_tittle.setBackground(Color.red);
-        pn_tittle.setPreferredSize(new Dimension(100, 40));
-        pn_tittle.setLayout(new GridBagLayout());
-        JLabel lb_tittle = new JLabel("Tittle");
-        lb_tittle.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn giữa theo chiều ngang
-        lb_tittle.setVerticalAlignment(SwingConstants.CENTER); // Đặt căn giữa theo chiều dọc
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0; // Cho phép label mở rộng ngang
-        gbc.weighty = 1.0; // Cho phép label mở rộng dọc
-        gbc.fill = GridBagConstraints.BOTH; // Điền label vào cả hai hướng
-        pn_tittle.add(lb_tittle,gbc);
+        pn_tittle.setLayout(new BorderLayout());
+        pn_tittle.setBackground(Color.pink);
+        pn_tittle.setPreferredSize(new Dimension(120, 30));
+        JLabel lb_tittle = new JLabel("Hellu");
+        pn_tittle.add(lb_tittle, BorderLayout.CENTER);
+        lb_tittle.setHorizontalAlignment(JLabel.CENTER);
+        lb_tittle.setVerticalAlignment(JLabel.CENTER);
+        pn_left.add(pn_tittle);
         
-        JPanel pn_tenChucNang = new JPanel();
-        pn_tenChucNang.setBackground(Color.yellow);
-        pn_tenChucNang.setPreferredSize(new Dimension(1200, 40));
-        pn_tenChucNang.setLayout(new GridBagLayout());
-        JLabel lb_tenChucNang = new JLabel("Tạo câu hỏi");
-        lb_tenChucNang.setHorizontalAlignment(SwingConstants.CENTER); 
-        lb_tenChucNang.setVerticalAlignment(SwingConstants.CENTER); 
-        pn_tenChucNang.add(lb_tenChucNang,gbc);
-        
-        JPanel pn_btn = new JPanel();
-        pn_btn.setBackground(Color.pink);
-        pn_btn.setMaximumSize(new Dimension(400, 1000));
-        pn_btn.setLayout(new BoxLayout(pn_btn, BoxLayout.Y_AXIS));
-        JButton btn1 = new JButton("1");
-        btn1.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        btn1.setBackground(Color.red);
-        btn1.setFocusPainted(false);
-        JButton btn2 = new JButton("2");
-        btn2.setMaximumSize(new Dimension(Integer.MAX_VALUE,50));
-        pn_btn.add(btn1);
-        
-        pn_btn.add(btn2);
-        
-        
-        
-        
-        JPanel pn_content = new PanelTaoCauHoi();
-        pn_content.setPreferredSize(new Dimension(1200, 670));
-        
-        GroupLayout layout = new GroupLayout(this.getContentPane());
-        this.getContentPane().setLayout(layout);
-        
+// button
 
+        String[] name_btn = new String[]{"Tạo câu hỏi", "Tạo đề thi", "Kết quả"};
+//        controller listener = new controller(this);
+        for (int i = 0; i < name_btn.length; i++) {
+            JButton btn = new JButton(name_btn[i]);
+//            btn.addActionListener(listener);
+            btn.setBorderPainted(false);
+            btn.setFocusPainted(false);
+            btn.setPreferredSize(new Dimension(120, 40));
+            btn.setBackground(Color.red);
+            btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            pn_left.add(btn);
+            btn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Thay đổi màu nền khi chuột hover vào
+                    btn.setBackground(Color.LIGHT_GRAY);
+                }
 
-        layout.setHorizontalGroup(
-            layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(pn_tittle)
-                    .addComponent(pn_btn))
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(pn_tenChucNang)
-                    .addComponent(pn_content)      
-                )
-                    
-                
-        );
-
-        layout.setVerticalGroup(
-            layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(pn_tittle)
-                    .addComponent(pn_tenChucNang))
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(pn_btn)
-                    .addComponent(pn_content))
-                
-        );
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Thay đổi màu nền khi chuột rời khỏi
+                    btn.setBackground(Color.red);
+                }
+            });
+        }
         
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        int screenWidth = (int) screenSize.getWidth();
-//        int screenHeight = (int) screenSize.getHeight();
-//        System.out.println("Chiều rộng của màn hình: " + screenWidth);
-//        System.out.println("Chiều cao của màn hình: " + screenHeight);
+        
+//panel right
+        JPanel pn_right = new JPanel();
+        pn_right.setLayout(new BorderLayout());
+// header
+        JPanel pn_header = new JPanel();
+        pn_header.setLayout(new BorderLayout());
+        pn_header.setPreferredSize(new Dimension(0, 30));
+        pn_header.setBackground(Color.yellow);
+        
+        lb_Header = new JLabel("MAN HINH");
+        pn_header.add(lb_Header, BorderLayout.CENTER);
+        lb_Header.setHorizontalAlignment(JLabel.CENTER);
+        lb_Header.setVerticalAlignment(JLabel.CENTER);
+
+        JPanel pn_content = new JPanel();
+        pn_content.setLayout(new BorderLayout());
+//card layout
+        cards = new JPanel();
+        pn_content.add(cards, BorderLayout.CENTER);
+        cardLayout = new CardLayout();
+        cards.setLayout(cardLayout);
+
+//------------------------------
+//        Phần thêm panel
+        JPanel pn1 = new PanelTaoCauHoi();
+        cards.add(pn1, "pnTaoCH");
+
+        pn_right.add(pn_header, BorderLayout.NORTH);
+        pn_right.add(pn_content, BorderLayout.CENTER);
+
+        this.add(pn_left, BorderLayout.WEST);
+        this.add(pn_right, BorderLayout.CENTER);
+
         this.setVisible(true);
     }
 }

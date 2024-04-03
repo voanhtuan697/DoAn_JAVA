@@ -95,6 +95,7 @@ public final class CTND extends JFrame {
         jtLichthi.setPreferredSize(new Dimension(475,100));
         JScrollPane jspLichthi = new JScrollPane(jtLichthi);
         
+        
         pnLichthi = new JPanel();
         pnLichthi.setBorder(BorderFactory.createTitledBorder(null, "Lịch thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font("Segoe UI 12", Font.BOLD, 15)));
         pnLichthi.setPreferredSize(new Dimension(475,150));
@@ -107,6 +108,7 @@ public final class CTND extends JFrame {
         JTable jtBaidathi = new JTable(data2, column2);
         jtBaidathi.setPreferredSize(new Dimension(475,100));
         JScrollPane jspBaidathi = new JScrollPane(jtBaidathi);
+        
         
         pnBaidathi = new JPanel();
         pnBaidathi.setBorder(BorderFactory.createTitledBorder(null, "Bài đã thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font("Segoe UI 12", Font.BOLD, 15)));

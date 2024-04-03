@@ -1,9 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class ExamInfo extends JFrame {
+public class ExamInfo extends JPanel {
 
     private JPanel combinedPanel, titlePanel, tablePanel;
     private JLabel lbMade, lbTende, lbMaGv, lbNgaythi, lbThoigian, lbSocauhoi, lbMatkhau;
@@ -24,8 +24,8 @@ public class ExamInfo extends JFrame {
 
     public ExamInfo() {
         initComponents();
-        setSize(800, 700);
-        getContentPane().setBackground(new Color(0xB3, 0xBE, 0xCB));
+        setPreferredSize(new Dimension(800, 700));
+        setBackground(new Color(0xB3, 0xBE, 0xCB));
         setLayout(new BorderLayout(20, 20));
         add(titlePanel, BorderLayout.NORTH);
         add(tablePanel, BorderLayout.CENTER);
@@ -106,7 +106,6 @@ public class ExamInfo extends JFrame {
         btnThem.setBackground(new Color(0x00, 0x95, 0x94));
         btnThem.setSize(100, 20);
 
-
         btnSua = new JButton(" Sửa  ");
         btnSua.setBackground(new Color(0x00, 0x95, 0x94));
         btnSua.setSize(100, 20);
@@ -137,11 +136,9 @@ public class ExamInfo extends JFrame {
         labelPanel.add(lbMatkhau);
         contentPanel.add(tfMatkhau);
 
-
         buttonPanel.add(btnThem);
         buttonPanel.add(btnSua);
         buttonPanel.add(btnXoa);
-
 
         combinedPanel.add(labelPanel, BorderLayout.WEST);
         combinedPanel.add(contentPanel, BorderLayout.CENTER);
@@ -178,36 +175,41 @@ public class ExamInfo extends JFrame {
         }; 
 
         tablePanel = new JPanel();
-    tablePanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
+        tablePanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
 
-    DefaultTableModel model = new DefaultTableModel(data, COLUMN_NAMES);
-    JTable table = new JTable(model);
-    table.getTableHeader().setReorderingAllowed(false);
-    table.setPreferredSize(new Dimension(800, 400));  // Keep the desired table size
-    table.setMinimumSize(new Dimension(800, 400));  // Ensure minimum size
+        DefaultTableModel model = new DefaultTableModel(data, COLUMN_NAMES);
+        JTable table = new JTable(model);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setPreferredSize(new Dimension(800, 400));  // Keep the desired table size
+        table.setMinimumSize(new Dimension(800, 400));  // Ensure minimum size
 
-    JPanel searchPn = new JPanel();
-    searchPn.setBackground(new Color(0xB3, 0xBE, 0xCB));  // Adjust background color if needed
-    searchPn.setPreferredSize(new Dimension(800, 30));  // Set preferred size for search panel
-    searchPn.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 0));
-    
-    JLabel search = new JLabel();
-    search.setText("Tìm kiếm: ");
-    search.setFont(font);
-    JTextField tfsearch = new JTextField();
-    tfsearch.setBackground(Color.WHITE);
-    tfsearch.setPreferredSize(new Dimension(150, 20));
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(800, 400));
 
-    searchPn.add(search);
-    searchPn.add(tfsearch);
+        JPanel searchPn = new JPanel();
+        searchPn.setBackground(new Color(0xB3, 0xBE, 0xCB));  // Adjust background color if needed
+        searchPn.setPreferredSize(new Dimension(800, 30));  // Set preferred size for search panel
+        searchPn.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 0));
+        
+        JLabel search = new JLabel();
+        search.setText("Tìm kiếm: ");
+        search.setFont(font);
+        JTextField tfsearch = new JTextField();
+        tfsearch.setBackground(Color.WHITE);
+        tfsearch.setPreferredSize(new Dimension(150, 20));
 
-    tablePanel.add(searchPn, BorderLayout.NORTH);  // Add search panel to the top
-    tablePanel.add(new JScrollPane(table), BorderLayout.CENTER); 
+        searchPn.add(search);
+        searchPn.add(tfsearch);
+
+        tablePanel.add(searchPn, BorderLayout.NORTH);  // Add search panel to the top
+        tablePanel.add(scrollPane, BorderLayout.CENTER); 
     }
 
     public static void main(String[] args) {
-        ExamInfo a = new ExamInfo();
-        a.setVisible(true);
+        JFrame frame = new JFrame("Exam Information");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new ExamInfo());
+        frame.pack();
+        frame.setVisible(true);
     }
 }
-

@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -7,26 +7,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Login extends JFrame {
+public class Login extends JPanel {
     private JPanel pnTitlebg;
     private JLabel lbTitle, lbTaikhoan, lbMatkhau;
     private JTextField tfTaikhoan, tfMatkhau;
     private JButton btnForgot, btnLogin;
 
-    /**
-     * 
-     */
     public Login() {
         initComponents();
-        setSize(600, 400);
-        getContentPane().setBackground(new Color(0xB3, 0xBE, 0xCB));
+        setBackground(new Color(0xB3, 0xBE, 0xCB));
         setLayout(null);
         setVisible(true);
     }
 
-    /**
-     * 
-     */
     public void initComponents() {
         lbTitle = new JLabel();
         lbTitle.setText("ĐĂNG NHẬP");
@@ -47,7 +40,7 @@ public class Login extends JFrame {
 
         lbMatkhau = new JLabel();
         lbMatkhau.setText("Mật khẩu:");
-        lbMatkhau.setBounds(50, 200, 300, 40);
+        lbMatkhau.setBounds(50, 150, 300, 40);
         add(lbMatkhau);
 
         tfTaikhoan = new JTextField();
@@ -57,17 +50,17 @@ public class Login extends JFrame {
 
         tfMatkhau = new JTextField();
         tfMatkhau.setBackground(new Color(255, 255, 255));
-        tfMatkhau.setBounds(150, 205, 300, 30);
+        tfMatkhau.setBounds(150, 155, 300, 30);
         add(tfMatkhau);
 
         btnForgot = new JButton("Quên mật khẩu");
-        btnForgot.setBounds(150, 300, 140, 30);
+        btnForgot.setBounds(150, 250, 140, 30);
         Color colorbtn1 = Color.decode("#009594");
         btnForgot.setBackground(colorbtn1);
         add(btnForgot);
 
         btnLogin = new JButton("Đăng nhập");
-        btnLogin.setBounds(300, 300, 140, 30);
+        btnLogin.setBounds(300, 250, 140, 30);
         Color colorbtn2 = Color.decode("#009594");
         btnLogin.setBackground(colorbtn2);
         add(btnLogin);
@@ -81,19 +74,13 @@ public class Login extends JFrame {
         tfMatkhau.setFont(font);  
         btnForgot.setFont(font);  
         btnLogin.setFont(font);  
-
-        add(pnTitlebg, BorderLayout.CENTER);
-        add(lbTaikhoan, BorderLayout.CENTER);
-        add(tfTaikhoan, BorderLayout.CENTER);
-        add(lbMatkhau, BorderLayout.CENTER);
-        add(tfMatkhau, BorderLayout.CENTER);
-        add(btnForgot, BorderLayout.CENTER);
-        add(btnLogin, BorderLayout.CENTER);
-
     }
 
     public static void main(String[] args) {
-        Login a = new Login();
-        a.setVisible(true);
+        JFrame frame = new JFrame("Login Panel");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new Login());
+        frame.setSize(600, 400);
+        frame.setVisible(true);
     }
 }

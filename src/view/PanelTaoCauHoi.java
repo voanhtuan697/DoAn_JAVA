@@ -39,7 +39,7 @@ public class PanelTaoCauHoi extends JPanel{
 
     public void init() {
         JPanel pn1 = new JPanel();
-        pn1.setBackground(Color.BLUE);
+        pn1.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn1.setPreferredSize(new Dimension(0, 40));
         pn1.setLayout(new FlowLayout(FlowLayout.LEFT,20, 10));
 
@@ -117,7 +117,7 @@ public class PanelTaoCauHoi extends JPanel{
 
         JPanel pn_lb_cauhoi = new JPanel();
         pn_lb_cauhoi.setMaximumSize(new Dimension(1300, 10));
-        pn_lb_cauhoi.setBackground(Color.red);
+        pn_lb_cauhoi.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn_lb_cauhoi.setLayout(new FlowLayout(FlowLayout.LEFT,10,3));
         JLabel lb_cauhoi = new JLabel("Nội dung câu hỏi");
         pn_lb_cauhoi.add(lb_cauhoi);
@@ -134,14 +134,14 @@ public class PanelTaoCauHoi extends JPanel{
 
         JPanel pn_lb_cautraloi = new JPanel();
         pn_lb_cautraloi.setMaximumSize(new Dimension(1300, 10));
-        pn_lb_cautraloi.setBackground(Color.pink);
+        pn_lb_cautraloi.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn_lb_cautraloi.setLayout(new FlowLayout(FlowLayout.LEFT,10,3));
         JLabel lb_cautraloi = new JLabel("Các câu trả lời");
         pn_lb_cautraloi.add(lb_cautraloi);
 
         JPanel pn_cautraloi = new JPanel();
         pn_cautraloi.setPreferredSize(new Dimension(0, 700));
-        pn_cautraloi.setBackground(Color.gray);
+        pn_cautraloi.setBackground(new Color(0xB3, 0xBE, 0xCB));
         GroupLayout layout_cauTraLoi = new GroupLayout(pn_cautraloi);
         pn_cautraloi.setLayout(layout_cauTraLoi);
         layout_cauTraLoi.setAutoCreateGaps(true);
@@ -213,7 +213,7 @@ public class PanelTaoCauHoi extends JPanel{
 
         JPanel pn_img = new JPanel();
         pn_img.setMaximumSize(new Dimension(1300, 10));
-        pn_img.setBackground(Color.green);
+        pn_img.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn_img.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         JLabel lb_img = new JLabel("Hình ảnh:");
@@ -223,7 +223,7 @@ public class PanelTaoCauHoi extends JPanel{
 
         JPanel pn_doKho = new JPanel();
         pn_doKho.setMaximumSize(new Dimension(1300, 10));
-        pn_doKho.setBackground(Color.orange);
+        pn_doKho.setBackground(new Color(0xB3, 0xBE, 0xCB));
         JLabel lb_doKho = new JLabel("Độ khó câu hỏi:");
         pn_doKho.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
@@ -279,7 +279,7 @@ public class PanelTaoCauHoi extends JPanel{
 
         JPanel pn3_btn = new JPanel();
         pn3_btn.setPreferredSize(new Dimension(100, 300));
-        pn3_btn.setBackground(Color.yellow);
+        pn3_btn.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn3_btn.setLayout(new FlowLayout(FlowLayout.CENTER,10,20));
 
         JButton btn1 = new JButton("Button 1");

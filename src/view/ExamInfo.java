@@ -210,12 +210,4 @@ public class ExamInfo extends JPanel {
         tablePanel.add(searchPn, BorderLayout.NORTH);  // Add search panel to the top
         tablePanel.add(scrollPane, BorderLayout.CENTER); 
     }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Exam Information");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new ExamInfo());
-        frame.pack();
-        frame.setVisible(true);
-    }
 }

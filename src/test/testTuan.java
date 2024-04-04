@@ -4,7 +4,8 @@
  */
 package test;
 
-import view.MenuFrame;
+import javax.swing.UIManager;
+import view.MenuFrameGV;
 
 /**
  *
@@ -16,7 +17,13 @@ public class testTuan {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new MenuFrame();
+//        new MenuFrameGV();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            new MenuFrameGV();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

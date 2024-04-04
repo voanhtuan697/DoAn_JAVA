@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -33,7 +34,6 @@ public class ExamInfo extends JPanel {
         setPreferredSize(new Dimension(800, 700));
         setBackground(new Color(0xB3, 0xBE, 0xCB));
         setLayout(new BorderLayout(20, 20));
-        add(titlePanel, BorderLayout.NORTH);
         add(tablePanel, BorderLayout.CENTER);
         add(combinedPanel, BorderLayout.SOUTH);
     }

@@ -9,8 +9,14 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -74,10 +80,7 @@ public class PanelTaoCauHoi extends JPanel{
             {"CH1", "GV3", "Will you marry me?", "Trung Bình"},
             {"CH1", "GV1", "Who are you?Who are you?", "Dễ"},
             {"CH1", "GV2", "Where do you do?", "Khó"},
-            {"CH1", "GV3", "Will you marry me?", "Trung Bình"},
-            {"CH1", "GV1", "Who are you?Who are you?", "Dễ"},
-            {"CH1", "GV2", "Where do you do?", "Khó"},
-            {"CH1", "GV3", "Will you marry me?", "Trung Bình"},};
+            };
 
         // Tạo tiêu đề cho bảng
         Object[] columns = {"Mã câu hỏi", "Mã giảng viên", "Nội dung", "Độ khó"};
@@ -276,31 +279,46 @@ public class PanelTaoCauHoi extends JPanel{
                         .addComponent(pn_img)
                         .addComponent(pn_doKho)
         );
-
+        
+        
         JPanel pn3_btn = new JPanel();
         pn3_btn.setPreferredSize(new Dimension(100, 300));
         pn3_btn.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn3_btn.setLayout(new FlowLayout(FlowLayout.CENTER,10,20));
-
-        JButton btn1 = new JButton("Button 1");
-        btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        JButton btn2 = new JButton("Button 2");
-        btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        JButton btn3 = new JButton("Button 3");
-        btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        JButton btn4 = new JButton("Button 4");
-        btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        JButton btn5 = new JButton("Button 5");
-        btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        JButton btn6 = new JButton("Button 6");
-        btn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
-        pn3_btn.add(btn1);
-        pn3_btn.add(btn2);
-        pn3_btn.add(btn3);
-        pn3_btn.add(btn4);
-        pn3_btn.add(btn5);
-        pn3_btn.add(btn6);
+        Font fontBtn = new Font("Arial", Font.BOLD, 10);
+        String []name_btn = new String[]{"Thêm","Xóa","Sửa","Nhập Excel","Xuất Excel"};
+        String[] name_image = new String[]{"plus_icon.png", "delete_icon.png", "edit_icon.png"};
+        for(int i=0;i<5;i++){
+            JButton btn = new JButton(name_btn[i]);
+            btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            btn.setBorderPainted(false);
+            btn.setFocusPainted(false);
+            if(i<3){
+                btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
+            }
+            btn.setBackground(Color.decode("#5FC58E"));
+            btn.setFont(fontBtn);
+            
+            btn.setPreferredSize(new Dimension(90, 30));
+            btn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Thay đổi màu nền khi chuột hover vào
+                    btn.setBackground(Color.decode("#94DBB6"));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Thay đổi màu nền khi chuột rời khỏi
+                    btn.setBackground(Color.decode("#5FC58E"));
+                }
+            });
+            pn3_btn.add(btn);
+        }
+        
+        
+        
         
 
         pn3.add(pn3_input,BorderLayout.CENTER);

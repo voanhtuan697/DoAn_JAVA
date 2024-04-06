@@ -5,22 +5,21 @@
 package test;
 
 import javax.swing.UIManager;
-import view.MenuFrameGV;
+import view.Login;
 
 /**
  *
  * @author E7250
  */
-public class testTuan {
+public class testLogIn {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        new MenuFrameGV();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            new MenuFrameGV();
+            new Login();
         } catch (Exception e) {
             e.printStackTrace();
         }

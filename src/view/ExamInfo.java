@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ExamInfo extends JPanel {
 
-    private JPanel combinedPanel, titlePanel, tablePanel;
+    private JPanel combinedPanel, tablePanel;
     private JLabel lbMade, lbTende, lbMaGv, lbNgaythi, lbThoigian, lbSocauhoi, lbMatkhau;
     private JTextField tfMade, tfTende, tfMaGv, tfNgaythi, tfThoigian, tfSocauhoi, tfMatkhau;
     private JButton btnThem, btnXoa, btnSua;
@@ -33,18 +33,11 @@ public class ExamInfo extends JPanel {
         setPreferredSize(new Dimension(800, 700));
         setBackground(new Color(0xB3, 0xBE, 0xCB));
         setLayout(new BorderLayout(20, 20));
-        add(titlePanel, BorderLayout.NORTH);
         add(tablePanel, BorderLayout.CENTER);
         add(combinedPanel, BorderLayout.SOUTH);
     }
 
     public void initComponents() {
-        titlePanel = new JPanel();
-        titlePanel.setBackground(new Color(0xD8, 0xA3, 0xAB));
-        titlePanel.setPreferredSize(new Dimension(800, 30));
-        JLabel titleLabel = new JLabel("TẠO ĐỀ THI");
-        titleLabel.setForeground(Color.WHITE);
-        titlePanel.add(titleLabel);
 
         combinedPanel = new JPanel();
         combinedPanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
@@ -151,9 +144,6 @@ public class ExamInfo extends JPanel {
         combinedPanel.add(buttonPanel, BorderLayout.EAST);
 
         Font font = new Font("Segoe UI", Font.PLAIN, 15);
-        Font font1 = new Font("Segoe UI", Font.BOLD, 15);
-        
-        titleLabel.setFont(font1);
 
         lbMade.setFont(font);
         lbTende.setFont(font);

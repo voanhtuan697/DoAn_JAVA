@@ -10,6 +10,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,7 +24,8 @@ public class PnQuanLy extends JPanel {
 
     private JPanel pnSearch, pnTable, pnInput;
     private DefaultTableModel model;
-    private JTextField txtSearch, txtMaQL, txtChucVu, txtHoTen, txtNgSinh, txtMonHoc;
+    private JTextField txtSearch, txtMaQL, txtHoTen, txtNgSinh, txtMonHoc;
+    private JComboBox<String> cbChucVu;
     private JButton btnThem, btnSua, btnXoa, btnClear, btnNhap, btnXuat;
     private JLabel[] lbl = new JLabel[5];
     private String[] lblContent = {"Mã quản lý:", "Họ và tên:", "Môn học:", "Chức vụ:", "Ngày sinh:"};
@@ -61,13 +64,13 @@ public class PnQuanLy extends JPanel {
 
         Object[] columns = {"Mã quản lý", "Họ và tên", "Môn học", "Ngày sinh", "Chức vụ"};
         Object[][] data = {{null, null, null, null, null},
-            {null, null, null, null, null}, 
-            {null, null, null, null, null},
-            {null, null, null, null, null},
-            {null, null, null, null, null}, 
-            {null, null, null, null, null}, 
-            {null, null, null, null, null}, 
-            {null, null, null, null, null}};
+        {null, null, null, null, null},
+        {null, null, null, null, null},
+        {null, null, null, null, null},
+        {null, null, null, null, null},
+        {null, null, null, null, null},
+        {null, null, null, null, null},
+        {null, null, null, null, null}};
         model = new DefaultTableModel(data, columns);
         JTable table = new JTable(model);
 
@@ -84,10 +87,11 @@ public class PnQuanLy extends JPanel {
             lbl[i].setFont(font);
         }
         txtMaQL = new JTextField(25);
-        txtChucVu = new JTextField(25);
+//        txtChucVu = new JTextField(25);
         txtNgSinh = new JTextField(25);
         txtHoTen = new JTextField(25);
         txtMonHoc = new JTextField(25);
+        cbChucVu = new JComboBox<>(new String[]{"Giảng viên", "Trưởng bộ môn"});
 
         btnThem = new JButton("     Thêm     ");
         btnThem.setBackground(colorBtn);
@@ -126,8 +130,8 @@ public class PnQuanLy extends JPanel {
                         .addComponent(lbl[3])
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(txtChucVu)
                         .addComponent(txtNgSinh)
+                        .addComponent(cbChucVu)
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(btnThem)
@@ -146,7 +150,7 @@ public class PnQuanLy extends JPanel {
                         .addComponent(lbl[0])
                         .addComponent(txtMaQL)
                         .addComponent(lbl[4])
-                        .addComponent(txtChucVu)
+                        .addComponent(txtNgSinh)
                         .addComponent(btnThem)
                         .addComponent(btnSua)
                 )
@@ -154,7 +158,7 @@ public class PnQuanLy extends JPanel {
                         .addComponent(lbl[1])
                         .addComponent(txtHoTen)
                         .addComponent(lbl[3])
-                        .addComponent(txtNgSinh)
+                        .addComponent(cbChucVu)
                         .addComponent(btnXoa)
                         .addComponent(btnClear)
                 )
@@ -165,5 +169,16 @@ public class PnQuanLy extends JPanel {
                         .addComponent(btnXuat)
                 )
         );
+    }
+
+    public static void main(String[] args) {
+        JFrame f = new JFrame();
+        f.setSize(1200, 500);
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        PnQuanLy p = new PnQuanLy();
+        f.getContentPane().setLayout(new BorderLayout());
+        f.add(p);
+        f.setVisible(true);
     }
 }

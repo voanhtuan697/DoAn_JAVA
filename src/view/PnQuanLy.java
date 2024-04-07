@@ -32,7 +32,7 @@ public class PnQuanLy extends JPanel {
     private Color colorGray = Color.decode("#B3BECB");
     private Color colorBtn = Color.decode("#009594");
     private Color colorPink = Color.decode("#DA91A4");
-    Font font = new Font("Segoe UI", Font.PLAIN, 14);
+    Font font = new Font("Segoe UI", Font.PLAIN, 13);
 
     public PnQuanLy() {
         init();
@@ -171,14 +171,14 @@ public class PnQuanLy extends JPanel {
         );
     }
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(1200, 500);
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PnQuanLy p = new PnQuanLy();
-        f.getContentPane().setLayout(new BorderLayout());
-        f.add(p);
-        f.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        JFrame f = new JFrame();
+//        f.setSize(1200, 500);
+//        f.setLocationRelativeTo(null);
+//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        PnQuanLy p = new PnQuanLy();
+//        f.getContentPane().setLayout(new BorderLayout());
+//        f.add(p);
+//        f.setVisible(true);
+//    }
 }

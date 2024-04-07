@@ -29,7 +29,7 @@ public class PnSinhvien extends JPanel {
     private Color colorGray = Color.decode("#B3BECB");
     private Color colorBtn = Color.decode("#009594");
     private Color colorPink = Color.decode("#DA91A4");
-    Font font = new Font("Segoe UI", Font.PLAIN, 14);
+    Font font = new Font("Segoe UI", Font.PLAIN, 13);
 
     public PnSinhvien() {
         init();

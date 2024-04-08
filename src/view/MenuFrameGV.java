@@ -12,20 +12,16 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import model.ImageUtils;
 
 /**
  *
@@ -80,7 +76,7 @@ public class MenuFrameGV extends JFrame {
         
         JPanel pn_tittle = new JPanel();
         pn_tittle.setLayout(new BorderLayout());
-        pn_tittle.setBackground(Color.PINK);
+        pn_tittle.setBackground(Color.decode("#DE838A"));
         pn_tittle.setPreferredSize(new Dimension(120, 30));
         JLabel lb_tittle = new JLabel("Hellu");
         pn_tittle.add(lb_tittle, BorderLayout.CENTER);
@@ -93,32 +89,48 @@ public class MenuFrameGV extends JFrame {
         String[] name_btn = new String[]{"Tạo câu hỏi", "Tạo đề thi", "Kết quả","Đổi mật khẩu"};
         String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png"};
         Font fontBtn = new Font("Arial", Font.BOLD, 10);
+        JButton []arrBtn = new JButton[name_btn.length];
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
             btn.addActionListener(listener);
+            arrBtn[i] = btn;
             btn.setBorderPainted(false);
             btn.setFocusPainted(false);
-            btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
+            //btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
+            btn.setIcon(ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + name_image[i], 20, 20));
             btn.setFont(fontBtn);
             btn.setPreferredSize(new Dimension(120, 40));
-            btn.setBackground(Color.decode("#D8A3AB"));
+            btn.setBackground(Color.decode("#DA91A4"));
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             pn_left.add(btn);
             btn.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // Thay đổi màu nền khi chuột hover vào
-                    btn.setBackground(Color.PINK);
+                    btn.setBackground(Color.decode("#DA91A4"));
+                    
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    // Thay đổi màu nền khi chuột rời khỏi
+                    if (!btn.isSelected()) {
+                    btn.setBackground(Color.decode("#D8A3AB"));
+                    }
+                }
+                
+                public void mouseClicked(MouseEvent e) {
+                // Thiết lập lại màu nền của tất cả các JButton
+                for (JButton btn : arrBtn) {
+                    btn.setSelected(false);
                     btn.setBackground(Color.decode("#D8A3AB"));
                 }
+                // Thiết lập màu nền của JButton được chọn
+                btn.setSelected(true);
+                btn.setBackground(Color.decode("#DA91A4"));
+            }
             });
         }
-        
+        arrBtn[0].setBackground(Color.decode("#DA91A4"));
         
 //panel right
         JPanel pn_right = new JPanel();

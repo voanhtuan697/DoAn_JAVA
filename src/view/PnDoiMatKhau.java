@@ -24,8 +24,7 @@ public class PnDoiMatKhau extends JPanel {
     private Color colorPink = Color.decode("#DA91A4");
     private JLabel[] lbl = new JLabel[3];
     private String[] lblContent = {"Mật khẩu cũ:", "Mật khẩu mới:", "Xác nhận lại mật khẩu mới"};
-    Font font = new Font("Segoe UI", Font.PLAIN, 15);
-    Font fontTitle = new Font("Segoe UI", Font.BOLD, 18);
+    Font font = new Font("Segoe UI", Font.PLAIN, 13);
 
     public PnDoiMatKhau() {
         init();
@@ -96,4 +95,5 @@ public class PnDoiMatKhau extends JPanel {
                 .addComponent(btnCapNhat)
         );
     }
+
 }

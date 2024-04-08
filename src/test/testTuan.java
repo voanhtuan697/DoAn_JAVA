@@ -5,8 +5,8 @@
 package test;
 
 import javax.swing.UIManager;
+import view.MenuFrameAd;
 import view.MenuFrameGV;
-import view.MenuFrameAdmin;
 
 /**
  *
@@ -22,7 +22,7 @@ public class testTuan {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //            new MenuFrameGV();
-                new MenuFrameAdmin();
+//                new MenuFrameAd();
         } catch (Exception e) {
             e.printStackTrace();
         }

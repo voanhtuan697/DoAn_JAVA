@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.Menu_GV_Listener;
+import controller.Menu_Admin_Listener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -21,18 +21,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 /**
  *
  * @author E7250
  */
-public class MenuFrameGV extends JFrame {
-
+public class MenuFrameAdmin extends JFrame{
     private JPanel cards;
     private CardLayout cardLayout;
     private JLabel lb_Header;
 
-    public MenuFrameGV() {
+    public MenuFrameAdmin() {
         init();
     }
 
@@ -63,7 +61,7 @@ public class MenuFrameGV extends JFrame {
     
 
     public void init() {
-        this.setTitle("Frame");
+        this.setTitle("Frame Tạo tài khoản");
         this.setSize(900, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,16 +82,16 @@ public class MenuFrameGV extends JFrame {
         pn_left.add(pn_tittle);
         
 // button
-        Menu_GV_Listener listener = new Menu_GV_Listener(this);
-        String[] name_btn = new String[]{"Tạo câu hỏi", "Tạo đề thi", "Kết quả","Đổi mật khẩu"};
-        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png"};
+        Menu_Admin_Listener listener = new Menu_Admin_Listener(this);
+        String[] name_btn = new String[]{"Tạo giảng viên", "Tạo sinh viên"};
+        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png"};
         Font fontBtn = new Font("Arial", Font.BOLD, 10);
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
             btn.addActionListener(listener);
             btn.setBorderPainted(false);
             btn.setFocusPainted(false);
-            btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
+//            btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
             btn.setFont(fontBtn);
             btn.setPreferredSize(new Dimension(120, 40));
             btn.setBackground(Color.decode("#D8A3AB"));
@@ -124,7 +122,7 @@ public class MenuFrameGV extends JFrame {
         pn_header.setPreferredSize(new Dimension(0, 30));
         pn_header.setBackground(Color.decode("#D8A3AB"));
         
-        lb_Header = new JLabel("Tạo câu hỏi");
+        lb_Header = new JLabel("Tạo giảng viên");
         pn_header.add(lb_Header, BorderLayout.CENTER);
         lb_Header.setHorizontalAlignment(JLabel.CENTER);
         lb_Header.setVerticalAlignment(JLabel.CENTER);
@@ -139,14 +137,14 @@ public class MenuFrameGV extends JFrame {
 
 //------------------------------
 //        Phần thêm panel
-        JPanel pn_TaoCH = new PanelTaoCauHoi();
-        cards.add(pn_TaoCH, "pnTaoCH");
-        JPanel pn_TaoDT = new ExamInfo();
-        cards.add(pn_TaoDT, "pnTaoDT");
-        JPanel pn_KQ = new pnKetQua();
-        cards.add(pn_KQ, "pnKQ");
-        JPanel pn_Passwd = new PnDoiMatKhau();
-        cards.add(pn_Passwd, "pnPass");
+        JPanel pn_TaoGV = new PnQuanLy();
+        cards.add(pn_TaoGV, "pnTaoGV");
+        JPanel pn_TaoSV = new PnSinhvien();
+        cards.add(pn_TaoSV, "pnTaoSV");
+//        JPanel pn_KQ = new pnKetQua();
+//        cards.add(pn_KQ, "pnKQ");
+//        JPanel pn_Passwd = new PnDoiMatKhau();
+//        cards.add(pn_Passwd, "pnPass");
 
         pn_right.add(pn_header, BorderLayout.NORTH);
         pn_right.add(pn_content, BorderLayout.CENTER);

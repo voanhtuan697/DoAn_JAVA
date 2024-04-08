@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.ImageUtils;
+import model.ImageUtils;
 import controller.Menu_AD_Listener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -180,10 +180,6 @@ public class MenuFrameAd extends JFrame {
         cards.add(pn_sv, "PnSV");
         JPanel pn_Info = new PnThongTinAdTr();
         cards.add(pn_Info, "PnInfor");
-    }
-    
-    public static void main(String[] args) {
-        new MenuFrameAd();
     }
     
 }

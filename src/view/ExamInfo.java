@@ -178,24 +178,30 @@ public class ExamInfo extends JPanel {
         Object[][] data = {
             {"DE001", "Đề thi học kỳ 1", "GV001", "2024-05-15", 120, 50, "abc123"},
             {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
         }; 
 
         tablePanel = new JPanel();
         tablePanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
+        tablePanel.setLayout(new BorderLayout(0, 10));
 
         DefaultTableModel model = new DefaultTableModel(data, COLUMN_NAMES);
         JTable table = new JTable(model);
         table.getTableHeader().setReorderingAllowed(false);
-        table.setPreferredSize(new Dimension(800, 400));  // Keep the desired table size
-        table.setMinimumSize(new Dimension(800, 400));  // Ensure minimum size
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(800, 400));
 
         JPanel searchPn = new JPanel();
-        searchPn.setBackground(new Color(0xB3, 0xBE, 0xCB));  // Adjust background color if needed
-        searchPn.setPreferredSize(new Dimension(800, 30));  // Set preferred size for search panel
-        searchPn.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 0));
+        searchPn.setBackground(new Color(0xB3, 0xBE, 0xCB)); 
+        searchPn.setPreferredSize(new Dimension(800, 30)); 
+        searchPn.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
         
         JLabel search = new JLabel();
         search.setText("Tìm kiếm: ");

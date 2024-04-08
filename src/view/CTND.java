@@ -94,11 +94,25 @@ public final class CTND extends JFrame {
         pnCTND.add(btnLogout);
         pnCTND.setLayout(new BorderLayout());
         
-        Object data[][] = {{"HK2", "JAVA", "90p", "25/05/2024", "O"}};
+        Object data[][] = {
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+            {"HK2", "JAVA", "90p", "25/05/2024", "O"},
+        };
         String column[] = {"Kì thi", "Môn thi", "Thời gian", "Ngày làm", "Làm bài"};
         JTable jtLichthi = new JTable(data, column);
         jtLichthi.setPreferredSize(new Dimension(475,100));
         JScrollPane jspLichthi = new JScrollPane(jtLichthi);
+        
         
         pnLichthi = new JPanel();
         pnLichthi.setBorder(BorderFactory.createTitledBorder(null, "Lịch thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font("Segoe UI 12", Font.BOLD, 15)));
@@ -112,6 +126,7 @@ public final class CTND extends JFrame {
         JTable jtBaidathi = new JTable(data2, column2);
         jtBaidathi.setPreferredSize(new Dimension(475,100));
         JScrollPane jspBaidathi = new JScrollPane(jtBaidathi);
+        
         
         pnBaidathi = new JPanel();
         pnBaidathi.setBorder(BorderFactory.createTitledBorder(null, "Bài đã thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font("Segoe UI 12", Font.BOLD, 15)));

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package connect;
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+//import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import java.sql.*;
 /**
  *

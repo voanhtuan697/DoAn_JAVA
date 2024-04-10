@@ -7,15 +7,10 @@ package test;
 import javax.swing.UIManager;
 import view.Login;
 
-/**
- *
- * @author E7250
- */
+
 public class testLogIn {
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -24,5 +19,5 @@ public class testLogIn {
             e.printStackTrace();
         }
     }
-    
+
 }

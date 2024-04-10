@@ -4,14 +4,14 @@
  */
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -118,9 +118,17 @@ public class PnThongTinAdTr extends JPanel {
         txtMatkhau = new JTextField();
         txtMatkhauMoi = new JTextField();
         txtXacNhan = new JTextField();
+        Dimension textFieldSize = new Dimension(200, 25);
+        txtMatkhau.setPreferredSize(textFieldSize);
+        txtMatkhauMoi.setPreferredSize(textFieldSize);
+        txtXacNhan.setPreferredSize(textFieldSize);
+        
         btnCapNhat = new JButton("Cập nhật");
         btnCapNhat.setFont(font);
         btnCapNhat.setBackground(colorBtn);
+        btnCapNhat.setBorderPainted(false);
+        btnCapNhat.setFocusPainted(false);
+        btnCapNhat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         GroupLayout layoutMk = new GroupLayout(pnDoiMK);
         pnDoiMK.setLayout(layoutMk);

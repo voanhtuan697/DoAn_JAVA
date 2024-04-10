@@ -6,6 +6,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.GroupLayout;
@@ -53,6 +54,9 @@ public class PnDoiMatKhau extends JPanel {
         btnCapNhat = new JButton("Cập nhật");
         btnCapNhat.setFont(font);
         btnCapNhat.setBackground(colorBtn);
+        btnCapNhat.setBorderPainted(false);
+        btnCapNhat.setFocusPainted(false);
+        btnCapNhat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     private void showLayout() {

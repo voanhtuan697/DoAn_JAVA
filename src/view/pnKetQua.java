@@ -6,6 +6,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -30,7 +31,7 @@ public class pnKetQua extends JPanel {
     private Color colorGray = Color.decode("#B3BECB");
     private Color colorBtn = Color.decode("#009594");
     private Color colorPink = Color.decode("#DA91A4");
-    Font font = new Font("Segoe UI", Font.PLAIN, 14);
+    Font font = new Font("Segoe UI", Font.PLAIN, 13);
     private String[] lblContent = {"Môn thi:", "Đề thi:", "Điểm từ:", "Điểm"};
 
     public pnKetQua() {
@@ -103,12 +104,23 @@ public class pnKetQua extends JPanel {
         btnXuat = new JButton("Xuất Excel  ");
         btnXuat.setBackground(colorBtn);
         btnXuat.setFont(font);
+        btnXuat.setBorderPainted(false);
+        btnXuat.setFocusPainted(false);
+        btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         btnVe = new JButton("Vẽ biểu đồ");
         btnVe.setBackground(colorBtn);
         btnVe.setFont(font);
+        btnVe.setBorderPainted(false);
+        btnVe.setFocusPainted(false);
+        btnVe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         btnTimTheoDiem = new JButton("Tìm theo điểm");
         btnTimTheoDiem.setBackground(colorBtn);
         btnTimTheoDiem.setFont(font);
+        btnTimTheoDiem.setBorderPainted(false);
+        btnTimTheoDiem.setFocusPainted(false);
+        btnTimTheoDiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     private void showLayout() {

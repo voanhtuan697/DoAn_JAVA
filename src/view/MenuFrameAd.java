@@ -21,9 +21,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static view.base.cobalt_blue;
+import static view.base.dark_blue;
+import static view.base.dark_green;
 
 public class MenuFrameAd extends JFrame {
-    
+
     private JPanel cards;
     private CardLayout cardLayout;
     private JLabel lblHeader, lblName;
@@ -34,78 +37,76 @@ public class MenuFrameAd extends JFrame {
     private JLabel[] labels = new JLabel[3];
     Font font = new Font("Segoe UI", Font.PLAIN, 13);
     Font fontTitle = new Font("Segoe UI", Font.BOLD, 15);
-    private Color colorPink = Color.decode("#D8A3AB");
-    private Color colorPinkH = Color.decode("#DA91A4");
-    
+
     public MenuFrameAd() {
         init();
         initComponents();
         card();
         this.setVisible(true);
     }
-    
+
     public JPanel getCards() {
         return cards;
     }
-    
+
     public void setCards(JPanel cards) {
         this.cards = cards;
     }
-    
+
     public CardLayout getCardLayout() {
         return cardLayout;
     }
-    
+
     public void setCardLayout(CardLayout cardLayout) {
         this.cardLayout = cardLayout;
     }
-    
+
     public JLabel getLb_Header() {
         return lblHeader;
     }
-    
+
     private void init() {
         this.setSize(1000, 600);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pnLeft = new JPanel();
-        
+
         pnLeft.setLayout(new BoxLayout(pnLeft, BoxLayout.Y_AXIS));
-        pnLeft.setBackground(colorPink);
+        pnLeft.setBackground(cobalt_blue);
         pnLeft.setPreferredSize(new Dimension(150, 0));
-        
+
         pnCenter = new JPanel(new BorderLayout());
         pnCenter.setBackground(Color.CYAN);
-        
+
         pnTop = new JPanel(new BorderLayout());
-        pnTop.setBackground(Color.pink);
-        pnTop.setPreferredSize(new Dimension(0, 30));
-        
+        pnTop.setBackground(dark_green);
+        pnTop.setPreferredSize(new Dimension(0, 35));
+
         this.add(pnTop, BorderLayout.NORTH);
         this.add(pnCenter, BorderLayout.CENTER);
         this.add(pnLeft, BorderLayout.WEST);
-        
+
     }
-    
+
     private void initComponents() {
         lblName = new JLabel("Hello Word");
         lblName.setFont(new Font("Segoe UI", Font.BOLD, 14) {
         });
-        lblName.setForeground(Color.decode("#3D1460"));
+        lblName.setForeground(Color.decode("#ffffff"));
         JPanel pnName = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnName.add(lblName);
-        pnName.setBackground(Color.decode("#DE838A"));
+        pnName.setBackground(dark_blue);
         pnName.setPreferredSize(new Dimension(150, 0));
         lblHeader = new JLabel("Quản lý");
         lblHeader.setForeground(Color.WHITE);
         JPanel pnHead = new JPanel();
-        pnHead.setBackground(colorPinkH);
+        pnHead.setBackground(cobalt_blue);
         pnHead.add(lblHeader);
         lblHeader.setFont(fontTitle);
         pnTop.add(pnName, BorderLayout.WEST);
         pnTop.add(pnHead, BorderLayout.CENTER);
-        
+
         Dimension buttonDimension = pnLeft.getPreferredSize();
         buttonDimension.height = 35;
         for (int i = 0; i < buttons.length; i++) {
@@ -113,9 +114,9 @@ public class MenuFrameAd extends JFrame {
             pnLeft.add(buttons[i]);
         }
         setupMenuActions();
-        
+
     }
-    
+
     private JButton createButton(String name, String img, Dimension size) {
         JButton btn = new JButton(name);
         btn.setBorderPainted(false);
@@ -124,56 +125,56 @@ public class MenuFrameAd extends JFrame {
         btn.setIcon(icon);
         btn.setFont(font);
         btn.setMaximumSize(size);
-        btn.setBackground(colorPink);
+        btn.setBackground(dark_green);
         btn.setForeground(Color.WHITE);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                btn.setBackground(colorPinkH);
+                btn.setBackground(dark_green);
             }
-            
+
             @Override
             public void mouseExited(MouseEvent e) {
                 if (!btn.isSelected()) {
-                    btn.setBackground(colorPink);
+                    btn.setBackground(cobalt_blue);
                 }
             }
-            
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Thiết lập lại màu nền của tất cả các JButton
                 for (JButton button : buttons) {
                     button.setSelected(false);
-                    button.setBackground(colorPink);
+                    button.setBackground(cobalt_blue);
                 }
                 // Thiết lập màu nền của JButton được chọn
                 btn.setSelected(true);
-                btn.setBackground(colorPinkH);
+                btn.setBackground(dark_green);
             }
         });
         if (name.equals("Quản lý")) {
-            btn.setBackground(colorPinkH);
+            btn.setBackground(dark_green);
             btn.setSelected(true);
         } else {
-            btn.setBackground(colorPink);
+            btn.setBackground(cobalt_blue);
         }
         return btn;
     }
-    
+
     public void setupMenuActions() {
         Menu_AD_Listener menuActionListener = new Menu_AD_Listener(this);
         for (JButton button : buttons) {
             button.addActionListener(menuActionListener);
         }
     }
-    
+
     private void card() {
         cards = new JPanel();
         pnCenter.add(cards, BorderLayout.CENTER);
         cardLayout = new CardLayout();
         cards.setLayout(cardLayout);
-        
+
         JPanel pn_quanly = new PnQuanLy();
         cards.add(pn_quanly, "PnQuanLy");
         JPanel pn_sv = new PnSinhvien();
@@ -181,5 +182,5 @@ public class MenuFrameAd extends JFrame {
         JPanel pn_Info = new PnThongTinAdTr();
         cards.add(pn_Info, "PnInfor");
     }
-    
+
 }

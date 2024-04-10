@@ -6,12 +6,13 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,9 +20,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.ImageUtils;
 
 public class PnQuanLy extends JPanel {
-
+    
     private JPanel pnSearch, pnTable, pnInput;
     private DefaultTableModel model;
     private JTextField txtSearch, txtMaQL, txtHoTen, txtNgSinh, txtMonHoc;
@@ -33,35 +35,35 @@ public class PnQuanLy extends JPanel {
     private Color colorBtn = Color.decode("#009594");
     private Color colorPink = Color.decode("#DA91A4");
     Font font = new Font("Segoe UI", Font.PLAIN, 13);
-
+    
     public PnQuanLy() {
         init();
         initComponent();
         showLayout();
     }
-
+    
     private void init() {
         this.setLayout(new BorderLayout());
         pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         pnSearch.setBackground(colorGray);
-
+        
         pnTable = new JPanel(new BorderLayout());
-
+        
         pnInput = new JPanel();
         pnInput.setBackground(colorGray);
-
+        
         this.add(pnSearch, BorderLayout.NORTH);
         this.add(pnTable, BorderLayout.CENTER);
         this.add(pnInput, BorderLayout.SOUTH);
     }
-
+    
     private void initComponent() {
         JLabel lblSearch = new JLabel("Tìm kiếm");
         lblSearch.setFont(font);
         txtSearch = new JTextField(25);
         pnSearch.add(lblSearch);
         pnSearch.add(txtSearch);
-
+        
         Object[] columns = {"Mã quản lý", "Họ và tên", "Môn học", "Ngày sinh", "Chức vụ"};
         Object[][] data = {{null, null, null, null, null},
         {null, null, null, null, null},
@@ -73,7 +75,7 @@ public class PnQuanLy extends JPanel {
         {null, null, null, null, null}};
         model = new DefaultTableModel(data, columns);
         JTable table = new JTable(model);
-
+        
         int[] columnWidths = {100, 200, 80, 100, 100};
         for (int i = 0; i < columnWidths.length; i++) {
             TableColumn column = table.getColumnModel().getColumn(i);
@@ -81,39 +83,64 @@ public class PnQuanLy extends JPanel {
         }
         JScrollPane scrTabel = new JScrollPane(table);
         pnTable.add(scrTabel, BorderLayout.CENTER);
-
+        
         for (int i = 0; i < lblContent.length; i++) {
             lbl[i] = new JLabel(lblContent[i]);
             lbl[i].setFont(font);
         }
         txtMaQL = new JTextField(25);
-//        txtChucVu = new JTextField(25);
         txtNgSinh = new JTextField(25);
         txtHoTen = new JTextField(25);
         txtMonHoc = new JTextField(25);
         cbChucVu = new JComboBox<>(new String[]{"Giảng viên", "Trưởng bộ môn"});
-
-        btnThem = new JButton("     Thêm     ");
+        
+        btnThem = new JButton("Thêm");
+        ImageIcon icon = ImageUtils.createResizedIcon(PnQuanLy.class, "..//image//plus_icon.png", 15, 15);
+        btnThem.setIcon(icon);
         btnThem.setBackground(colorBtn);
+        btnThem.setBorderPainted(false);
+        btnThem.setFocusPainted(false);
+        btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//        btnThem.setMaximumSize(80,25);
 
         btnXoa = new JButton("       Xóa      ");
         btnXoa.setBackground(colorBtn);
+        btnXoa.setBorderPainted(false);
+        btnXoa.setFocusPainted(false);
+        btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         btnNhap = new JButton("Nhập Excel");
         btnNhap.setBackground(colorBtn);
+        btnNhap.setBorderPainted(false);
+        btnNhap.setFocusPainted(false);
+        btnNhap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         btnXuat = new JButton("Xuất Excel");
         btnXuat.setBackground(colorBtn);
+        btnXuat.setBorderPainted(false);
+        btnXuat.setFocusPainted(false);
+        btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         btnSua = new JButton("    Sửa       ");
         btnSua.setBackground(colorBtn);
+        btnSua.setBorderPainted(false);
+        btnSua.setFocusPainted(false);
+        btnSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         btnClear = new JButton("    Clear     ");
         btnClear.setBackground(colorBtn);
+        btnClear.setBorderPainted(false);
+        btnClear.setFocusPainted(false);
+        btnClear.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
     }
-
+    
     private void showLayout() {
         GroupLayout layout = new GroupLayout(pnInput);
         pnInput.setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
-
+        
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(lbl[0])
@@ -144,7 +171,7 @@ public class PnQuanLy extends JPanel {
                         .addComponent(btnXuat)
                 )
         );
-
+        
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl[0])

@@ -8,24 +8,17 @@ import javax.swing.UIManager;
 import view.MenuFrameAd;
 import view.MenuFrameGV;
 
-/**
- *
- * @author E7250
- */
 public class testTuan {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
 //        new MenuFrameGV();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //            new MenuFrameGV();
-//                new MenuFrameAd();
+//            new MenuFrameAd();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
 }

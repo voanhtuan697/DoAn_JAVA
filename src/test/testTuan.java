@@ -22,7 +22,7 @@ public class testTuan {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //            new MenuFrameGV();
-//                new MenuFrameAd();
+                new MenuFrameAd();
         } catch (Exception e) {
             e.printStackTrace();
         }

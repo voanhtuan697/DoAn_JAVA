@@ -173,7 +173,7 @@ public class MenuFrameAd extends JFrame {
         pnCenter.add(cards, BorderLayout.CENTER);
         cardLayout = new CardLayout();
         cards.setLayout(cardLayout);
-<<<<<<< HEAD
+
 
         JPanel pn_quanly = new PnQuanLy();
         cards.add(pn_quanly, "PnQuanLy");
@@ -181,7 +181,7 @@ public class MenuFrameAd extends JFrame {
         cards.add(pn_sv, "PnSV");
         JPanel pn_Info = new PnThongTinAdTr();
         cards.add(pn_Info, "PnInfor");
-=======
+
         
         JPanel pn_ctAd = new PnThongTinAdTr();
         cards.add(pn_ctAd, "pnCTAD");
@@ -202,7 +202,6 @@ public class MenuFrameAd extends JFrame {
     
     public static void main(String[] args) {
         new MenuFrameAd();
->>>>>>> ce7f38ba17de22569a58cfe10607f4588f17259f
     }
 
 }

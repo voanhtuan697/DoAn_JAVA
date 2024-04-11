@@ -102,7 +102,7 @@ public class PnDuyetCauHoi extends JPanel{
         JPanel pn_btn = new JPanel();
         pn_btn.setLayout(new FlowLayout(0,10,10));
         pn_btn.setBackground(Color.yellow);
-        String []name_btn = new String[]{"Duyệt","Xóa","Sửa"};
+        String []name_btn = new String[]{"Xem chi tiết","Duyệt","Xóa","Sửa"};
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
             btn.setBorderPainted(false);

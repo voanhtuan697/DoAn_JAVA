@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.Menu_SV_Listener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -60,19 +61,19 @@ public class MenuFrameSV extends JFrame{
 
     public void init() {
         this.setTitle("Frame");
-        this.setSize(900, 600);
+        this.setSize(1000, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setLayout(new BorderLayout());
 
         JPanel pn_left = new JPanel();
         pn_left.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        pn_left.setPreferredSize(new Dimension(120, 0));
+        pn_left.setPreferredSize(new Dimension(150, 0));
         
         JPanel pn_tittle = new JPanel();
         pn_tittle.setLayout(new BorderLayout());
         pn_tittle.setBackground(Color.decode("#DE838A"));
-        pn_tittle.setPreferredSize(new Dimension(120, 30));
+        pn_tittle.setPreferredSize(new Dimension(150, 30));
         JLabel lb_tittle = new JLabel("Hellu");
         pn_tittle.add(lb_tittle, BorderLayout.CENTER);
         lb_tittle.setHorizontalAlignment(JLabel.CENTER);
@@ -80,21 +81,21 @@ public class MenuFrameSV extends JFrame{
         pn_left.add(pn_tittle);
         
 // button
-//        Menu_GV_Listener listener = new Menu_GV_Listener(this);
-        String[] name_btn = new String[]{"Tạo câu hỏi", "Tạo đề thi", "Kết quả","Đổi mật khẩu"};
+        Menu_SV_Listener listener = new Menu_SV_Listener(this);
+        String[] name_btn = new String[]{"Sinh viên","Đổi mật khẩu"};
 //        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png"};
         Font fontBtn = new Font("Arial", Font.BOLD, 10);
         JButton []arrBtn = new JButton[name_btn.length];
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
-//            btn.addActionListener(listener);
+            btn.addActionListener(listener);
             arrBtn[i] = btn;
             btn.setBorderPainted(false);
             btn.setFocusPainted(false);
             //btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
  //           btn.setIcon(ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + name_image[i], 20, 20));
             btn.setFont(fontBtn);
-            btn.setPreferredSize(new Dimension(120, 40));
+            btn.setPreferredSize(new Dimension(150, 35));
             btn.setBackground(Color.decode("#D8A3AB"));
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             pn_left.add(btn);
@@ -152,14 +153,10 @@ public class MenuFrameSV extends JFrame{
 
 //------------------------------
 //        Phần thêm panel
-//        JPanel pn_ctSV = new CTND();
-//        cards.add(pn_ctSV, "pnTaoCH");
-//        JPanel pn_TaoDT = new ExamInfo();
-//        cards.add(pn_TaoDT, "pnTaoDT");
-//        JPanel pn_KQ = new pnKetQua();
-//        cards.add(pn_KQ, "pnKQ");
-//        JPanel pn_Passwd = new PnDoiMatKhau();
-//        cards.add(pn_Passwd, "pnPass");
+        JPanel pn_ctSV = new PnThongTinSV();
+        cards.add(pn_ctSV, "pnCTSV");
+        JPanel pn_Passwd = new PnDoiMatKhau();
+        cards.add(pn_Passwd, "pnPass");
 
         pn_right.add(pn_header, BorderLayout.NORTH);
         pn_right.add(pn_content, BorderLayout.CENTER);

@@ -62,19 +62,19 @@ public class MenuFrameGV extends JFrame {
 
     public void init() {
         this.setTitle("Frame");
-        this.setSize(900, 600);
+        this.setSize(1000, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setLayout(new BorderLayout());
 
         JPanel pn_left = new JPanel();
         pn_left.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        pn_left.setPreferredSize(new Dimension(120, 0));
+        pn_left.setPreferredSize(new Dimension(150, 0));
         
         JPanel pn_tittle = new JPanel();
         pn_tittle.setLayout(new BorderLayout());
         pn_tittle.setBackground(Color.decode("#DE838A"));
-        pn_tittle.setPreferredSize(new Dimension(120, 30));
+        pn_tittle.setPreferredSize(new Dimension(150, 30));
         JLabel lb_tittle = new JLabel("Hellu");
         pn_tittle.add(lb_tittle, BorderLayout.CENTER);
         lb_tittle.setHorizontalAlignment(JLabel.CENTER);
@@ -96,7 +96,7 @@ public class MenuFrameGV extends JFrame {
             //btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
             btn.setIcon(ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + name_image[i], 20, 20));
             btn.setFont(fontBtn);
-            btn.setPreferredSize(new Dimension(120, 40));
+            btn.setPreferredSize(new Dimension(150, 35));
             btn.setBackground(Color.decode("#D8A3AB"));
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             pn_left.add(btn);

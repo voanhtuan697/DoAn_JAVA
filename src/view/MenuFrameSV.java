@@ -4,7 +4,6 @@
  */
 package view;
 
-import controller.Menu_GV_Listener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -24,13 +23,12 @@ import model.ImageUtils;
  *
  * @author E7250
  */
-public class MenuFrameGV extends JFrame {
-
+public class MenuFrameSV extends JFrame{
     private JPanel cards;
     private CardLayout cardLayout;
     private JLabel lb_Header;
 
-    public MenuFrameGV() {
+    public MenuFrameSV() {
         init();
     }
 
@@ -82,19 +80,19 @@ public class MenuFrameGV extends JFrame {
         pn_left.add(pn_tittle);
         
 // button
-        Menu_GV_Listener listener = new Menu_GV_Listener(this);
+//        Menu_GV_Listener listener = new Menu_GV_Listener(this);
         String[] name_btn = new String[]{"Tạo câu hỏi", "Tạo đề thi", "Kết quả","Đổi mật khẩu"};
-        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png"};
+//        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png"};
         Font fontBtn = new Font("Arial", Font.BOLD, 10);
         JButton []arrBtn = new JButton[name_btn.length];
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
-            btn.addActionListener(listener);
+//            btn.addActionListener(listener);
             arrBtn[i] = btn;
             btn.setBorderPainted(false);
             btn.setFocusPainted(false);
             //btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
-            btn.setIcon(ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + name_image[i], 20, 20));
+ //           btn.setIcon(ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + name_image[i], 20, 20));
             btn.setFont(fontBtn);
             btn.setPreferredSize(new Dimension(120, 40));
             btn.setBackground(Color.decode("#D8A3AB"));
@@ -154,14 +152,14 @@ public class MenuFrameGV extends JFrame {
 
 //------------------------------
 //        Phần thêm panel
-        JPanel pn_TaoCH = new PanelTaoCauHoi();
-        cards.add(pn_TaoCH, "pnTaoCH");
-        JPanel pn_TaoDT = new ExamInfo();
-        cards.add(pn_TaoDT, "pnTaoDT");
-        JPanel pn_KQ = new pnKetQua();
-        cards.add(pn_KQ, "pnKQ");
-        JPanel pn_Passwd = new PnDoiMatKhau();
-        cards.add(pn_Passwd, "pnPass");
+//        JPanel pn_ctSV = new CTND();
+//        cards.add(pn_ctSV, "pnTaoCH");
+//        JPanel pn_TaoDT = new ExamInfo();
+//        cards.add(pn_TaoDT, "pnTaoDT");
+//        JPanel pn_KQ = new pnKetQua();
+//        cards.add(pn_KQ, "pnKQ");
+//        JPanel pn_Passwd = new PnDoiMatKhau();
+//        cards.add(pn_Passwd, "pnPass");
 
         pn_right.add(pn_header, BorderLayout.NORTH);
         pn_right.add(pn_content, BorderLayout.CENTER);
@@ -173,6 +171,6 @@ public class MenuFrameGV extends JFrame {
     }
     
     public static void main(String[] args) {
-        new MenuFrameGV();
+        new MenuFrameSV();
     }
 }

@@ -174,9 +174,9 @@ public class MenuFrameAd extends JFrame {
         cardLayout = new CardLayout();
         cards.setLayout(cardLayout);
         
-        JPanel pn_quanly = new PnQuanLy();
+        JPanel pn_quanly = new PnThemTBM();
         cards.add(pn_quanly, "PnQuanLy");
-        JPanel pn_sv = new PnSinhvien();
+        JPanel pn_sv = new PnThemSV();
         cards.add(pn_sv, "PnSV");
         JPanel pn_Info = new PnThongTinAdTr();
         cards.add(pn_Info, "PnInfor");

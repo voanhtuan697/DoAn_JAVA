@@ -4,33 +4,33 @@
  */
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import static java.awt.Color.white;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
+import static view.base.dark_green;
+import static view.base.font14;
+import static view.base.gray_bg;
 
 public class PnThongTinTBM extends JPanel {
 
     private JPanel pntt, pnDoiMK;
     private JLabel[] lblTitle = new JLabel[5];
-    private String[] title = {"Tên đăng nhập:", "Họ và tên:", "Ngày sinh:", "Chức vụ:","Môn:"};
-    private JLabel lblTenDN, lblHoTen, lblNgSinh, lblChucVu,lblMon;
+    private String[] title = {"Tên đăng nhập:", "Họ và tên:", "Ngày sinh:", "Chức vụ:", "Môn:"};
+    private JLabel lblTenDN, lblHoTen, lblNgSinh, lblChucVu, lblMon;
     private Color colorGray = Color.decode("#B3BECB");
     private JLabel[] lblMk = new JLabel[3];
     private String[] txtMk = {"Mật khẩu cũ:", "Mật khẩu mới:", "Xác nhận lại mật khẩu mới:"};
     private JTextField txtMatkhau, txtMatkhauMoi, txtXacNhan;
     private JButton btnCapNhat;
-    private Color colorBtn = Color.decode("#009594");
-    Font font = new Font("Segoe UI", Font.PLAIN, 14);
 
     public PnThongTinTBM() {
         init();
@@ -38,29 +38,28 @@ public class PnThongTinTBM extends JPanel {
 
     public void init() {
         this.setLayout(new GridLayout(2, 1));
-//        this.setBackground(Color.decode("#F4E4CA"));
 
         pntt = new JPanel();
-        pntt.setBorder(BorderFactory.createTitledBorder(null, "Thông tin cá nhân", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font) {
+        pntt.setBorder(BorderFactory.createTitledBorder(null, "Thông tin cá nhân", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
         }));
-//        pntt.setBackground(Color.decode("#FFFFFF"));
+        pntt.setBackground(gray_bg);
         this.add(pntt);
 
         for (int i = 0; i < lblTitle.length; i++) {
             lblTitle[i] = new JLabel(title[i]);
-            lblTitle[i].setFont(font);
+            lblTitle[i].setFont(font14);
         }
 
         lblTenDN = new JLabel("ThanhTung");
-        lblTenDN.setFont(font);
+        lblTenDN.setFont(font14);
         lblHoTen = new JLabel("Nguyễn Thanh Tùng");
-        lblHoTen.setFont(font);
+        lblHoTen.setFont(font14);
         lblNgSinh = new JLabel("05/07/1994");
-        lblNgSinh.setFont(font);
+        lblNgSinh.setFont(font14);
         lblChucVu = new JLabel("Admin");
-        lblChucVu.setFont(font);
-                lblMon = new JLabel("Cơ sở dữ liệu");
-        lblMon.setFont(font);
+        lblChucVu.setFont(font14);
+        lblMon = new JLabel("Cơ sở dữ liệu");
+        lblMon.setFont(font14);
 
         GroupLayout layout = new GroupLayout(pntt);
         pntt.setLayout(layout);
@@ -114,22 +113,23 @@ public class PnThongTinTBM extends JPanel {
         );
 
         pnDoiMK = new JPanel();
-//        pnDoiMK.setBackground(Color.decode("#FFFFFF"));
-        pnDoiMK.setBorder(BorderFactory.createTitledBorder(null, "Đổi mật khẩu", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font) {
+        pnDoiMK.setBackground(gray_bg);
+        pnDoiMK.setBorder(BorderFactory.createTitledBorder(null, "Đổi mật khẩu", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
         }));
         this.add(pnDoiMK);
 
         for (int i = 0; i < lblMk.length; i++) {
             lblMk[i] = new JLabel(txtMk[i]);
-            lblMk[i].setFont(font);
+            lblMk[i].setFont(font14);
         }
 
         txtMatkhau = new JTextField();
         txtMatkhauMoi = new JTextField();
         txtXacNhan = new JTextField();
         btnCapNhat = new JButton("Cập nhật");
-        btnCapNhat.setFont(font);
-        btnCapNhat.setBackground(colorBtn);
+        btnCapNhat.setForeground(white);
+        btnCapNhat.setFont(font14);
+        btnCapNhat.setBackground(dark_green);
 
         GroupLayout layoutMk = new GroupLayout(pnDoiMK);
         pnDoiMK.setLayout(layoutMk);

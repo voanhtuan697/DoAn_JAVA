@@ -9,10 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +18,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import static view.base.dark_green;
+import static view.base.font13b;
+import static view.base.font14;
+import static view.base.white;
 
 public class ExamInfo extends JPanel {
 
@@ -101,18 +103,28 @@ public class ExamInfo extends JPanel {
 
         tfMatkhau = new JTextField();
         tfMatkhau.setBackground(new Color(255, 255, 255));
-
+        
+        
         btnThem = new JButton("Thêm");
-        btnThem.setBackground(new Color(0x00, 0x95, 0x94));
+        btnThem.setBackground(dark_green);
         btnThem.setSize(100, 20);
+        btnThem.setForeground(white);
+        btnThem.setBorderPainted(false);
+        btnThem.setFocusPainted(false);
 
         btnSua = new JButton(" Sửa  ");
-        btnSua.setBackground(new Color(0x00, 0x95, 0x94));
+        btnSua.setForeground(white);
+        btnSua.setBackground(dark_green);
         btnSua.setSize(100, 20);
+        btnSua.setFocusPainted(false);
+        btnSua.setBorderPainted(false);
 
         btnXoa = new JButton(" Xóa  ");
-        btnXoa.setBackground(new Color(0x00, 0x95, 0x94));
+        btnXoa.setForeground(white);
+        btnXoa.setBackground(dark_green);
         btnXoa.setSize(100, 20);
+        btnXoa.setFocusPainted(false);
+        btnXoa.setBorderPainted(false);
 
         lbMade.setHorizontalAlignment(SwingConstants.RIGHT);
         labelPanel.add(lbMade);
@@ -144,27 +156,27 @@ public class ExamInfo extends JPanel {
         combinedPanel.add(contentPanel, BorderLayout.CENTER);
         combinedPanel.add(buttonPanel, BorderLayout.EAST);
 
-        Font font = new Font("Segoe UI", Font.PLAIN, 15);
 
-        lbMade.setFont(font);
-        lbTende.setFont(font);
-        lbMaGv.setFont(font);
-        lbNgaythi.setFont(font);
-        lbThoigian.setFont(font);
-        lbSocauhoi.setFont(font);
-        lbMatkhau.setFont(font);
 
-        tfMade.setFont(font);
-        tfTende.setFont(font);
-        tfMaGv.setFont(font);
-        tfNgaythi.setFont(font);
-        tfThoigian.setFont(font);
-        tfSocauhoi.setFont(font);
-        tfMatkhau.setFont(font);
+        lbMade.setFont(font13b);
+        lbTende.setFont(font13b);
+        lbMaGv.setFont(font13b);
+        lbNgaythi.setFont(font13b);
+        lbThoigian.setFont(font13b);
+        lbSocauhoi.setFont(font13b);
+        lbMatkhau.setFont(font13b);
 
-        btnThem.setFont(font);
-        btnSua.setFont(font);
-        btnXoa.setFont(font);
+        tfMade.setFont(font13b);
+        tfTende.setFont(font13b);
+        tfMaGv.setFont(font13b);
+        tfNgaythi.setFont(font13b);
+        tfThoigian.setFont(font13b);
+        tfSocauhoi.setFont(font13b);
+        tfMatkhau.setFont(font13b);
+
+        btnThem.setFont(font13b);
+        btnSua.setFont(font13b);
+        btnXoa.setFont(font13b);
 
         Object[][] data = {
             {"DE001", "Đề thi học kỳ 1", "GV001", "2024-05-15", 120, 50, "abc123"},
@@ -196,7 +208,7 @@ public class ExamInfo extends JPanel {
         
         JLabel search = new JLabel();
         search.setText("Tìm kiếm: ");
-        search.setFont(font);
+        search.setFont(font14);
         JTextField tfsearch = new JTextField();
         tfsearch.setBackground(Color.WHITE);
         tfsearch.setPreferredSize(new Dimension(150, 20));

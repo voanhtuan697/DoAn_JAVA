@@ -7,7 +7,6 @@ package view;
 import controller.Menu_SV_Listener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,7 +17,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import model.ImageUtils;
+import static view.base.cobalt_blue;
+import static view.base.dark_green;
+import static view.base.font13;
+import static view.base.font14;
+import static view.base.white;
 
 /**
  *
@@ -72,9 +75,11 @@ public class MenuFrameSV extends JFrame{
         
         JPanel pn_tittle = new JPanel();
         pn_tittle.setLayout(new BorderLayout());
-        pn_tittle.setBackground(Color.decode("#DE838A"));
+        pn_tittle.setBackground(dark_green);
         pn_tittle.setPreferredSize(new Dimension(150, 30));
         JLabel lb_tittle = new JLabel("Hellu");
+        lb_tittle.setFont(font14);
+        lb_tittle.setForeground(white);
         pn_tittle.add(lb_tittle, BorderLayout.CENTER);
         lb_tittle.setHorizontalAlignment(JLabel.CENTER);
         lb_tittle.setVerticalAlignment(JLabel.CENTER);
@@ -84,7 +89,6 @@ public class MenuFrameSV extends JFrame{
         Menu_SV_Listener listener = new Menu_SV_Listener(this);
         String[] name_btn = new String[]{"Sinh viên","Đổi mật khẩu"};
 //        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png"};
-        Font fontBtn = new Font("Arial", Font.BOLD, 10);
         JButton []arrBtn = new JButton[name_btn.length];
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
@@ -94,23 +98,24 @@ public class MenuFrameSV extends JFrame{
             btn.setFocusPainted(false);
             //btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
  //           btn.setIcon(ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + name_image[i], 20, 20));
-            btn.setFont(fontBtn);
+            btn.setFont(font13);
+            btn.setForeground(white);
             btn.setPreferredSize(new Dimension(150, 35));
-            btn.setBackground(Color.decode("#D8A3AB"));
+            btn.setBackground(cobalt_blue);
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             pn_left.add(btn);
             btn.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // Thay đổi màu nền khi chuột hover vào
-                    btn.setBackground(Color.decode("#DA91A4"));
+                    btn.setBackground(cobalt_blue);
                     
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     if (!btn.isSelected()) {
-                    btn.setBackground(Color.decode("#D8A3AB"));
+                    btn.setBackground(cobalt_blue);
                     }
                 }
                 
@@ -118,15 +123,15 @@ public class MenuFrameSV extends JFrame{
                 // Thiết lập lại màu nền của tất cả các JButton
                 for (JButton btn : arrBtn) {
                     btn.setSelected(false);
-                    btn.setBackground(Color.decode("#D8A3AB"));
+                    btn.setBackground(cobalt_blue);
                 }
                 // Thiết lập màu nền của JButton được chọn
                 btn.setSelected(true);
-                btn.setBackground(Color.decode("#DA91A4"));
+                btn.setBackground(dark_green);
             }
             });
         }
-        arrBtn[0].setBackground(Color.decode("#DA91A4"));
+        arrBtn[0].setBackground(cobalt_blue);
         arrBtn[0].setSelected(true);
         
 //panel right
@@ -136,9 +141,11 @@ public class MenuFrameSV extends JFrame{
         JPanel pn_header = new JPanel();
         pn_header.setLayout(new BorderLayout());
         pn_header.setPreferredSize(new Dimension(0, 30));
-        pn_header.setBackground(Color.decode("#D8A3AB"));
+        pn_header.setBackground(dark_green);
         
         lb_Header = new JLabel("Tạo câu hỏi");
+        lb_Header.setFont(font14);
+        lb_Header.setForeground(white);
         pn_header.add(lb_Header, BorderLayout.CENTER);
         lb_Header.setHorizontalAlignment(JLabel.CENTER);
         lb_Header.setVerticalAlignment(JLabel.CENTER);

@@ -22,7 +22,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static view.base.cobalt_blue;
-import static view.base.dark_blue;
 import static view.base.dark_green;
 
 public class MenuFrameAd extends JFrame {
@@ -95,12 +94,12 @@ public class MenuFrameAd extends JFrame {
         lblName.setForeground(Color.decode("#ffffff"));
         JPanel pnName = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnName.add(lblName);
-        pnName.setBackground(dark_blue);
+        pnName.setBackground(dark_green);
         pnName.setPreferredSize(new Dimension(150, 0));
         lblHeader = new JLabel("Quản lý");
         lblHeader.setForeground(Color.WHITE);
         JPanel pnHead = new JPanel();
-        pnHead.setBackground(cobalt_blue);
+        pnHead.setBackground(dark_green);
         pnHead.add(lblHeader);
         lblHeader.setFont(fontTitle);
         pnTop.add(pnName, BorderLayout.WEST);
@@ -175,8 +174,8 @@ public class MenuFrameAd extends JFrame {
         cards.setLayout(cardLayout);
 
 
-        JPanel pn_quanly = new PnQuanLy();
-        cards.add(pn_quanly, "PnQuanLy");
+//        JPanel pn_quanly = new PnQuanLy();
+//        cards.add(pn_quanly, "PnQuanLy");
         JPanel pn_sv = new PnSinhvien();
         cards.add(pn_sv, "PnSV");
         JPanel pn_Info = new PnThongTinAdTr();
@@ -195,8 +194,8 @@ public class MenuFrameAd extends JFrame {
         JPanel pn_themGV = new PnThemGV();
         cards.add(pn_themGV, "pnThemGV");
         
-        JPanel pn_sv = new PnThemSV();
-        cards.add(pn_sv, "pnThemSV");
+        JPanel pn_sv1 = new PnThemSV();
+        cards.add(pn_sv1, "pnThemSV");
         
     }
     

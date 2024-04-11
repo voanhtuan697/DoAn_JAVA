@@ -13,28 +13,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
 
-public final class CTND extends JFrame {
+public final class PnThongTinSV extends JPanel {
     JPanel pnCTND, pnQLHT, pnLichthi, pnBaidathi;
     JLabel lblMaTS, lblfullName, lblDob, lbloldPass, lblnewPass;
     JButton btnUpdate, btnLogout;
     JTextField tfMaTS, tffullName, tfDob, tfoldPass, tfnewPass;
-    CTND(){
+    PnThongTinSV(){
         init();
-        this.setSize(950,450);
-        this.setResizable(true);
-        this.getContentPane().setBackground(new Color(0xD8A3AB));
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        
         this.setLayout(new BorderLayout());
         this.add(pnCTND, BorderLayout.WEST);
         this.add(pnQLHT, BorderLayout.CENTER);
-        this.setVisible(true);
     }
     public void init(){
         lblMaTS = new JLabel("Mã thí sinh: ");
@@ -159,6 +153,13 @@ public final class CTND extends JFrame {
         
     }
     public static void main(String[] args){
-        CTND ctnd = new CTND();
+        JFrame f = new JFrame();
+        f.setSize(950,450);
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        PnThongTinSV p = new PnThongTinSV();
+        f.getContentPane().setLayout(new BorderLayout());
+        f.add(p);
+        f.setVisible(true);
     }
 }

@@ -31,10 +31,9 @@ public class MenuFrameAd extends JFrame {
     private CardLayout cardLayout;
     private JLabel lblHeader, lblName;
     private JPanel pnLeft, pnCenter, pnTop;
-    private String[] title = {"Quản lý", "Sinh viên", "Thông tin"};
-    private String[] nameImage = {"taoCauHoi_icon.png", "taoDeThi_icon.png", "passwd_icon.png"};
-    private JButton[] buttons = new JButton[3];
-    private JLabel[] labels = new JLabel[3];
+    private String[] title = {"ADMIN", "Thêm Admin", "Thêm TBM", "Thêm GV", "Thêm SV"};
+    private String[] nameImage = {"taoCauHoi_icon.png", "taoDeThi_icon.png", "passwd_icon.png","taoDeThi_icon.png", "passwd_icon.png"};
+    private JButton[] buttons = new JButton[title.length];
     Font font = new Font("Segoe UI", Font.PLAIN, 13);
     Font fontTitle = new Font("Segoe UI", Font.BOLD, 15);
 
@@ -174,6 +173,7 @@ public class MenuFrameAd extends JFrame {
         pnCenter.add(cards, BorderLayout.CENTER);
         cardLayout = new CardLayout();
         cards.setLayout(cardLayout);
+<<<<<<< HEAD
 
         JPanel pn_quanly = new PnQuanLy();
         cards.add(pn_quanly, "PnQuanLy");
@@ -181,6 +181,28 @@ public class MenuFrameAd extends JFrame {
         cards.add(pn_sv, "PnSV");
         JPanel pn_Info = new PnThongTinAdTr();
         cards.add(pn_Info, "PnInfor");
+=======
+        
+        JPanel pn_ctAd = new PnThongTinAdTr();
+        cards.add(pn_ctAd, "pnCTAD");
+        
+        JPanel pn_themAD = new PnThemAd();
+        cards.add(pn_themAD, "pnThemAD");
+        
+        JPanel pn_themTBM = new PnThemTBM();
+        cards.add(pn_themTBM, "pnThemTBM");
+        
+        JPanel pn_themGV = new PnThemGV();
+        cards.add(pn_themGV, "pnThemGV");
+        
+        JPanel pn_sv = new PnThemSV();
+        cards.add(pn_sv, "pnThemSV");
+        
+    }
+    
+    public static void main(String[] args) {
+        new MenuFrameAd();
+>>>>>>> ce7f38ba17de22569a58cfe10607f4588f17259f
     }
 
 }

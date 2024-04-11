@@ -15,7 +15,11 @@ public class testTuan {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //            new MenuFrameGV();
+<<<<<<< HEAD
 //            new MenuFrameAd();
+=======
+                new MenuFrameAd();
+>>>>>>> ce7f38ba17de22569a58cfe10607f4588f17259f
         } catch (Exception e) {
             e.printStackTrace();
         }

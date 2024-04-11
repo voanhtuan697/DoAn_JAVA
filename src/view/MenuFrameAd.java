@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static view.base.cobalt_blue;
 import static view.base.dark_green;
+import static view.base.font14;
 
 public class MenuFrameAd extends JFrame {
 
@@ -33,8 +34,6 @@ public class MenuFrameAd extends JFrame {
     private String[] title = {"ADMIN", "Thêm Admin", "Thêm TBM", "Thêm GV", "Thêm SV"};
     private String[] nameImage = {"taoCauHoi_icon.png", "taoDeThi_icon.png", "passwd_icon.png","taoDeThi_icon.png", "passwd_icon.png"};
     private JButton[] buttons = new JButton[title.length];
-    Font font = new Font("Segoe UI", Font.PLAIN, 13);
-    Font fontTitle = new Font("Segoe UI", Font.BOLD, 15);
 
     public MenuFrameAd() {
         init();
@@ -101,7 +100,7 @@ public class MenuFrameAd extends JFrame {
         JPanel pnHead = new JPanel();
         pnHead.setBackground(dark_green);
         pnHead.add(lblHeader);
-        lblHeader.setFont(fontTitle);
+        lblHeader.setFont(font14);
         pnTop.add(pnName, BorderLayout.WEST);
         pnTop.add(pnHead, BorderLayout.CENTER);
 
@@ -121,7 +120,7 @@ public class MenuFrameAd extends JFrame {
         btn.setFocusPainted(false);
         ImageIcon icon = ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + img, 20, 20);
         btn.setIcon(icon);
-        btn.setFont(font);
+        btn.setFont(font14);
         btn.setMaximumSize(size);
         btn.setBackground(dark_green);
         btn.setForeground(Color.WHITE);

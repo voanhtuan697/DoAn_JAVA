@@ -19,12 +19,15 @@ public class Menu_SV_Listener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String btn_name = e.getActionCommand();
-        if (btn_name.equals("Sinh viên")) {
-            mnSV.getCardLayout().show(mnSV.getCards(), "pnCTSV");
-            mnSV.getLb_Header().setText("Sinh viên");
-        } else if (btn_name.equals("Đổi mật khẩu")) {
-            mnSV.getCardLayout().show(mnSV.getCards(), "pnPass");
-            mnSV.getLb_Header().setText("Đổi mật khẩu");
-        } 
+        if (btn_name.equals("Thông tin")) {
+            mnSV.getCardLayout().show(mnSV.getCards(), "PnThongtin");
+            mnSV.getLb_Header().setText("Thông tin thi");
+        } else if (btn_name.equals("Vào thi")) {
+            mnSV.getCardLayout().show(mnSV.getCards(), "PnThi");
+            mnSV.getLb_Header().setText("Vào Thi");
+        } else if(btn_name.equals("Cá nhân")) {
+            mnSV.getCardLayout().show(mnSV.getCards(), "pnCTAD");
+            mnSV.getLb_Header().setText("Cá nhân");
+        }
     }
 }

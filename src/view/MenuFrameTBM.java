@@ -71,6 +71,7 @@ public class MenuFrameTBM extends JFrame {
         JPanel pn_left = new JPanel();
         pn_left.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         pn_left.setPreferredSize(new Dimension(150, 0));
+        pn_left.setBackground(cobalt_blue);
 
         JPanel pn_tittle = new JPanel();
         pn_tittle.setLayout(new BorderLayout());

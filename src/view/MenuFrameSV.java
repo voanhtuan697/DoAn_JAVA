@@ -4,36 +4,47 @@
  */
 package view;
 
+import controller.Menu_AD_Listener;
 import controller.Menu_SV_Listener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import model.ImageUtils;
 import static view.base.cobalt_blue;
 import static view.base.dark_green;
-import static view.base.font13;
 import static view.base.font14;
-import static view.base.white;
 
 /**
  *
  * @author E7250
  */
-public class MenuFrameSV extends JFrame{
+public class MenuFrameSV extends JFrame {
+
     private JPanel cards;
     private CardLayout cardLayout;
-    private JLabel lb_Header;
+    private JLabel lblHeader, lblName;
+    private JPanel pnLeft, pnCenter, pnTop;
+    private String[] title = {"Thông tin", "Vào thi", "Cá nhân"};
+    private String[] nameImage = {"taoCauHoi_icon.png", "taoDeThi_icon.png", "passwd_icon.png"};
+    private JButton[] buttons = new JButton[title.length];
 
     public MenuFrameSV() {
         init();
+        initComponents();
+        card();
+        this.setVisible(true);
     }
 
     public JPanel getCards() {
@@ -53,127 +64,130 @@ public class MenuFrameSV extends JFrame{
     }
 
     public JLabel getLb_Header() {
-        return lb_Header;
+        return lblHeader;
     }
 
-    public void setLb_Header(JLabel lb_Header) {
-        this.lb_Header = lb_Header;
-    }
-    
-    
-
-    public void init() {
-        this.setTitle("Frame");
+    private void init() {
         this.setSize(1000, 600);
+        this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setLayout(new BorderLayout());
+        pnLeft = new JPanel();
 
-        JPanel pn_left = new JPanel();
-        pn_left.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        pn_left.setPreferredSize(new Dimension(150, 0));
-        
-        JPanel pn_tittle = new JPanel();
-        pn_tittle.setLayout(new BorderLayout());
-        pn_tittle.setBackground(dark_green);
-        pn_tittle.setPreferredSize(new Dimension(150, 30));
-        JLabel lb_tittle = new JLabel("Hellu");
-        lb_tittle.setFont(font14);
-        lb_tittle.setForeground(white);
-        pn_tittle.add(lb_tittle, BorderLayout.CENTER);
-        lb_tittle.setHorizontalAlignment(JLabel.CENTER);
-        lb_tittle.setVerticalAlignment(JLabel.CENTER);
-        pn_left.add(pn_tittle);
-        
-// button
-        Menu_SV_Listener listener = new Menu_SV_Listener(this);
-        String[] name_btn = new String[]{"Sinh viên","Đổi mật khẩu"};
-//        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png"};
-        JButton []arrBtn = new JButton[name_btn.length];
-        for (int i = 0; i < name_btn.length; i++) {
-            JButton btn = new JButton(name_btn[i]);
-            btn.addActionListener(listener);
-            arrBtn[i] = btn;
-            btn.setBorderPainted(false);
-            btn.setFocusPainted(false);
-            //btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
- //           btn.setIcon(ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + name_image[i], 20, 20));
-            btn.setFont(font13);
-            btn.setForeground(white);
-            btn.setPreferredSize(new Dimension(150, 35));
-            btn.setBackground(cobalt_blue);
-            btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            pn_left.add(btn);
-            btn.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    // Thay đổi màu nền khi chuột hover vào
-                    btn.setBackground(cobalt_blue);
-                    
-                }
+        pnLeft.setLayout(new BoxLayout(pnLeft, BoxLayout.Y_AXIS));
+        pnLeft.setBackground(cobalt_blue);
+        pnLeft.setPreferredSize(new Dimension(150, 0));
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    if (!btn.isSelected()) {
+        pnCenter = new JPanel(new BorderLayout());
+        pnCenter.setBackground(Color.CYAN);
+
+        pnTop = new JPanel(new BorderLayout());
+        pnTop.setBackground(dark_green);
+        pnTop.setPreferredSize(new Dimension(0, 35));
+
+        this.add(pnTop, BorderLayout.NORTH);
+        this.add(pnCenter, BorderLayout.CENTER);
+        this.add(pnLeft, BorderLayout.WEST);
+
+    }
+
+    private void initComponents() {
+        lblName = new JLabel("Hello Word");
+        lblName.setFont(new Font("Segoe UI", Font.BOLD, 14) {
+        });
+        lblName.setForeground(Color.decode("#ffffff"));
+        JPanel pnName = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnName.add(lblName);
+        pnName.setBackground(dark_green);
+        pnName.setPreferredSize(new Dimension(150, 0));
+        lblHeader = new JLabel("Thông tin");
+        lblHeader.setForeground(Color.WHITE);
+        JPanel pnHead = new JPanel();
+        pnHead.setBackground(dark_green);
+        pnHead.add(lblHeader);
+        lblHeader.setFont(font14);
+        pnTop.add(pnName, BorderLayout.WEST);
+        pnTop.add(pnHead, BorderLayout.CENTER);
+
+        Dimension buttonDimension = pnLeft.getPreferredSize();
+        buttonDimension.height = 35;
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i] = createButton(title[i], nameImage[i], buttonDimension);
+            pnLeft.add(buttons[i]);
+        }
+        setupMenuActions();
+
+    }
+
+    private JButton createButton(String name, String img, Dimension size) {
+        JButton btn = new JButton(name);
+        btn.setBorderPainted(false);
+        btn.setFocusPainted(false);
+        ImageIcon icon = ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//" + img, 20, 20);
+        btn.setIcon(icon);
+        btn.setFont(font14);
+        btn.setMaximumSize(size);
+        btn.setBackground(dark_green);
+        btn.setForeground(Color.WHITE);
+        btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btn.setBackground(dark_green);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!btn.isSelected()) {
                     btn.setBackground(cobalt_blue);
-                    }
                 }
-                
-                public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 // Thiết lập lại màu nền của tất cả các JButton
-                for (JButton btn : arrBtn) {
-                    btn.setSelected(false);
-                    btn.setBackground(cobalt_blue);
+                for (JButton button : buttons) {
+                    button.setSelected(false);
+                    button.setBackground(cobalt_blue);
                 }
                 // Thiết lập màu nền của JButton được chọn
                 btn.setSelected(true);
                 btn.setBackground(dark_green);
             }
-            });
+        });
+        if (name.equals("Quản lý")) {
+            btn.setBackground(dark_green);
+            btn.setSelected(true);
+        } else {
+            btn.setBackground(cobalt_blue);
         }
-        arrBtn[0].setBackground(cobalt_blue);
-        arrBtn[0].setSelected(true);
-        
-//panel right
-        JPanel pn_right = new JPanel();
-        pn_right.setLayout(new BorderLayout());
-// header
-        JPanel pn_header = new JPanel();
-        pn_header.setLayout(new BorderLayout());
-        pn_header.setPreferredSize(new Dimension(0, 30));
-        pn_header.setBackground(dark_green);
-        
-        lb_Header = new JLabel("Tạo câu hỏi");
-        lb_Header.setFont(font14);
-        lb_Header.setForeground(white);
-        pn_header.add(lb_Header, BorderLayout.CENTER);
-        lb_Header.setHorizontalAlignment(JLabel.CENTER);
-        lb_Header.setVerticalAlignment(JLabel.CENTER);
+        return btn;
+    }
 
-        JPanel pn_content = new JPanel();
-        pn_content.setLayout(new BorderLayout());
-//card layout
+    public void setupMenuActions() {
+        Menu_SV_Listener menuActionListener = new Menu_SV_Listener(this);
+        for (JButton button : buttons) {
+            button.addActionListener(menuActionListener);
+        }
+    }
+
+    private void card() {
         cards = new JPanel();
-        pn_content.add(cards, BorderLayout.CENTER);
+        pnCenter.add(cards, BorderLayout.CENTER);
         cardLayout = new CardLayout();
         cards.setLayout(cardLayout);
 
-//------------------------------
-//        Phần thêm panel
-        JPanel pn_ctSV = new PnThongTinSV();
-        cards.add(pn_ctSV, "pnCTSV");
-        JPanel pn_Passwd = new PnDoiMatKhau();
-        cards.add(pn_Passwd, "pnPass");
+        JPanel pn_thongtin = new PnthongTinThi();
+        cards.add(pn_thongtin, "PnThongtin");
 
-        pn_right.add(pn_header, BorderLayout.NORTH);
-        pn_right.add(pn_content, BorderLayout.CENTER);
+        JPanel pn_Thi = new PnThongTinAdTr();
+        cards.add(pn_Thi, "pnCTAD");
 
-        this.add(pn_left, BorderLayout.WEST);
-        this.add(pn_right, BorderLayout.CENTER);
+        JPanel pn_Info = new PnThi();
+        cards.add(pn_Info, "PnThi");
 
-        this.setVisible(true);
     }
-    
+
     public static void main(String[] args) {
         new MenuFrameSV();
     }

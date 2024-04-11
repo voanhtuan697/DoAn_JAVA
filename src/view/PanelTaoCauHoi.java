@@ -83,7 +83,7 @@ public class PanelTaoCauHoi extends JPanel{
             };
 
         // Tạo tiêu đề cho bảng
-        Object[] columns = {"Mã câu hỏi", "Mã giảng viên", "Nội dung", "Độ khó"};
+        Object[] columns = {"Mã câu hỏi", "Mã giảng viên", "Nội dung", "Độ khó","Ảnh"};
         model = new DefaultTableModel(data, columns);
 
 //        Không cho người dùng tác động
@@ -99,11 +99,11 @@ public class PanelTaoCauHoi extends JPanel{
             table.getColumnModel().getColumn(i).setCellRenderer(new DisabledTableCellRenderer());
         }
 //        set chiều ngang cho cột
-        TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(60); // Mã câu hỏi
-        columnModel.getColumn(1).setPreferredWidth(80); // Mã giảng viên
-        columnModel.getColumn(2).setPreferredWidth(1000); // Nội dung
-        columnModel.getColumn(3).setPreferredWidth(70); // Độ khó
+//        TableColumnModel columnModel = table.getColumnModel();
+//        columnModel.getColumn(0).setPreferredWidth(60); // Mã câu hỏi
+//        columnModel.getColumn(1).setPreferredWidth(80); // Mã giảng viên
+//        columnModel.getColumn(2).setPreferredWidth(1000); // Nội dung
+//        columnModel.getColumn(3).setPreferredWidth(70); // Độ khó
 
         JScrollPane scrollPane_table = new JScrollPane(table);
         pn2.add(scrollPane_table, BorderLayout.CENTER);
@@ -132,7 +132,6 @@ public class PanelTaoCauHoi extends JPanel{
         txta.setLineWrap(true);// tự động xuống hàng khi văn bản quá dài
 
         JScrollPane scrollPane_cauhoi = new JScrollPane(txta);
-//        scrollPane_cauhoi.setMaximumSize(new Dimension(0,100));
         pn_cauhoi.add(scrollPane_cauhoi, BorderLayout.CENTER);
 
         JPanel pn_lb_cautraloi = new JPanel();
@@ -233,6 +232,7 @@ public class PanelTaoCauHoi extends JPanel{
         ButtonGroup btnG_DoKho = new ButtonGroup();
 
         JRadioButton rdb_easy = new JRadioButton();
+        rdb_easy.setSelected(true);
         rdb_easy.setOpaque(false);
         JLabel lb_easy = new JLabel("Dễ");
 
@@ -287,9 +287,9 @@ public class PanelTaoCauHoi extends JPanel{
         pn3_btn.setLayout(new FlowLayout(FlowLayout.CENTER,10,20));
         
         Font fontBtn = new Font("Arial", Font.BOLD, 10);
-        String []name_btn = new String[]{"Thêm","Xóa","Sửa","Nhập Excel","Xuất Excel"};
+        String []name_btn = new String[]{"Thêm","Xóa","Sửa","Nhập Excel","Xuất Excel","Chi tiết"};
         String[] name_image = new String[]{"plus_icon.png", "delete_icon.png", "edit_icon.png"};
-        for(int i=0;i<5;i++){
+        for(int i=0;i<name_btn.length;i++){
             JButton btn = new JButton(name_btn[i]);
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             btn.setBorderPainted(false);

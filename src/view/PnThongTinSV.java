@@ -13,28 +13,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
 
-public final class CTND extends JFrame {
+public final class PnThongTinSV extends JPanel {
     JPanel pnCTND, pnQLHT, pnLichthi, pnBaidathi;
     JLabel lblMaTS, lblfullName, lblDob, lbloldPass, lblnewPass;
     JButton btnUpdate, btnLogout;
     JTextField tfMaTS, tffullName, tfDob, tfoldPass, tfnewPass;
-    CTND(){
+    PnThongTinSV(){
         init();
-        this.setSize(950,450);
-        this.setResizable(true);
-        this.getContentPane().setBackground(new Color(0xD8A3AB));
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        
         this.setLayout(new BorderLayout());
         this.add(pnCTND, BorderLayout.WEST);
         this.add(pnQLHT, BorderLayout.CENTER);
-        this.setVisible(true);
     }
     public void init(){
         lblMaTS = new JLabel("Mã thí sinh: ");
@@ -58,6 +52,17 @@ public final class CTND extends JFrame {
         btnUpdate.setFocusable(false);
         btnUpdate.setBounds(20, 250, 90, 30);
         btnUpdate.setBackground(new Color(0x74BFB2));
+        btnUpdate.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(tfMaTS.getText().isEmpty() || tffullName.getText().isEmpty() || tfDob.getText().isEmpty() || tfoldPass.getText().isEmpty() || tfnewPass.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Thông tin chưa đầy đủ. Vui lòng kiểm tra lại...", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Cập nhật thành công.", "", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
         btnLogout = new JButton("Đăng xuất");
         btnLogout.setFocusable(false);
         btnLogout.setBounds(150, 250,110, 30);
@@ -112,7 +117,7 @@ public final class CTND extends JFrame {
         JTable jtLichthi = new JTable(data, column);
         jtLichthi.setPreferredSize(new Dimension(475,100));
         JScrollPane jspLichthi = new JScrollPane(jtLichthi);
-        
+        jspLichthi.setPreferredSize(new Dimension(475,100));
         
         pnLichthi = new JPanel();
         pnLichthi.setBorder(BorderFactory.createTitledBorder(null, "Lịch thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font("Segoe UI 12", Font.BOLD, 15)));
@@ -126,7 +131,7 @@ public final class CTND extends JFrame {
         JTable jtBaidathi = new JTable(data2, column2);
         jtBaidathi.setPreferredSize(new Dimension(475,100));
         JScrollPane jspBaidathi = new JScrollPane(jtBaidathi);
-        
+        jspBaidathi.setPreferredSize(new Dimension(475,100));
         
         pnBaidathi = new JPanel();
         pnBaidathi.setBorder(BorderFactory.createTitledBorder(null, "Bài đã thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font("Segoe UI 12", Font.BOLD, 15)));
@@ -148,6 +153,13 @@ public final class CTND extends JFrame {
         
     }
     public static void main(String[] args){
-        CTND ctnd = new CTND();
+        JFrame f = new JFrame();
+        f.setSize(950,450);
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        PnThongTinSV p = new PnThongTinSV();
+        f.getContentPane().setLayout(new BorderLayout());
+        f.add(p);
+        f.setVisible(true);
     }
 }

@@ -29,10 +29,10 @@ import net.sourceforge.jdatepicker.JDatePicker;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import static view.base.dark_green;
-import static view.base.font13;
-import static view.base.font14;
-import static view.base.gray_bg;
+import static model.base.dark_green;
+import static model.base.font13;
+import static model.base.font14;
+import static model.base.gray_bg;
 
 public class PnThemAd extends JPanel {
 

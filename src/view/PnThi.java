@@ -14,10 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import static view.base.dark_green;
-import static view.base.font14;
-import static view.base.gray_bg;
-import static view.base.white;
+import static model.base.dark_green;
+import static model.base.font14;
+import static model.base.gray_bg;
+import static model.base.white;
 
 public class PnThi extends JPanel {
 

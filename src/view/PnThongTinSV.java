@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
-import static view.base.white;
+import static model.base.white;
 
 public final class PnThongTinSV extends JPanel {
     JPanel pnCTND, pnQLHT, pnLichthi, pnBaidathi;

@@ -17,11 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.ImageUtils;
-import static view.base.cobalt_blue;
-import static view.base.dark_green;
-import static view.base.font13;
-import static view.base.font14b;
-import static view.base.white;
+import static model.base.cobalt_blue;
+import static model.base.dark_green;
+import static model.base.font13;
+import static model.base.font14b;
+import static model.base.white;
 
 /**
  *
@@ -89,8 +89,8 @@ public class MenuFrameGV extends JFrame {
         
 // button
         Menu_GV_Listener listener = new Menu_GV_Listener(this);
-        String[] name_btn = new String[]{"Tạo câu hỏi", "Tạo đề thi", "Kết quả","Đổi mật khẩu"};
-        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png"};
+        String[] name_btn = new String[]{"Tạo câu hỏi", "Tạo đề thi", "Kết quả","Thông tin","Đổi mật khẩu"};
+        String[] name_image = new String[]{"taoCauHoi_icon.png", "taoDeThi_icon.png", "ketQua_icon.png","passwd_icon.png","passwd_icon.png"};
         JButton []arrBtn = new JButton[name_btn.length];
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
@@ -168,6 +168,8 @@ public class MenuFrameGV extends JFrame {
         cards.add(pn_TaoDT, "pnTaoDT");
         JPanel pn_KQ = new pnKetQua();
         cards.add(pn_KQ, "pnKQ");
+        JPanel pn_TT = new PnThongTinGV();
+        cards.add(pn_TT, "pnThongTin");
         JPanel pn_Passwd = new PnDoiMatKhau();
         cards.add(pn_Passwd, "pnPass");
 

@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
-import static view.base.dark_green;
-import static view.base.font14;
-import static view.base.gray_bg;
+import static model.base.dark_green;
+import static model.base.font14;
+import static model.base.gray_bg;
 
 public class PnThongTinAdTr extends JPanel {
 

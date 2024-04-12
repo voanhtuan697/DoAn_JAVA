@@ -32,6 +32,9 @@ public class Menu_GV_Listener implements ActionListener {
         } else if (btn_name.equals("Kết quả")) { 
             mnGV.getCardLayout().show(mnGV.getCards(), "pnKQ");
             mnGV.getLb_Header().setText("Kết quả");
+        }else if (btn_name.equals("Thông tin")) { 
+            mnGV.getCardLayout().show(mnGV.getCards(), "pnThongTin");
+            mnGV.getLb_Header().setText("Thông tin giáo viên");
         }else if (btn_name.equals("Đổi mật khẩu")) { 
             mnGV.getCardLayout().show(mnGV.getCards(), "pnPass");
             mnGV.getLb_Header().setText("Đổi mật khẩu");

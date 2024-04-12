@@ -17,10 +17,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.DisabledTableCellRenderer;
-import static view.base.dark_green;
-import static view.base.font13;
-import static view.base.gray_bg;
-import static view.base.white;
+import static model.base.dark_green;
+import static model.base.font13;
+import static model.base.gray_bg;
+import static model.base.white;
 
 /**
  *

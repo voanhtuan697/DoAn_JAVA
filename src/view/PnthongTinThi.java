@@ -16,8 +16,8 @@ import javax.swing.border.TitledBorder;
 import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
 import javax.swing.table.DefaultTableModel;
-import static view.base.font14;
-import static view.base.gray_bg;
+import static model.base.font14;
+import static model.base.gray_bg;
 
 public class PnthongTinThi extends JPanel {
 

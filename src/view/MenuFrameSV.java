@@ -21,9 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.ImageUtils;
-import static view.base.cobalt_blue;
-import static view.base.dark_green;
-import static view.base.font14;
+import static model.base.cobalt_blue;
+import static model.base.dark_green;
+import static model.base.font14;
 
 /**
  *

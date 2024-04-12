@@ -31,8 +31,8 @@ public class MenuFrameAd extends JFrame {
     private CardLayout cardLayout;
     private JLabel lblHeader, lblName;
     private JPanel pnLeft, pnCenter, pnTop;
-    private String[] title = {"ADMIN", "Thêm Admin", "Thêm TBM", "Thêm GV", "Thêm SV"};
-    private String[] nameImage = {"taoCauHoi_icon.png", "taoDeThi_icon.png", "passwd_icon.png","taoDeThi_icon.png", "passwd_icon.png"};
+    private String[] title = {"TT cá nhân", "Admin", "Tr bộ môn", "Giảng viên", "Sinh viên"};
+    private String[] nameImage = {"taoCauHoi_icon.png", "taoDeThi_icon.png", "passwd_icon.png", "taoDeThi_icon.png", "passwd_icon.png"};
     private JButton[] buttons = new JButton[title.length];
 
     public MenuFrameAd() {
@@ -97,10 +97,10 @@ public class MenuFrameAd extends JFrame {
         pnName.setPreferredSize(new Dimension(150, 0));
         lblHeader = new JLabel("Quản lý");
         lblHeader.setForeground(Color.WHITE);
+        lblHeader.setFont(font14);
         JPanel pnHead = new JPanel();
         pnHead.setBackground(dark_green);
         pnHead.add(lblHeader);
-        lblHeader.setFont(font14);
         pnTop.add(pnName, BorderLayout.WEST);
         pnTop.add(pnHead, BorderLayout.CENTER);
 
@@ -172,7 +172,6 @@ public class MenuFrameAd extends JFrame {
         cardLayout = new CardLayout();
         cards.setLayout(cardLayout);
 
-
 //        JPanel pn_quanly = new PnQuanLy();
 //        cards.add(pn_quanly, "PnQuanLy");
         JPanel pn_sv = new PnSinhvien();
@@ -180,24 +179,23 @@ public class MenuFrameAd extends JFrame {
         JPanel pn_Info = new PnThongTinAdTr();
         cards.add(pn_Info, "PnInfor");
 
-        
         JPanel pn_ctAd = new PnThongTinAdTr();
         cards.add(pn_ctAd, "pnCTAD");
-        
+
         JPanel pn_themAD = new PnThemAd();
         cards.add(pn_themAD, "pnThemAD");
-        
+
         JPanel pn_themTBM = new PnThemTBM();
         cards.add(pn_themTBM, "pnThemTBM");
-        
+
         JPanel pn_themGV = new PnThemGV();
         cards.add(pn_themGV, "pnThemGV");
-        
+
         JPanel pn_sv1 = new PnThemSV();
         cards.add(pn_sv1, "pnThemSV");
-        
+
     }
-    
+
     public static void main(String[] args) {
         new MenuFrameAd();
     }

@@ -7,11 +7,9 @@ package view;
 import controller.Menu_GV_Listener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -22,7 +20,6 @@ import model.ImageUtils;
 import static view.base.cobalt_blue;
 import static view.base.dark_green;
 import static view.base.font13;
-import static view.base.font14;
 import static view.base.font14b;
 import static view.base.white;
 
@@ -83,6 +80,7 @@ public class MenuFrameGV extends JFrame {
         pn_tittle.setBackground(dark_green);
         pn_tittle.setPreferredSize(new Dimension(150, 30));
         JLabel lb_tittle = new JLabel("Hellu");
+        lb_tittle.setForeground(white);
         lb_tittle.setFont(font14b);
         pn_tittle.add(lb_tittle, BorderLayout.CENTER);
         lb_tittle.setHorizontalAlignment(JLabel.CENTER);

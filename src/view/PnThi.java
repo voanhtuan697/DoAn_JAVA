@@ -5,6 +5,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -68,7 +70,7 @@ public class PnThi extends JPanel {
                         .addComponent(btnThi)
                 )
         );
-        
+
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(lblMon)
@@ -80,9 +82,25 @@ public class PnThi extends JPanel {
                 )
                 .addComponent(btnThi)
         );
+
+        btnThi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                baithi b = new baithi();
+                JFrame jf = new JFrame();
+                jf.setExtendedState(JFrame.MAXIMIZED_BOTH); // Đặt cửa sổ ở chế độ full màn hình
+                jf.setLayout(new BorderLayout());
+                jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                jf.add(b, BorderLayout.CENTER);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                jf.setVisible(true);
+
+            }
+        });
     }
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(950, 450);
         f.setLocationRelativeTo(null);

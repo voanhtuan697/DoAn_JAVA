@@ -5,11 +5,9 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,17 +21,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-
 import net.sourceforge.jdatepicker.JDatePanel;
 import net.sourceforge.jdatepicker.JDatePicker;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Properties;
 import model.DisabledTableCellRenderer;
+import static view.base.dark_green;
+import static view.base.font13;
+import static view.base.font14;
+import static view.base.gray_bg;
+import static view.base.white;
 
 /**
  *
@@ -48,10 +47,6 @@ public class PnThemGV extends JPanel {
 
     private JLabel[] lbl = new JLabel[5];
     private String[] lblContent = {"Mã quản lý:", "Họ và tên:", "Môn học", "Ngày sinh:"};
-    private Color colorGray = Color.decode("#B3BECB");
-    private Color colorBtn = Color.decode("#009594");
-    private Color colorPink = Color.decode("#DA91A4");
-    Font font = new Font("Segoe UI", Font.PLAIN, 13);
 
     public PnThemGV() {
         init();
@@ -61,10 +56,10 @@ public class PnThemGV extends JPanel {
         this.setLayout(new BorderLayout());
         
         pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        pnSearch.setBackground(colorGray);
+        pnSearch.setBackground(gray_bg);
         
         JLabel lblSearch = new JLabel("Tìm kiếm");
-        lblSearch.setFont(font);
+        lblSearch.setFont(font14);
         txtSearch = new JTextField(15);
         pnSearch.add(lblSearch);
         pnSearch.add(txtSearch);
@@ -76,26 +71,34 @@ public class PnThemGV extends JPanel {
         pn_table.setLayout(new BorderLayout());
 
         JPanel pn_input = new JPanel();
-        pn_input.setBackground(colorGray);
+        pn_input.setBackground(gray_bg);
         pn_input.setPreferredSize(new Dimension(205, 0));
         pn_input.setLayout(new FlowLayout(FlowLayout.LEFT,2,3));
         
-        JLabel lb_name = new JLabel("Ho ten:");
+        JLabel lb_name = new JLabel("Họ tên:");
+        lb_name.setFont(font13);
         txtHoTen = new JTextField(18);
-        JLabel lb_ngaySinh = new JLabel("Ngay sinh:");
+        JLabel lb_ngaySinh = new JLabel("Ngày sinh:");
+        lb_ngaySinh.setFont(font13);
         
         btnThem = new JButton("Thêm");
-        btnThem.setBackground(colorBtn);
+        btnThem.setBackground(dark_green);
+        btnThem.setForeground(white);
         btnXoa = new JButton("Xóa");
-        btnXoa.setBackground(colorBtn);
+        btnXoa.setBackground(dark_green);
+        btnXoa.setForeground(white);
         btnNhap = new JButton("Nhập Excel");
-        btnNhap.setBackground(colorBtn);
+        btnNhap.setBackground(dark_green);
+        btnNhap.setForeground(white);
         btnXuat = new JButton("Xuất Excel");
-        btnXuat.setBackground(colorBtn);
+        btnXuat.setBackground(dark_green);
+        btnXuat.setForeground(white);
         btnSua = new JButton("Sửa");
-        btnSua.setBackground(colorBtn);
+        btnSua.setBackground(dark_green);
+        btnSua.setForeground(white);
         btnClear = new JButton("Clear");
-        btnClear.setBackground(colorBtn);
+        btnClear.setBackground(dark_green);
+        btnClear.setForeground(white);
         
         UtilDateModel model1 = new UtilDateModel();
         JDatePanel datePanel = new JDatePanelImpl(model1);
@@ -107,6 +110,7 @@ public class PnThemGV extends JPanel {
         pn_input.add((Component)datePicker);
         
         JPanel pn_btn = new JPanel(new GridLayout(3, 2, 7, 10));
+        pn_btn.setBackground(gray_bg);
         pn_btn.add(btnThem);
         pn_btn.add(btnXoa);
         pn_btn.add(btnNhap);
@@ -143,12 +147,7 @@ public class PnThemGV extends JPanel {
 
         txtHoTen = new JTextField(25);
 
-
         
-        
-        
-        
-
         datePicker.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

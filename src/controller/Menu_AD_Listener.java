@@ -20,25 +20,25 @@ public class Menu_AD_Listener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String btn_name = e.getActionCommand();
-        if (btn_name.equals("ADMIN")) {
+        if (btn_name.equals("TT cá nhân")) {
             mnAd.getCardLayout().show(mnAd.getCards(), "pnCTAD");
-            mnAd.getLb_Header().setText("ADMIN");
+            mnAd.getLb_Header().setText("Thông tin cá nhân");
             
-        } else if (btn_name.equals("Thêm Admin")) {
+        } else if (btn_name.equals("Admin")) {
             mnAd.getCardLayout().show(mnAd.getCards(), "pnThemAD");
-            mnAd.getLb_Header().setText("Thêm Admin");
+            mnAd.getLb_Header().setText("Quản lý admin");
             
-        } else if (btn_name.equals("Thêm TBM")) { 
+        } else if (btn_name.equals("Tr bộ môn")) { 
             mnAd.getCardLayout().show(mnAd.getCards(), "pnThemTBM");
-            mnAd.getLb_Header().setText("Thêm Trưởng bộ môn");
+            mnAd.getLb_Header().setText("Quản lý trưởng bộ môn");
             
-        }else if (btn_name.equals("Thêm GV")) {
+        }else if (btn_name.equals("Giảng viên")) {
             mnAd.getCardLayout().show(mnAd.getCards(), "pnThemGV");
-            mnAd.getLb_Header().setText("Thêm Giảng viên");
+            mnAd.getLb_Header().setText("Quản lý giảng viên");
             
-        } else if (btn_name.equals("Thêm SV")) { 
+        } else if (btn_name.equals("Sinh viên")) { 
             mnAd.getCardLayout().show(mnAd.getCards(), "pnThemSV");
-            mnAd.getLb_Header().setText("Thêm sinh viên");
+            mnAd.getLb_Header().setText("Quản lý sinh viên");
             
         }
     }

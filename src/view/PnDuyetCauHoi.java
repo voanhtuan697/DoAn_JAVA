@@ -5,7 +5,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
@@ -18,6 +17,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.DisabledTableCellRenderer;
+import static view.base.dark_green;
+import static view.base.font13;
+import static view.base.gray_bg;
+import static view.base.white;
 
 /**
  *
@@ -34,17 +37,18 @@ public class PnDuyetCauHoi extends JPanel{
         
         JPanel pn_header = new JPanel();
         pn_header.setLayout(new FlowLayout(0,10,10));
-        pn_header.setBackground(Color.yellow);
+        pn_header.setBackground(gray_bg);
         String tenMon = "Cơ sở dữ liệu";
-        JLabel lb_mon = new JLabel("Ten mon: "+tenMon );
+        JLabel lb_mon = new JLabel("Tên môn: "+tenMon );
+        lb_mon.setFont(font13);
         String []trangThai = {"Chưa duyệt","Đã duyệt"};
         JComboBox cbb_trangThai = new JComboBox(trangThai);
         
         JPanel pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        pnSearch.setBackground(Color.decode("#B3BECB"));
+        pnSearch.setBackground(gray_bg);
         
         JLabel lblSearch = new JLabel("Tìm kiếm");
-//        lblSearch.setFont(font);
+        lblSearch.setFont(font13);
         JTextField txtSearch = new JTextField(15);
         
         
@@ -101,12 +105,14 @@ public class PnDuyetCauHoi extends JPanel{
         
         JPanel pn_btn = new JPanel();
         pn_btn.setLayout(new FlowLayout(0,10,10));
-        pn_btn.setBackground(Color.yellow);
+        pn_btn.setBackground(gray_bg);
         String []name_btn = new String[]{"Xem chi tiết","Duyệt","Xóa","Sửa"};
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
             btn.setBorderPainted(false);
             btn.setFocusPainted(false);
+            btn.setForeground(white);
+            btn.setBackground(dark_green);
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             pn_btn.add(btn);
         }

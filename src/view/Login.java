@@ -7,14 +7,18 @@ package view;
 
 import controller.LogIn_Listener;
 import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import static view.base.dark_green;
+import static view.base.font14;
+import static view.base.font14b;
+import static view.base.white;
 
 public class Login extends JFrame {
+
     private JPanel pnTitlebg;
     private JLabel lbTitle, lbTaikhoan, lbMatkhau;
     private JTextField tfTaikhoan, tfMatkhau;
@@ -30,8 +34,8 @@ public class Login extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        
-        JPanel pn_main =new JPanel();
+
+        JPanel pn_main = new JPanel();
         pn_main.setLayout(null);
         pn_main.setBackground(new Color(0xB3, 0xBE, 0xCB));
         lbTitle = new JLabel();
@@ -41,8 +45,7 @@ public class Login extends JFrame {
 
         pnTitlebg = new JPanel();
         pnTitlebg.setBounds(0, 0, 600, 30);
-        Color color = Color.decode("#D8A3AB");
-        pnTitlebg.setBackground(color);
+        pnTitlebg.setBackground(dark_green);
         pnTitlebg.add(lbTitle);
         pn_main.add(pnTitlebg);
 
@@ -68,29 +71,31 @@ public class Login extends JFrame {
 
         btnForgot = new JButton("Quên mật khẩu");
         btnForgot.setBounds(150, 250, 140, 30);
-        Color colorbtn1 = Color.decode("#009594");
-        btnForgot.setBackground(colorbtn1);
+        btnForgot.setBorderPainted(false);
+        btnForgot.setFocusPainted(false);
+        btnForgot.setForeground(white);
+        btnForgot.setBackground(dark_green);
         pn_main.add(btnForgot);
-        
+
         LogIn_Listener listener = new LogIn_Listener(this);
 
         btnLogin = new JButton("Đăng nhập");
         btnLogin.setBounds(300, 250, 140, 30);
-        Color colorbtn2 = Color.decode("#009594");
-        btnLogin.setBackground(colorbtn2);
+        btnLogin.setBackground(dark_green);
+        btnLogin.setForeground(white);
+        btnLogin.setBorderPainted(false);
+        btnLogin.setFocusPainted(false);
         btnLogin.addActionListener(listener);
         pn_main.add(btnLogin);
-        
-        Font font = new Font("Segoe UI", Font.PLAIN, 15); 
-        Font font1 = new Font("Segoe UI", Font.BOLD, 15);  
-        lbTitle.setFont(font1);  
-        lbTaikhoan.setFont(font);  
-        lbMatkhau.setFont(font);  
-        tfTaikhoan.setFont(font);  
-        tfMatkhau.setFont(font);  
-        btnForgot.setFont(font);  
-        btnLogin.setFont(font);
-        
+
+        lbTitle.setFont(font14b);
+        lbTaikhoan.setFont(font14);
+        lbMatkhau.setFont(font14);
+        tfTaikhoan.setFont(font14);
+        tfMatkhau.setFont(font14);
+        btnForgot.setFont(font14);
+        btnLogin.setFont(font14);
+
         this.add(pn_main);
         this.setVisible(true);
     }

@@ -9,10 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,10 +18,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import static model.base.dark_green;
+import static model.base.font13b;
+import static model.base.font14;
+import static model.base.white;
 
 public class ExamInfo extends JPanel {
 
-    private JPanel combinedPanel, titlePanel, tablePanel;
+    private JPanel combinedPanel, tablePanel;
     private JLabel lbMade, lbTende, lbMaGv, lbNgaythi, lbThoigian, lbSocauhoi, lbMatkhau;
     private JTextField tfMade, tfTende, tfMaGv, tfNgaythi, tfThoigian, tfSocauhoi, tfMatkhau;
     private JButton btnThem, btnXoa, btnSua;
@@ -39,12 +41,6 @@ public class ExamInfo extends JPanel {
     }
 
     public void initComponents() {
-        titlePanel = new JPanel();
-        titlePanel.setBackground(new Color(0xD8, 0xA3, 0xAB));
-        titlePanel.setPreferredSize(new Dimension(800, 30));
-        JLabel titleLabel = new JLabel("TẠO ĐỀ THI");
-        titleLabel.setForeground(Color.WHITE);
-        titlePanel.add(titleLabel);
 
         combinedPanel = new JPanel();
         combinedPanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
@@ -107,18 +103,28 @@ public class ExamInfo extends JPanel {
 
         tfMatkhau = new JTextField();
         tfMatkhau.setBackground(new Color(255, 255, 255));
-
+        
+        
         btnThem = new JButton("Thêm");
-        btnThem.setBackground(new Color(0x00, 0x95, 0x94));
+        btnThem.setBackground(dark_green);
         btnThem.setSize(100, 20);
+        btnThem.setForeground(white);
+        btnThem.setBorderPainted(false);
+        btnThem.setFocusPainted(false);
 
         btnSua = new JButton(" Sửa  ");
-        btnSua.setBackground(new Color(0x00, 0x95, 0x94));
+        btnSua.setForeground(white);
+        btnSua.setBackground(dark_green);
         btnSua.setSize(100, 20);
+        btnSua.setFocusPainted(false);
+        btnSua.setBorderPainted(false);
 
         btnXoa = new JButton(" Xóa  ");
-        btnXoa.setBackground(new Color(0x00, 0x95, 0x94));
+        btnXoa.setForeground(white);
+        btnXoa.setBackground(dark_green);
         btnXoa.setSize(100, 20);
+        btnXoa.setFocusPainted(false);
+        btnXoa.setBorderPainted(false);
 
         lbMade.setHorizontalAlignment(SwingConstants.RIGHT);
         labelPanel.add(lbMade);
@@ -150,56 +156,59 @@ public class ExamInfo extends JPanel {
         combinedPanel.add(contentPanel, BorderLayout.CENTER);
         combinedPanel.add(buttonPanel, BorderLayout.EAST);
 
-        Font font = new Font("Segoe UI", Font.PLAIN, 15);
-        Font font1 = new Font("Segoe UI", Font.BOLD, 15);
-        
-        titleLabel.setFont(font1);
 
-        lbMade.setFont(font);
-        lbTende.setFont(font);
-        lbMaGv.setFont(font);
-        lbNgaythi.setFont(font);
-        lbThoigian.setFont(font);
-        lbSocauhoi.setFont(font);
-        lbMatkhau.setFont(font);
 
-        tfMade.setFont(font);
-        tfTende.setFont(font);
-        tfMaGv.setFont(font);
-        tfNgaythi.setFont(font);
-        tfThoigian.setFont(font);
-        tfSocauhoi.setFont(font);
-        tfMatkhau.setFont(font);
+        lbMade.setFont(font13b);
+        lbTende.setFont(font13b);
+        lbMaGv.setFont(font13b);
+        lbNgaythi.setFont(font13b);
+        lbThoigian.setFont(font13b);
+        lbSocauhoi.setFont(font13b);
+        lbMatkhau.setFont(font13b);
 
-        btnThem.setFont(font);
-        btnSua.setFont(font);
-        btnXoa.setFont(font);
+        tfMade.setFont(font13b);
+        tfTende.setFont(font13b);
+        tfMaGv.setFont(font13b);
+        tfNgaythi.setFont(font13b);
+        tfThoigian.setFont(font13b);
+        tfSocauhoi.setFont(font13b);
+        tfMatkhau.setFont(font13b);
+
+        btnThem.setFont(font13b);
+        btnSua.setFont(font13b);
+        btnXoa.setFont(font13b);
 
         Object[][] data = {
             {"DE001", "Đề thi học kỳ 1", "GV001", "2024-05-15", 120, 50, "abc123"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
+            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
             {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
         }; 
 
         tablePanel = new JPanel();
         tablePanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
+        tablePanel.setLayout(new BorderLayout(0, 10));
 
         DefaultTableModel model = new DefaultTableModel(data, COLUMN_NAMES);
         JTable table = new JTable(model);
         table.getTableHeader().setReorderingAllowed(false);
-        table.setPreferredSize(new Dimension(800, 400));  // Keep the desired table size
-        table.setMinimumSize(new Dimension(800, 400));  // Ensure minimum size
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(800, 400));
 
         JPanel searchPn = new JPanel();
-        searchPn.setBackground(new Color(0xB3, 0xBE, 0xCB));  // Adjust background color if needed
-        searchPn.setPreferredSize(new Dimension(800, 30));  // Set preferred size for search panel
-        searchPn.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 0));
+        searchPn.setBackground(new Color(0xB3, 0xBE, 0xCB)); 
+        searchPn.setPreferredSize(new Dimension(800, 30)); 
+        searchPn.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
         
         JLabel search = new JLabel();
         search.setText("Tìm kiếm: ");
-        search.setFont(font);
+        search.setFont(font14);
         JTextField tfsearch = new JTextField();
         tfsearch.setBackground(Color.WHITE);
         tfsearch.setPreferredSize(new Dimension(150, 20));

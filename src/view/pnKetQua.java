@@ -6,6 +6,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -18,6 +19,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import static model.base.dark_green;
+import static model.base.font13;
+import static model.base.font13b;
+import static model.base.gray_bg;
+import static model.base.white;
 
 public class pnKetQua extends JPanel {
 
@@ -27,10 +33,6 @@ public class pnKetQua extends JPanel {
     private JButton btnTimTheoDiem, btnXuat, btnVe;
     private DefaultTableModel model;
     private JRadioButton rdMax, rdMin, rdThi;
-    private Color colorGray = Color.decode("#B3BECB");
-    private Color colorBtn = Color.decode("#009594");
-    private Color colorPink = Color.decode("#DA91A4");
-    Font font = new Font("Segoe UI", Font.PLAIN, 14);
     private String[] lblContent = {"Môn thi:", "Đề thi:", "Điểm từ:", "Điểm"};
 
     public pnKetQua() {
@@ -42,12 +44,12 @@ public class pnKetQua extends JPanel {
     private void init() {
         this.setLayout(new BorderLayout());
         pnHeader = new JPanel();
-        pnHeader.setBackground(colorGray);
+        pnHeader.setBackground(gray_bg);
 
         pnTable = new JPanel(new BorderLayout());
 
         pnInput = new JPanel();
-        pnInput.setBackground(colorGray);
+        pnInput.setBackground(gray_bg);
 
         this.add(pnHeader, BorderLayout.NORTH);
         this.add(pnTable, BorderLayout.CENTER);
@@ -78,7 +80,7 @@ public class pnKetQua extends JPanel {
 
         for (int i = 0; i < lblContent.length; i++) {
             lbl[i] = new JLabel(lblContent[i]);
-            lbl[i].setFont(font);
+            lbl[i].setFont(font13);
         }
 
         txtMonThi = new JTextField(20);
@@ -87,28 +89,42 @@ public class pnKetQua extends JPanel {
         txtDiem = new JTextField(20);
 
         rdMax = new JRadioButton("Điểm cao nhất");
-        rdMax.setBackground(colorGray);
-        rdMax.setFont(font);
+        rdMax.setBackground(gray_bg);
+        rdMax.setFont(font13);
         rdMin = new JRadioButton("Điểm thấp nhất");
-        rdMin.setBackground(colorGray);
-        rdMin.setFont(font);
+        rdMin.setBackground(gray_bg);
+        rdMin.setFont(font13);
         rdThi = new JRadioButton("Thi lại");
-        rdThi.setBackground(colorGray);
-        rdThi.setFont(font);
+        rdThi.setBackground(gray_bg);
+        rdThi.setFont(font13);
         ButtonGroup group = new ButtonGroup();
         group.add(rdMax);
         group.add(rdMin);
         group.add(rdThi);
 
         btnXuat = new JButton("Xuất Excel  ");
-        btnXuat.setBackground(colorBtn);
-        btnXuat.setFont(font);
+        btnXuat.setBackground(dark_green);
+        btnXuat.setFont(font13b);
+        btnXuat.setForeground(white);
+        btnXuat.setBorderPainted(false);
+        btnXuat.setFocusPainted(false);
+        btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         btnVe = new JButton("Vẽ biểu đồ");
-        btnVe.setBackground(colorBtn);
-        btnVe.setFont(font);
+        btnVe.setBackground(dark_green);
+        btnVe.setForeground(white);
+        btnVe.setFont(font13b);
+        btnVe.setBorderPainted(false);
+        btnVe.setFocusPainted(false);
+        btnVe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         btnTimTheoDiem = new JButton("Tìm theo điểm");
-        btnTimTheoDiem.setBackground(colorBtn);
-        btnTimTheoDiem.setFont(font);
+        btnTimTheoDiem.setBackground(dark_green);
+        btnTimTheoDiem.setFont(font13b);
+        btnTimTheoDiem.setForeground(white);
+        btnTimTheoDiem.setBorderPainted(false);
+        btnTimTheoDiem.setFocusPainted(false);
+        btnTimTheoDiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     private void showLayout() {

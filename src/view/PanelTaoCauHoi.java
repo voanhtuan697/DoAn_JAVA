@@ -27,8 +27,11 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import model.DisabledTableCellRenderer;
+import static model.base.cobalt_blue;
+import static model.base.dark_green;
+import static model.base.font13;
+import static model.base.white;
 
 /**
  *
@@ -50,14 +53,18 @@ public class PanelTaoCauHoi extends JPanel{
         pn1.setLayout(new FlowLayout(FlowLayout.LEFT,20, 10));
 
         JLabel lb_cbbMonThi = new JLabel("Tên môn:");
+        lb_cbbMonThi.setFont(font13);
         String[] cacMonChinh = new String[]{"Toán", "Lý", "Sử", "Địa"};
         cbb_monThi = new JComboBox<>(cacMonChinh);
+        cbb_monThi.setFont(font13);
 //        Thêm môn
         cbb_monThi.addItem("Tiếng anh");
 
         JLabel lb_cbbTrangThaiCH = new JLabel("Trạng thái:");
+        lb_cbbTrangThaiCH.setFont(font13);
         String[] kiemDuyetCH = new String[]{"Đã duyệt", "Chưa duyệt"};
         cbb_trangThaiCH = new JComboBox<>(kiemDuyetCH);
+        cbb_trangThaiCH.setFont(font13);
         
         pn1.add(lb_cbbMonThi);
         pn1.add(cbb_monThi);
@@ -83,7 +90,7 @@ public class PanelTaoCauHoi extends JPanel{
             };
 
         // Tạo tiêu đề cho bảng
-        Object[] columns = {"Mã câu hỏi", "Mã giảng viên", "Nội dung", "Độ khó"};
+        Object[] columns = {"Mã câu hỏi", "Mã giảng viên", "Nội dung", "Độ khó","Ảnh"};
         model = new DefaultTableModel(data, columns);
 
 //        Không cho người dùng tác động
@@ -99,11 +106,11 @@ public class PanelTaoCauHoi extends JPanel{
             table.getColumnModel().getColumn(i).setCellRenderer(new DisabledTableCellRenderer());
         }
 //        set chiều ngang cho cột
-        TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(60); // Mã câu hỏi
-        columnModel.getColumn(1).setPreferredWidth(80); // Mã giảng viên
-        columnModel.getColumn(2).setPreferredWidth(1000); // Nội dung
-        columnModel.getColumn(3).setPreferredWidth(70); // Độ khó
+//        TableColumnModel columnModel = table.getColumnModel();
+//        columnModel.getColumn(0).setPreferredWidth(60); // Mã câu hỏi
+//        columnModel.getColumn(1).setPreferredWidth(80); // Mã giảng viên
+//        columnModel.getColumn(2).setPreferredWidth(1000); // Nội dung
+//        columnModel.getColumn(3).setPreferredWidth(70); // Độ khó
 
         JScrollPane scrollPane_table = new JScrollPane(table);
         pn2.add(scrollPane_table, BorderLayout.CENTER);
@@ -123,6 +130,7 @@ public class PanelTaoCauHoi extends JPanel{
         pn_lb_cauhoi.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn_lb_cauhoi.setLayout(new FlowLayout(FlowLayout.LEFT,10,3));
         JLabel lb_cauhoi = new JLabel("Nội dung câu hỏi");
+        lb_cauhoi.setFont(font13);
         pn_lb_cauhoi.add(lb_cauhoi);
 
         JPanel pn_cauhoi = new JPanel();
@@ -132,7 +140,6 @@ public class PanelTaoCauHoi extends JPanel{
         txta.setLineWrap(true);// tự động xuống hàng khi văn bản quá dài
 
         JScrollPane scrollPane_cauhoi = new JScrollPane(txta);
-//        scrollPane_cauhoi.setMaximumSize(new Dimension(0,100));
         pn_cauhoi.add(scrollPane_cauhoi, BorderLayout.CENTER);
 
         JPanel pn_lb_cautraloi = new JPanel();
@@ -140,6 +147,7 @@ public class PanelTaoCauHoi extends JPanel{
         pn_lb_cautraloi.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn_lb_cautraloi.setLayout(new FlowLayout(FlowLayout.LEFT,10,3));
         JLabel lb_cautraloi = new JLabel("Các câu trả lời");
+        lb_cautraloi.setFont(font13);
         pn_lb_cautraloi.add(lb_cautraloi);
 
         JPanel pn_cautraloi = new JPanel();
@@ -151,9 +159,13 @@ public class PanelTaoCauHoi extends JPanel{
         layout_cauTraLoi.setAutoCreateContainerGaps(true);
 
         JLabel lb_a = new JLabel("A");
+        lb_a.setFont(font13);
         JLabel lb_b = new JLabel("B");
+        lb_b.setFont(font13);
         JLabel lb_c = new JLabel("C");
+        lb_c.setFont(font13);
         JLabel lb_d = new JLabel("D");
+        lb_d.setFont(font13);
 
         JTextField txt_ctl_a = new JTextField();
         JTextField txt_ctl_b = new JTextField();
@@ -220,6 +232,7 @@ public class PanelTaoCauHoi extends JPanel{
         pn_img.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         JLabel lb_img = new JLabel("Hình ảnh:");
+        lb_img.setFont(font13);
         JButton btn_img = new JButton("Upload Image");
         pn_img.add(lb_img);
         pn_img.add(btn_img);
@@ -228,21 +241,26 @@ public class PanelTaoCauHoi extends JPanel{
         pn_doKho.setMaximumSize(new Dimension(1300, 10));
         pn_doKho.setBackground(new Color(0xB3, 0xBE, 0xCB));
         JLabel lb_doKho = new JLabel("Độ khó câu hỏi:");
+        lb_doKho.setFont(font13);
         pn_doKho.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         ButtonGroup btnG_DoKho = new ButtonGroup();
 
         JRadioButton rdb_easy = new JRadioButton();
+        rdb_easy.setSelected(true);
         rdb_easy.setOpaque(false);
         JLabel lb_easy = new JLabel("Dễ");
+        lb_easy.setFont(font13);
 
         JRadioButton rdb_medium = new JRadioButton();
         rdb_medium.setOpaque(false);
         JLabel lb_medium = new JLabel("Trung bình");
+        lb_medium.setFont(font13);
 
         JRadioButton rdb_hard = new JRadioButton();
         rdb_hard.setOpaque(false);
         JLabel lb_hard = new JLabel("Khó");
+        lb_hard.setFont(font13);
 
         btnG_DoKho.add(rdb_easy);
         btnG_DoKho.add(rdb_medium);
@@ -286,10 +304,9 @@ public class PanelTaoCauHoi extends JPanel{
         pn3_btn.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn3_btn.setLayout(new FlowLayout(FlowLayout.CENTER,10,20));
         
-        Font fontBtn = new Font("Arial", Font.BOLD, 10);
-        String []name_btn = new String[]{"Thêm","Xóa","Sửa","Nhập Excel","Xuất Excel"};
+        String []name_btn = new String[]{"Thêm","Xóa","Sửa","Nhập Excel","Xuất Excel","Chi tiết"};
         String[] name_image = new String[]{"plus_icon.png", "delete_icon.png", "edit_icon.png"};
-        for(int i=0;i<5;i++){
+        for(int i=0;i<name_btn.length;i++){
             JButton btn = new JButton(name_btn[i]);
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             btn.setBorderPainted(false);
@@ -297,21 +314,22 @@ public class PanelTaoCauHoi extends JPanel{
             if(i<3){
                 btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
             }
-            btn.setBackground(Color.decode("#5FC58E"));
-            btn.setFont(fontBtn);
+            btn.setBackground(dark_green);
+            btn.setFont(new Font("typeface", Font.BOLD, 10));
+            btn.setForeground(white);
             
             btn.setPreferredSize(new Dimension(90, 30));
             btn.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // Thay đổi màu nền khi chuột hover vào
-                    btn.setBackground(Color.decode("#94DBB6"));
+                    btn.setBackground(cobalt_blue);
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     // Thay đổi màu nền khi chuột rời khỏi
-                    btn.setBackground(Color.decode("#5FC58E"));
+                    btn.setBackground(dark_green);
                 }
             });
             pn3_btn.add(btn);

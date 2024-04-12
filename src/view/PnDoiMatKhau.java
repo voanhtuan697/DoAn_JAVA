@@ -5,27 +5,25 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import static model.base.dark_green;
+import static model.base.font14;
+import static model.base.gray_bg;
+import static model.base.white;
 
 public class PnDoiMatKhau extends JPanel {
 
     private JPanel pnInput;
     private JTextField txtMatkhau, txtMatkhauMoi, txtXacNhan;
     private JButton btnCapNhat;
-    private Color colorGray = Color.decode("#B3BECB");
-    private Color colorBtn = Color.decode("#009594");
-    private Color colorPink = Color.decode("#DA91A4");
     private JLabel[] lbl = new JLabel[3];
     private String[] lblContent = {"Mật khẩu cũ:", "Mật khẩu mới:", "Xác nhận lại mật khẩu mới"};
-    Font font = new Font("Segoe UI", Font.PLAIN, 15);
-    Font fontTitle = new Font("Segoe UI", Font.BOLD, 18);
 
     public PnDoiMatKhau() {
         init();
@@ -35,13 +33,13 @@ public class PnDoiMatKhau extends JPanel {
     public void init() {
         this.setLayout(new BorderLayout());
         pnInput = new JPanel();
-        pnInput.setBackground(colorGray);
+        pnInput.setBackground(gray_bg);
 
         this.add(pnInput, BorderLayout.CENTER);
 
         for (int i = 0; i < lblContent.length; i++) {
             lbl[i] = new JLabel(lblContent[i]);
-            lbl[i].setFont(font);
+            lbl[i].setFont(font14);
         }
 
         txtMatkhau = new JTextField();
@@ -52,8 +50,12 @@ public class PnDoiMatKhau extends JPanel {
         txtXacNhan.setPreferredSize(new Dimension(200, 25));
 
         btnCapNhat = new JButton("Cập nhật");
-        btnCapNhat.setFont(font);
-        btnCapNhat.setBackground(colorBtn);
+        btnCapNhat.setFont(font14);
+        btnCapNhat.setBackground(dark_green);
+        btnCapNhat.setForeground(white);
+        btnCapNhat.setBorderPainted(false);
+        btnCapNhat.setFocusPainted(false);
+        btnCapNhat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     private void showLayout() {
@@ -96,4 +98,5 @@ public class PnDoiMatKhau extends JPanel {
                 .addComponent(btnCapNhat)
         );
     }
+
 }

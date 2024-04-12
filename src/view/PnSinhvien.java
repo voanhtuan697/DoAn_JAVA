@@ -6,6 +6,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.GroupLayout;
@@ -29,7 +30,7 @@ public class PnSinhvien extends JPanel {
     private Color colorGray = Color.decode("#B3BECB");
     private Color colorBtn = Color.decode("#009594");
     private Color colorPink = Color.decode("#DA91A4");
-    Font font = new Font("Segoe UI", Font.PLAIN, 14);
+    Font font = new Font("Segoe UI", Font.PLAIN, 13);
 
     public PnSinhvien() {
         init();
@@ -91,17 +92,39 @@ public class PnSinhvien extends JPanel {
 
         btnThem = new JButton("     Thêm     ");
         btnThem.setBackground(colorBtn);
+        btnThem.setBorderPainted(false);
+        btnThem.setFocusPainted(false);
+        btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         btnXoa = new JButton("       Xóa      ");
         btnXoa.setBackground(colorBtn);
+        btnXoa.setBorderPainted(false);
+        btnXoa.setFocusPainted(false);
+        btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnNhap = new JButton("Nhập Excel");
         btnNhap.setBackground(colorBtn);
+        btnNhap.setBorderPainted(false);
+        btnNhap.setFocusPainted(false);
+        btnNhap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnXuat = new JButton("Xuất Excel");
         btnXuat.setBackground(colorBtn);
+        btnXuat.setBorderPainted(false);
+        btnXuat.setFocusPainted(false);
+        btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnSua = new JButton("    Sửa       ");
         btnSua.setBackground(colorBtn);
+        btnSua.setBorderPainted(false);
+        btnSua.setFocusPainted(false);
+        btnSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnClear = new JButton("    Clear     ");
         btnClear.setBackground(colorBtn);
+        btnClear.setBorderPainted(false);
+        btnClear.setFocusPainted(false);
+        btnClear.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     private void showLayout() {

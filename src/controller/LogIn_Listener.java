@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import view.Login;
-import view.MenuFrameGV;
+import view.GiaoDienUser;
 
 /**
  *
@@ -30,7 +30,7 @@ public class LogIn_Listener implements ActionListener {
             this.log.dispose();
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                new MenuFrameGV();
+                new GiaoDienUser();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

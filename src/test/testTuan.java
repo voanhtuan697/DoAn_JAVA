@@ -5,20 +5,17 @@
 package test;
 
 import javax.swing.UIManager;
-import view.MenuFrameAd;
-import view.MenuFrameGV;
+import view.GiaoDienUser;
 
 public class testTuan {
 
     public static void main(String[] args) {
-//        new MenuFrameGV();
+//        new GiaoDienUser();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//            new MenuFrameGV();
+//            new GiaoDienUser();
 
 //            new MenuFrameAd();
-
-                new MenuFrameAd();
 
         } catch (Exception e) {
             e.printStackTrace();

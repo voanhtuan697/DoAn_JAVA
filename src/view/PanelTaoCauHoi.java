@@ -14,11 +14,15 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Locale;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -134,7 +138,7 @@ public class PanelTaoCauHoi extends JPanel{
         pn_lb_cauhoi.add(lb_cauhoi);
 
         JPanel pn_cauhoi = new JPanel();
-        pn_cauhoi.setPreferredSize(new Dimension(0, 50));
+        pn_cauhoi.setPreferredSize(new Dimension(0, 100));
         pn_cauhoi.setLayout(new BorderLayout());
         JTextArea txta = new JTextArea();
         txta.setLineWrap(true);// tự động xuống hàng khi văn bản quá dài
@@ -151,10 +155,36 @@ public class PanelTaoCauHoi extends JPanel{
         pn_lb_cautraloi.add(lb_cautraloi);
 
         JPanel pn_cautraloi = new JPanel();
-        pn_cautraloi.setPreferredSize(new Dimension(0, 700));
+        pn_cautraloi.setLayout(new BorderLayout());
         pn_cautraloi.setBackground(new Color(0xB3, 0xBE, 0xCB));
-        GroupLayout layout_cauTraLoi = new GroupLayout(pn_cautraloi);
-        pn_cautraloi.setLayout(layout_cauTraLoi);
+        
+//        ----------------------------------------------------------
+//        String []bangChuCai = new String[]{"A","B","C","D","E","F","J","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+//        
+//        
+//        JPanel pn_content = new JPanel();
+//        pn_content.setLayout(new BoxLayout(pn_content, BoxLayout.Y_AXIS));
+////        pn_content.add(Box.createHorizontalGlue());
+//
+//        for(int i=0;i<6;i++){
+//            JPanel panel = new JPanel(new BorderLayout());
+//            panel.setMaximumSize(new Dimension(1400,20));
+//            JLabel label = new JLabel(bangChuCai[i]);
+//            label.setPreferredSize(new Dimension(15,0));
+//            JTextField txt = new JTextField();
+//            JCheckBox checkBox = new JCheckBox();
+//            
+//            panel.add(label,BorderLayout.WEST);
+//            panel.add(txt,BorderLayout.CENTER);
+//            panel.add(checkBox,BorderLayout.EAST);
+//            pn_content.add(panel);
+//        }
+//        
+//        JScrollPane scrollPane = new JScrollPane(pn_content);
+//        scrollPane.setPreferredSize(new Dimension(0,200));
+        JPanel pn_tn4 = new JPanel();
+GroupLayout layout_cauTraLoi = new GroupLayout(pn_tn4);
+        pn_tn4.setLayout(layout_cauTraLoi);
         layout_cauTraLoi.setAutoCreateGaps(true);
         layout_cauTraLoi.setAutoCreateContainerGaps(true);
 
@@ -225,6 +255,9 @@ public class PanelTaoCauHoi extends JPanel{
                                 .addComponent(txt_ctl_d)
                                 .addComponent(rdb_d))
         );
+        pn_cautraloi.add(pn_tn4, BorderLayout.CENTER);
+
+//---------------------------------
 
         JPanel pn_img = new JPanel();
         pn_img.setMaximumSize(new Dimension(1300, 10));
@@ -312,7 +345,7 @@ public class PanelTaoCauHoi extends JPanel{
             btn.setBorderPainted(false);
             btn.setFocusPainted(false);
             if(i<3){
-                btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(MenuFrameGV.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
+                btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(GiaoDienUser.class.getResource("..//image//"+name_image[i]))).getImage().getScaledInstance(20, 20,Image.SCALE_SMOOTH)));
             }
             btn.setBackground(dark_green);
             btn.setFont(new Font("typeface", Font.BOLD, 10));
@@ -346,5 +379,14 @@ public class PanelTaoCauHoi extends JPanel{
         this.add(pn1,BorderLayout.NORTH);
         this.add(pn2,BorderLayout.CENTER);
         this.add(pn3,BorderLayout.SOUTH);
+    }
+    
+    public static void main(String[] args) {
+        JFrame f = new JFrame();
+        f.setSize(800, 500);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.getContentPane().add( new PanelTaoCauHoi());
+        f.setVisible(true);
     }
 }

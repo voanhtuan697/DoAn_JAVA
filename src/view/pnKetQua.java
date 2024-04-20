@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -25,8 +26,7 @@ import static model.base.font13b;
 import static model.base.gray_bg;
 import static model.base.white;
 
-public class pnKetQua extends JPanel {
-
+public class  pnKetQua extends JPanel{
     private JPanel pnHeader, pnTable, pnInput;
     private JLabel[] lbl = new JLabel[4];
     private JTextField txtMonThi, txtDeThi, txtDiemTu, txtDiem;
@@ -191,5 +191,5 @@ public class pnKetQua extends JPanel {
                 )
         );
     }
-
+    
 }

@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -155,5 +156,7 @@ public class PnThongTinGV extends JPanel {
         );
 
     }
+    
+
 
 }

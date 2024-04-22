@@ -6,7 +6,10 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.DisabledTableCellRenderer;
+import model.ImageUtils;
 
 /**
  *
@@ -101,15 +105,41 @@ public class FrameThemCHVaoDe extends JFrame {
 
         JScrollPane scrollPane_table_right = new JScrollPane(table_right);
         pn_table_right.add(scrollPane_table_right, BorderLayout.CENTER);
+        
+        JPanel pn_btn_center = new JPanel();
+        pn_btn_center.setLayout(new BoxLayout(pn_btn_center, 1));
+        pn_btn_center.setPreferredSize(new Dimension(100,0));
+        
+        pn_btn_center.add(Box.createVerticalGlue());
+        
+        JButton btnThem = new JButton();
+            btnThem.setBorderPainted(false);
+            btnThem.setFocusPainted(false);
+            btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            btnThem.setIcon(ImageUtils.createResizedIcon(FrameThemCHVaoDe.class, "..//image//right-icon.png", 20, 20));
+            pn_btn_center.add(btnThem);
+            
+            pn_btn_center.add(Box.createVerticalStrut(20));
+            
+        JButton btnXoa = new JButton();
+            btnXoa.setBorderPainted(false);
+            btnXoa.setFocusPainted(false);
+            btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            btnXoa.setIcon(ImageUtils.createResizedIcon(FrameThemCHVaoDe.class, "..//image//left-icon.png", 20, 20));
+            pn_btn_center.add(btnXoa);
+        pn_btn_center.add(Box.createVerticalGlue());
 
         layout_table.setHorizontalGroup(
                 layout_table.createSequentialGroup()
                         .addGroup(layout_table.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(lb_khoCH)
                                 .addComponent(pn_table_left))
+                        .addComponent(pn_btn_center)
                         .addGroup(layout_table.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(lb_deThi)
                                 .addComponent(pn_table_right))
+                        
+                
         );
 
         layout_table.setVerticalGroup(
@@ -119,11 +149,14 @@ public class FrameThemCHVaoDe extends JFrame {
                                 .addComponent(lb_deThi))
                         .addGroup(layout_table.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(pn_table_left)
-                                .addComponent(pn_table_right))
+                                .addComponent(pn_table_right)
+                                .addComponent(pn_btn_center)
+                        )
+                
         );
 
         JPanel pn_btn = new JPanel(new FlowLayout(0, 10, 10));
-        String[] btn_name = new String[]{"Thêm", "Xóa", "Xem chi tiết", "Hoàn thành"};
+        String[] btn_name = new String[]{"Xem chi tiết", "Hoàn thành"};
         for (int i = 0; i < btn_name.length; i++) {
             JButton btn = new JButton(btn_name[i]);
             btn.setBorderPainted(false);

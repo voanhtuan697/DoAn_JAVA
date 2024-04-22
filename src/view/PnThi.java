@@ -86,7 +86,7 @@ public class PnThi extends JPanel {
         btnThi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                baithi b = new baithi();
+                FrameBaiThi b = new FrameBaiThi();
                 JFrame jf = new JFrame();
                 jf.setExtendedState(JFrame.MAXIMIZED_BOTH); // Đặt cửa sổ ở chế độ full màn hình
                 jf.setLayout(new BorderLayout());

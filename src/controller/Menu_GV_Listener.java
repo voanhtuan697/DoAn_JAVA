@@ -6,7 +6,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import view.MenuFrameGV;
+import view.GiaoDienUser;
 
 /**
  *
@@ -14,9 +14,9 @@ import view.MenuFrameGV;
  */
 public class Menu_GV_Listener implements ActionListener {
 
-    private MenuFrameGV mnGV;
+    private GiaoDienUser mnGV;
 
-    public Menu_GV_Listener(MenuFrameGV mnGV) {
+    public Menu_GV_Listener(GiaoDienUser mnGV) {
         this.mnGV = mnGV;
     }
 

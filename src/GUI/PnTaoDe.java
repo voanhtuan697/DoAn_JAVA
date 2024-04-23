@@ -30,8 +30,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font13;
 import static GUI.BASE.font14;
+import static GUI.BASE.font16;
 import static GUI.BASE.gray_bg;
 import static GUI.BASE.white;
 
@@ -62,11 +62,17 @@ public class PnTaoDe extends JPanel {
 
     public void initComponents() {
         JPanel pndethi = new JPanel(new BorderLayout());
-        pndethi.setBorder(BorderFactory.createTitledBorder(null, "Danh sách đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
+        pndethi.setBorder(BorderFactory.createTitledBorder(null, "Danh sách đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font16) {
         }));
         pndethi.setBackground(gray_bg);
         Object[] colDeThi = {"Mã đề thi", "Người tạo", "Tên đề thi", "Môn thi", "Số câu hỏi", "Ngày thi", "Thời gian", "Lớp", "Mật khẩu"};
-        modelDeThi = new DefaultTableModel(colDeThi, 0);
+
+        modelDeThi = new DefaultTableModel(colDeThi, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         tblDeThi = new JTable(modelDeThi);
         setTableFont(tblDeThi);
@@ -75,19 +81,19 @@ public class PnTaoDe extends JPanel {
         pndethi.add(scrDeThi);
 
         JPanel pnctdethi = new JPanel();
-        pnctdethi.setBorder(BorderFactory.createTitledBorder(null, "Chi tiết đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
+        pnctdethi.setBorder(BorderFactory.createTitledBorder(null, "Chi tiết đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font16) {
         }));
         pnctdethi.setBackground(gray_bg);
         JLabel lblTenDe, lblNgayThi, lblTgian, lblMatKhau;
 
         lblTenDe = new JLabel("Tên đề thi:");
-        lblTenDe.setFont(font14);
+        lblTenDe.setFont(font16);
         lblNgayThi = new JLabel("Ngày thi:");
-        lblNgayThi.setFont(font14);
+        lblNgayThi.setFont(font16);
         lblTgian = new JLabel("Thời gian(phút):");
-        lblTgian.setFont(font14);
+        lblTgian.setFont(font16);
         lblMatKhau = new JLabel("Mật khẩu:");
-        lblMatKhau.setFont(font14);
+        lblMatKhau.setFont(font16);
 
         SpinnerDateModel modeldate = new SpinnerDateModel();
         dateTime = new JSpinner(modeldate);
@@ -96,7 +102,7 @@ public class PnTaoDe extends JPanel {
 
         btnLop = new JButton("Chọn lớp");
         btnLop.setBackground(dark_green);
-        btnLop.setFont(font13);
+        btnLop.setFont(font14);
         btnLop.setForeground(white);
         btnLop.setBorderPainted(false);
         btnLop.setFocusPainted(false);
@@ -104,7 +110,7 @@ public class PnTaoDe extends JPanel {
 
         btnThem = new JButton("Tạo đề thi");
         btnThem.setBackground(dark_green);
-        btnThem.setFont(font13);
+        btnThem.setFont(font14);
         btnThem.setForeground(white);
         btnThem.setBorderPainted(false);
         btnThem.setFocusPainted(false);
@@ -112,7 +118,7 @@ public class PnTaoDe extends JPanel {
 
         btnSua = new JButton(" Cập nhật ");
         btnSua.setBackground(dark_green);
-        btnSua.setFont(font13);
+        btnSua.setFont(font14);
         btnSua.setForeground(white);
         btnSua.setBorderPainted(false);
         btnSua.setFocusPainted(false);
@@ -120,7 +126,7 @@ public class PnTaoDe extends JPanel {
 
         btnXoa = new JButton("     Xóa     ");
         btnXoa.setBackground(dark_green);
-        btnXoa.setFont(font13);
+        btnXoa.setFont(font14);
         btnXoa.setForeground(white);
         btnXoa.setBorderPainted(false);
         btnXoa.setFocusPainted(false);
@@ -183,7 +189,7 @@ public class PnTaoDe extends JPanel {
         pnLeft.add(pndethi, BorderLayout.CENTER);
         pnLeft.add(pnctdethi, BorderLayout.SOUTH);
 
-        pnRight.setBorder(BorderFactory.createTitledBorder(null, "Danh sách câu hỏi đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
+        pnRight.setBorder(BorderFactory.createTitledBorder(null, "Danh sách câu hỏi đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font16) {
         }));
         pnRight.setBackground(gray_bg);
 
@@ -191,18 +197,18 @@ public class PnTaoDe extends JPanel {
         pnInput.setBackground(gray_bg);
         JLabel lblSL = new JLabel("Số lượng câu hỏi:");
         lblSL.setBackground(gray_bg);
-        lblSL.setFont(font14);
+        lblSL.setFont(font16);
         spSLCH = new SpinnerNumberModel(0, 0, 50, 1);
         JSpinner spinner = new JSpinner(spSLCH);
         JLabel lblDaChon = new JLabel("Đã chọn:");
-        lblDaChon.setFont(font14);
+        lblDaChon.setFont(font16);
         lblDaChonCH = new JLabel("0");
-        lblDaChonCH.setFont(font14);
+        lblDaChonCH.setFont(font16);
         btnChonCH = new JButton("Chọn câu hỏi");
-        btnChonCH.setFont(font13);
+        btnChonCH.setFont(font14);
         btnChonCH.setForeground(white);
         btnChonCH.setBackground(dark_green);
-        btnChonCH.setPreferredSize(new Dimension(110, 25));
+        btnChonCH.setPreferredSize(new Dimension(160, 25));
         btnChonCH.setBorderPainted(false);
         btnChonCH.setFocusPainted(false);
         btnChonCH.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -228,7 +234,13 @@ public class PnTaoDe extends JPanel {
         JPanel pnTable = new JPanel(new BorderLayout());
         pnTable.setBackground(gray_bg);
         Object[] colDSCH = {"Mã câu hỏi", "Nội dung", "Cấp độ"};
-        modelDSCH = new DefaultTableModel(colDSCH, 0);
+
+        modelDSCH = new DefaultTableModel(colDSCH, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         tblDSCH = new JTable(modelDSCH);
         setTableFont(tblDSCH);
@@ -241,13 +253,13 @@ public class PnTaoDe extends JPanel {
     }
 
     private void setTableFont(JTable table) {
-        table.setFont(font13);
+        table.setFont(font14);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(font13);
+        header.setFont(font14);
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setFont(font13);
+        renderer.setFont(font14);
         table.setDefaultRenderer(Object.class, renderer);
     }
 

@@ -1,4 +1,3 @@
-
 package GUI;
 
 import java.awt.BorderLayout;
@@ -18,11 +17,11 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font13;
-import static GUI.BASE.font13b;
+import static GUI.BASE.font16;
+import static GUI.BASE.font14b;
 import static GUI.BASE.gray_bg;
 
-public class FrameKetQua extends JFrame {
+public class PnKetQua extends JPanel {
 
     private JPanel pnHeader, pnTable, pnInput;
     private JLabel[] lbl = new JLabel[5];
@@ -33,17 +32,14 @@ public class FrameKetQua extends JFrame {
     private String[] lblContent = {"Môn thi:", "Đề thi:", "Điểm từ:", "Điểm", "Lớp:"};
     private JComboBox cbMonthi, cbDeThi, cbLop;
 
-    public FrameKetQua() {
+    public PnKetQua() {
         init();
         initComponent();
         showLayout();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 400);
-        setLocationRelativeTo(null);
-//        setVisible(true);
     }
 
     private void init() {
+
         pnHeader = new JPanel();
         pnHeader.setBackground(gray_bg);
 
@@ -61,7 +57,7 @@ public class FrameKetQua extends JFrame {
     private void initComponent() {
 
         Object[] columns = {"Mã thí sinh", "Họ và tên", "Điểm", "Lớp", "Môn"};
-        Object[][] data = {{null, null, null, null, null},
+        Object[][] data = {{"0921", "none", "10", "DCT123", "TA"},
         {null, null, null, null, null},
         {null, null, null, null, null},
         {null, null, null, null, null},
@@ -69,7 +65,12 @@ public class FrameKetQua extends JFrame {
         {null, null, null, null, null},
         {null, null, null, null, null},};
 
-        model = new DefaultTableModel(data, columns);
+        model = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // không cho phép chỉnh sửa dữ liệu
+            }
+        };
         JTable table = new JTable(model);
 
         int[] columnWidths = {100, 200, 80, 100, 100};
@@ -82,7 +83,7 @@ public class FrameKetQua extends JFrame {
 
         for (int i = 0; i < lblContent.length; i++) {
             lbl[i] = new JLabel(lblContent[i]);
-            lbl[i].setFont(font13);
+            lbl[i].setFont(font16);
         }
 
         cbMonthi = new JComboBox();
@@ -94,13 +95,13 @@ public class FrameKetQua extends JFrame {
 
         rdMax = new JRadioButton("Điểm cao nhất");
         rdMax.setBackground(gray_bg);
-        rdMax.setFont(font13);
+        rdMax.setFont(font16);
         rdMin = new JRadioButton("Điểm thấp nhất");
         rdMin.setBackground(gray_bg);
-        rdMin.setFont(font13);
+        rdMin.setFont(font16);
         rdThi = new JRadioButton("Thi lại");
         rdThi.setBackground(gray_bg);
-        rdThi.setFont(font13);
+        rdThi.setFont(font16);
         ButtonGroup group = new ButtonGroup();
         group.add(rdMax);
         group.add(rdMin);
@@ -108,23 +109,23 @@ public class FrameKetQua extends JFrame {
 
         btnXuat = new JButton("Xuất Excel  ");
         btnXuat.setBackground(dark_green);
-        btnXuat.setFont(font13b);
+        btnXuat.setFont(font14b);
         btnXuat.setForeground(white);
         btnXuat.setBorderPainted(false);
         btnXuat.setFocusPainted(false);
         btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        btnVe = new JButton("Vẽ biểu đồ");
+        btnVe = new JButton(" Vẽ biểu đồ ");
         btnVe.setBackground(dark_green);
         btnVe.setForeground(white);
-        btnVe.setFont(font13b);
+        btnVe.setFont(font14b);
         btnVe.setBorderPainted(false);
         btnVe.setFocusPainted(false);
         btnVe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         btnTimTheoDiem = new JButton("Tìm theo điểm");
         btnTimTheoDiem.setBackground(dark_green);
-        btnTimTheoDiem.setFont(font13b);
+        btnTimTheoDiem.setFont(font14b);
         btnTimTheoDiem.setForeground(white);
         btnTimTheoDiem.setBorderPainted(false);
         btnTimTheoDiem.setFocusPainted(false);
@@ -201,6 +202,13 @@ public class FrameKetQua extends JFrame {
     }
 
     public static void main(String[] args) {
-        new FrameKetQua();
+        JFrame f = new JFrame();
+        f.setSize(950, 450);
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        PnKetQua p = new PnKetQua();
+        f.getContentPane().setLayout(new BorderLayout());
+        f.add(p);
+        f.setVisible(true);
     }
 }

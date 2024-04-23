@@ -14,8 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import model.ImageUtils;
 
 /**
@@ -35,7 +33,7 @@ public class FrameXemChiTietCauHoi extends JFrame {
         JPanel pn_header = new JPanel();
         pn_header.setPreferredSize(new Dimension(500, 300));
         JLabel lb_img = new JLabel();
-        lb_img.setIcon(ImageUtils.createResizedIcon(MenuFrameAd.class, "..//image//anhTruong.jpg", pn_header.getPreferredSize().width, pn_header.getPreferredSize().height));
+        lb_img.setIcon(ImageUtils.createResizedIcon(FrameXemChiTietCauHoi.class, "..//image//anhTruong.jpg", pn_header.getPreferredSize().width, pn_header.getPreferredSize().height));
         pn_header.add(lb_img, BorderLayout.CENTER);
 
         Font font = new Font("Arial", Font.BOLD, 17);

@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.BorderLayout;
 import static java.awt.Color.white;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -12,6 +13,7 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -169,5 +171,15 @@ public class PnThongTinAdTr extends JPanel {
                 .addComponent(btnCapNhat)
         );
 
+    }
+    public static void main(String[] args){
+        JFrame f = new JFrame();
+        f.setSize(950,450);
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        PnThongTinAdTr p = new PnThongTinAdTr();
+        f.getContentPane().setLayout(new BorderLayout());
+        f.add(p);
+        f.setVisible(true);
     }
 }

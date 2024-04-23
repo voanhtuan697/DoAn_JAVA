@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import BUS.hinhThucBUS;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -43,7 +44,7 @@ import java.util.regex.Pattern;
  *
  * @author E7250
  */
-public class PanelTaoCauHoi extends JPanel implements ActionListener {
+public class PanelTaoCauHoi extends JPanel implements ActionListener{
 
     private JComboBox<String> cbb_monThi;
     private JComboBox<String> cbb_trangThaiCH;
@@ -57,7 +58,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
 
     public PanelTaoCauHoi() {
         init();
-        chan(0);
+        phanCauHoi(0);
     }
 
     public JComboBox<String> getCbb_monThi() {
@@ -208,31 +209,17 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         lb_cauhoi.setFont(font13);
 
         cbb_hinhThuc = new JComboBox<>(new String[]{"Trắc nghiệm một lựa chọn đúng", "Trắc nghiệm nhiều lựa chọn đúng"});
-
+        
         cbb_hinhThuc.addActionListener(this);
         lb_soDapAn = new JLabel("Số lượn đáp án");
         lb_soDapAn.setVisible(false);
         txt_soDapAn = new JTextField(5);
         txt_soDapAn.setText("0");
         txt_soDapAn.setVisible(false);
+        
+       
         txt_soDapAn.addActionListener(this);
-//        txt_soDapAn.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // Xử lý khi nhấn phím Enter trong TextField
-//                String pattern = "\\d+";
-//                String input = txt_soDapAn.getText();
-//                if (Pattern.matches(pattern, input)) {
-//                    int number = Integer.parseInt(input);
-//                    setNumCTL(number);
-//                    System.out.println(number);
-//                } else {
-//                    System.out.println("số nguyên.");
-//                }
-//                txt_soDapAn.setText(""); // Xóa nội dung của TextField sau khi nhấn Enter
-//            }
-//        });
-
+        
         pn_lb_cauhoi.add(lb_cauhoi);
         pn_lb_cauhoi.add(cbb_hinhThuc);
         pn_lb_cauhoi.add(lb_soDapAn);
@@ -264,109 +251,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         pn_cautraloi.add(cards, BorderLayout.CENTER);
         cardLayout = new CardLayout();
         cards.setLayout(cardLayout);
-
-//        ----------------------------------------------------------
-//        bangChuCai = new String[]{"A", "B", "C", "D", "E", "F", "J", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-//
-//        JPanel pn_content = new JPanel();
-//        pn_content.setLayout(new BoxLayout(pn_content, BoxLayout.Y_AXIS));
-////        pn_content.add(Box.createHorizontalGlue());
-//
-//        for (int i = 0; i < soTraLoi; i++) {
-//            JPanel panel = new JPanel(new BorderLayout());
-//            panel.setMaximumSize(new Dimension(1400, 20));
-//            JLabel label = new JLabel(bangChuCai[i]);
-//            label.setPreferredSize(new Dimension(15, 0));
-//            JTextField txt = new JTextField();
-//            JCheckBox checkBox = new JCheckBox();
-//
-//            panel.add(label, BorderLayout.WEST);
-//            panel.add(txt, BorderLayout.CENTER);
-//            panel.add(checkBox, BorderLayout.EAST);
-//            pn_content.add(panel);
-//        }
-//
-//        JScrollPane scrollPane = new JScrollPane(pn_content);
-//        scrollPane.setPreferredSize(new Dimension(0, 200));
-////-----------------------------con ga con
-//
-//        JPanel pn_tn4 = new JPanel();
-//        GroupLayout layout_cauTraLoi = new GroupLayout(pn_tn4);
-//        pn_tn4.setLayout(layout_cauTraLoi);
-//        layout_cauTraLoi.setAutoCreateGaps(true);
-//        layout_cauTraLoi.setAutoCreateContainerGaps(true);
-//
-//        JLabel lb_a = new JLabel("A");
-//        lb_a.setFont(font13);
-//        JLabel lb_b = new JLabel("B");
-//        lb_b.setFont(font13);
-//        JLabel lb_c = new JLabel("C");
-//        lb_c.setFont(font13);
-//        JLabel lb_d = new JLabel("D");
-//        lb_d.setFont(font13);
-//
-//        JTextField txt_ctl_a = new JTextField();
-//        JTextField txt_ctl_b = new JTextField();
-//        JTextField txt_ctl_c = new JTextField();
-//        JTextField txt_ctl_d = new JTextField();
-//
-//        ButtonGroup btnG = new ButtonGroup();
-//        JRadioButton rdb_a = new JRadioButton();
-//        rdb_a.setOpaque(false);
-//        JRadioButton rdb_b = new JRadioButton();
-//        rdb_b.setOpaque(false);
-//        JRadioButton rdb_c = new JRadioButton();
-//        rdb_c.setOpaque(false);
-//        JRadioButton rdb_d = new JRadioButton();
-//        rdb_d.setOpaque(false);
-//
-//        btnG.add(rdb_a);
-//        btnG.add(rdb_b);
-//        btnG.add(rdb_c);
-//        btnG.add(rdb_d);
-//
-//        layout_cauTraLoi.setHorizontalGroup(
-//                layout_cauTraLoi.createSequentialGroup()
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.LEADING)
-//                                .addComponent(lb_a)
-//                                .addComponent(lb_b)
-//                                .addComponent(lb_c)
-//                                .addComponent(lb_d))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.LEADING)
-//                                .addComponent(txt_ctl_a)
-//                                .addComponent(txt_ctl_b)
-//                                .addComponent(txt_ctl_c)
-//                                .addComponent(txt_ctl_d))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.LEADING)
-//                                .addComponent(rdb_a)
-//                                .addComponent(rdb_b)
-//                                .addComponent(rdb_c)
-//                                .addComponent(rdb_d))
-//        );
-//
-//        layout_cauTraLoi.setVerticalGroup(
-//                layout_cauTraLoi.createSequentialGroup()
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//                                .addComponent(lb_a)
-//                                .addComponent(txt_ctl_a)
-//                                .addComponent(rdb_a))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//                                .addComponent(lb_b)
-//                                .addComponent(txt_ctl_b)
-//                                .addComponent(rdb_b))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//                                .addComponent(lb_c)
-//                                .addComponent(txt_ctl_c)
-//                                .addComponent(rdb_c))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//                                .addComponent(lb_d)
-//                                .addComponent(txt_ctl_d)
-//                                .addComponent(rdb_d))
-//        );
-////        them panel o day
-//        cards.add(pn_tn4, "pn_TN4");
-//        cards.add(scrollPane, "pn_TN_Nhieu");
-//---------------------------------
+        
         JPanel pn_img = new JPanel();
         pn_img.setMaximumSize(new Dimension(1300, 10));
         pn_img.setBackground(new Color(0xB3, 0xBE, 0xCB));
@@ -484,14 +369,14 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         this.add(pn3, BorderLayout.SOUTH);
     }
 
-    public void chan(int soCho) {
+    public void phanCauHoi(int soDapAn) {
         bangChuCai = new String[]{"A", "B", "C", "D", "E", "F", "J", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
         JPanel pn_content = new JPanel();
         pn_content.setLayout(new BoxLayout(pn_content, BoxLayout.Y_AXIS));
 //        pn_content.add(Box.createHorizontalGlue());
 
-        for (int i = 0; i < soCho; i++) {
+        for (int i = 0; i < soDapAn; i++) {
             JPanel panel = new JPanel(new BorderLayout());
             panel.setMaximumSize(new Dimension(1400, 20));
             JLabel label = new JLabel(bangChuCai[i]);
@@ -587,33 +472,6 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         cards.add(scrollPane, "pn_TN_Nhieu");
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-//        String btn_name = e.getActionCommand();
-
-        String selectedOption = (String) getCbb_hinhThuc().getSelectedItem();
-        if (selectedOption.equals("Trắc nghiệm một lựa chọn đúng")) {
-            getCardLayout().show(getCards(), "pn_TN4");
-            getLb_soDapAn().setVisible(false);
-            getTxt_soDapAn().setVisible(false);
-        } else if (selectedOption.equals("Trắc nghiệm nhiều lựa chọn đúng")) {
-            getCardLayout().show(getCards(), "pn_TN_Nhieu");
-            getLb_soDapAn().setVisible(true);
-            getTxt_soDapAn().setVisible(true);
-
-            String pattern = "\\d+";
-            String input = getTxt_soDapAn().getText();
-
-            if (Pattern.matches(pattern, input)) {
-                int number = Integer.parseInt(input);
-                chan(number);
-            } else {
-                System.out.println("Không phải là số nguyên.");
-            }
-
-        }
-
-    }
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
@@ -622,5 +480,32 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         f.setLocationRelativeTo(null);
         f.getContentPane().add(new PanelTaoCauHoi());
         f.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String selectedOption = (String) this.getCbb_hinhThuc().getSelectedItem();
+        if (selectedOption.equals("Trắc nghiệm một lựa chọn đúng")) {
+            this.getCardLayout().show(this.getCards(), "pn_TN4");
+            this.getLb_soDapAn().setVisible(false);
+            this.getTxt_soDapAn().setVisible(false);
+        } else if (selectedOption.equals("Trắc nghiệm nhiều lựa chọn đúng")) {
+            this.getCardLayout().show(this.getCards(), "pn_TN_Nhieu");
+            this.getLb_soDapAn().setVisible(true);
+            this.getTxt_soDapAn().setVisible(true);
+
+            String pattern = "\\d+";
+            String input = this.getTxt_soDapAn().getText();
+
+            if (Pattern.matches(pattern, input)) {
+                int number = Integer.parseInt(input);
+                this.phanCauHoi(number);
+//                panelTaoCauHoi.getTxt_soDapAn().setText("");
+            } else {
+                System.out.println("Không phải là số nguyên.");
+//                panelTaoCauHoi.getTxt_soDapAn().setText("");
+            }
+
+        }
     }
 }

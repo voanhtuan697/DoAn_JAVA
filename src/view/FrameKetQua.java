@@ -1,16 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import static java.awt.Color.white;
 import java.awt.Cursor;
-import java.awt.Font;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,25 +21,29 @@ import static model.base.dark_green;
 import static model.base.font13;
 import static model.base.font13b;
 import static model.base.gray_bg;
-import static model.base.white;
 
-public class  pnKetQua extends JPanel{
+public class FrameKetQua extends JFrame {
+
     private JPanel pnHeader, pnTable, pnInput;
-    private JLabel[] lbl = new JLabel[4];
-    private JTextField txtMonThi, txtDeThi, txtDiemTu, txtDiem;
+    private JLabel[] lbl = new JLabel[5];
+    private JTextField txtDiemTu, txtDiem;
     private JButton btnTimTheoDiem, btnXuat, btnVe;
     private DefaultTableModel model;
     private JRadioButton rdMax, rdMin, rdThi;
-    private String[] lblContent = {"Môn thi:", "Đề thi:", "Điểm từ:", "Điểm"};
+    private String[] lblContent = {"Môn thi:", "Đề thi:", "Điểm từ:", "Điểm", "Lớp:"};
+    private JComboBox cbMonthi, cbDeThi, cbLop;
 
-    public pnKetQua() {
+    public FrameKetQua() {
         init();
         initComponent();
         showLayout();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 400);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private void init() {
-        this.setLayout(new BorderLayout());
         pnHeader = new JPanel();
         pnHeader.setBackground(gray_bg);
 
@@ -51,6 +52,7 @@ public class  pnKetQua extends JPanel{
         pnInput = new JPanel();
         pnInput.setBackground(gray_bg);
 
+        this.setLayout(new BorderLayout());
         this.add(pnHeader, BorderLayout.NORTH);
         this.add(pnTable, BorderLayout.CENTER);
         this.add(pnInput, BorderLayout.SOUTH);
@@ -83,8 +85,10 @@ public class  pnKetQua extends JPanel{
             lbl[i].setFont(font13);
         }
 
-        txtMonThi = new JTextField(20);
-        txtDeThi = new JTextField(20);
+        cbMonthi = new JComboBox();
+        cbDeThi = new JComboBox();
+        cbLop = new JComboBox();
+
         txtDiemTu = new JTextField(20);
         txtDiem = new JTextField(20);
 
@@ -109,7 +113,7 @@ public class  pnKetQua extends JPanel{
         btnXuat.setBorderPainted(false);
         btnXuat.setFocusPainted(false);
         btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+
         btnVe = new JButton("Vẽ biểu đồ");
         btnVe.setBackground(dark_green);
         btnVe.setForeground(white);
@@ -117,7 +121,7 @@ public class  pnKetQua extends JPanel{
         btnVe.setBorderPainted(false);
         btnVe.setFocusPainted(false);
         btnVe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+
         btnTimTheoDiem = new JButton("Tìm theo điểm");
         btnTimTheoDiem.setBackground(dark_green);
         btnTimTheoDiem.setFont(font13b);
@@ -137,10 +141,12 @@ public class  pnKetQua extends JPanel{
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(lbl[0])
                         .addComponent(lbl[1])
+                        .addComponent(lbl[4])
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(txtMonThi)
-                        .addComponent(txtDeThi)
+                        .addComponent(cbMonthi)
+                        .addComponent(cbDeThi)
+                        .addComponent(cbLop)
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(rdMax)
@@ -165,7 +171,7 @@ public class  pnKetQua extends JPanel{
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(lbl[0])
-                        .addComponent(txtMonThi)
+                        .addComponent(cbMonthi)
                         .addComponent(rdMax)
                         .addComponent(lbl[2])
                         .addComponent(txtDiemTu)
@@ -173,6 +179,8 @@ public class  pnKetQua extends JPanel{
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(lbl[1])
+                                .addComponent(cbDeThi)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(rdMin)
                                         .addComponent(lbl[3])
@@ -182,8 +190,8 @@ public class  pnKetQua extends JPanel{
                         )
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(lbl[1])
-                        .addComponent(txtDeThi)
+                        .addComponent(lbl[4])
+                        .addComponent(cbLop)
                         .addComponent(rdThi)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(btnTimTheoDiem)
@@ -191,5 +199,8 @@ public class  pnKetQua extends JPanel{
                 )
         );
     }
-    
+
+    public static void main(String[] args) {
+        new FrameKetQua();
+    }
 }

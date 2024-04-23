@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +21,9 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import static model.base.font13;
+import static model.base.font14;
+import static model.base.gray_bg;
 
 public class PnThongTinGV extends JPanel {
 
@@ -28,9 +32,9 @@ public class PnThongTinGV extends JPanel {
     private DefaultTableModel modelMH, modelLop;
     String[] lblThongtin = {"Họ và tên", "Ngày sinh:"};
     private JLabel[] lblJ = new JLabel[2];
-    private Color colorPink = Color.decode("#DA91A4");
-    private Color colorGray = Color.decode("#B3BECB");
-    Font font = new Font("Segoe UI", Font.PLAIN, 14);
+//    private Color colorPink = Color.decode("#DA91A4");
+//    private Color colorGray = Color.decode("#B3BECB");
+//    Font font = new Font("Segoe UI", Font.PLAIN, 14);
 
     public PnThongTinGV() {
         init();
@@ -40,17 +44,17 @@ public class PnThongTinGV extends JPanel {
 
     private void init() {
         this.setLayout(new BorderLayout());
-        this.setBackground(colorPink);
+        this.setBackground(gray_bg);
 
         pnthongtincn = new JPanel();
-        pnthongtincn.setBorder(BorderFactory.createTitledBorder(null, "Thông tin cá nhân của giảng viên", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font) {
+        pnthongtincn.setBorder(BorderFactory.createTitledBorder(null, "Thông tin cá nhân của giảng viên", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
         }));
-        pnthongtincn.setBackground(colorPink);
+        pnthongtincn.setBackground(gray_bg);
 
         pnphutrach = new JPanel(new GridLayout(2, 1));
-        pnphutrach.setBorder(BorderFactory.createTitledBorder(null, "Quản lý giảng dạy", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font) {
+        pnphutrach.setBorder(BorderFactory.createTitledBorder(null, "Quản lý giảng dạy", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
         }));
-        pnphutrach.setBackground(colorPink);
+        pnphutrach.setBackground(gray_bg);
 
         this.add(pnthongtincn, BorderLayout.WEST);
         this.add(pnphutrach, BorderLayout.CENTER);
@@ -59,17 +63,17 @@ public class PnThongTinGV extends JPanel {
     private void initComponent() {
         for (int i = 0; i < lblThongtin.length; i++) {
             lblJ[i] = new JLabel(lblThongtin[i]);
-            lblJ[i].setFont(font);
+            lblJ[i].setFont(font13);
         }
         lblHoten = new JLabel("Nguyễn Thanh Tùng");
-        lblHoten.setFont(font);
+        lblHoten.setFont(font13);
         lblNgaySinh = new JLabel("05/07/1994");
-        lblNgaySinh.setFont(font);
+        lblNgaySinh.setFont(font13);
 
         JPanel pnMonhoc = new JPanel(new BorderLayout());
-        pnMonhoc.setBorder(BorderFactory.createTitledBorder(null, "Môn phụ trách", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font) {
+        pnMonhoc.setBorder(BorderFactory.createTitledBorder(null, "Môn phụ trách", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
         }));
-        pnMonhoc.setBackground(colorPink);
+        pnMonhoc.setBackground(gray_bg);
 
         Object[] columnsMH = {"ID", "Tên môn dạy"};
         Object[][] dataMH = {{null, null}, {null, null}, {null, null}, {null, null}, {null, null}};
@@ -84,9 +88,9 @@ public class PnThongTinGV extends JPanel {
         pnMonhoc.add(scrMH);
 
         JPanel pnLop = new JPanel(new BorderLayout());
-        pnLop.setBorder(BorderFactory.createTitledBorder(null, "Lớp phụ trách", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font) {
+        pnLop.setBorder(BorderFactory.createTitledBorder(null, "Lớp phụ trách", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
         }));
-        pnLop.setBackground(colorPink);
+        pnLop.setBackground(gray_bg);
         Object[] columnsLop = {"ID", "Tên Lớp dạy"};
         Object[][] dataLop = {{null, null}, {null, null}, {null, null}, {null, null}, {null, null}};
         modelLop = new DefaultTableModel(dataLop, columnsLop);
@@ -152,5 +156,7 @@ public class PnThongTinGV extends JPanel {
         );
 
     }
+    
+
 
 }

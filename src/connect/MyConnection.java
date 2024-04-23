@@ -59,27 +59,27 @@ public class MyConnection {
        
     }
 
-    public static void main(String[] args) {
-        MyConnection myConnect= new MyConnection();;
-        try {
-            
-            myConnect.openConnection();
-            System.out.println("Moi nhap ma lop:");
-            String st = new Scanner(System.in).nextLine();
-            String sql = "select * from Lop where MaLop='" + st + "'";
-            ResultSet rs = myConnect.runQuerry(sql);
-
-            if (rs.next()) {
-                System.out.println("Trung");
-            } else {
-                System.out.println("Khong trung");
-            }
-
-        } catch (Exception e) {
-        }
-        finally{
-            myConnect.closeConnection();
-        }
-
-    }
+//    public static void main(String[] args) {
+//        MyConnection myConnect= new MyConnection();;
+//        try {
+//            
+//            myConnect.openConnection();
+//            System.out.println("Moi nhap ma lop:");
+//            String st = new Scanner(System.in).nextLine();
+//            String sql = "select * from Lop where MaLop='" + st + "'";
+//            ResultSet rs = myConnect.runQuerry(sql);
+//
+//            if (rs.next()) {
+//                System.out.println("Trung");
+//            } else {
+//                System.out.println("Khong trung");
+//            }
+//
+//        } catch (Exception e) {
+//        }
+//        finally{
+//            myConnect.closeConnection();
+//        }
+//
+//    }
 }

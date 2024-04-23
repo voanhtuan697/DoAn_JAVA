@@ -16,7 +16,8 @@ public class base {
     public static Color white = Color.decode("#ffffff");
     public static Color gray_bg = Color.decode("#B3BECB");
     public static String typeface = "Segoe UI";
-    public static Font font14 = new Font("typeface", Font.PLAIN, 14);
+    public static Font font16 = new Font("typeface", Font.PLAIN, 16);
+    public static Font font14 = new Font("typeface", Font.PLAIN, 15);
     public static Font font14b = new Font("typeface", Font.BOLD, 14);
     public static Font font13 = new Font("typeface", Font.PLAIN, 13);
     public static Font font13b = new Font("typeface", Font.BOLD, 13);

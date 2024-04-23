@@ -22,9 +22,9 @@ public class MyConnection {
     public void openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String Url = "jdbc:sqlserver://localhost:1433;databaseName=QLSinhVien2;trustServerCertificate=true";
+            String Url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTracNghiem;trustServerCertificate=true";
             String user = "sa";
-            String pass = "123";
+            String pass = "123456";
             con = DriverManager.getConnection(Url, user, pass);
             stm = con.createStatement();
         } catch (Exception e) {
@@ -58,28 +58,4 @@ public class MyConnection {
         }
        
     }
-
-//    public static void main(String[] args) {
-//        MyConnection myConnect= new MyConnection();;
-//        try {
-//            
-//            myConnect.openConnection();
-//            System.out.println("Moi nhap ma lop:");
-//            String st = new Scanner(System.in).nextLine();
-//            String sql = "select * from Lop where MaLop='" + st + "'";
-//            ResultSet rs = myConnect.runQuerry(sql);
-//
-//            if (rs.next()) {
-//                System.out.println("Trung");
-//            } else {
-//                System.out.println("Khong trung");
-//            }
-//
-//        } catch (Exception e) {
-//        }
-//        finally{
-//            myConnect.closeConnection();
-//        }
-//
-//    }
 }

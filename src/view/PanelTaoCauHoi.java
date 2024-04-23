@@ -222,22 +222,7 @@ public class PanelTaoCauHoi extends JPanel {
         txt_soDapAn.setText("0");
         txt_soDapAn.setVisible(false);
         txt_soDapAn.addActionListener(listen);
-//        txt_soDapAn.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // Xử lý khi nhấn phím Enter trong TextField
-//                String pattern = "\\d+";
-//                String input = txt_soDapAn.getText();
-//                if (Pattern.matches(pattern, input)) {
-//                    int number = Integer.parseInt(input);
-//                    setNumCTL(number);
-//                    System.out.println(number);
-//                } else {
-//                    System.out.println("số nguyên.");
-//                }
-//                txt_soDapAn.setText(""); // Xóa nội dung của TextField sau khi nhấn Enter
-//            }
-//        });
+
         
         pn_lb_cauhoi.add(lb_cauhoi);
         pn_lb_cauhoi.add(cbb_hinhThuc);
@@ -271,109 +256,7 @@ public class PanelTaoCauHoi extends JPanel {
         cardLayout = new CardLayout();
         cards.setLayout(cardLayout);
 
-//        ----------------------------------------------------------
-//        bangChuCai = new String[]{"A", "B", "C", "D", "E", "F", "J", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-//
-//        JPanel pn_content = new JPanel();
-//        pn_content.setLayout(new BoxLayout(pn_content, BoxLayout.Y_AXIS));
-////        pn_content.add(Box.createHorizontalGlue());
-//
-//        for (int i = 0; i < soTraLoi; i++) {
-//            JPanel panel = new JPanel(new BorderLayout());
-//            panel.setMaximumSize(new Dimension(1400, 20));
-//            JLabel label = new JLabel(bangChuCai[i]);
-//            label.setPreferredSize(new Dimension(15, 0));
-//            JTextField txt = new JTextField();
-//            JCheckBox checkBox = new JCheckBox();
-//
-//            panel.add(label, BorderLayout.WEST);
-//            panel.add(txt, BorderLayout.CENTER);
-//            panel.add(checkBox, BorderLayout.EAST);
-//            pn_content.add(panel);
-//        }
-//
-//        JScrollPane scrollPane = new JScrollPane(pn_content);
-//        scrollPane.setPreferredSize(new Dimension(0, 200));
-////-----------------------------con ga con
-//
-//        JPanel pn_tn4 = new JPanel();
-//        GroupLayout layout_cauTraLoi = new GroupLayout(pn_tn4);
-//        pn_tn4.setLayout(layout_cauTraLoi);
-//        layout_cauTraLoi.setAutoCreateGaps(true);
-//        layout_cauTraLoi.setAutoCreateContainerGaps(true);
-//
-//        JLabel lb_a = new JLabel("A");
-//        lb_a.setFont(font13);
-//        JLabel lb_b = new JLabel("B");
-//        lb_b.setFont(font13);
-//        JLabel lb_c = new JLabel("C");
-//        lb_c.setFont(font13);
-//        JLabel lb_d = new JLabel("D");
-//        lb_d.setFont(font13);
-//
-//        JTextField txt_ctl_a = new JTextField();
-//        JTextField txt_ctl_b = new JTextField();
-//        JTextField txt_ctl_c = new JTextField();
-//        JTextField txt_ctl_d = new JTextField();
-//
-//        ButtonGroup btnG = new ButtonGroup();
-//        JRadioButton rdb_a = new JRadioButton();
-//        rdb_a.setOpaque(false);
-//        JRadioButton rdb_b = new JRadioButton();
-//        rdb_b.setOpaque(false);
-//        JRadioButton rdb_c = new JRadioButton();
-//        rdb_c.setOpaque(false);
-//        JRadioButton rdb_d = new JRadioButton();
-//        rdb_d.setOpaque(false);
-//
-//        btnG.add(rdb_a);
-//        btnG.add(rdb_b);
-//        btnG.add(rdb_c);
-//        btnG.add(rdb_d);
-//
-//        layout_cauTraLoi.setHorizontalGroup(
-//                layout_cauTraLoi.createSequentialGroup()
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.LEADING)
-//                                .addComponent(lb_a)
-//                                .addComponent(lb_b)
-//                                .addComponent(lb_c)
-//                                .addComponent(lb_d))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.LEADING)
-//                                .addComponent(txt_ctl_a)
-//                                .addComponent(txt_ctl_b)
-//                                .addComponent(txt_ctl_c)
-//                                .addComponent(txt_ctl_d))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.LEADING)
-//                                .addComponent(rdb_a)
-//                                .addComponent(rdb_b)
-//                                .addComponent(rdb_c)
-//                                .addComponent(rdb_d))
-//        );
-//
-//        layout_cauTraLoi.setVerticalGroup(
-//                layout_cauTraLoi.createSequentialGroup()
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//                                .addComponent(lb_a)
-//                                .addComponent(txt_ctl_a)
-//                                .addComponent(rdb_a))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//                                .addComponent(lb_b)
-//                                .addComponent(txt_ctl_b)
-//                                .addComponent(rdb_b))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//                                .addComponent(lb_c)
-//                                .addComponent(txt_ctl_c)
-//                                .addComponent(rdb_c))
-//                        .addGroup(layout_cauTraLoi.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//                                .addComponent(lb_d)
-//                                .addComponent(txt_ctl_d)
-//                                .addComponent(rdb_d))
-//        );
-////        them panel o day
-//        cards.add(pn_tn4, "pn_TN4");
-//        cards.add(scrollPane, "pn_TN_Nhieu");
-//---------------------------------
-
+        
         JPanel pn_img = new JPanel();
         pn_img.setMaximumSize(new Dimension(1300, 10));
         pn_img.setBackground(new Color(0xB3, 0xBE, 0xCB));

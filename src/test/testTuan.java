@@ -5,6 +5,7 @@
 package test;
 
 import javax.swing.UIManager;
+import view.FrameBaiThi;
 import view.GiaoDienUser;
 
 public class testTuan {
@@ -16,6 +17,7 @@ public class testTuan {
 //            new GiaoDienUser();
 
 //            new MenuFrameAd();
+            new FrameBaiThi();
 
         } catch (Exception e) {
             e.printStackTrace();

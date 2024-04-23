@@ -6,227 +6,258 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
+import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import static model.base.dark_green;
-import static model.base.font13b;
+import static model.base.font13;
 import static model.base.font14;
+import static model.base.gray_bg;
 import static model.base.white;
 
 public class PnTaoDe extends JPanel {
 
-    private JPanel combinedPanel, tablePanel;
-    private JLabel lbMade, lbTende, lbMaGv, lbNgaythi, lbThoigian, lbSocauhoi, lbMatkhau;
-    private JTextField tfMade, tfTende, tfMaGv, tfNgaythi, tfThoigian, tfSocauhoi, tfMatkhau;
-    private JButton btnThem, btnXoa, btnSua;
-    private static final String[] COLUMN_NAMES = {"Mã đề thi", "Tên đề thi", "Mã giảng viên", "Ngày thi", "Thời gian", "Số câu hỏi", "Mật khẩu"};
+    private JPanel pnRight, pnLeft;
+    private JTextField tfTenDe, tfTgian, tfMatKhau;
+    private JLabel lblDaChonCH;
+    private JButton btnChonCH;
+    private SpinnerModel spSLCH;
+    private JSpinner dateTime;
+    private JButton btnLop, btnThem, btnSua, btnXoa;
+    private JTable tblDeThi, tblDSCH;
+    private DefaultTableModel modelDSCH, modelDeThi;
 
     public PnTaoDe() {
+        init();
         initComponents();
-        setPreferredSize(new Dimension(800, 700));
-        setBackground(new Color(0xB3, 0xBE, 0xCB));
-        setLayout(new BorderLayout(20, 20));
-        add(tablePanel, BorderLayout.CENTER);
-        add(combinedPanel, BorderLayout.SOUTH);
+    }
+
+    public void init() {
+        this.setLayout(new GridLayout(1, 2));
+        pnLeft = new JPanel(new BorderLayout());
+        pnRight = new JPanel(new BorderLayout());
+        this.add(pnLeft);
+        this.add(pnRight);
     }
 
     public void initComponents() {
+        JPanel pndethi = new JPanel(new BorderLayout());
+        pndethi.setBorder(BorderFactory.createTitledBorder(null, "Danh sách đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
+        }));
+        pndethi.setBackground(gray_bg);
+        Object[] colDeThi = {"Mã đề thi", "Người tạo", "Tên đề thi", "Môn thi", "Số câu hỏi", "Ngày thi", "Thời gian", "Lớp", "Mật khẩu"};
+        modelDeThi = new DefaultTableModel(colDeThi, 0);
 
-        combinedPanel = new JPanel();
-        combinedPanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
-        combinedPanel.setPreferredSize(new Dimension(800, 350));
-        combinedPanel.setLayout(new BorderLayout(10, 20)); 
+        tblDeThi = new JTable(modelDeThi);
+        setTableFont(tblDeThi);
 
-        JPanel labelPanel = new JPanel();
-        labelPanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
-        labelPanel.setPreferredSize(new Dimension(150, 350));
-        labelPanel.setLayout(new GridLayout(8, 1, 0, 20));
+        JScrollPane scrDeThi = new JScrollPane(tblDeThi);
+        pndethi.add(scrDeThi);
 
-        JPanel contentPanel = new JPanel();
-        contentPanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
-        contentPanel.setPreferredSize(new Dimension(500, 350));
-        contentPanel.setLayout(new GridLayout(8, 1, 0, 20));
+        JPanel pnctdethi = new JPanel();
+        pnctdethi.setBorder(BorderFactory.createTitledBorder(null, "Chi tiết đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
+        }));
+        pnctdethi.setBackground(gray_bg);
+        JLabel lblTenDe, lblNgayThi, lblTgian, lblMatKhau;
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
-        buttonPanel.setPreferredSize(new Dimension(150, 350));
-        buttonPanel.setLayout(new FlowLayout(0, 20, 20));
+        lblTenDe = new JLabel("Tên đề thi:");
+        lblTenDe.setFont(font14);
+        lblNgayThi = new JLabel("Ngày thi:");
+        lblNgayThi.setFont(font14);
+        lblTgian = new JLabel("Thời gian(phút):");
+        lblTgian.setFont(font14);
+        lblMatKhau = new JLabel("Mật khẩu:");
+        lblMatKhau.setFont(font14);
 
-        lbMade = new JLabel();
-        lbMade.setText("Mã đề thi:");
+        SpinnerDateModel modeldate = new SpinnerDateModel();
+        dateTime = new JSpinner(modeldate);
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateTime, "dd/MM/yyyy HH:mm:ss");
+        dateTime.setEditor(dateEditor);
 
-        lbTende = new JLabel();
-        lbTende.setText("Tên đề thi:");
+        btnLop = new JButton("Chọn lớp");
+        btnLop.setBackground(dark_green);
+        btnLop.setFont(font13);
+        btnLop.setForeground(white);
+        btnLop.setBorderPainted(false);
+        btnLop.setFocusPainted(false);
+        btnLop.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        lbMaGv = new JLabel();
-        lbMaGv.setText("Mã giáo viên:");
-
-        lbNgaythi = new JLabel();
-        lbNgaythi.setText("Ngày thi:");
-
-        lbThoigian = new JLabel();
-        lbThoigian.setText("Thời gian (phút):");
-
-        lbSocauhoi = new JLabel();
-        lbSocauhoi.setText("Số câu hỏi:");
-
-        lbMatkhau = new JLabel();
-        lbMatkhau.setText("Mật khẩu:");
-
-        tfMade = new JTextField();
-        tfMade.setBackground(new Color(255, 255, 255));
-
-        tfTende = new JTextField();
-        tfTende.setBackground(new Color(255, 255, 255));
-
-        tfMaGv = new JTextField();
-        tfMaGv.setBackground(new Color(255, 255, 255));
-
-        tfNgaythi = new JTextField();
-        tfNgaythi.setBackground(new Color(255, 255, 255));
-
-        tfThoigian = new JTextField();
-        tfThoigian.setBackground(new Color(255, 255, 255));
-
-        tfSocauhoi = new JTextField();
-        tfSocauhoi.setBackground(new Color(255, 255, 255));
-
-        tfMatkhau = new JTextField();
-        tfMatkhau.setBackground(new Color(255, 255, 255));
-        
-        
-        btnThem = new JButton("Thêm");
+        btnThem = new JButton("Tạo đề thi");
         btnThem.setBackground(dark_green);
-        btnThem.setSize(100, 20);
+        btnThem.setFont(font13);
         btnThem.setForeground(white);
         btnThem.setBorderPainted(false);
         btnThem.setFocusPainted(false);
+        btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        btnSua = new JButton(" Sửa  ");
-        btnSua.setForeground(white);
+        btnSua = new JButton(" Cập nhật ");
         btnSua.setBackground(dark_green);
-        btnSua.setSize(100, 20);
-        btnSua.setFocusPainted(false);
+        btnSua.setFont(font13);
+        btnSua.setForeground(white);
         btnSua.setBorderPainted(false);
+        btnSua.setFocusPainted(false);
+        btnSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        btnXoa = new JButton(" Xóa  ");
-        btnXoa.setForeground(white);
+        btnXoa = new JButton("     Xóa     ");
         btnXoa.setBackground(dark_green);
-        btnXoa.setSize(100, 20);
-        btnXoa.setFocusPainted(false);
+        btnXoa.setFont(font13);
+        btnXoa.setForeground(white);
         btnXoa.setBorderPainted(false);
+        btnXoa.setFocusPainted(false);
+        btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        lbMade.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelPanel.add(lbMade);
-        contentPanel.add(tfMade);
-        lbTende.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelPanel.add(lbTende);
-        contentPanel.add(tfTende);
-        lbMaGv.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelPanel.add(lbMaGv);
-        contentPanel.add(tfMaGv);
-        lbNgaythi.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelPanel.add(lbNgaythi);
-        contentPanel.add(tfNgaythi);
-        lbThoigian.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelPanel.add(lbThoigian);
-        contentPanel.add(tfThoigian);
-        lbSocauhoi.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelPanel.add(lbSocauhoi);
-        contentPanel.add(tfSocauhoi);
-        lbMatkhau.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelPanel.add(lbMatkhau);
-        contentPanel.add(tfMatkhau);
+        tfTenDe = new JTextField();
+        tfTgian = new JTextField();
+        tfMatKhau = new JTextField();
+        int grap = 20;
+        GroupLayout layout = new GroupLayout(pnctdethi);
+        pnctdethi.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTenDe)
+                        .addComponent(lblNgayThi)
+                        .addComponent(lblTgian)
+                        .addComponent(lblMatKhau)
+                        .addComponent(btnLop)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(tfTenDe)
+                        .addComponent(dateTime)
+                        .addComponent(tfTgian)
+                        .addComponent(tfMatKhau)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(btnThem)
+                        .addComponent(btnSua)
+                        .addComponent(btnXoa)
+                )
+        );
 
-        buttonPanel.add(btnThem);
-        buttonPanel.add(btnSua);
-        buttonPanel.add(btnXoa);
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTenDe)
+                        .addComponent(tfTenDe)
+                        .addComponent(btnThem)
+                )
+                .addGap(grap)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblNgayThi)
+                        .addComponent(dateTime)
+                        .addComponent(btnSua)
+                )
+                .addGap(grap)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTgian)
+                        .addComponent(tfTgian)
+                        .addComponent(btnXoa)
+                )
+                .addGap(grap)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblMatKhau)
+                        .addComponent(tfMatKhau)
+                )
+                .addComponent(btnLop)
+        );
+        pnLeft.add(pndethi, BorderLayout.CENTER);
+        pnLeft.add(pnctdethi, BorderLayout.SOUTH);
 
-        combinedPanel.add(labelPanel, BorderLayout.WEST);
-        combinedPanel.add(contentPanel, BorderLayout.CENTER);
-        combinedPanel.add(buttonPanel, BorderLayout.EAST);
+        pnRight.setBorder(BorderFactory.createTitledBorder(null, "Danh sách câu hỏi đề thi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
+        }));
+        pnRight.setBackground(gray_bg);
 
+        JPanel pnInput = new JPanel(new BorderLayout());
+        pnInput.setBackground(gray_bg);
+        JLabel lblSL = new JLabel("Số lượng câu hỏi:");
+        lblSL.setBackground(gray_bg);
+        lblSL.setFont(font14);
+        spSLCH = new SpinnerNumberModel(0, 0, 50, 1);
+        JSpinner spinner = new JSpinner(spSLCH);
+        JLabel lblDaChon = new JLabel("Đã chọn:");
+        lblDaChon.setFont(font14);
+        lblDaChonCH = new JLabel("0");
+        lblDaChonCH.setFont(font14);
+        btnChonCH = new JButton("Chọn câu hỏi");
+        btnChonCH.setFont(font13);
+        btnChonCH.setForeground(white);
+        btnChonCH.setBackground(dark_green);
+        btnChonCH.setPreferredSize(new Dimension(110, 25));
+        btnChonCH.setBorderPainted(false);
+        btnChonCH.setFocusPainted(false);
+        btnChonCH.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        JPanel pnContainer = new JPanel(new BorderLayout());
+        pnContainer.setBackground(gray_bg);
 
-        lbMade.setFont(font13b);
-        lbTende.setFont(font13b);
-        lbMaGv.setFont(font13b);
-        lbNgaythi.setFont(font13b);
-        lbThoigian.setFont(font13b);
-        lbSocauhoi.setFont(font13b);
-        lbMatkhau.setFont(font13b);
+        JPanel pntop = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));
+        pntop.setBackground(gray_bg);
+        pntop.add(lblSL);
+        pntop.add(spinner);
 
-        tfMade.setFont(font13b);
-        tfTende.setFont(font13b);
-        tfMaGv.setFont(font13b);
-        tfNgaythi.setFont(font13b);
-        tfThoigian.setFont(font13b);
-        tfSocauhoi.setFont(font13b);
-        tfMatkhau.setFont(font13b);
+        pnContainer.add(pntop, BorderLayout.CENTER);
+        pnContainer.add(btnChonCH, BorderLayout.EAST);
+        pnContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
+        JPanel pnbottom = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        pnbottom.setBackground(gray_bg);
+        pnbottom.add(lblDaChon);
+        pnbottom.add(lblDaChonCH);
+        pnInput.add(pnContainer, BorderLayout.NORTH);
+        pnInput.add(pnbottom, BorderLayout.SOUTH);
 
-        btnThem.setFont(font13b);
-        btnSua.setFont(font13b);
-        btnXoa.setFont(font13b);
+        JPanel pnTable = new JPanel(new BorderLayout());
+        pnTable.setBackground(gray_bg);
+        Object[] colDSCH = {"Mã câu hỏi", "Nội dung", "Cấp độ"};
+        modelDSCH = new DefaultTableModel(colDSCH, 0);
 
-        Object[][] data = {
-            {"DE001", "Đề thi học kỳ 1", "GV001", "2024-05-15", 120, 50, "abc123"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-            {"DE002", "Đề thi giữa kỳ", "GV002", "2024-06-10", 90, 40, "def456"},
-        }; 
+        tblDSCH = new JTable(modelDSCH);
+        setTableFont(tblDSCH);
+        tblDSCH.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        JScrollPane scrDSCH = new JScrollPane(tblDSCH);
+        pnTable.add(scrDSCH, BorderLayout.CENTER);
 
-        tablePanel = new JPanel();
-        tablePanel.setBackground(new Color(0xB3, 0xBE, 0xCB));
-        tablePanel.setLayout(new BorderLayout(0, 10));
-
-        DefaultTableModel model = new DefaultTableModel(data, COLUMN_NAMES);
-        JTable table = new JTable(model);
-        table.getTableHeader().setReorderingAllowed(false);
-
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        JPanel searchPn = new JPanel();
-        searchPn.setBackground(new Color(0xB3, 0xBE, 0xCB)); 
-        searchPn.setPreferredSize(new Dimension(800, 30)); 
-        searchPn.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
-        
-        JLabel search = new JLabel();
-        search.setText("Tìm kiếm: ");
-        search.setFont(font14);
-        JTextField tfsearch = new JTextField();
-        tfsearch.setBackground(Color.WHITE);
-        tfsearch.setPreferredSize(new Dimension(150, 20));
-
-        searchPn.add(search);
-        searchPn.add(tfsearch);
-
-        tablePanel.add(searchPn, BorderLayout.NORTH);  // Add search panel to the top
-        tablePanel.add(scrollPane, BorderLayout.CENTER); 
+        pnRight.add(pnInput, BorderLayout.NORTH);
+        pnRight.add(pnTable, BorderLayout.CENTER);
     }
-    
+
+    private void setTableFont(JTable table) {
+        table.setFont(font13);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font13);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font13);
+        table.setDefaultRenderer(Object.class, renderer);
+    }
+
     public static void main(String[] args) {
         JFrame f = new JFrame();
-        f.setSize(800, 500);
+        f.setSize(900, 500);
+        PnTaoDe p = new PnTaoDe();
+        f.add(p);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
-        f.getContentPane().add( new PnTaoDe());
         f.setVisible(true);
     }
 }

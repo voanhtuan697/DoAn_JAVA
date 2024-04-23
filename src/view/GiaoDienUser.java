@@ -162,16 +162,16 @@ public class GiaoDienUser extends JFrame {
 
 //------------------------------
 //        Phần thêm panel
-        JPanel pn_TaoCH = new PanelTaoCauHoi();
-        cards.add(pn_TaoCH, "pnTaoCH");
-        JPanel pn_TaoDT = new PnTaoDe();
-        cards.add(pn_TaoDT, "pnTaoDT");
+//        JPanel pn_TaoCH = new PanelTaoCauHoi();
+//        cards.add(pn_TaoCH, "pnTaoCH");
+//        JPanel pn_TaoDT = new PnTaoDe();
+//        cards.add(pn_TaoDT, "pnTaoDT");
 //        JPanel pn_KQ = new FrameKetQua();
 //        cards.add(pn_KQ, "pnKQ");
-        JPanel pn_TT = new PnThongTinGV();
+        JPanel pn_TT = new PnThongTinCaNhan();
         cards.add(pn_TT, "pnThongTin");
-        JPanel pn_Passwd = new PnDoiMatKhau();
-        cards.add(pn_Passwd, "pnPass");
+//        JPanel pn_Passwd = new PnDoiMatKhau();
+//        cards.add(pn_Passwd, "pnPass");
 
         pn_right.add(pn_header, BorderLayout.NORTH);
         pn_right.add(pn_content, BorderLayout.CENTER);

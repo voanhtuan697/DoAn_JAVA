@@ -6,9 +6,8 @@ package connect;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Scanner;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,46 +15,56 @@ import java.util.Scanner;
  */
 public class MyConnection {
 
-    static Connection con;
-    Statement stm;
+    private Connection conn;
+    private String url;
+    private String dbName;
+    private String driver;
+    private String username;
+    private String password;
 
-    public void openConnection() {
+    public MyConnection() throws SQLException {
+        dbName = "data_QLTN";
+        url = "jdbc:sqlserver://localhost:1433;databaseName=" + dbName + ";trustServerCertificate=true";
+        driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        username = "sa";
+        password = "quynh1409";  //moi nguoi se co pass khac nhau
+    }
+
+    public MyConnection(Connection conn, String url, String dbName, String driver, String username, String password) {
+        this.conn = conn;
+        this.url = url;
+        this.dbName = dbName;
+        this.driver = driver;
+        this.username = username;
+        this.password = password;
+    }
+
+    public void Connect() throws SQLException {
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String Url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTracNghiem;trustServerCertificate=true";
-            String user = "sa";
-            String pass = "123456";
-            con = DriverManager.getConnection(Url, user, pass);
-            stm = con.createStatement();
-        } catch (Exception e) {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, username, password);
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("Driver not found");
         }
     }
 
-    public ResultSet runQuerry(String sql) {
-        try {
-            return stm.executeQuery(sql);
+    public void disconnect() throws SQLException {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new SQLException("Error while closing connection: " + e.getMessage());
+            } finally {
+                conn = null;
+            }
+        }
+    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    public PreparedStatement preparedStatement(String query) throws SQLException {
+        if (conn == null || conn.isClosed()) {
+            throw new SQLException("Connection is not established");
         }
+        return conn.prepareStatement(query);
     }
-    
-    public int runUpdate(String sql) {
-        try {
-            return stm.executeUpdate(sql);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-    
-    public void closeConnection(){
-        try {
-             con.close();
-        } catch (Exception e) {
-        }
-       
-    }
 }

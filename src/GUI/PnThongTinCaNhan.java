@@ -22,9 +22,8 @@ import javax.swing.JTextField;
 import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font14;
 import static GUI.BASE.font16;
-import static GUI.BASE.gray_bg;
+import static GUI.BASE.font16;
 import static GUI.BASE.white;
 import java.awt.Color;
 import net.sourceforge.jdatepicker.JDateComponentFactory;
@@ -45,14 +44,14 @@ public class PnThongTinCaNhan extends JPanel {
     public void init() {
         this.setLayout(new BorderLayout());
         pnLeft = new JPanel();
-        pnLeft.setBackground(gray_bg);
+
         pnLeft.setLayout(new BoxLayout(pnLeft, BoxLayout.Y_AXIS));
         pnLeft.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 0));
         pnLeft.setBorder(BorderFactory.createTitledBorder(null, "Thông tin cá nhân của người dùng", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font16) {
         }));
 
         pnRight = new JPanel();
-        pnRight.setBackground(gray_bg);
+
         pnRight.setLayout(new BoxLayout(pnRight, BoxLayout.Y_AXIS));
         pnRight.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
         pnRight.setPreferredSize(new Dimension(400, 0));
@@ -67,117 +66,122 @@ public class PnThongTinCaNhan extends JPanel {
         JLabel lbTenDN, lbHoTen, lbNgSinh, lbChucVu, lbTrBM, lbLopDay, lbLopHoc, lbMonDay, lbDeThi;
 
         JPanel pnDN = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnDN.setBackground(gray_bg);
+
         lbTenDN = new JLabel("Tên đăng nhập:");
-        lbTenDN.setFont(font14);
+        lbTenDN.setFont(font16);
         lblTenDn = new JLabel("Nguyễn Thanh Tùng");
-        lblTenDn.setFont(font14);
+        lblTenDn.setFont(font16);
         pnDN.add(lbTenDN);
         pnDN.add(lblTenDn);
 
         JPanel pnHoTen = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnHoTen.setBackground(gray_bg);
+
         lbHoTen = new JLabel("Họ và tên:");
-        lbHoTen.setFont(font14);
+        lbHoTen.setFont(font16);
         tfHoTen = new JTextField(25);
         pnHoTen.add(lbHoTen);
         pnHoTen.add(tfHoTen);
 
         JPanel pnNgSinh = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnNgSinh.setBackground(gray_bg);
+
         lbNgSinh = new JLabel("Ngày sinh:");
-        lbNgSinh.setFont(font14);
+        lbNgSinh.setFont(font16);
         JDateComponentFactory dateComponent = new JDateComponentFactory();
         JDatePicker date = dateComponent.createJDatePicker();
         pnNgSinh.add(lbNgSinh);
         pnNgSinh.add((JComponent) date);
 
         JPanel pnChucVu = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnChucVu.setBackground(gray_bg);
+
         lbChucVu = new JLabel("Chức vụ:");
-        lbChucVu.setFont(font14);
+        lbChucVu.setFont(font16);
         lblChucVu = new JLabel("Admin");
-        lblChucVu.setFont(font14);
+        lblChucVu.setFont(font16);
         pnChucVu.add(lbChucVu);
         pnChucVu.add(lblChucVu);
 
         JPanel pnTrBM = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnTrBM.setBackground(gray_bg);
+
         lbTrBM = new JLabel("Trưởng bộ môn:");
-        lbTrBM.setFont(font14);
+        lbTrBM.setFont(font16);
         lblTrMon = new JLabel("Khoa học máy tính");
-        lblTrMon.setFont(font14);
+        lblTrMon.setFont(font16);
         pnTrBM.add(lbTrBM);
         pnTrBM.add(lblTrMon);
 
         JPanel pnLopDay = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnLopDay.setBackground(gray_bg);
+
         lbLopDay = new JLabel("Danh sách lớp dạy:");
-        lbLopDay.setFont(font14);
+        lbLopDay.setFont(font16);
         btnLDay = new JButton("show", createResizedIcon(PnThongTinCaNhan.class, "..//image//eye-icon.png", 20, 20));
         btnLDay.setHorizontalTextPosition(JButton.LEFT);
         btnLDay.setVerticalTextPosition(JButton.CENTER);
-        btnLDay.setBackground(Color.decode("#006400"));
+        btnLDay.setBackground(dark_green);
         btnLDay.setForeground(white);
         btnLDay.setBorderPainted(false);
         btnLDay.setFocusPainted(false);
+        btnLDay.setFont(font16);
         btnLDay.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         pnLopDay.add(lbLopDay);
         pnLopDay.add(btnLDay);
 
         JPanel pnLopHoc = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnLopHoc.setBackground(gray_bg);
+
         lbLopHoc = new JLabel("Danh sách lớp học:");
-        lbLopHoc.setFont(font14);
+        lbLopHoc.setFont(font16);
         btnLHoc = new JButton("show", createResizedIcon(PnThongTinCaNhan.class, "..//image//eye-icon.png", 20, 20));
         btnLHoc.setHorizontalTextPosition(JButton.LEFT);
         btnLHoc.setVerticalTextPosition(JButton.CENTER);
-        btnLHoc.setBackground(Color.decode("#006400"));
+        btnLHoc.setBackground(dark_green);
         btnLHoc.setForeground(white);
         btnLHoc.setBorderPainted(false);
         btnLHoc.setFocusPainted(false);
+        btnLHoc.setFont(font16);
         btnLHoc.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         pnLopHoc.add(lbLopHoc);
         pnLopHoc.add(btnLHoc);
 
         JPanel pnMonDay = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnMonDay.setBackground(gray_bg);
+
         lbMonDay = new JLabel("Danh sách môn dạy:");
-        lbMonDay.setFont(font14);
+        lbMonDay.setFont(font16);
         btnMon = new JButton("show", createResizedIcon(PnThongTinCaNhan.class, "..//image//eye-icon.png", 20, 20));
         btnMon.setHorizontalTextPosition(JButton.LEFT);
         btnMon.setVerticalTextPosition(JButton.CENTER);
-        btnMon.setBackground(Color.decode("#006400"));
+        btnMon.setBackground(dark_green);
         btnMon.setForeground(white);
         btnMon.setBorderPainted(false);
         btnMon.setFocusPainted(false);
+        btnMon.setFont(font16);
         btnMon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         pnMonDay.add(lbMonDay);
         pnMonDay.add(btnMon);
 
         JPanel pnDethi = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnDethi.setBackground(gray_bg);
+
         lbDeThi = new JLabel("Đề thi:");
-        lbDeThi.setFont(font14);
+        lbDeThi.setFont(font16);
         btnDThi = new JButton("show", createResizedIcon(PnThongTinCaNhan.class, "..//image//eye-icon.png", 20, 20));
         btnDThi.setHorizontalTextPosition(JButton.LEFT);
         btnDThi.setVerticalTextPosition(JButton.CENTER);
-        btnDThi.setBackground(Color.decode("#006400"));
+        btnDThi.setBackground(dark_green);
         btnDThi.setForeground(white);
         btnDThi.setBorderPainted(false);
         btnDThi.setFocusPainted(false);
+        btnDThi.setFont(font16);
         btnDThi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         pnDethi.add(lbDeThi);
         pnDethi.add(btnDThi);
 
         JPanel pnCapNhat = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnCapNhat.setBackground(gray_bg);
+
         btnCapNhat = new JButton("Cập nhật");
         btnCapNhat.setBackground(dark_green);
         btnCapNhat.setForeground(white);
         btnCapNhat.setBorderPainted(false);
         btnCapNhat.setFocusPainted(false);
+        btnCapNhat.setFont(font16);
         btnCapNhat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         pnCapNhat.add(btnCapNhat);
 
@@ -194,40 +198,44 @@ public class PnThongTinCaNhan extends JPanel {
         pnLeft.add(pnCapNhat);
 
         JPanel pnMKcu = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnMKcu.setBackground(gray_bg);
+
         pnMKcu.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbMKcu = new JLabel("Nhập mật khẩu cũ:");
-        lbMKcu.setFont(font14);
+        lbMKcu.setFont(font16);
         tfMk = new JTextField(25);
+        tfMk.setPreferredSize(new Dimension(tfMk.getPreferredSize().width, 30));
         pnMKcu.add(lbMKcu);
         pnMKcu.add(tfMk);
 
         JPanel pnMkMoi = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnMkMoi.setBackground(gray_bg);
+
         pnMkMoi.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbMkmoi = new JLabel("Nhập mật khẩu mới:");
-        lbMkmoi.setFont(font14);
+        lbMkmoi.setFont(font16);
         tfMKMoi = new JTextField(25);
+        tfMKMoi.setPreferredSize(new Dimension(tfMKMoi.getPreferredSize().width, 30));
         pnMkMoi.add(lbMkmoi);
         pnMkMoi.add(tfMKMoi);
 
         JPanel pnNhapLai = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnNhapLai.setBackground(gray_bg);
+
         pnNhapLai.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbNhapLai = new JLabel("Nhập lại mật khẩu:");
-        lbNhapLai.setFont(font14);
+        lbNhapLai.setFont(font16);
         tfMkNL = new JTextField(25);
+        tfMkNL.setPreferredSize(new Dimension(tfMkNL.getPreferredSize().width, 30));
         pnNhapLai.add(lbNhapLai);
         pnNhapLai.add(tfMkNL);
 
         JPanel pnDoiMk = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnDoiMk.setBackground(gray_bg);
+
         pnDoiMk.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         btnDoiMK = new JButton("Đổi mật khẩu");
         btnDoiMK.setBackground(dark_green);
         btnDoiMK.setForeground(white);
         btnDoiMK.setBorderPainted(false);
         btnDoiMK.setFocusPainted(false);
+        btnDoiMK.setFont(font16);
         btnDoiMK.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         pnDoiMk.add(btnDoiMK);
 

@@ -59,11 +59,11 @@ public class FrameThemLopChoSV extends JFrame{
         pnTable.setLayout(new BorderLayout());
         
         Object[][] data = {
-            {"L1", "CNTT", "Lý Mạc Sầu", "Toán","2024","1"},
+            {"L1", "CNTT","1", "Lý Mạc Sầu", "Toán","2024","1"},
             
             
             };
-        Object[] columns = {"Mã lớp", "Tên lớp", "Tên giảng viên", "Tên môn","Năm học","Học kỳ"};
+        Object[] columns = {"Mã lớp",  "Tên môn" , "Nhóm lớp", "Tên giảng viên","Năm học","Học kỳ"};
         model = new DefaultTableModel(data, columns);
         
         JTable table = new JTable(model) {

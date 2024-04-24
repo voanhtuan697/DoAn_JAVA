@@ -20,6 +20,9 @@ import static GUI.BASE.dark_green;
 import static GUI.BASE.font16;
 import static GUI.BASE.font14b;
 import static GUI.BASE.gray_bg;
+import XULY.xuLyFileExcel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PnKetQua extends JPanel {
 
@@ -31,6 +34,7 @@ public class PnKetQua extends JPanel {
     private JRadioButton rdMax, rdMin, rdThi;
     private String[] lblContent = {"Môn thi:", "Đề thi:", "Điểm từ:", "Điểm", "Lớp:"};
     private JComboBox cbMonthi, cbDeThi, cbLop;
+    private JTable table;
 
     public PnKetQua() {
         init();
@@ -57,13 +61,7 @@ public class PnKetQua extends JPanel {
     private void initComponent() {
 
         Object[] columns = {"Mã thí sinh", "Họ và tên", "Điểm", "Lớp", "Môn"};
-        Object[][] data = {{"0921", "none", "10", "DCT123", "TA"},
-        {null, null, null, null, null},
-        {null, null, null, null, null},
-        {null, null, null, null, null},
-        {null, null, null, null, null},
-        {null, null, null, null, null},
-        {null, null, null, null, null},};
+        Object[][] data = {{"0921", "none", "10", "DCT123", "TA"}};
 
         model = new DefaultTableModel(data, columns) {
             @Override
@@ -71,7 +69,7 @@ public class PnKetQua extends JPanel {
                 return false; // không cho phép chỉnh sửa dữ liệu
             }
         };
-        JTable table = new JTable(model);
+        table = new JTable(model);
 
         int[] columnWidths = {100, 200, 80, 100, 100};
         for (int i = 0; i < columnWidths.length; i++) {
@@ -130,6 +128,14 @@ public class PnKetQua extends JPanel {
         btnTimTheoDiem.setBorderPainted(false);
         btnTimTheoDiem.setFocusPainted(false);
         btnTimTheoDiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        btnXuat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                xuatExcel();
+            }
+        });
+
     }
 
     private void showLayout() {
@@ -199,6 +205,11 @@ public class PnKetQua extends JPanel {
                         )
                 )
         );
+    }
+
+    private void xuatExcel() {
+        xuLyFileExcel file = new xuLyFileExcel();
+        file.xuatExcel(table);
     }
 
     public static void main(String[] args) {

@@ -40,7 +40,7 @@ public class FrameKetQua extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 400);
         setLocationRelativeTo(null);
-//        setVisible(true);
+        setVisible(true);
     }
 
     private void init() {

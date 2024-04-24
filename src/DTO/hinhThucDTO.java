@@ -12,6 +12,9 @@ public class hinhThucDTO {
 
     private String MaHT, TenHT;
 
+    public hinhThucDTO() {
+    }
+    
     public hinhThucDTO(String MaHT, String TenHT) {
         this.MaHT = MaHT;
         this.TenHT = TenHT;

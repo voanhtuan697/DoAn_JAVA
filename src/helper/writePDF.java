@@ -43,17 +43,17 @@ public class writePDF {
     FileOutputStream file;
     JFrame jf = new JFrame();
     FileDialog fd = new FileDialog(jf, "In pdf", FileDialog.SAVE);
-    Font fontNormal10;
-    Font fontBold15;
-    Font fontBold25;
-    Font fontBoldItalic15;
+    Font font10;
+    Font font15b;
+    Font font25b;
+    Font font15i;
 
     public writePDF() {
         try {
-            fontNormal10 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12, Font.NORMAL);
-            fontBold25 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25, Font.NORMAL);
-            fontBold15 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 15, Font.NORMAL);
-            fontBoldItalic15 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold Italic.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 15, Font.NORMAL);
+            font10 = new Font(BaseFont.createFont("font/TimesNewRoman/SVN-Times New Roman.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12, Font.NORMAL);
+            font25b = new Font(BaseFont.createFont("font/TimesNewRoman/SVN-Times New Roman Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25, Font.NORMAL);
+            font15b = new Font(BaseFont.createFont("font/TimesNewRoman/SVN-Times New Roman Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 15, Font.NORMAL);
+            font15i = new Font(BaseFont.createFont("font/TimesNewRoman/SVN-Times New Roman Bold Italic.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 15, Font.NORMAL);
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException ex) {
@@ -77,7 +77,7 @@ public class writePDF {
 
     public void setTitle(String title) {
         try {
-            Paragraph pdfTitle = new Paragraph(new Phrase(title, fontBold25));
+            Paragraph pdfTitle = new Paragraph(new Phrase(title, font25b));
             pdfTitle.setAlignment(Element.ALIGN_CENTER);
             document.add(pdfTitle);
             document.add(Chunk.NEWLINE);

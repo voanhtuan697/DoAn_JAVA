@@ -11,13 +11,13 @@ import GUI.GiaoDienUser;
 public class testTuan {
 
     public static void main(String[] args) {
-//        new GiaoDienUser();
+        new GiaoDienUser();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //            new GiaoDienUser();
 
 //            new MenuFrameAd();
-            new FrameBaiThi();
+//            new FrameBaiThi();
 
         } catch (Exception e) {
             e.printStackTrace();

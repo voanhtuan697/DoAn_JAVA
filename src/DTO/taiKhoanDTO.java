@@ -12,10 +12,11 @@ public class taiKhoanDTO {
     private String MaTK;
     private String TenDN;
     private String MatKhau;
-    private String bit;
+    private int bit;
     private String MaQuyen;
+    private nguoiDungDTO NgDung = new nguoiDungDTO();
 
-    public taiKhoanDTO(String MaTK, String TenDN, String MatKhau, String bit, String MaQuyen) {
+    public taiKhoanDTO(String MaTK, String TenDN, String MatKhau, int bit, String MaQuyen) {
         this.MaTK = MaTK;
         this.TenDN = TenDN;
         this.MatKhau = MatKhau;
@@ -24,6 +25,14 @@ public class taiKhoanDTO {
     }
 
     public taiKhoanDTO() {
+    }
+
+    public nguoiDungDTO getNgDung() {
+        return NgDung;
+    }
+
+    public void setNgDung(nguoiDungDTO NgDung) {
+        this.NgDung = NgDung;
     }
 
     public String getMaTK() {
@@ -50,11 +59,11 @@ public class taiKhoanDTO {
         this.MatKhau = MatKhau;
     }
 
-    public String getBit() {
+    public int getBit() {
         return bit;
     }
 
-    public void setBit(String bit) {
+    public void setBit(int bit) {
         this.bit = bit;
     }
 

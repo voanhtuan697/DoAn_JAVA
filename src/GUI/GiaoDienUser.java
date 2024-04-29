@@ -22,6 +22,7 @@ import static GUI.BASE.font16;
 import static GUI.BASE.white;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class GiaoDienUser extends JFrame implements ActionListener {
 
@@ -29,7 +30,7 @@ public class GiaoDienUser extends JFrame implements ActionListener {
     private CardLayout cardLayout;
     private JLabel lb_Header;
 
-    public GiaoDienUser() {
+    public GiaoDienUser() throws SQLException {
         init();
     }
 
@@ -57,7 +58,7 @@ public class GiaoDienUser extends JFrame implements ActionListener {
         this.lb_Header = lb_Header;
     }
 
-    public void init() {
+    public void init() throws SQLException {
         this.setTitle("Frame");
         this.setSize(1450, 700);
         this.setLocationRelativeTo(null);
@@ -210,7 +211,7 @@ public class GiaoDienUser extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         new GiaoDienUser();
     }
 }

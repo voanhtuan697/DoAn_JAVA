@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import static GUI.BASE.cobalt_blue;
 import static GUI.BASE.createResizedIcon;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font13;
 import static GUI.BASE.font16;
 import static GUI.BASE.white;
 import java.awt.event.ActionEvent;

@@ -34,6 +34,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.util.Date;
+import java.util.Scanner;
 import javax.swing.JButton;
 
 public class writePDF {
@@ -42,7 +43,7 @@ public class writePDF {
     Document document = new Document();
     FileOutputStream file;
     JFrame jf = new JFrame();
-    FileDialog fd = new FileDialog(jf, "In pdf", FileDialog.SAVE);
+    FileDialog fd = new FileDialog(jf, "Xuất pdf", FileDialog.SAVE);
     Font font10;
     Font font15b;
     Font font25b;
@@ -60,7 +61,27 @@ public class writePDF {
             Logger.getLogger(writePDF.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void exportPDF(String title, String content) {
+        try {
+            String url = getFile(title + ".pdf");
+            if (url == null) {
+                return;
+            }
+            chooseURL(url);
+            setTitle(title);
 
+            // Thêm nội dung vào tài liệu PDF (sau này cần in gì sẽ bổ sung form để lấy dữ liệu cho dạng in đó)
+            Paragraph paragraph = new Paragraph(new Phrase(content, font15b));
+            document.add(paragraph);
+
+            document.close();
+            openFile(url);
+        } catch (DocumentException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     public void chooseURL(String url) {
         try {
             document.close();
@@ -122,6 +143,6 @@ public class writePDF {
             builder.append(" ");
         }
         return new Chunk(builder.toString());
-    }
+    }   
 }
 

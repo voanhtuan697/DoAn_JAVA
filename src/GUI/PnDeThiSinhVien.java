@@ -140,6 +140,23 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
                 return false;
             }
         };
+        
+        tableDangThi.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Kiểm tra xem chuột đã được nhấp đúp hay không
+                    int row = tableDangThi.getSelectedRow();
+                    if (row != -1) { // Kiểm tra xem có hàng nào được chọn không
+                        // Lấy dữ liệu từ hàng được chọn và hiển thị trong một frame mới
+                        String id = tableDangThi.getValueAt(row, 0).toString();
+                        System.out.println(id);
+                    }
+                }
+            }
+        });
+        
+        
+        
         JScrollPane scrollPane_tableDangThi = new JScrollPane(tableDangThi);
 //--------------------------- Đã thi--------------------------------------
         Object[][] dataDaThi = {

@@ -10,22 +10,10 @@ import BUS.taiKhoanBUS;
 import DTO.nguoiDungDTO;
 import DTO.quyenDTO;
 import DTO.taiKhoanDTO;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.JDatePanel;
 import net.sourceforge.jdatepicker.JDatePicker;
@@ -40,12 +28,7 @@ import static GUI.BASE.font14;
 import static GUI.BASE.gray_bg;
 import static GUI.BASE.white;
 import XULY.ShowDiaLog;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,18 +39,9 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
-//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/**
- *
- * @author E7250
- */
-/*<<<<<<< HEAD:src/GUI/PnThemUser.java
-public class PnThemUser extends JPanel {*/
-//, "Admin", "Trưởng bộ môn", "Giảng viên", "Sinh viên"
-//=======
 public class PnTaoTaiKhoan extends JPanel {
-//>>>>>>> da2e298cf90000b2c187d2213472921f8cee8472:src/GUI/PnTaoTaiKhoan.java
 
     private DefaultTableModel model;
     private String[] arr_table_quyen = {"Tất cả"};
@@ -89,10 +63,7 @@ public class PnTaoTaiKhoan extends JPanel {
     private quyenBUS role;
     private String userId;
 
-//    public PnThemUser() throws SQLException {
-//=======*/
     public PnTaoTaiKhoan() throws SQLException {
-//>>>>>>> da2e298cf90000b2c187d2213472921f8cee8472:src/GUI/PnTaoTaiKhoan.java
         init();
         loadRole();
         loadUser();
@@ -222,24 +193,13 @@ public class PnTaoTaiKhoan extends JPanel {
             }
 
         });
-//<<<<<<< HEAD:src/GUI/PnThemUser.java
-//=======
 
-//        btnXoa.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                datePicker.getModel().setValue(null);
-//            }
-//
-//        });
-//>>>>>>> da2e298cf90000b2c187d2213472921f8cee8472:src/GUI/PnTaoTaiKhoan.java
         this.add(pn_header, BorderLayout.NORTH);
         this.add(pn_content, BorderLayout.CENTER);
     }
 
     public void loadRole() throws SQLException {
         for (quyenDTO x : new quyenBUS().getQuyen()) {
-//            System.out.println(x.getTenQuyen());
             cbb_table_quyen.addItem(x.getTenQuyen().toString());
             cbb_quyen.addItem(x.getTenQuyen().toString());
         }
@@ -530,7 +490,7 @@ public class PnTaoTaiKhoan extends JPanel {
 
             }
         });
-        /*
+        
         btnNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -608,7 +568,7 @@ public class PnTaoTaiKhoan extends JPanel {
 //                JOptionPane.showMessageDialog(null, "Xuất thành công!");
             }
         }
-        );*/
+        );
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e

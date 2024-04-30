@@ -138,6 +138,6 @@ public class ShowDiaLog extends JDialog {
     }
     
     public static void main(String[] args) {
-        new ShowDiaLog("thanh cong", ShowDiaLog.SUCCESS_DIALOG);
+        new ShowDiaLog("thanh cong", ShowDiaLog.ERROR_DIALONG);
     }
 }

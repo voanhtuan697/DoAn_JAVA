@@ -244,8 +244,6 @@ public class PnTaoLopMoi extends JPanel {
         f.setSize(800, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
-//        f.pack();
-//        f.setResizable(false);
         f.setLocationRelativeTo(null);
     }
 

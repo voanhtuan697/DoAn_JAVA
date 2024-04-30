@@ -3,10 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/java/Doan_JAVA/src/GUI/ThongTinUserGUI.java</file>
             <file>file:/D:/java/Doan_JAVA/src/BUS/quyenBUS.java</file>
             <file>file:/D:/java/Doan_JAVA/src/GUI/dangNhapTaiKhoanGUI.java</file>
             <file>file:/D:/java/Doan_JAVA/src/DAO/quyenDAO.java</file>
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/DTO/nguoiDungDTO.java</file>
+            <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/DAO/nguoiDungDAO.java</file>
+            <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/XULY/ShowDiaLog.java</file>
+            <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/GUI/PnThemUser.java</file>
+            <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/DTO/taiKhoanDTO.java</file>
+            <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/DAO/taiKhoanDAO.java</file>
+=======
+            <file>file:/D:/java/Doan_JAVA/src/BUS/chiTietQuyenBUS.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/DAO/taiKhoanDAO.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/DAO/chiTietQuyenDAO.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/GUI/PnPhanQuyen.java</file>
+>>>>>>> da2e298cf90000b2c187d2213472921f8cee8472
+>>>>>>> 63112e83ebe61b6360737a1bee7a09e369fca8e0
         </group>
     </open-files>
 </project-private>

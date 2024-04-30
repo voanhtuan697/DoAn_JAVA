@@ -20,10 +20,10 @@ public class MyConnection {
 
     public MyConnection() throws SQLException {
         dbName = "data_QLTN";
-        url = "jdbc:sqlserver://localhost:1433;databaseName=" + dbName + ";trustServerCertificate=true";
+        url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTracNghiem;trustServerCertificate=true";
         driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         username = "sa";
-        password = "quynh1409";  //moi nguoi se co pass khac nhau
+        password = "123456";  //moi nguoi se co pass khac nhau
     }
 
     public MyConnection(Connection conn, String url, String dbName, String driver, String username, String password) {
@@ -62,5 +62,5 @@ public class MyConnection {
         }
         return conn.prepareStatement(query);
     }
-    
+
 }

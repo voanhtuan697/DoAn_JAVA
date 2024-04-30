@@ -15,10 +15,14 @@ import java.util.ArrayList;
  */
 public class quyenBUS {
 
+    private quyenDAO quyen;
+
     quyenDAO role;
 
     public quyenBUS() throws SQLException {
         role = new quyenDAO();
+        this.quyen = new quyenDAO();
+
     }
 
     public ArrayList<quyenDTO> getQuyen() throws SQLException {
@@ -32,4 +36,15 @@ public class quyenBUS {
     public String getTenQuyenTheoMaQuyen(String maQuyen) throws SQLException {
         return role.getTenQuyenTheoMaQuyen(maQuyen);
     }
+
+    public ArrayList<quyenDTO> layDanhSachQuyen() {
+        ArrayList<quyenDTO> arr = quyen.layDanhSachQuyen();
+        return arr;
+    }
+
+    public quyenDTO layQuyen(String maTK) {
+        quyenDTO quyen = this.quyen.layQuyen(maTK);
+        return quyen;
+    }
+
 }

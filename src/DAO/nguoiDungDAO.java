@@ -83,10 +83,41 @@ public class nguoiDungDAO {
         }
         return false;
     }
-    public static void main(String[] args) throws SQLException {
-        for (nguoiDungDTO x : new nguoiDungDAO().getNguoiDung()) {
-            System.out.println(x.getMaUser());
+//    public static void main(String[] args) throws SQLException {
+//        for (nguoiDungDTO x : new nguoiDungDAO().getNguoiDung()) {
+//            System.out.println(x.getMaUser());
+//        }
+//    }
+
+    
+    public nguoiDungDTO layNguoiDung(String maTK) {
+        nguoiDungDTO user = new nguoiDungDTO();
+        try {
+            String query = "SELECT MaUser, HoTen, NgSinh FROM TAIKHOAN JOIN NGUOIDUNG ON TAIKHOAN.TenDN = NGUOIDUNG.MaUser WHERE MaTK ='"+maTK+"'";
+
+            PreparedStatement pre = conn.preparedStatement(query);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                user.setMaUser(rs.getString("MaUser"));
+                user.setHoTen(rs.getString("HoTen"));
+                user.setNgSinh(rs.getString("NgSinh"));
+                return user;
+            } else {
+                // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
+                System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
-
+    
+    public static void main(String[] args) throws SQLException {
+        nguoiDungDAO tk = new nguoiDungDAO();
+        nguoiDungDTO user = tk.layNguoiDung("TK2");
+        System.out.println(user.getHoTen());
+        System.out.println(user.getMaUser());
+        System.out.println(user.getNgSinh());
+    }
 }

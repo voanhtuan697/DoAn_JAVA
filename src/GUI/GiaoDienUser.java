@@ -156,7 +156,7 @@ public class GiaoDienUser extends JFrame implements ActionListener {
 //        Phần thêm panel
 //String[] name_btn = new String[]{"Câu hỏi", "Môn thi","Thêm lớp", "Đề thi", "Kết quả", "Tài khoản", "Phân quyền"};
         JPanel pnTaoCauHoi = new PanelTaoCauHoi();
-        cards.add(pnTaoCauHoi, "pnTaoCauHoi");
+        /*/cards.add(pnTaoCauHoi, "pnTaoCauHoi");
         JPanel pnThemMon = new PnThemMon();
         cards.add(pnThemMon, "pnThemMon");
         JPanel pnThemLop = new PnThemLop();
@@ -170,7 +170,7 @@ public class GiaoDienUser extends JFrame implements ActionListener {
         JPanel pnPhanQuyen = new PnPhanQuyen();
         cards.add(pnPhanQuyen, "pnPhanQuyen");
         JPanel pnThongTin = new PnThongTinCaNhan();
-        cards.add(pnThongTin, "pnThongTin");
+        cards.add(pnThongTin, "pnThongTin");*/
 
         pn_right.add(pn_header, BorderLayout.NORTH);
         pn_right.add(pn_content, BorderLayout.CENTER);

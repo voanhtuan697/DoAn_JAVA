@@ -36,6 +36,7 @@ public class quyenDAO {
         }
         return dsQuyen;
     }
+
     public String getMaQuyenTheoTenQuyen(String tenQuyen) throws SQLException {
         String maQuyen = null;
         String sql = "SELECT * FROM quyen WHERE TenQuyen=?";
@@ -47,6 +48,7 @@ public class quyenDAO {
         }
         return maQuyen;
     }
+
     public String getTenQuyenTheoMaQuyen(String maQuyen) throws SQLException {
         String tenQuyen = null;
         String sql = "SELECT TenQuyen FROM quyen WHERE MaQuyen=?";
@@ -57,5 +59,46 @@ public class quyenDAO {
             tenQuyen = rs.getString(1);
         }
         return tenQuyen;
+    }
+
+    public ArrayList<quyenDTO> layDanhSachQuyen() {
+        ArrayList<quyenDTO> arr = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM QUYEN";
+            PreparedStatement pre = conn.preparedStatement(query);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                quyenDTO q = new quyenDTO();
+                q.setMaQuyen(rs.getString(1));
+                q.setTenQuyen(rs.getString(2));
+                arr.add(q);
+            }
+            pre.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arr;
+    }
+
+    public quyenDTO layQuyen(String maTK) {
+        quyenDTO quyen = new quyenDTO();
+        try {
+            String query = "SELECT TK.MaQuyen, TenQuyen FROM TAIKHOAN TK JOIN QUYEN Q ON TK.MaQuyen = Q.MaQuyen WHERE TK.MaTK = '" + maTK + "'";
+
+            PreparedStatement pre = conn.preparedStatement(query);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                quyen.setMaQuyen(rs.getString(1));
+                quyen.setTenQuyen(rs.getString(2));
+                return quyen;
+            } else {
+                // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
+                System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -513,7 +513,7 @@ public class PnThemUser extends JPanel {
 
             }
         });
-
+/*
         btnNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -591,7 +591,7 @@ public class PnThemUser extends JPanel {
 //                JOptionPane.showMessageDialog(null, "Xuất thành công!");
             }
         }
-        );
+        );*/
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e

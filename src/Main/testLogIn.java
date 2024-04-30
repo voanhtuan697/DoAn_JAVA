@@ -5,7 +5,7 @@
 package Main;
 
 import javax.swing.UIManager;
-import GUI.Login;
+import GUI.dangNhapTaiKhoanGUI;
 
 
 public class testLogIn {
@@ -14,7 +14,7 @@ public class testLogIn {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            new Login();
+            new dangNhapTaiKhoanGUI();
         } catch (Exception e) {
             e.printStackTrace();
         }

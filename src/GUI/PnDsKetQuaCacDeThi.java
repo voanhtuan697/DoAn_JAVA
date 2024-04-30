@@ -68,10 +68,7 @@ public class PnDsKetQuaCacDeThi extends JPanel{
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };;
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(new DisabledTableCellRenderer());
-        }
+        };
         
         JScrollPane scrollPane_table = new JScrollPane(table);
         pn_table.add(scrollPane_table, BorderLayout.CENTER);
@@ -90,3 +87,10 @@ public class PnDsKetQuaCacDeThi extends JPanel{
         f.setVisible(true);
     }
 }
+
+
+
+
+
+ 
+        

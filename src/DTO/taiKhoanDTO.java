@@ -12,14 +12,14 @@ public class taiKhoanDTO {
     private String MaTK;
     private String TenDN;
     private String MatKhau;
-    private String bit;
+    private boolean trangThai;
     private String MaQuyen;
 
-    public taiKhoanDTO(String MaTK, String TenDN, String MatKhau, String bit, String MaQuyen) {
+    public taiKhoanDTO(String MaTK, String TenDN, String MatKhau, boolean bit, String MaQuyen) {
         this.MaTK = MaTK;
         this.TenDN = TenDN;
         this.MatKhau = MatKhau;
-        this.bit = bit;
+        this.trangThai = bit;
         this.MaQuyen = MaQuyen;
     }
 
@@ -50,13 +50,15 @@ public class taiKhoanDTO {
         this.MatKhau = MatKhau;
     }
 
-    public String getBit() {
-        return bit;
+    public boolean isTrangThai() {
+        return trangThai;
     }
 
-    public void setBit(String bit) {
-        this.bit = bit;
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
     }
+
+    
 
     public String getMaQuyen() {
         return MaQuyen;

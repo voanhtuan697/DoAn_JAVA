@@ -11,7 +11,16 @@ package DTO;
 public class chucNangDTO {
     private String MaCN;
     private String TenCN;
-    private String TrangThai;
+
+    public chucNangDTO() {
+    }
+
+    public chucNangDTO(String MaCN, String TenCN) {
+        this.MaCN = MaCN;
+        this.TenCN = TenCN;
+    }
+    
+    
 
     public String getMaCN() {
         return MaCN;
@@ -27,22 +36,5 @@ public class chucNangDTO {
 
     public void setTenCN(String TenCN) {
         this.TenCN = TenCN;
-    }
-
-    public String getTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(String TrangThai) {
-        this.TrangThai = TrangThai;
-    }
-
-    public chucNangDTO(String MaCN, String TenCN, String TrangThai) {
-        this.MaCN = MaCN;
-        this.TenCN = TenCN;
-        this.TrangThai = TrangThai;
-    }
-
-    public chucNangDTO() {
     }
 }

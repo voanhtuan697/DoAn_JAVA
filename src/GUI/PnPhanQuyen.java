@@ -4,8 +4,21 @@
  */
 package GUI;
 
+import BUS.chiTietQuyenBUS;
+import BUS.chucNangBUS;
+import BUS.quyenBUS;
+import DTO.chiTietQuyenDTO;
+import DTO.chucNangDTO;
+import DTO.quyenDTO;
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,42 +29,138 @@ import javax.swing.JTabbedPane;
  *
  * @author E7250
  */
-public class PnPhanQuyen extends JPanel{
-    public PnPhanQuyen(){
+public class PnPhanQuyen extends JPanel implements ActionListener {
+
+    private quyenBUS quyen;
+    private chucNangBUS chucNang;
+    private chiTietQuyenBUS chiTietQuyen;
+    private JTabbedPane tabbedPane;
+
+    public PnPhanQuyen() throws SQLException {
+        quyen = new quyenBUS();
+        chucNang = new chucNangBUS();
+        chiTietQuyen = new chiTietQuyenBUS();
         init();
+        checkCacCheckbox();
     }
-    
-    public void init(){
+
+    public void init() {
         this.setLayout(new BorderLayout());
-        
-        JTabbedPane tabbedPane = new JTabbedPane();
-        
-        JPanel pn_admin = new JPanel();
-        
-        String []tenQuyen = new String[]{"Admin","Trưởng bộ môn","Giảng viên","Sinh viên"};
-        String []tenChucNang = new String[]{"Tạo đề","Tạo tài khoản","Tạo lớp","Tạo môn","Duyệt câu hỏi","Phân quyền","Xem kết quả các đề đã thi","Thêm lớp cho sinh viên","Thêm môn cho giáo viên"};
-        
+
+        tabbedPane = new JTabbedPane();
+
+        ArrayList<quyenDTO> arrQuyen = quyen.layDanhSachQuyen();
+        ArrayList<chucNangDTO> arrChucNang = chucNang.layDanhSachChucNang();
+
         int soCot = 2;
-        int soHang = tenChucNang.length / 2;
-        
-        for (String x : tenQuyen) {
+        int soHang = arrChucNang.size() / 2;
+
+        for (quyenDTO q : arrQuyen) {
             JPanel panel = new JPanel(new GridLayout(soHang, soCot, 10, 10));
-            for (String y : tenChucNang) {
-                JCheckBox checkBox = new JCheckBox(y);
+            for (chucNangDTO cn : arrChucNang) {
+                JCheckBox checkBox = new JCheckBox(cn.getTenCN());
+                checkBox.setActionCommand(q.getMaQuyen().trim() + "_" + cn.getMaCN().trim());
+//                System.out.println(checkBox.getActionCommand());
                 panel.add(checkBox);
             }
-            tabbedPane.addTab(x, panel);
+            tabbedPane.addTab(q.getTenQuyen(), panel);
         }
-        
+
         this.add(tabbedPane, BorderLayout.CENTER);
+        JPanel pn_btn = new JPanel(new FlowLayout(1, 10, 10));
+        JButton btn_acept = new JButton("Chấp nhận");
+        btn_acept.addActionListener(this);
+        pn_btn.add(btn_acept);
+        this.add(pn_btn, BorderLayout.SOUTH);
     }
-    
-    public static void main(String[] args) {
+
+    public String khacNhap(String s1, String s2) {
+        return s1.trim() + "_" + s2.trim();
+    }
+
+    public void checkCheckBoxByName(String checkBoxName, boolean checked) {
+        for (Component comp : tabbedPane.getComponents()) {
+            if (comp instanceof JPanel) {
+                JPanel panel = (JPanel) comp;
+                for (Component innerComp : panel.getComponents()) {
+                    if (innerComp instanceof JCheckBox) {
+                        JCheckBox checkBox = (JCheckBox) innerComp;
+                        if (checkBox.getActionCommand().equals(checkBoxName)) {
+                            checkBox.setSelected(checked);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void checkCacCheckbox() {
+        ArrayList<chiTietQuyenDTO> arr = chiTietQuyen.layDanhSachChucNang();
+        for (chiTietQuyenDTO ctq : arr) {
+            String chuoiGhep = khacNhap(ctq.getMaQuyen(), ctq.getMaCN());
+            checkCheckBoxByName(chuoiGhep, true);
+        }
+    }
+
+    public ArrayList<String> dsCacCheckboxDuocChon() {
+        int selectedIndex = tabbedPane.getSelectedIndex();
+        JPanel selectedPanel = (JPanel) tabbedPane.getComponentAt(selectedIndex);
+
+        ArrayList<String> arr = new ArrayList<>();
+
+        for (Component comp : selectedPanel.getComponents()) {
+            if (comp instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) comp;
+                if (checkBox.isSelected()) {
+                    arr.add(checkBox.getActionCommand());
+                }
+            }
+        }
+
+        return arr;
+    }
+
+    public chiTietQuyenDTO taoChiTietQuyen(String input) {
+        String[] parts = input.split("_");
+        String maQuyen = parts[0];
+        String maChucNang = parts[1];
+        chiTietQuyenDTO ctq = new chiTietQuyenDTO(maChucNang, maQuyen);
+        return ctq;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String btn = e.getActionCommand();
+        if (btn.equals("Chấp nhận")) {
+            int selectedIndex = tabbedPane.getSelectedIndex();
+            String selectedTabTitle = tabbedPane.getTitleAt(selectedIndex);
+            String maQuyen = "";
+            ArrayList<quyenDTO> arr = quyen.layDanhSachQuyen();
+            for (quyenDTO x : arr) {
+                if (selectedTabTitle.equals(x.getTenQuyen().trim())) {
+                    maQuyen = x.getMaQuyen().trim();
+                    break;
+                }
+            }
+//            System.out.println(maQuyen);
+            chiTietQuyen.xoaQuyenTrongDSCTQ(maQuyen);
+            ArrayList<String> arrCheck = dsCacCheckboxDuocChon();
+            for (String x : arrCheck) {
+                chiTietQuyenDTO ctq = taoChiTietQuyen(x);
+                chiTietQuyen.themChiTietQuyen(ctq);
+            }
+
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
         JFrame f = new JFrame();
         f.setSize(800, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
-        f.getContentPane().add( new PnPhanQuyen());
+        f.getContentPane().add(new PnPhanQuyen());
         f.setVisible(true);
     }
+
 }

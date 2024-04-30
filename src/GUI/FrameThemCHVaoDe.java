@@ -75,10 +75,7 @@ public class FrameThemCHVaoDe extends JFrame {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };;
-        for (int i = 0; i < table_left.getColumnCount(); i++) {
-            table_left.getColumnModel().getColumn(i).setCellRenderer(new DisabledTableCellRenderer());
-        }
+        };
 
         JScrollPane scrollPane_table_left = new JScrollPane(table_left);
         pn_table_left.add(scrollPane_table_left, BorderLayout.CENTER);
@@ -98,10 +95,7 @@ public class FrameThemCHVaoDe extends JFrame {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };;
-        for (int i = 0; i < table_right.getColumnCount(); i++) {
-            table_right.getColumnModel().getColumn(i).setCellRenderer(new DisabledTableCellRenderer());
-        }
+        };
 
         JScrollPane scrollPane_table_right = new JScrollPane(table_right);
         pn_table_right.add(scrollPane_table_right, BorderLayout.CENTER);

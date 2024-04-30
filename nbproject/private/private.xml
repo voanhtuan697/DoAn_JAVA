@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/java/Doan_JAVA/src/XULY/xuLyFileExcel.java</file>
-            <file>file:/D:/java/Doan_JAVA/src/GUI/PnKetQuaThiSV.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/BUS/chiTietQuyenBUS.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/DAO/taiKhoanDAO.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/DAO/chiTietQuyenDAO.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/GUI/PnPhanQuyen.java</file>
         </group>
     </open-files>
 </project-private>

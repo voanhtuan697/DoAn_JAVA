@@ -10,7 +10,7 @@ package DTO;
  */
 public class deThiDTO {
     private int SLCauHoi;
-    private String MaDT, MaGV, MaKho, HienThiDA, TienLui,NgayThi, TenDeThi,MatKhau,TrangThai, ThoiGianBatDauThi;
+    private String MaDT, MaGV, HienThiDA, TienLui,NgayThi, TenDeThi,MatKhau,TrangThai, ThoiGianBatDauThi;
 
     public deThiDTO() {
     }
@@ -20,7 +20,6 @@ public class deThiDTO {
         this.SLCauHoi = SLCauHoi;
         this.MaDT = MaDT;
         this.MaGV = MaGV;
-        this.MaKho = MaKho;
         this.HienThiDA = HienThiDA;
         this.TienLui = TienLui;
         this.NgayThi = NgayThi;
@@ -52,14 +51,6 @@ public class deThiDTO {
 
     public void setMaGV(String MaGV) {
         this.MaGV = MaGV;
-    }
-
-    public String getMaKho() {
-        return MaKho;
-    }
-
-    public void setMaKho(String MaKho) {
-        this.MaKho = MaKho;
     }
 
     public String getHienThiDA() {

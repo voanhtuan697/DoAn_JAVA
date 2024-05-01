@@ -14,36 +14,30 @@ import java.util.ArrayList;
  * @author PHUNG
  */
 public class nguoiDungBUS {
-
     private nguoiDungDAO user;
-
-    nguoiDungDAO user1; //user của Phụng tạo
-
     public nguoiDungBUS() throws SQLException {
-        user1 = new nguoiDungDAO();
         this.user = new nguoiDungDAO();
-
     }
 
 //   ArrayList<nguoiDungDTO> user = new ArrayList<>();
     public ArrayList<nguoiDungDTO> getNguoiDung() throws SQLException {
-        return user1.getNguoiDung();
+        return user.getNguoiDung();
     }
 
     public int getSoLuongNguoiDung() throws SQLException {
-        return user1.getSoLuongNguoiDung();
+        return user.getSoLuongNguoiDung();
     }
 
     public boolean addNguoiDung(nguoiDungDTO a) throws SQLException {
-        return user1.addNguoiDung(a);
+        return user.addNguoiDung(a);
     }
 
     public boolean deleteNguoiDung(String maUser) throws SQLException {
-        return user1.deleteNguoiDung(maUser);
+        return user.deleteNguoiDung(maUser);
     }
 
     public boolean updateNguoiDung(String hoTen, String ngSinh, String maUser) throws SQLException {
-        return user1.updateNguoiDung(hoTen, ngSinh, maUser);
+        return user.updateNguoiDung(hoTen, ngSinh, maUser);
     }
 
     public nguoiDungDTO layNguoiDung(String maTK) {

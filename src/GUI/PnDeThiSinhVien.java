@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static GUI.BASE.font14;
 import static GUI.BASE.gray_bg;
+import XULY.ShowDiaLog;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -32,7 +33,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
 
     private DefaultTableModel modelSapThi,modelDangThi,modelDaThi;
     private JComboBox<String> cbb_trangThai;
-    private String maSV;
+    private String maTK;
     private JPanel cards;
     private CardLayout cardLayout;
     private JPanel pn_KetQua;
@@ -41,7 +42,8 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
     private JTable tableDaThi;
     
     
-    public PnDeThiSinhVien() {
+    public PnDeThiSinhVien(String maTK) {
+        this.maTK =maTK;
         init();
         cbb_trangThai.setSelectedIndex(0);
     }
@@ -140,6 +142,11 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
                 return false;
             }
         };
+        
+        
+        
+        
+        
         JScrollPane scrollPane_tableDangThi = new JScrollPane(tableDangThi);
 //--------------------------- Đã thi--------------------------------------
         Object[][] dataDaThi = {
@@ -198,10 +205,11 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) { // Kiểm tra xem chuột đã được nhấp đúp hay không
-                    int row = tableSapThi.getSelectedRow();
-                    if (row != -1) { // Kiểm tra xem có hàng nào được chọn không
-                        System.out.println("1");
-                    }
+//                    int row = tableSapThi.getSelectedRow();
+//                    if (row != -1) { // Kiểm tra xem có hàng nào được chọn không
+//                        System.out.println("1");
+//                    }
+                    new ShowDiaLog("Bài thi vẫn chưa diễn ra!!!", ShowDiaLog.INFO_DIALOG);
                 }
             }
         });
@@ -209,6 +217,19 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
         } else if (selectedOption.equals("Đề đang thi")) {
             this.getCardLayout().show(this.getCards(), "pn_DangThi");
             this.pn_KetQua.setVisible(false);
+            tableDangThi.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Kiểm tra xem chuột đã được nhấp đúp hay không
+                    int row = tableDangThi.getSelectedRow();
+                    if (row != -1) { // Kiểm tra xem có hàng nào được chọn không
+                        
+                    }
+                }
+            }
+        });
+            
+            
         }else if (selectedOption.equals("Đề đã thi")) {
             this.getCardLayout().show(this.getCards(), "pn_DaThi");
             this.pn_KetQua.setVisible(true);
@@ -220,7 +241,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
         f.setSize(800, 500);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PnDeThiSinhVien p = new PnDeThiSinhVien();
+        PnDeThiSinhVien p = new PnDeThiSinhVien("");
         f.getContentPane().setLayout(new BorderLayout());
         f.add(p);
         f.setVisible(true);

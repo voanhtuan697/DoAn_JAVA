@@ -83,12 +83,6 @@ public class nguoiDungDAO {
         }
         return false;
     }
-//    public static void main(String[] args) throws SQLException {
-//        for (nguoiDungDTO x : new nguoiDungDAO().getNguoiDung()) {
-//            System.out.println(x.getMaUser());
-//        }
-//    }
-
     
     public nguoiDungDTO layNguoiDung(String maTK) {
         nguoiDungDTO user = new nguoiDungDTO();
@@ -111,13 +105,5 @@ public class nguoiDungDAO {
             e.printStackTrace();
             return null;
         }
-    }
-    
-    public static void main(String[] args) throws SQLException {
-        nguoiDungDAO tk = new nguoiDungDAO();
-        nguoiDungDTO user = tk.layNguoiDung("TK2");
-        System.out.println(user.getHoTen());
-        System.out.println(user.getMaUser());
-        System.out.println(user.getNgSinh());
     }
 }

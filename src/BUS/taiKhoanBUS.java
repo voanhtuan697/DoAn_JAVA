@@ -16,11 +16,9 @@ import java.sql.*;
 public class taiKhoanBUS {
 
     taiKhoanDAO acc;
-    private taiKhoanDAO tk;
 
     public taiKhoanBUS() throws SQLException {
         acc = new taiKhoanDAO();
-        this.tk = new taiKhoanDAO();
 
     }
 
@@ -49,8 +47,8 @@ public class taiKhoanBUS {
         return acc.updateTaiKhoan(maQuyen, tenDN);
     }
 
-    public taiKhoanDTO dangNhapTaiKhoan(String tenDN, String matKhau) {
-        ArrayList<taiKhoanDTO> arr = tk.layDanhSachTaiKhoan();
+    public taiKhoanDTO dangNhapTaiKhoan(String tenDN, String matKhau) throws SQLException {
+        ArrayList<taiKhoanDTO> arr = acc.getTaiKhoan();
         for (taiKhoanDTO x : arr) {
             if (tenDN.equals(x.getTenDN().trim()) && matKhau.equals(x.getMatKhau()) && x.isTrangThai()) {
                 return x;
@@ -60,21 +58,12 @@ public class taiKhoanBUS {
     }
 
     public ArrayList<String> layDanhSachMaCN(String maTK) {
-        ArrayList<String> arr = this.tk.layDanhSachMaCN(maTK);
+        ArrayList<String> arr = this.acc.layDanhSachMaCN(maTK);
         return arr;
     }
 
     public taiKhoanDTO layTaiKhoan(String maTK) {
-        taiKhoanDTO tk = this.tk.layTaiKhoan(maTK);
+        taiKhoanDTO tk = this.acc.layTaiKhoan(maTK);
         return tk;
     }
-
-    public static void main(String[] args) throws SQLException {
-        taiKhoanDAO tk = new taiKhoanDAO();
-        ArrayList<taiKhoanDTO> arr = tk.layDanhSachTaiKhoan();
-        for (taiKhoanDTO x : arr) {
-            System.out.println(x.getTenDN());
-        }
-    }
-
 }

@@ -10,13 +10,6 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * <<<<<<< HEAD @a
- *
- *
- * uthor PHUNG
- */
 public class taiKhoanDAO {
 
     private final MyConnection conn;
@@ -44,27 +37,6 @@ public class taiKhoanDAO {
         return arr;
     }
 
-
-public ArrayList<taiKhoanDTO> layDanhSachTaiKhoan() {
-        ArrayList<taiKhoanDTO> arr = new ArrayList<>();
-        try {
-            String query = "SELECT * FROM TAIKHOAN";
-            PreparedStatement pre = conn.preparedStatement(query);
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                taiKhoanDTO tk = new taiKhoanDTO();
-                tk.setMaTK(rs.getString(1));
-                tk.setTenDN(rs.getString(2));
-                tk.setMatKhau(rs.getString(3));
-                tk.setTrangThai(rs.getBoolean(4));
-                tk.setMaQuyen(rs.getString(5));
-                arr.add(tk);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return arr;
-    }
 
     public int getSoLuongTaiKhoan() throws SQLException {
         String sql = "SELECT COUNT(MaTK) FROM taikhoan";
@@ -168,13 +140,7 @@ public ArrayList<taiKhoanDTO> layDanhSachTaiKhoan() {
         return MaTk;
     }
 
-    public static void main(String[] args) throws SQLException {
-        taiKhoanDAO dao = new taiKhoanDAO();
-        ArrayList<taiKhoanDTO> arr = dao.listGgTrBm();
-        for (taiKhoanDTO x : arr) {
-            System.out.println(x.getTenDN() + "  " + x.getMaQuyen() + x.getNgDung().getHoTen());
-        }
-    }
+   
 
     public ArrayList<String> layDanhSachMaCN(String maTK) {
         ArrayList<String> arr = new ArrayList<>();
@@ -220,9 +186,11 @@ public ArrayList<taiKhoanDTO> layDanhSachTaiKhoan() {
         }
     }
 
-//    public static void main(String[] args) throws SQLException {
-//        taiKhoanDAO tk = new taiKhoanDAO();
-//        String kk = tk.layTenQuyen("TK1");
-//        System.out.println(kk);
-//    }
+ public static void main(String[] args) throws SQLException {
+        taiKhoanDAO dao = new taiKhoanDAO();
+        ArrayList<taiKhoanDTO> arr = dao.listGgTrBm();
+        for (taiKhoanDTO x : arr) {
+            System.out.println(x.getTenDN() + "  " + x.getMaQuyen() + x.getNgDung().getHoTen());
+        }
+    }
 }

@@ -15,7 +15,7 @@ import java.sql.*;
  */
 public class taiKhoanBUS {
 
-    taiKhoanDAO acc;
+    private taiKhoanDAO acc;
 
     public taiKhoanBUS() throws SQLException {
         acc = new taiKhoanDAO();
@@ -56,6 +56,7 @@ public class taiKhoanBUS {
         }
         return null;
     }
+
 
     public ArrayList<String> layDanhSachMaCN(String maTK) {
         ArrayList<String> arr = this.acc.layDanhSachMaCN(maTK);

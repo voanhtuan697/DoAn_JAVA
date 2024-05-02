@@ -9,13 +9,13 @@ package DTO;
  * @author Minh Phuc
  */
 public class cauHoiDTO {
-    private String MaCH, MaKho, MaHT, Noidung, DoKho, MaGV, TrangThai;
-    private byte[] Img;
+    private String MaCH, MaKho, MaHT, Noidung, DoKho, MaGV,Img;
+    private boolean TrangThai;
 
     public cauHoiDTO() {
     }
 
-    public cauHoiDTO(String MaCH, String MaKho, String MaHT, String Noidung, String DoKho, String MaGV, String TrangThai, byte[] Img) {
+    public cauHoiDTO(String MaCH, String MaKho, String MaHT, String Noidung, String DoKho, String MaGV, boolean TrangThai, String Img) {
         this.MaCH = MaCH;
         this.MaKho = MaKho;
         this.MaHT = MaHT;
@@ -74,21 +74,23 @@ public class cauHoiDTO {
         this.MaGV = MaGV;
     }
 
-    public String getTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(String TrangThai) {
-        this.TrangThai = TrangThai;
-    }
-
-    public byte[] getImg() {
+    public String getImg() {
         return Img;
     }
 
-    public void setImg(byte[] Img) {
+    public void setImg(String Img) {
         this.Img = Img;
     }
+
+    public boolean isTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(boolean TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+
+    
     
     
 }

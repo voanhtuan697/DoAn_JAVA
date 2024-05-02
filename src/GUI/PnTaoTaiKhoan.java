@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -214,7 +214,7 @@ public class PnTaoTaiKhoan extends JPanel {
             model.addColumn(s);
         }
         for (taiKhoanDTO x : acc.getTaiKhoan()) {
-            if (x.getBit() != 0) {
+            if (x.isTrangThai()) {
                 for (nguoiDungDTO y : new nguoiDungBUS().getNguoiDung()) {
                     if (x.getTenDN().equalsIgnoreCase(y.getMaUser())) {
                         model.addRow(new Object[]{
@@ -250,7 +250,7 @@ public class PnTaoTaiKhoan extends JPanel {
                         loadUser();
                     } else {
                         for (taiKhoanDTO x : acc.getTaiKhoan()) {
-                            if (x.getMaQuyen().equalsIgnoreCase(role.getMaQuyenTheoTenQuyen(luaChon)) && x.getBit() != 0) {
+                            if (x.getMaQuyen().equalsIgnoreCase(role.getMaQuyenTheoTenQuyen(luaChon)) && x.isTrangThai()) {
                                 nguoiDungDTO z = new nguoiDungDTO();
                                 z.setMaUser(x.getTenDN());
                                 dsNguoiDung.add(z);
@@ -298,7 +298,7 @@ public class PnTaoTaiKhoan extends JPanel {
                         ArrayList<nguoiDungDTO> ketQua = timKiem(new nguoiDungBUS().getNguoiDung(), txtSearch.getText());
                         for (taiKhoanDTO x : acc.getTaiKhoan()) {
                             for (nguoiDungDTO y : ketQua) {
-                                if (x.getTenDN().equalsIgnoreCase(y.getMaUser()) && x.getBit() == 1) {
+                                if (x.getTenDN().equalsIgnoreCase(y.getMaUser()) && x.isTrangThai()) {
                                     for (nguoiDungDTO z : user.getNguoiDung()) {
                                         if (y.getMaUser().equalsIgnoreCase(z.getMaUser())) {
                                             model.addRow(new Object[]{
@@ -363,7 +363,7 @@ public class PnTaoTaiKhoan extends JPanel {
                 }
                 b.setTenDN(a.getMaUser());
                 b.setMatKhau("12345");
-                b.setBit(1);
+                b.setTrangThai(true);
                 String tenQuyen = cbb_quyen.getSelectedItem().toString();
 
                 try {

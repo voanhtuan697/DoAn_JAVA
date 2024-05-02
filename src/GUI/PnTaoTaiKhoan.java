@@ -4,12 +4,8 @@
  */
 package GUI;
 
-import BUS.nguoiDungBUS;
-import BUS.quyenBUS;
-import BUS.taiKhoanBUS;
-import DTO.nguoiDungDTO;
-import DTO.quyenDTO;
-import DTO.taiKhoanDTO;
+import BUS.*;
+import DTO.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -42,19 +38,21 @@ import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class PnTaoTaiKhoan extends JPanel {
-
+    
     private DefaultTableModel model;
     private String[] arr_table_quyen = {"Tất cả"};
     private String[] arr_quyen = {"Admin", "Trưởng bộ môn", "Giảng viên", "Sinh viên"};
     private JTextField txtSearch, txtHoTen;
     private JButton btnThem, btnSua, btnXoa, btnClear, btnNhap, btnXuat;
-    private JComboBox<String> cbb_table_quyen, cbb_quyen;
+    private JComboBox<String> cbb_table_quyen, cbb_quyen, cbb_mon;
     private UtilDateModel model1;
     private JTable table;
-
+    JPanel pn_input = new JPanel();
+    JPanel pn_btn = new JPanel(new GridLayout(3, 2, 7, 10));
+    JLabel lb_mon = new JLabel("Môn:");
     /*<<<<<<< HEAD:src/GUI/PnThemUser.java*/
     JDatePicker datePicker;
-
+    
     ArrayList<nguoiDungDTO> dsGoc = new ArrayList<>(new nguoiDungBUS().getNguoiDung());
     //new nguoiDungBUS().getNguoiDung());
 
@@ -62,6 +60,8 @@ public class PnTaoTaiKhoan extends JPanel {
     private taiKhoanBUS acc, acc1;
     private quyenBUS role;
     private String userId;
+//    private String maTK = null;
+//    int selectedRow=-1;
 
     public PnTaoTaiKhoan() throws SQLException {
         init();
@@ -69,37 +69,37 @@ public class PnTaoTaiKhoan extends JPanel {
         loadUser();
         addEvent();
     }
-
-    private void init() {
+    
+    private void init() throws SQLException {
         this.setLayout(new BorderLayout());
-
+        
         JPanel pn_header = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         pn_header.setBackground(gray_bg);
-
+        
         JLabel lblSearch = new JLabel("Tìm kiếm");
         lblSearch.setFont(font14);
         txtSearch = new JTextField(15);
-
+        
         JLabel lb_cbb_quyen = new JLabel("Quyền");
-
+        
         cbb_table_quyen = new JComboBox<>(arr_table_quyen);
         pn_header.add(lb_cbb_quyen);
         pn_header.add(cbb_table_quyen);
-
+        
         pn_header.add(lblSearch);
         pn_header.add(txtSearch);
-
+        
         JPanel pn_content = new JPanel();
         pn_content.setLayout(new BorderLayout());
-
+        
         JPanel pn_table = new JPanel();
         pn_table.setLayout(new BorderLayout());
 
-        JPanel pn_input = new JPanel();
+//        JPanel pn_input = new JPanel();
         pn_input.setBackground(gray_bg);
         pn_input.setPreferredSize(new Dimension(205, 0));
         pn_input.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 3));
-
+        
         JLabel lb_name = new JLabel("Họ tên:");
         lb_name.setFont(font13);
         txtHoTen = new JTextField(18);
@@ -109,6 +109,10 @@ public class PnTaoTaiKhoan extends JPanel {
         cbb_quyen = new JComboBox<>();
         cbb_quyen.setPreferredSize(new Dimension(202, cbb_quyen.getPreferredSize().height));
 
+//        JLabel lb_mon = new JLabel("Môn:");
+        cbb_mon = new JComboBox<>();
+        cbb_mon.setPreferredSize(new Dimension(202, cbb_mon.getPreferredSize().height));
+        
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
         btnThem.setForeground(white);
@@ -127,11 +131,11 @@ public class PnTaoTaiKhoan extends JPanel {
         btnClear = new JButton("Clear");
         btnClear.setBackground(dark_green);
         btnClear.setForeground(white);
-
+        
         model1 = new UtilDateModel();
         JDatePanel datePanel = new JDatePanelImpl(model1);
         datePicker = new JDatePickerImpl((JDatePanelImpl) datePanel);
-
+        
         pn_input.add(lb_name);
         pn_input.add(txtHoTen);
         pn_input.add(lb_ngaySinh);
@@ -139,7 +143,9 @@ public class PnTaoTaiKhoan extends JPanel {
         pn_input.add(lb_quyen);
         pn_input.add(cbb_quyen);
 
-        JPanel pn_btn = new JPanel(new GridLayout(3, 2, 7, 10));
+//        pn_input.add(lb_mon);
+//        pn_input.add(cbb_mon);
+//        JPanel pn_btn = new JPanel(new GridLayout(3, 2, 7, 10));
         pn_btn.setBackground(gray_bg);
         pn_btn.add(btnThem);
         pn_btn.add(btnXoa);
@@ -147,24 +153,24 @@ public class PnTaoTaiKhoan extends JPanel {
         pn_btn.add(btnXuat);
         pn_btn.add(btnSua);
         pn_btn.add(btnClear);
-        pn_input.add(pn_btn);
-
+//        pn_input.add(pn_btn);
+        loadCbb_Mon();
         pn_content.add(pn_table, BorderLayout.CENTER);
         pn_content.add(pn_input, BorderLayout.EAST);
-
+        
         Object[] columns = {"Mã giảng viên", "Họ và tên", "Ngày sinh"};
         Object[][] data = {{null, null, null},
         {null, null, null},
         {null, null, null},};
         model = new DefaultTableModel(data, columns);
-
+        
         table = new JTable(model) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
+        
         JScrollPane scrTabel = new JScrollPane(table);
         pn_table.add(scrTabel, BorderLayout.CENTER);
 
@@ -175,14 +181,14 @@ public class PnTaoTaiKhoan extends JPanel {
                 try {
                     Date selectedDate = (Date) datePicker.getModel().getValue();
                     LocalDate localDate = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
+                    
                     if (selectedDate != null) {
                         // Sử dụng giá trị ngày tháng đã chọn ở đây
                         System.out.println("Ngay da chon: " + selectedDate);
                         int ngay = localDate.getDayOfMonth();
                         int thang = localDate.getMonthValue();
                         int nam = localDate.getYear();
-
+                        
                         System.out.println("Ngay: " + ngay);
                         System.out.println("Thang: " + thang);
                         System.out.println("Nam: " + nam);
@@ -191,23 +197,75 @@ public class PnTaoTaiKhoan extends JPanel {
                     System.out.println("Khong co ngay nao duoc chon.");
                 }
             }
-
+            
         });
-
+        
         this.add(pn_header, BorderLayout.NORTH);
         this.add(pn_content, BorderLayout.CENTER);
+        
     }
-
+    
+    public void loadCbb_Mon() throws SQLException {
+        String maQuyen = new taiKhoanBUS().getMaQuyenTheoTenDN(userId);
+        String maCN = "";
+        for (chiTietQuyenDTO c : new chiTietQuyenBUS().layDanhSachChucNang()) {
+            if (c.getMaQuyen().equalsIgnoreCase(maQuyen)) {
+                maCN = c.getMaCN().trim();
+                break;
+            }
+        }
+        System.out.println(maCN);
+//        String maCN = new chucNangBUS().layMaChucNangTheoMaQuyen(maQuyen);
+        if (maCN.equalsIgnoreCase("CNDCH")) {
+            System.out.println("yes");
+            pn_input.add(lb_mon);
+            pn_input.add(cbb_mon);
+            pn_input.add(pn_btn);
+            
+            String maTK = new taiKhoanBUS().layMaTKTheoTenDN(userId);
+            System.out.println(maTK);
+            for (chiTietMonDTO x : new chiTietMonBUS().layDanhSachChiTietMon()) {
+                if (x.getMaGV().equalsIgnoreCase(maTK)) {
+                    System.out.println(x.getMaMon());
+                    String mon = new monBUS().layTenMonTheoMaMon(x.getMaMon());
+                    System.out.println(mon);
+                    cbb_mon.setSelectedItem(mon);
+                    
+                }
+            }
+            
+            this.revalidate();
+            this.repaint();
+        } else {
+            System.out.println("no");
+            pn_input.remove(lb_mon);
+            pn_input.remove(cbb_mon);
+            pn_input.add(pn_btn);
+            
+            this.revalidate();
+            this.repaint();
+        }
+        
+    }
+    
     public void loadRole() throws SQLException {
         for (quyenDTO x : new quyenBUS().getQuyen()) {
-            cbb_table_quyen.addItem(x.getTenQuyen().toString());
-            cbb_quyen.addItem(x.getTenQuyen().toString());
+            cbb_table_quyen.addItem(x.getTenQuyen());
+            cbb_quyen.addItem(x.getTenQuyen());
         }
+        for (monDTO m : new monBUS().layDanhSachMon()) {
+            cbb_mon.addItem(m.getTenMon());
+        }
+//        for(chucNangDTO cn: new chucNangBUS().layDanhSachChucNang()){
+//            if(cn.getMaCN().equalsIgnoreCase(maCN)){
+//                
+//            }
+//        }
     }
-
+    
     public void loadUser() throws SQLException {
         acc = new taiKhoanBUS();
-
+        
         model = new DefaultTableModel();
         String[] str = {"Mã người dùng", "Họ và tên", "Ngày sinh"};
         for (String s : str) {
@@ -228,11 +286,11 @@ public class PnTaoTaiKhoan extends JPanel {
                 }
             }
         }
-
+        
         table.setModel(model);
-
+        
     }
-
+    
     public void addEvent() throws SQLException {
         if (cbb_table_quyen.getSelectedItem().equals("Tất cả")) {
             loadUser();
@@ -248,6 +306,9 @@ public class PnTaoTaiKhoan extends JPanel {
                 try {
                     if (cbb_table_quyen.getSelectedItem().equals("Tất cả")) {
                         loadUser();
+                        datePicker.getModel().setValue(null);
+                        reset();
+                        loadCbb_Mon();
                     } else {
                         for (taiKhoanDTO x : acc.getTaiKhoan()) {
                             if (x.getMaQuyen().equalsIgnoreCase(role.getMaQuyenTheoTenQuyen(luaChon)) && x.getBit() != 0) {
@@ -256,7 +317,7 @@ public class PnTaoTaiKhoan extends JPanel {
                                 dsNguoiDung.add(z);
                             }
                         }
-
+                        
                         user = new nguoiDungBUS();
                         model = new DefaultTableModel();
                         String[] str = {"Mã người dùng", "Họ và tên", "Ngày sinh"};
@@ -274,15 +335,18 @@ public class PnTaoTaiKhoan extends JPanel {
                                     break;
                                 }
                             }
-
+                            
                         }
+                        resetRight();
+                        loadCbb_Mon();
                         table.setModel(model);
                         dsNguoiDung.clear();
+                        
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-
+                
             }
         });
         txtSearch.addKeyListener(new KeyAdapter() {
@@ -310,7 +374,7 @@ public class PnTaoTaiKhoan extends JPanel {
                                         }
                                     }
                                 }
-
+                                
                             }
                         }
                         table.setModel(model);
@@ -318,7 +382,7 @@ public class PnTaoTaiKhoan extends JPanel {
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
-
+                    
                 }
             }
         });
@@ -359,27 +423,25 @@ public class PnTaoTaiKhoan extends JPanel {
                     a.setMaUser("USER" + (numUser + 1));
                 } catch (SQLException ex) {
                     ex.printStackTrace();
-
+                    
                 }
                 b.setTenDN(a.getMaUser());
                 b.setMatKhau("12345");
                 b.setBit(1);
                 String tenQuyen = cbb_quyen.getSelectedItem().toString();
-
+                
                 try {
                     b.setMaQuyen(role.getMaQuyenTheoTenQuyen(tenQuyen));
                 } catch (SQLException ex) {
                     ex.printStackTrace();
-
+                    
                 }
                 try {
                     if (user.addNguoiDung(a) && acc.addTaiKhoan(b)) {
                         new ShowDiaLog("Thêm thành công!", 2);
 //                        JOptionPane.showMessageDialog(null, "Thêm thành công!");
                         loadUser();
-                        datePicker.getModel().setValue(null);
-                        cbb_table_quyen.setSelectedItem(1);
-                        userId = null;
+                        resetRight();
                         return;
                     } else {
                         new ShowDiaLog("Thêm thất bại!", 1);
@@ -389,7 +451,7 @@ public class PnTaoTaiKhoan extends JPanel {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-
+                
             }
         });
         btnSua.addActionListener(new ActionListener() {
@@ -439,7 +501,7 @@ public class PnTaoTaiKhoan extends JPanel {
                 } else {
                     return;
                 }
-
+                
             }
         }
         );
@@ -459,7 +521,7 @@ public class PnTaoTaiKhoan extends JPanel {
                                 cbb_table_quyen.setSelectedItem(1);
                                 datePicker.getModel().setValue(null);
                                 loadUser();
-                                userId = null;
+                                resetRight();
                                 return;
                             }
                         } catch (SQLException ex) {
@@ -471,7 +533,7 @@ public class PnTaoTaiKhoan extends JPanel {
                     } else {
                         return;
                     }
-
+                    
                 } else {
                     new ShowDiaLog("Vui lòng chọn người dùng cần xóa!", ShowDiaLog.ERROR_DIALONG);
 
@@ -481,16 +543,16 @@ public class PnTaoTaiKhoan extends JPanel {
             }
         }
         );
-
+        
         btnClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 reset();
                 datePicker.getModel().setValue(null);
-
+                
             }
         });
-        
+        /*
         btnNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -568,7 +630,7 @@ public class PnTaoTaiKhoan extends JPanel {
 //                JOptionPane.showMessageDialog(null, "Xuất thành công!");
             }
         }
-        );
+        );*/
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e
@@ -576,19 +638,19 @@ public class PnTaoTaiKhoan extends JPanel {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     try {
-                        System.out.println(selectedRow);
+//                        System.out.println(selectedRow);
                         displaySelectedRow(selectedRow);
                     } catch (SQLException ex) {
                         ex.printStackTrace();
-
+                        
                     }
                 }
             }
         }
         );
-
+        
     }
-
+    
     public void displaySelectedRow(int selectedRow) throws SQLException {
         userId = table.getValueAt(selectedRow, 0).toString();
         txtHoTen.setText(table.getValueAt(selectedRow, 1).toString());
@@ -599,8 +661,9 @@ public class PnTaoTaiKhoan extends JPanel {
         String maUser = table.getValueAt(selectedRow, 0).toString();
         String tenDN = acc.getMaQuyenTheoTenDN(maUser);
         cbb_quyen.setSelectedItem(role.getTenQuyenTheoMaQuyen(tenDN));
+        loadCbb_Mon();
     }
-
+    
     public void reset() {
         {
             userId = null;
@@ -615,18 +678,26 @@ public class PnTaoTaiKhoan extends JPanel {
                 loadUser();
             } catch (SQLException ex) {
                 ex.printStackTrace();
-
+                
             }
-
+            
         }
     }
-
+    
+    public void resetRight() {
+        userId = null;
+        txtHoTen.setText("");
+        datePicker.getModel().setValue(null);
+        cbb_quyen.setSelectedItem("Admin");
+        
+    }
+    
     public boolean isVietnamese(String str) {
         String regex = "[a-zA-ZàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆđĐìÌỉỈĩĨíÍịỊòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢùÙủỦũŨúÚụỤưỪừỬữỮứỨựỰỳỲỷỶỹỸýÝỵỴ\\s]+$";
         return Pattern.matches(regex, str);
-
+        
     }
-
+    
     public ArrayList<nguoiDungDTO> timKiem(ArrayList<nguoiDungDTO> ds, String tuKhoa) throws SQLException {
 //        ds = new nguoiDungBUS().getNguoiDung();
         // Tạo một ArrayList mới để chứa kết quả tìm kiếm
@@ -635,7 +706,7 @@ public class PnTaoTaiKhoan extends JPanel {
         // Chạy vòng lặp qua các đối tượng trong danh sách gốc
         for (nguoiDungDTO x : ds) {
             // Kiểm tra xem từ khóa có gần giống với bất kỳ thuộc tính nào của đối tượng không
-            if (x.getMaUser().contains(tuKhoa) || x.getHoTen().contains(tuKhoa) || x.getNgSinh().contains(tuKhoa)) {
+            if (x.getMaUser().toLowerCase().contains(tuKhoa) || x.getHoTen().toLowerCase().contains(tuKhoa) || x.getNgSinh().toLowerCase().contains(tuKhoa)) {
                 // Nếu có, thêm đối tượng đó vào danh sách kết quả
                 ketQua.add(x);
             }
@@ -644,7 +715,7 @@ public class PnTaoTaiKhoan extends JPanel {
         // Trả về danh sách kết quả
         return ketQua;
     }
-
+    
     public static void main(String[] args) throws SQLException {
         JFrame f = new JFrame();
         f.setSize(800, 500);

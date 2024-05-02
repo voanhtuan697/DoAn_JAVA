@@ -121,6 +121,17 @@ public class taiKhoanDAO {
         return list;
     }
 
+    public String layMaTKTheoTenDN(String tenDN)throws SQLException{
+        String maTK = null;
+        String sql = "SELECT MaTK FROM taikhoan WHERE TenDN=?";
+        PreparedStatement stmt = conn.preparedStatement(sql);
+        stmt.setString(1, tenDN);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            maTK = rs.getString(1);
+        }
+        return maTK;
+    }
     public String getMaTkByName(String ten) {
         String MaTk = "";
         try {

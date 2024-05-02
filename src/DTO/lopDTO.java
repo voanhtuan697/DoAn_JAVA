@@ -9,8 +9,12 @@ package DTO;
  * @author TK
  */
 public class lopDTO {
-    private String MaLop,  MaGV, MaMon, TrangThai;
+
+    private String MaLop, MaGV, MaMon, TrangThai;
     private int SoLuong, Nam, HocKy, NhomLop;
+
+    public lopDTO() {
+    }
 
     public lopDTO(String MaLop, String MaGV, String MaMon, String TrangThai, int SoLuong, int Nam, int HocKy, int NhomLop) {
         this.MaLop = MaLop;
@@ -86,5 +90,5 @@ public class lopDTO {
     public void setNhomLop(int NhomLop) {
         this.NhomLop = NhomLop;
     }
-    
+
 }

@@ -30,7 +30,7 @@ public class taiKhoanDAO {
             acc.setMaTK(rs.getString(1));
             acc.setTenDN(rs.getString(2));
             acc.setMatKhau(rs.getString(3));
-            acc.setBit(Integer.parseInt(rs.getString(4)));
+            acc.setTrangThai(rs.getBoolean(4));
             acc.setMaQuyen(rs.getString(5));
             arr.add(acc);
         }
@@ -54,7 +54,7 @@ public class taiKhoanDAO {
         stmt.setString(1, a.getMaTK());
         stmt.setString(2, a.getTenDN());
         stmt.setString(3, a.getMatKhau());
-        stmt.setString(4, Integer.toString(a.getBit()));
+        stmt.setBoolean(4,a.isTrangThai());
         stmt.setString(5, a.getMaQuyen());
         int ketQua = stmt.executeUpdate();
         if (ketQua > 0) {
@@ -107,7 +107,7 @@ public class taiKhoanDAO {
             try (PreparedStatement pre = conn.preparedStatement(sql)) {
                 ResultSet rs = pre.executeQuery();
                 while (rs.next()) {
-                    taiKhoanDTO item = new taiKhoanDTO(rs.getString("MaTK"), rs.getString("TenDN"), rs.getString("MatKhau"), rs.getInt("TrangThai"), rs.getString("MaQuyen"));
+                    taiKhoanDTO item = new taiKhoanDTO(rs.getString("MaTK"), rs.getString("TenDN"), rs.getString("MatKhau"), rs.getBoolean("TrangThai"), rs.getString("MaQuyen"));
                     nguoiDungDTO ngDung = new nguoiDungDTO();
                     ngDung.setHoTen(rs.getString("HoTen"));
                     item.setNgDung(ngDung);

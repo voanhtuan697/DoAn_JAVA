@@ -9,24 +9,32 @@ package DTO;
  * @author TK
  */
 public class deThiDTO {
-    private int SLCauHoi;
-    private String MaDT, MaGV, HienThiDA, TienLui,NgayThi, TenDeThi,MatKhau,TrangThai, ThoiGianBatDauThi;
-
+    private String MaDT, MaGV,NgayThi, TenDeThi,MatKhau,ThoiGianBatDauThi;
+    private int trangThai,thoiGianLamBai,SLCauHoi;
+    private boolean HienThiDA, TienLui;
     public deThiDTO() {
     }
 
-    
-    public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String MaKho, String HienThiDA, String TienLui, String NgayThi, String TenDeThi, String MatKhau, String TrangThai, String ThoiGianBatDauThi) {
+    public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String NgayThi, String TenDeThi, String MatKhau, String ThoiGianBatDauThi, int trangThai, int thoiGianLamBai, boolean HienThiDA, boolean TienLui) {
         this.SLCauHoi = SLCauHoi;
         this.MaDT = MaDT;
         this.MaGV = MaGV;
-        this.HienThiDA = HienThiDA;
-        this.TienLui = TienLui;
         this.NgayThi = NgayThi;
         this.TenDeThi = TenDeThi;
         this.MatKhau = MatKhau;
-        this.TrangThai = TrangThai;
         this.ThoiGianBatDauThi = ThoiGianBatDauThi;
+        this.trangThai = trangThai;
+        this.thoiGianLamBai = thoiGianLamBai;
+        this.HienThiDA = HienThiDA;
+        this.TienLui = TienLui;
+    }
+
+    public int getThoiGianLamBai() {
+        return thoiGianLamBai;
+    }
+
+    public void setThoiGianLamBai(int thoiGianLamBai) {
+        this.thoiGianLamBai = thoiGianLamBai;
     }
 
     public int getSLCauHoi() {
@@ -53,21 +61,31 @@ public class deThiDTO {
         this.MaGV = MaGV;
     }
 
-    public String getHienThiDA() {
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public boolean isHienThiDA() {
         return HienThiDA;
     }
 
-    public void setHienThiDA(String HienThiDA) {
+    public void setHienThiDA(boolean HienThiDA) {
         this.HienThiDA = HienThiDA;
     }
 
-    public String getTienLui() {
+    public boolean isTienLui() {
         return TienLui;
     }
 
-    public void setTienLui(String TienLui) {
+    public void setTienLui(boolean TienLui) {
         this.TienLui = TienLui;
     }
+
+    
 
     public String getNgayThi() {
         return NgayThi;
@@ -91,14 +109,6 @@ public class deThiDTO {
 
     public void setMatKhau(String MatKhau) {
         this.MatKhau = MatKhau;
-    }
-
-    public String getTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(String TrangThai) {
-        this.TrangThai = TrangThai;
     }
 
     public String getThoiGianBatDauThi() {

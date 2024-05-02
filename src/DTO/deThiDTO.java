@@ -10,25 +10,32 @@ package DTO;
  */
 public class deThiDTO {
 
-    private int SLCauHoi;
-    private String MaDT, MaGV, NgayThi, TenDeThi, MatKhau, TrangThai, ThoiGianBatDauThi, ThoiGianLam;
+    private String MaDT, MaGV,NgayThi, TenDeThi,MatKhau,ThoiGianBatDauThi;
+    private int trangThai,thoiGianLamBai,SLCauHoi;
     private boolean HienThiDA, TienLui;
-
     public deThiDTO() {
     }
 
-    public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String NgayThi, String TenDeThi, String MatKhau, String TrangThai, String ThoiGianBatDauThi, String ThoiGianLam, boolean HienThiDA, boolean TienLui) {
+    public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String NgayThi, String TenDeThi, String MatKhau, String ThoiGianBatDauThi, int trangThai, int thoiGianLamBai, boolean HienThiDA, boolean TienLui) {
         this.SLCauHoi = SLCauHoi;
         this.MaDT = MaDT;
         this.MaGV = MaGV;
         this.NgayThi = NgayThi;
         this.TenDeThi = TenDeThi;
         this.MatKhau = MatKhau;
-        this.TrangThai = TrangThai;
         this.ThoiGianBatDauThi = ThoiGianBatDauThi;
-        this.ThoiGianLam = ThoiGianLam;
+        this.trangThai = trangThai;
+        this.thoiGianLamBai = thoiGianLamBai;
         this.HienThiDA = HienThiDA;
         this.TienLui = TienLui;
+    }
+
+    public int getThoiGianLamBai() {
+        return thoiGianLamBai;
+    }
+
+    public void setThoiGianLamBai(int thoiGianLamBai) {
+        this.thoiGianLamBai = thoiGianLamBai;
     }
 
     
@@ -80,12 +87,12 @@ public class deThiDTO {
         this.MatKhau = MatKhau;
     }
 
-    public String getTrangThai() {
-        return TrangThai;
+    public int getTrangThai() {
+        return trangThai;
     }
 
-    public void setTrangThai(String TrangThai) {
-        this.TrangThai = TrangThai;
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     public String getThoiGianBatDauThi() {
@@ -112,12 +119,6 @@ public class deThiDTO {
         this.TienLui = TienLui;
     }
 
-    public String getThoiGianLam() {
-        return ThoiGianLam;
-    }
-
-    public void setThoiGianLam(String ThoiGianLam) {
-        this.ThoiGianLam = ThoiGianLam;
-    }
+   
 
 }

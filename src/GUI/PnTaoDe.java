@@ -415,16 +415,16 @@ public class PnTaoDe extends JPanel {
                         )
         );
 
-        JPanel pn_btn = new JPanel(new FlowLayout(0, 10, 10));
-        btnHoanThanhRight = new JButton("Hoàn thành");
-        btnHoanThanhRight.setBorderPainted(false);
-        btnHoanThanhRight.setFocusPainted(false);
-        btnHoanThanhRight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        pn_btn.add(btnHoanThanhRight);
+//        JPanel pn_btn = new JPanel(new FlowLayout(0, 10, 10));
+//        btnHoanThanhRight = new JButton("Hoàn thành");
+//        btnHoanThanhRight.setBorderPainted(false);
+//        btnHoanThanhRight.setFocusPainted(false);
+//        btnHoanThanhRight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//        pn_btn.add(btnHoanThanhRight);
 
         pnRight.add(pn_header, BorderLayout.NORTH);
         pnRight.add(pn_table, BorderLayout.CENTER);
-        pnRight.add(pn_btn, BorderLayout.SOUTH);
+//        pnRight.add(pn_btn, BorderLayout.SOUTH);
 
     }
 
@@ -451,7 +451,7 @@ public class PnTaoDe extends JPanel {
         modelDeThi = new DefaultTableModel(colDeThi, 0);
         for (deThiDTO x : new deThiBUS().layDanhSachDeThi()) {
             modelDeThi.addRow(new Object[]{x.getMaDT(), new nguoiDungBUS().layTenNguoiDungTheoMaTK(x.getMaGV()), x.getTenDeThi(), new monBUS().layTenMonTheoMaDeThi(x.getMaDT()),
-                x.getSLCauHoi(), x.getNgayThi(), x.getThoiGianLam(), new chiTietDeLopBUS().layMaLopTheoMaDT(x.getMaDT()), x.getMatKhau()});
+                x.getSLCauHoi(), x.getNgayThi(), x.getThoiGianLamBai(), new chiTietDeLopBUS().layMaLopTheoMaDT(x.getMaDT()), x.getMatKhau()});
         }
         tblDeThi.setModel(modelDeThi);
 
@@ -482,6 +482,12 @@ public class PnTaoDe extends JPanel {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+            }
+        });
+        btnThem.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
             }
         });
     }
@@ -674,15 +680,7 @@ public class PnTaoDe extends JPanel {
                 }
             }
         });
-        btnHoanThanhRight.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//                setDsMaCH(dsMaCH);
-                JFrame closingFrame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
-                // Đóng frame
-                closingFrame.dispose();
-            }
-        });
+        
     }
 
     public static void main(String[] args) throws SQLException {

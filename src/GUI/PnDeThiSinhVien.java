@@ -4,6 +4,13 @@
  */
 package GUI;
 
+import BUS.deThiBUS;
+import BUS.lopBUS1;
+import BUS.monBUS1;
+import BUS.nguoiDungBUS;
+import DTO.deThiDTO;
+import DTO.lopDTO;
+import DTO.nguoiDungDTO;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,44 +31,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class PnDeThiSinhVien extends JPanel implements ActionListener{
+public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseListener {
 
-    private DefaultTableModel modelSapThi,modelDangThi,modelDaThi;
+    private DefaultTableModel model;
     private JComboBox<String> cbb_trangThai;
     private String maTK;
-    private JPanel cards;
-    private CardLayout cardLayout;
     private JPanel pn_KetQua;
-    private JTable tableSapThi;
-    private JTable tableDangThi;
-    private JTable tableDaThi;
-    
-    
-    public PnDeThiSinhVien(String maTK) {
-        this.maTK =maTK;
+    private JTable table;
+    private deThiBUS deThi;
+
+    public PnDeThiSinhVien(String maTK) throws SQLException {
+        deThi = new deThiBUS();
+        this.maTK = maTK;
         init();
+//        model = (DefaultTableModel) table.getModel();
         cbb_trangThai.setSelectedIndex(0);
-    }
-
-    public JPanel getCards() {
-        return cards;
-    }
-
-    public void setCards(JPanel cards) {
-        this.cards = cards;
-    }
-
-    public CardLayout getCardLayout() {
-        return cardLayout;
-    }
-
-    public void setCardLayout(CardLayout cardLayout) {
-        this.cardLayout = cardLayout;
     }
 
     public JComboBox<String> getCbb_trangThai() {
@@ -79,98 +72,48 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
     public void setPn_KetQua(JPanel pn_KetQua) {
         this.pn_KetQua = pn_KetQua;
     }
-    
-    
-    
-    
-    public void init(){    
+
+    public void init() {
         this.setLayout(new BorderLayout());
         JPanel pnHeader = new JPanel();
         pnHeader.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pnHeader.setPreferredSize(new Dimension(0, 40));
-        pnHeader.setLayout(new FlowLayout(FlowLayout.LEFT,20, 10));
+        pnHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
         JLabel lb_trangThaiDeThi = new JLabel("Trạng thái:");
-        String[] cacTrangThai = new String[]{"Đề sắp thi", "Đề đang thi","Đề đã thi"};
+        String[] cacTrangThai = new String[]{"Đề sắp thi", "Đề đang thi", "Đề đã thi"};
         cbb_trangThai = new JComboBox<>(cacTrangThai);
         cbb_trangThai.addActionListener(this);
         cbb_trangThai.setPreferredSize(new Dimension(100, cbb_trangThai.getPreferredSize().height));
-        
+
         JLabel lb_timKiem = new JLabel("Tìm kiếm:");
         JTextField txt_timKiem = new JTextField(15);
-        
+
         pnHeader.add(lb_trangThaiDeThi);
         pnHeader.add(cbb_trangThai);
         pnHeader.add(lb_timKiem);
         pnHeader.add(txt_timKiem);
-        
+
         JPanel pnTable = new JPanel();
         pnTable.setLayout(new BorderLayout());
-        cards = new JPanel();
-        pnTable.add(cards, BorderLayout.CENTER);
-        cardLayout = new CardLayout();
-        cards.setLayout(cardLayout);
 
-        
-//--------------------------- Sắp thi--------------------------------------
-        Object[][] dataSapThi = {
-            {"DT1", "L1", "Toán rời rạc", "1","Sắp thi","2024-1-1","7:30:00","40","30"},
-            
-            
-            };
-        Object[] columns = {"Mã Đề", "Mã lớp","Môn","Nhóm lớp","Giảng viên","Ngày thi","Thời gian thi","Số câu","Thời gian làm bài(Phút)"};
-        modelSapThi = new DefaultTableModel(dataSapThi, columns);
-        
-        tableSapThi = new JTable(modelSapThi) {
+        Object[][] data = {};
+        Object[] columns = {"Mã đề", "Môn","Nhóm lớp","Giảng viên","Ngày thi","Thời gian bắt đầu","Số câu","Thời gian làm bài(Phút)","Trạng thái"};
+        model = new DefaultTableModel(data, columns);
+
+        table = new JTable(model) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        JScrollPane scrollPane_tableSapThi = new JScrollPane(tableSapThi);
-//--------------------------- Đang thi--------------------------------------
-        Object[][] dataDangThi = {
-            {"DT1", "L1", "Toán rời rạc", "1","Đang thi","2024-1-1","7:30:00","40","30"},
-            
-            
-            };
-        modelDangThi = new DefaultTableModel(dataDangThi, columns);
-        
-        tableDangThi = new JTable(modelDangThi) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        
-        
-        
-        
-        
-        JScrollPane scrollPane_tableDangThi = new JScrollPane(tableDangThi);
-//--------------------------- Đã thi--------------------------------------
-        Object[][] dataDaThi = {
-            {"DT1", "L1", "Toán rời rạc", "1","Đã thi","2024-1-1","7:30:00","40","30"},
-            
-            
-            };
-        modelDaThi = new DefaultTableModel(dataDaThi, columns);
-        
-        tableDaThi = new JTable(modelDaThi) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        JScrollPane scrollPane_tableDaThi = new JScrollPane(tableDaThi);
-        
-        cards.add(scrollPane_tableSapThi, "pn_SapThi");
-        cards.add(scrollPane_tableDangThi, "pn_DangThi");
-        cards.add(scrollPane_tableDaThi, "pn_DaThi");
-        
+        table.addMouseListener(this);
+        JScrollPane scrollPane_table = new JScrollPane(table);
+        pnTable.add(scrollPane_table, BorderLayout.CENTER);
+
         pn_KetQua = new JPanel();
-        pn_KetQua.setLayout(new FlowLayout(0,10,10));
-        
+        pn_KetQua.setLayout(new FlowLayout(0, 10, 10));
+
         JLabel lb_ketQua = new JLabel("Kết quả");
         JLabel lb_title_diem = new JLabel("Điểm:");
         JLabel lb_diem = new JLabel("");
@@ -186,66 +129,109 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener{
         pn_KetQua.add(lb_title_thoiGianLam);
         pn_KetQua.add(lb_thoiGianLam);
 
-        
-        
-        this.add(pnHeader,BorderLayout.NORTH);
-        this.add(pnTable,BorderLayout.CENTER);
-        this.add(pn_KetQua,BorderLayout.SOUTH);
-        
+        this.add(pnHeader, BorderLayout.NORTH);
+        this.add(pnTable, BorderLayout.CENTER);
+        this.add(pn_KetQua, BorderLayout.SOUTH);
+
         this.setVisible(true);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String selectedOption = (String) this.getCbb_trangThai().getSelectedItem();
         if (selectedOption.equals("Đề sắp thi")) {
-            this.getCardLayout().show(this.getCards(), "pn_SapThi");
-            this.pn_KetQua.setVisible(false);
-            tableSapThi.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) { // Kiểm tra xem chuột đã được nhấp đúp hay không
-//                    int row = tableSapThi.getSelectedRow();
-//                    if (row != -1) { // Kiểm tra xem có hàng nào được chọn không
-//                        System.out.println("1");
-//                    }
-                    new ShowDiaLog("Bài thi vẫn chưa diễn ra!!!", ShowDiaLog.INFO_DIALOG);
-                }
+            model.setRowCount(0);
+            try {
+                this.loadData(maTK, 0);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-        });
-            
+            this.pn_KetQua.setVisible(false);
+
         } else if (selectedOption.equals("Đề đang thi")) {
-            this.getCardLayout().show(this.getCards(), "pn_DangThi");
-            this.pn_KetQua.setVisible(false);
-            tableDangThi.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) { // Kiểm tra xem chuột đã được nhấp đúp hay không
-                    int row = tableDangThi.getSelectedRow();
-                    if (row != -1) { // Kiểm tra xem có hàng nào được chọn không
-                        
-                    }
-                }
+            model.setRowCount(0);
+            try {
+                this.loadData(maTK, 1);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-        });
-            
-            
-        }else if (selectedOption.equals("Đề đã thi")) {
-            this.getCardLayout().show(this.getCards(), "pn_DaThi");
+            this.pn_KetQua.setVisible(false);
+
+        } else if (selectedOption.equals("Đề đã thi")) {
+            model.setRowCount(0);
+            try {
+                this.loadData(maTK, 2);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             this.pn_KetQua.setVisible(true);
         }
+
     }
 
-    public static void main(String[] args) {
+    public void loadData(String maTK, int trangThai) throws SQLException {
+        ArrayList<deThiDTO> arr = this.deThi.layDSDeThiBangMaTK(maTK, trangThai);
+        for (deThiDTO dt : arr) {
+//Object[] columns = {"Mã đề", "Môn","Nhóm lớp","Giảng viên","Ngày thi","Thời gian bắt đầu","Số câu","Thời gian làm bài(Phút)","Trạng thái"};
+            nguoiDungBUS gvBUS = new nguoiDungBUS();
+            nguoiDungDTO gv = gvBUS.layNguoiDung(dt.getMaGV());
+            String tenGV = gv.getHoTen();
+            
+            lopBUS1 lopBUS = new lopBUS1();
+            lopDTO lop = lopBUS.layLopBangMaDe(dt.getMaDT());
+            monBUS1 monBUS = new monBUS1();
+            String tenMon = monBUS.layTenMonBangMaMon(lop.getMaMon());
+            model.addRow(new Object[]{dt.getMaDT(), tenMon,lop.getNhomLop(),tenGV,dt.getNgayThi(),dt.getThoiGianBatDauThi(),dt.getSLCauHoi(),dt.getThoiGianLamBai(),dt.getTrangThai()});
+        }
+        table.setModel(model);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) { // Kiểm tra xem chuột đã được nhấp đúp hay không
+            int row = table.getSelectedRow();
+            if (row != -1) { // Kiểm tra xem có hàng nào được chọn không
+                String trangThai = table.getValueAt(row, 8).toString();
+                
+                if (trangThai.equals("0")) {
+                    new ShowDiaLog("Bài thi vẫn chưa diễn ra!!!", ShowDiaLog.INFO_DIALOG);
+                } else if (trangThai.equals("1")) {
+                    String maDT = table.getValueAt(row, 0).toString().trim();
+                    try {
+                        new FrameDNVaoDeThi(maDT);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                } else if (trangThai.equals("2")) {
+                    System.out.println("da thi");
+                }
+
+            }
+        }
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+    
+    
+    public static void main(String[] args) throws SQLException {
         JFrame f = new JFrame();
         f.setSize(800, 500);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PnDeThiSinhVien p = new PnDeThiSinhVien("");
+        PnDeThiSinhVien p = new PnDeThiSinhVien("TK12");
         f.getContentPane().setLayout(new BorderLayout());
         f.add(p);
         f.setVisible(true);
     }
 
-    
 }

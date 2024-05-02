@@ -9,14 +9,15 @@ package DTO;
  * @author TK
  */
 public class lopDTO {
-
-    private String MaLop, MaGV, MaMon, TrangThai;
+    private String MaLop,  MaGV, MaMon;
     private int SoLuong, Nam, HocKy, NhomLop;
+    private boolean TrangThai;
 
     public lopDTO() {
     }
-
-    public lopDTO(String MaLop, String MaGV, String MaMon, String TrangThai, int SoLuong, int Nam, int HocKy, int NhomLop) {
+  
+    
+    public lopDTO(String MaLop, String MaGV, String MaMon, boolean TrangThai, int SoLuong, int Nam, int HocKy, int NhomLop) {
         this.MaLop = MaLop;
         this.MaGV = MaGV;
         this.MaMon = MaMon;
@@ -51,13 +52,15 @@ public class lopDTO {
         this.MaMon = MaMon;
     }
 
-    public String getTrangThai() {
+    public boolean isTrangThai() {
         return TrangThai;
     }
 
-    public void setTrangThai(String TrangThai) {
+    public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
+
+    
 
     public int getSoLuong() {
         return SoLuong;

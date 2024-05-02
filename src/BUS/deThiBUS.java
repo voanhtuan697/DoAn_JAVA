@@ -15,13 +15,36 @@ import java.util.ArrayList;
  */
 public class deThiBUS {
 
-    private deThiDAO dethi;
+    private deThiDAO deThi;
 
     public deThiBUS() throws SQLException {
-        dethi = new deThiDAO();
+        deThi = new deThiDAO();
     }
 
     public ArrayList<deThiDTO> layDanhSachDeThi() throws SQLException {
-        return dethi.layDanhSachDeThi();
+        return deThi.layDanhSachDeThi();
     }
+
+//    public ArrayList<deThiDTO> layDanhSachDeThi() throws SQLException {
+//        ArrayList<deThiDTO> arr = deThi.layDanhSachDeThi();
+//        return arr;
+//    }
+    
+    public deThiDTO layDeThiBangMaDT(String maDT) throws SQLException {
+        ArrayList<deThiDTO> arr = deThi.layDanhSachDeThi();
+        for (deThiDTO dt : arr) {
+            if (maDT.equals(dt.getMaDT().trim())) {
+                return dt;
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<deThiDTO> layDSDeThiBangMaTK(String maDT, int trangThai) throws SQLException {
+        ArrayList<deThiDTO> arr = deThi.layDeThiDSBangMaTK(maDT, trangThai);
+        return arr;
+    }
+    
+    
+    
 }

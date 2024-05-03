@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.deThiBUS;
 import DTO.deThiDTO;
+import XULY.ShowDiaLog;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -27,12 +28,14 @@ import javax.swing.JTextField;
 public class FrameDNVaoDeThi extends JFrame implements ActionListener {
 
     private String maDT;
+    private String maTK;
     private deThiBUS dt;
     private deThiDTO deThi;
     private JTextField txt_passwd;
 
-    public FrameDNVaoDeThi(String maDT) throws SQLException {
+    public FrameDNVaoDeThi(String maDT, String maTK) throws SQLException {
         this.maDT = maDT;
+        this.maTK = maTK;
         dt = new deThiBUS();
         deThi = dt.layDeThiBangMaDT(maDT);
         init();
@@ -99,7 +102,6 @@ public class FrameDNVaoDeThi extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String btn = e.getActionCommand();
@@ -107,28 +109,31 @@ public class FrameDNVaoDeThi extends JFrame implements ActionListener {
         if (source == txt_passwd && !txt_passwd.getText().isEmpty()) {
             if (txt_passwd.getText().equals(deThi.getMatKhau())) {
                 try {
-                    new FrameBaiThi(maDT);
+                    new FrameBaiThi(maDT, maTK);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                System.out.println(maDT);
                 this.dispose();
             } else {
-                System.out.println("sai");
+                new ShowDiaLog("Mật khẩu không đúng", ShowDiaLog.ERROR_DIALONG);
+                this.txt_passwd.setText("");
+                this.txt_passwd.requestFocus();
             }
         }
         if (btn.equals("Xác nhận")) {
             if (txt_passwd.getText().equals(deThi.getMatKhau())) {
                 try {
-                    new FrameBaiThi(maDT);
+                    new FrameBaiThi(maDT, maTK);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
                 this.dispose();
             } else {
-                System.out.println("sai");
+                new ShowDiaLog("Mật khẩu không đúng", ShowDiaLog.ERROR_DIALONG);
+                this.txt_passwd.setText("");
+                this.txt_passwd.requestFocus();
             }
-        }else if (btn.equals("Thoát")) {
+        } else if (btn.equals("Thoát")) {
             this.dispose();
         }
     }

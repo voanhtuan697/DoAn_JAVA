@@ -28,4 +28,8 @@ public class monBUS1 {
         String tenMon = mon.layTenMonBangMaCH(maCH);
         return tenMon;
     }
+    public String layTenMonBangMaDT(String maDT){
+        String tenMon = mon.layTenMonBangMaDT(maDT);
+        return tenMon;
+    }
 }

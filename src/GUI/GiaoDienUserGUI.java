@@ -90,8 +90,8 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
             return "Tạo môn mới";
         } else if (maCN.equals("CNTTT")) {
             return "Tạo tài khoản";
-        } else if (maCN.equals("CNXKQDT")) {
-            return "Xem kết quả thi";
+        } else if (maCN.equals("CNDSDDT")) {
+            return "Đề đã tạo";
         }else if (maCN.equals("CNTCH")) {
             return "Tạo câu hỏi mới";
         }
@@ -115,7 +115,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
             return "..//image//taoCauHoi_icon.png";
         } else if (maCN.equals("CNTTT")) {
             return "..//image//taoCauHoi_icon.png";
-        } else if (maCN.equals("CNXKQDT")) {
+        } else if (maCN.equals("CNDSDDT")) {
             return "..//image//taoCauHoi_icon.png";
         }else if (maCN.equals("CNTCH")) {
             return "..//image//taoCauHoi_icon.png";
@@ -286,7 +286,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         pn_header.setPreferredSize(new Dimension(0, 40));
         pn_header.setBackground(dark_green);
 
-        lb_Header = new JLabel("Tạo câu hỏi");
+        lb_Header = new JLabel("Thông tin");
         lb_Header.setFont(font16);
         lb_Header.setForeground(white);
         pn_header.add(lb_Header, BorderLayout.CENTER);
@@ -320,6 +320,8 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.add(pnThemMonGiangVien, "pnThemMonGiangVien");
         JPanel pnTaoTaiKhoan = new PnTaoTaiKhoan();
         cards.add(pnTaoTaiKhoan, "pnTaoTaiKhoan");
+        JPanel pnDSDDT = new PnDsDeThiDaTao("maTK");
+        cards.add(pnDSDDT, "pnDSDDT");
         JPanel pnKetQua = new PnKetQua();
         cards.add(pnKetQua, "pnKetQua");
         JPanel pnTaoCauHoi = new PanelTaoCauHoi();
@@ -392,11 +394,14 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         } else if (btn_name.equals("Đề thi")) {
             cardLayout.show(cards, "pnDeThiSV");
             lb_Header.setText("Đề thi");
+        } else if (btn_name.equals("Đề đã tạo")) {
+            cardLayout.show(cards, "pnDSDDT");
+            lb_Header.setText("Đề đã tạo");
         } else if (btn_name.equals("Thông tin")) {
             cardLayout.show(cards, "pnThongTin");
             lb_Header.setText("Thông tin");
         } else if (btn_name.equals("Đăng xuất")) {
-            this.dispose();
+            System.exit(0);
         } 
     }
 

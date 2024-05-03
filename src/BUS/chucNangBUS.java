@@ -47,4 +47,6 @@ public class chucNangBUS {
     public String layMaChucNangTheoMaQuyen(String maQuyen) throws SQLException {
         return chucNang.layMaChucNangTheoMaQuyen(maQuyen);
     }
+    
+    
 }

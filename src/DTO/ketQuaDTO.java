@@ -10,9 +10,15 @@ package DTO;
  */
 public class ketQuaDTO {
     private String MaKQ, MaDT,TGLamXong,MaTK;
-    private int SLCauDung, Diem;
+    private int SLCauDung;
+    private float Diem;
 
-    public ketQuaDTO(String MaKQ, String MaDT, String TGLamXong, String MaTK, int SLCauDung, int Diem) {
+    public ketQuaDTO() {
+    }
+    
+    
+
+    public ketQuaDTO(String MaKQ, String MaDT, String TGLamXong, String MaTK, int SLCauDung, float Diem) {
         this.MaKQ = MaKQ;
         this.MaDT = MaDT;
         this.TGLamXong = TGLamXong;
@@ -46,11 +52,11 @@ public class ketQuaDTO {
         this.SLCauDung = SLCauDung;
     }
 
-    public int getDiem() {
+    public float getDiem() {
         return Diem;
     }
 
-    public void setDiem(int Diem) {
+    public void setDiem(float Diem) {
         this.Diem = Diem;
     }
      public String getTGLamXong() {

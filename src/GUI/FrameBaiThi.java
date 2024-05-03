@@ -3,9 +3,17 @@ package GUI;
 import BUS.cauHoiBUS1;
 import BUS.chiTietDeBUS1;
 import BUS.dapAnBUS;
+import BUS.deThiBUS;
+import BUS.ketQuaBUS1;
+import BUS.lopBUS1;
+import BUS.monBUS1;
+import BUS.nguoiDungBUS;
 import DTO.cauHoiDTO;
 import DTO.chiTietDeDTO;
 import DTO.dapAnDTO;
+import DTO.deThiDTO;
+import DTO.ketQuaDTO;
+import DTO.nguoiDungDTO;
 import static GUI.BASE.font14;
 import XULY.ShowDiaLog;
 import java.awt.*;
@@ -16,8 +24,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -27,36 +33,41 @@ public class FrameBaiThi extends JFrame implements ActionListener {
 
     private String[] bangChuCai;
     private JLabel lb_time;
-    private String maDT;
+    private String maDT, maTK;
     private chiTietDeBUS1 ctd;
     private ArrayList<chiTietDeDTO> dsCTD;
     private ArrayList<Object> arrDA = new ArrayList<>();
     private ArrayList<String> mangMaCH = new ArrayList<>();
     private cauHoiBUS1 cauHoiBUS;
     private dapAnBUS dapAnBUS;
+    private deThiBUS deThiBUS;
     private JButton btn_prev, btn_next, btn_finish;
     private int count = 0;
     private JPanel cards;
     private CardLayout cardLayout;
+    private deThiDTO deThi;
 
-    public FrameBaiThi(String maDT) throws SQLException {
+    public FrameBaiThi(String maDT, String maTK) throws SQLException {
+        deThiBUS = new deThiBUS();
         dapAnBUS = new dapAnBUS();
         ctd = new chiTietDeBUS1();
         this.maDT = maDT;
+        this.maTK = maTK;
         dsCTD = ctd.layDanhSachChiTietDeBangMaDe(maDT);
         cauHoiBUS = new cauHoiBUS1();
+        deThi = deThiBUS.layDeThiBangMaDT(maDT);
 
         init();
         taoCacCauHoi();
-        startCountdown(0, 4);
 
+        startCountdown(deThi.getThoiGianLamBai(), 0);
     }
 
-    public void init() {
+    public void init() throws SQLException {
         setSize(new Dimension(800, 600));
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.getContentPane().setLayout(new BorderLayout());
 
         JPanel pn_thongTin = new JPanel(new BorderLayout());
@@ -65,10 +76,15 @@ public class FrameBaiThi extends JFrame implements ActionListener {
         lb_time.setFont(font14);
 
         JPanel pn_thongTinDe = new JPanel(new FlowLayout(0, 10, 10));
-        JLabel lb_mon = new JLabel("Môn: Vật lý");
-        JLabel lb_nhomLop = new JLabel("Nhóm: 1");
-        JLabel lb_nguoiRaDe = new JLabel("Người ra đề: Lý Vân Tư");
-        JLabel lb_thoiGian = new JLabel("Thời gian: 10 phút");
+        monBUS1 monBUS = new monBUS1();
+        JLabel lb_mon = new JLabel("Môn: "+monBUS.layTenMonBangMaDT(maDT));
+        lopBUS1 lopBUS = new lopBUS1();
+        JLabel lb_nhomLop = new JLabel("Nhóm: "+ lopBUS.layNhomLopMaTKvaMaDT(maTK, maDT));
+        nguoiDungBUS ndBUS = new nguoiDungBUS();
+        nguoiDungDTO nguoiRaDe = ndBUS.layNguoiDung(deThi.getMaGV());
+        
+        JLabel lb_nguoiRaDe = new JLabel("Người ra đề: "+nguoiRaDe.getHoTen());
+        JLabel lb_thoiGian = new JLabel("Thời gian: "+deThi.getThoiGianLamBai()+" phút");
 
         pn_thongTinDe.add(lb_mon);
         pn_thongTinDe.add(lb_nhomLop);
@@ -78,7 +94,7 @@ public class FrameBaiThi extends JFrame implements ActionListener {
         lb_time.setHorizontalAlignment(JLabel.CENTER);
         lb_time.setVerticalAlignment(JLabel.CENTER);
 
-        pn_thongTinDe.setBorder(BorderFactory.createTitledBorder(null, "De thi giua ky vat ly", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
+        pn_thongTinDe.setBorder(BorderFactory.createTitledBorder(null, deThi.getTenDeThi(), DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
         }));
 
         pn_time.add(lb_time, BorderLayout.EAST);
@@ -335,7 +351,58 @@ public class FrameBaiThi extends JFrame implements ActionListener {
 //            System.out.println("cau: "+x);
 //        }
         return cacCauChuaLam;
+    }
 
+    public String truThoiGian(String thoiGianBanDau, String thoiGianBiTru) {
+        // Chuyển đổi thời gian ban đầu và thời gian bị trừ thành số phút
+        int phutBanDau = chuyenDoiThanhPhut(thoiGianBanDau);
+        int phutBiTru = chuyenDoiThanhPhut(thoiGianBiTru);
+
+        // Trừ số phút của thời gian bị trừ từ số phút của thời gian ban đầu
+        int phutKetQua = phutBanDau - phutBiTru;
+
+        // Chuyển đổi kết quả trở lại dạng chuỗi thời gian
+        return chuyenDoiThanhChuoiThoiGian(phutKetQua);
+    }
+
+    public int chuyenDoiThanhPhut(String thoiGian) {
+        String[] parts = thoiGian.split(":");
+        int gio = Integer.parseInt(parts[0]);
+        int phut = Integer.parseInt(parts[1]);
+        return gio * 60 + phut;
+    }
+
+    public String chuyenDoiThanhChuoiThoiGian(int phut) {
+        int gio = phut / 60;
+        int phutConLai = phut % 60;
+        return String.format("%02d:%02d", gio, phutConLai);
+    }
+
+    public static String chuyenDoiGio(String thoiGian) {
+        // Chia chuỗi thành các phần riêng biệt: phút và giây
+        String[] parts = thoiGian.split(":");
+
+        // Chuyển đổi các phần thành số nguyên
+        int phut = Integer.parseInt(parts[0]);
+        int giay = Integer.parseInt(parts[1]);
+
+        // Tính số giờ mới và số phút mới sau khi chuyển đổi
+        int gioMoi = phut / 60;
+        phut %= 60;
+
+        // Đảm bảo số giờ mặc định là 00
+        int gio = 0;
+
+        // Cộng số giờ mới vào số giờ
+        gio += gioMoi;
+
+        // Chuyển đổi các phần thành chuỗi và đảm bảo chúng có đủ số lượng chữ số
+        String strGio = String.format("%02d", gio);
+        String strPhut = String.format("%02d", phut);
+        String strGiay = String.format("%02d", giay);
+
+        // Ghép các phần lại với nhau thành chuỗi kết quả
+        return strGio + ":" + strPhut + ":" + strGiay;
     }
 
     @Override
@@ -353,21 +420,38 @@ public class FrameBaiThi extends JFrame implements ActionListener {
                 this.cardLayout.show(cards, dsCTD.get(count).getMaCH().trim());
             }
         } else if (btn == btn_finish) {
-            //                System.out.println("So cau dung"+laySoCauDung(arrDA));
             ArrayList<Integer> cauChuaLam = cacCauChuaChon(arrDA);
             if (cauChuaLam.isEmpty()) {
                 try {
-                    System.out.println("So cau dung" + laySoCauDung(arrDA));
+                    int soCauDung = laySoCauDung(arrDA);
+                    int slCau = deThi.getSLCauHoi();
+                    float diem = (soCauDung / (float)slCau) * 10.0f;
+                    String thoiGianConLai = lb_time.getText();
+                    if (thoiGianConLai.charAt(0) == '0') {
+                        thoiGianConLai = thoiGianConLai.substring(1);
+                    }
+                    String thoiGianTong = deThi.getThoiGianLamBai() + ":00";
+                    String thoiGianDaLam = chuyenDoiGio(truThoiGian(thoiGianTong, thoiGianConLai));
+                    String maKQ = "KQ" + maDT.substring(2) + maTK;
+                    
+                    ketQuaDTO kq = new ketQuaDTO();
+                    kq.setMaKQ(maKQ);
+                    kq.setMaDT(maDT);
+                    kq.setDiem(diem);
+                    kq.setSLCauDung(soCauDung);
+                    kq.setTGLamXong(thoiGianDaLam);
+                    kq.setMaTK(maTK);
+                    ketQuaBUS1 ketQuaBUS = new ketQuaBUS1();
+                    ketQuaBUS.taoKetQua(kq);
+                    this.dispose();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             } else {
                 String thongBao = "Cac cau chua lam: ";
-//                System.out.println("Cac cau chua lam:");
 
                 for (int x : cauChuaLam) {
                     thongBao += x + ",";
-//                    System.out.println("cau: "+x);
                 }
                 thongBao = thongBao.substring(0, thongBao.length() - 1);
                 new ShowDiaLog(thongBao, ShowDiaLog.ERROR_DIALONG);
@@ -377,7 +461,7 @@ public class FrameBaiThi extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) throws SQLException {
-        new FrameBaiThi("DTTH1");
+        new FrameBaiThi("DTTHUE1", "TK13");
     }
 
 }

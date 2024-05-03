@@ -8,13 +8,6 @@ import DTO.deThiDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- *
- * <<<<<<< HEAD @a
- *
- *
- * uthor PHUNG
- */
 public class deThiDAO {
 
     private MyConnection conn;
@@ -34,14 +27,12 @@ public class deThiDAO {
             dt.setMaDT(rs.getString(1));
             dt.setMaGV(rs.getString(2));
             dt.setTenDeThi(rs.getString(3));
-            dt.setHienThiDA(rs.getBoolean(4));
-            dt.setTienLui(rs.getBoolean(5));
-            dt.setMatKhau(rs.getString(6));
-            dt.setNgayThi(rs.getString(7));
-            dt.setThoiGianBatDauThi(rs.getString(8));
-            dt.setTrangThai(rs.getInt(9));
-            dt.setSLCauHoi(rs.getInt(10));
-            dt.setThoiGianLamBai(rs.getInt(11));
+            dt.setMatKhau(rs.getString(4));
+            dt.setNgayThi(rs.getString(5));
+            dt.setThoiGianBatDauThi(rs.getString(6));
+            dt.setTrangThai(rs.getInt(7));
+            dt.setSLCauHoi(rs.getInt(8));
+            dt.setThoiGianLamBai(rs.getInt(9));
             arr.add(dt);
         }
         return arr;
@@ -49,7 +40,7 @@ public class deThiDAO {
 
     public ArrayList<deThiDTO> layDeThiDSBangMaTK(String maTK, int trangThai) throws SQLException {
         ArrayList<deThiDTO> arr = new ArrayList<>();
-        String query = "SELECT dt.MaDT, dt.MaGV, TenDeThi, HienThiDA, TienLui, dt.MatKhau, NgayThi, ThoiGianBatDauThi, dt.TrangThai,SoLuongCau,ThoiGianLamBai\n"
+        String query = "SELECT dt.MaDT, dt.MaGV, TenDeThi, dt.MatKhau, NgayThi, ThoiGianBatDauThi, dt.TrangThai,SoLuongCau,ThoiGianLamBai\n"
                 + "FROM taikhoan tk\n"
                 + "JOIN chitietlop ctl on tk.MaTK = ctl.MaSV\n"
                 + "JOIN lop l on ctl.MaLop = l.MaLop\n"
@@ -63,18 +54,15 @@ public class deThiDAO {
             dt.setMaDT(rs.getString(1));
             dt.setMaGV(rs.getString(2));
             dt.setTenDeThi(rs.getString(3));
-            dt.setHienThiDA(rs.getBoolean(4));
-            dt.setTienLui(rs.getBoolean(5));
-            dt.setMatKhau(rs.getString(6));
-            dt.setNgayThi(rs.getString(7));
-            dt.setThoiGianBatDauThi(rs.getString(8));
-            dt.setTrangThai(rs.getInt(9));
-            dt.setSLCauHoi(rs.getInt(10));
-            dt.setThoiGianLamBai(rs.getInt(11));
+            dt.setMatKhau(rs.getString(4));
+            dt.setNgayThi(rs.getString(5));
+            dt.setThoiGianBatDauThi(rs.getString(6));
+            dt.setTrangThai(rs.getInt(7));
+            dt.setSLCauHoi(rs.getInt(8));
+            dt.setThoiGianLamBai(rs.getInt(9));
             arr.add(dt);
         }
         return arr;
-
     }
 
     public int laySoLuongDeThiTheoMon(String maMon) throws SQLException {
@@ -134,14 +122,12 @@ public class deThiDAO {
             dt.setMaDT(rs.getString(1));
             dt.setMaGV(rs.getString(2));
             dt.setTenDeThi(rs.getString(3));
-            dt.setHienThiDA(rs.getBoolean(4));
-            dt.setTienLui(rs.getBoolean(5));
-            dt.setMatKhau(rs.getString(6));
-            dt.setNgayThi(rs.getString(7));
-            dt.setThoiGianBatDauThi(rs.getString(8));
-            dt.setTrangThai(rs.getInt(9));
-            dt.setSLCauHoi(rs.getInt(10));
-            dt.setThoiGianLamBai(rs.getInt(11));
+            dt.setMatKhau(rs.getString(4));
+            dt.setNgayThi(rs.getString(5));
+            dt.setThoiGianBatDauThi(rs.getString(6));
+            dt.setTrangThai(rs.getInt(7));
+            dt.setSLCauHoi(rs.getInt(8));
+            dt.setThoiGianLamBai(rs.getInt(9));
         }
         return dt;
     }
@@ -167,9 +153,46 @@ public class deThiDAO {
         }
         return false;
     }
-//    public static void main(String[] args) throws SQLException {
-//        deThiDAO dt = new deThiDAO();
-//        deThiDTO dtt = dt.layDeThiBangMaTK("TK12", 0);
-//        System.out.println(dtt.getThoiGianLamBai());
-//    }
+    public ArrayList<deThiDTO> layDSDeThiDaTao(String maTK, int trangThai) throws SQLException {
+        ArrayList<deThiDTO> arr = new ArrayList<>();
+        String query = "select dt.MaDT, dt.MaGV, TenDeThi, dt.MatKhau, NgayThi, ThoiGianBatDauThi, dt.TrangThai,SoLuongCau,ThoiGianLamBai\n"
+                + "from taikhoan tk\n"
+                + "join dethi dt on tk.matk = dt.magv\n"
+                + "where tk.matk = '" + maTK + "' and dt.trangthai =" + trangThai;
+        PreparedStatement pre = conn.preparedStatement(query);
+        ResultSet rs = pre.executeQuery();
+        while (rs.next()) {
+            deThiDTO dt = new deThiDTO();
+            dt.setMaDT(rs.getString(1));
+            dt.setMaGV(rs.getString(2));
+            dt.setTenDeThi(rs.getString(3));
+            dt.setMatKhau(rs.getString(4));
+            dt.setNgayThi(rs.getString(5));
+            dt.setThoiGianBatDauThi(rs.getString(6));
+            dt.setTrangThai(rs.getInt(7));
+            dt.setSLCauHoi(rs.getInt(8));
+            dt.setThoiGianLamBai(rs.getInt(9));
+            arr.add(dt);
+        }
+        return arr;
+    }
+
+    public void updateTrangThaiDeThi(String maDT) throws SQLException {
+        ArrayList<deThiDTO> arr = new ArrayList<>();
+        String query = "UPDATE dethi SET trangthai = 2 WHERE MaDT = ?";
+        PreparedStatement pre = conn.preparedStatement(query);
+        pre.setString(1, maDT);
+        int rowsAffected = pre.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Thành công.");
+        } else {
+            System.out.println("Khong thanh cong");
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
+        deThiDAO dt = new deThiDAO();
+        ArrayList<deThiDTO> arr = dt.layDSDeThiDaTao("TK4", 2);
+        System.out.println(arr.size());
+    }
 }

@@ -22,13 +22,15 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 
 public class dangNhapTaiKhoanGUI extends JFrame implements ActionListener {
 
     private JPanel pnTitlebg;
     private JLabel lbTitle, lbTaikhoan, lbMatkhau;
-    private JTextField txtTenDN, txtMatkhau;
+    private JTextField txtTenDN;
+    private JPasswordField txtMatkhau;
     private JButton btnForgot, btnLogin;
 
     public dangNhapTaiKhoanGUI() {
@@ -72,7 +74,7 @@ public class dangNhapTaiKhoanGUI extends JFrame implements ActionListener {
         txtTenDN.addActionListener(this);
         pn_main.add(txtTenDN);
 
-        txtMatkhau = new JTextField();
+        txtMatkhau = new JPasswordField();
         txtMatkhau.setBackground(new Color(255, 255, 255));
         txtMatkhau.setBounds(150, 155, 300, 30);
         txtMatkhau.addActionListener(this);
@@ -152,9 +154,4 @@ public class dangNhapTaiKhoanGUI extends JFrame implements ActionListener {
             
         }
     }
-    
-    public static void main(String[] args) {
-        new dangNhapTaiKhoanGUI();
-    }
-
 }

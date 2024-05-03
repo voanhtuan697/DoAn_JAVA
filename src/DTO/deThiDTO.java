@@ -12,11 +12,10 @@ public class deThiDTO {
 
     private String MaDT, MaGV,NgayThi, TenDeThi,MatKhau,ThoiGianBatDauThi;
     private int trangThai,thoiGianLamBai,SLCauHoi;
-    private boolean HienThiDA, TienLui;
     public deThiDTO() {
     }
 
-    public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String NgayThi, String TenDeThi, String MatKhau, String ThoiGianBatDauThi, int trangThai, int thoiGianLamBai, boolean HienThiDA, boolean TienLui) {
+    public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String NgayThi, String TenDeThi, String MatKhau, String ThoiGianBatDauThi, int trangThai, int thoiGianLamBai) {
         this.SLCauHoi = SLCauHoi;
         this.MaDT = MaDT;
         this.MaGV = MaGV;
@@ -26,8 +25,6 @@ public class deThiDTO {
         this.ThoiGianBatDauThi = ThoiGianBatDauThi;
         this.trangThai = trangThai;
         this.thoiGianLamBai = thoiGianLamBai;
-        this.HienThiDA = HienThiDA;
-        this.TienLui = TienLui;
     }
 
     public int getThoiGianLamBai() {
@@ -63,6 +60,14 @@ public class deThiDTO {
         this.MaGV = MaGV;
     }
 
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
     public String getNgayThi() {
         return NgayThi;
     }
@@ -87,36 +92,12 @@ public class deThiDTO {
         this.MatKhau = MatKhau;
     }
 
-    public int getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(int trangThai) {
-        this.trangThai = trangThai;
-    }
-
     public String getThoiGianBatDauThi() {
         return ThoiGianBatDauThi;
     }
 
     public void setThoiGianBatDauThi(String ThoiGianBatDauThi) {
         this.ThoiGianBatDauThi = ThoiGianBatDauThi;
-    }
-
-    public boolean isHienThiDA() {
-        return HienThiDA;
-    }
-
-    public void setHienThiDA(boolean HienThiDA) {
-        this.HienThiDA = HienThiDA;
-    }
-
-    public boolean isTienLui() {
-        return TienLui;
-    }
-
-    public void setTienLui(boolean TienLui) {
-        this.TienLui = TienLui;
     }
 
    

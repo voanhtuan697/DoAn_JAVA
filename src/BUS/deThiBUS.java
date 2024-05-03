@@ -35,9 +35,24 @@ public class deThiBUS {
         return null;
     }
     
-    public ArrayList<deThiDTO> layDSDeThiBangMaTK(String maDT, int trangThai) throws SQLException {
-        ArrayList<deThiDTO> arr = deThi.layDeThiDSBangMaTK(maDT, trangThai);
+    public ArrayList<deThiDTO> layDSDeThiBangMaTK(String maTK, int trangThai) throws SQLException {
+        ArrayList<deThiDTO> arr = deThi.layDeThiDSBangMaTK(maTK, trangThai);
         return arr;
+    }
+    
+    public ArrayList<deThiDTO> layDSDeThiDaTao(String maTK, int trangThai) throws SQLException {
+        ArrayList<deThiDTO> arr = deThi.layDSDeThiDaTao(maTK, trangThai);
+        return arr;
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        deThiBUS dt = new deThiBUS();
+        ArrayList<deThiDTO> arr = dt.layDSDeThiDaTao("TK4", 1);
+        System.out.println(arr.size());
+    }
+    
+    public void updateTrangThaiDeThi(String maDT) throws SQLException {
+        deThi.updateTrangThaiDeThi(maDT);
     }
     
     

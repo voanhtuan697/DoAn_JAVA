@@ -8,7 +8,7 @@ import javax.swing.UIManager;
 import GUI.dangNhapTaiKhoanGUI;
 
 
-public class testLogIn {
+public class main {
 
    
     public static void main(String[] args) {
@@ -19,5 +19,4 @@ public class testLogIn {
             e.printStackTrace();
         }
     }
-
 }

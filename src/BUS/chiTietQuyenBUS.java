@@ -33,5 +33,9 @@ public class chiTietQuyenBUS {
         this.chiTietQ.themChiTietQuyen(ctq);
     }
     
+    public boolean kiemTraTKcoTonTaiCN(String maTK, String maCN) throws SQLException {
+        return this.chiTietQ.kiemTraTKcoTonTaiCN(maTK, maCN);
+    }
+    
     
 }

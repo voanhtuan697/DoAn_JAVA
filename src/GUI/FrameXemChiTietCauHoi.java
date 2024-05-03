@@ -54,7 +54,7 @@ public class FrameXemChiTietCauHoi extends JFrame {
 
     public void init() throws SQLException {
         this.setSize(800, 600);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.getContentPane().setLayout(new BorderLayout());
         Font font = new Font("Arial", Font.PLAIN, 18);
@@ -87,7 +87,7 @@ public class FrameXemChiTietCauHoi extends JFrame {
 
         if (!ch.getImg().isEmpty()) {
             pn_noiDungCauHoi.setPreferredSize(new Dimension(0, 200));
-            JLabel lb_img = new JLabel();
+            JLabel lb_img = new JLabel();//
             lb_img.setIcon(BASE.createResizedIcon(FrameXemChiTietCauHoi.class, "..//image//" + ch.getImg(), 300, pn_noiDungCauHoi.getPreferredSize().height));
 
             pn_noiDungCauHoi.add(lb_img, BorderLayout.EAST);
@@ -136,7 +136,8 @@ public class FrameXemChiTietCauHoi extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) throws SQLException {
-        new FrameXemChiTietCauHoi("CHTHUE1");
-    }
+    
+//    public static void main(String[] args) throws SQLException {
+//        new FrameXemChiTietCauHoi("CHTHUE1");
+//    }
 }

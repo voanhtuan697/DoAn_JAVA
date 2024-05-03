@@ -9,7 +9,8 @@ package DTO;
  * @author Minh Phuc
  */
 public class cauHoiDTO {
-    private String MaCH, MaKho, MaHT, Noidung, DoKho, MaGV,Img;
+
+    private String MaCH, MaKho, MaHT, Noidung, DoKho, MaGV, Img;
     private boolean TrangThai;
 
     public cauHoiDTO() {
@@ -74,6 +75,14 @@ public class cauHoiDTO {
         this.MaGV = MaGV;
     }
 
+    public boolean getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(boolean TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+
     public String getImg() {
         return Img;
     }
@@ -82,15 +91,4 @@ public class cauHoiDTO {
         this.Img = Img;
     }
 
-    public boolean isTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(boolean TrangThai) {
-        this.TrangThai = TrangThai;
-    }
-
-    
-    
-    
 }

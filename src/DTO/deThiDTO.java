@@ -9,6 +9,7 @@ package DTO;
  * @author TK
  */
 public class deThiDTO {
+
     private String MaDT, MaGV,NgayThi, TenDeThi,MatKhau,ThoiGianBatDauThi;
     private int trangThai,thoiGianLamBai,SLCauHoi;
     public deThiDTO() {
@@ -34,6 +35,7 @@ public class deThiDTO {
         this.thoiGianLamBai = thoiGianLamBai;
     }
 
+    
     public int getSLCauHoi() {
         return SLCauHoi;
     }
@@ -99,5 +101,5 @@ public class deThiDTO {
     }
 
    
-    
+
 }

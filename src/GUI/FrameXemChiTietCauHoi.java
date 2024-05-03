@@ -4,7 +4,8 @@
  */
 package GUI;
 
-
+import DAO.cauHoiDAO;
+import DTO.cauHoiDTO;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -25,11 +26,11 @@ public class FrameXemChiTietCauHoi extends JFrame {
 
     private String[] bangChuCai;
 
-    public FrameXemChiTietCauHoi() {
-        init();
+    public FrameXemChiTietCauHoi(String maCH) {
+        init(maCH);
     }
 
-    public void init() {
+    public void init(String maCH) {
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -40,27 +41,26 @@ public class FrameXemChiTietCauHoi extends JFrame {
         lb_img.setIcon(BASE.createResizedIcon(FrameXemChiTietCauHoi.class, "..//image//anhTruong.jpg", pn_header.getPreferredSize().width, pn_header.getPreferredSize().height));
         pn_header.add(lb_img, BorderLayout.CENTER);
 
-        Font font = new Font("Arial", Font.PLAIN,18);
-        
+        Font font = new Font("Arial", Font.PLAIN, 18);
+
         bangChuCai = new String[]{"A", "B", "C", "D", "E", "F", "J", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         JPanel pn_content = new JPanel();
         pn_content.setLayout(new BoxLayout(pn_content, BoxLayout.Y_AXIS));
-        
+
         JPanel pn_cauHoi = new JPanel();
         pn_cauHoi.setLayout(new BorderLayout());
 //        pn_cauHoi.setMaximumSize(new Dimension(1400, 100));
-        
+
         JTextArea txta = new JTextArea();
         txta.setFont(font);
         txta.setLineWrap(true);
         pn_cauHoi.setMaximumSize(new Dimension(1200, 50));
-        
-        
+
         JScrollPane scrollPane = new JScrollPane(txta);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         pn_cauHoi.add(scrollPane, BorderLayout.CENTER);
-        
+
         pn_content.add(pn_cauHoi);
 
         for (int i = 0; i < 4; i++) {
@@ -76,20 +76,13 @@ public class FrameXemChiTietCauHoi extends JFrame {
             panel.add(checkBox, BorderLayout.EAST);
             pn_content.add(panel);
         }
-        
+
 //        JPanel pn_footer = new JPanel();
 //        JLabel lb_gv = 
 //        pn_footer.add(lb)
+        this.getContentPane().add(pn_header, BorderLayout.NORTH);
+        this.getContentPane().add(pn_content, BorderLayout.CENTER);
 
-        this.getContentPane().add(pn_header,BorderLayout.NORTH);
-        this.getContentPane().add(pn_content,BorderLayout.CENTER);
-
-        
         this.setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new FrameXemChiTietCauHoi();
-    }
 }
-

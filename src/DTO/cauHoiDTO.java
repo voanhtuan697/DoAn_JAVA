@@ -75,7 +75,7 @@ public class cauHoiDTO {
         this.MaGV = MaGV;
     }
 
-    public boolean isTrangThai() {
+    public boolean getTrangThai() {
         return TrangThai;
     }
 

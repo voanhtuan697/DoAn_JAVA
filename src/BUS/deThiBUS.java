@@ -29,7 +29,6 @@ public class deThiBUS {
 //        ArrayList<deThiDTO> arr = deThi.layDanhSachDeThi();
 //        return arr;
 //    }
-    
     public deThiDTO layDeThiBangMaDT(String maDT) throws SQLException {
         ArrayList<deThiDTO> arr = deThi.layDanhSachDeThi();
         for (deThiDTO dt : arr) {
@@ -39,12 +38,25 @@ public class deThiBUS {
         }
         return null;
     }
-    
+
     public ArrayList<deThiDTO> layDSDeThiBangMaTK(String maDT, int trangThai) throws SQLException {
         ArrayList<deThiDTO> arr = deThi.layDeThiDSBangMaTK(maDT, trangThai);
         return arr;
     }
-    
-    
-    
+
+    public int laySoLuongDeThiTheoMon(String maMon) throws SQLException {
+        return deThi.laySoLuongDeThiTheoMon(maMon);
+    }
+
+    public boolean themDeThi(String maDT, String maTK, String tenDT, String matKhau, java.util.Date ngayThi, Time thoiGianBatDau, int trangThai, int soLuongCau, int thoiGianLamBai, String maLop, ArrayList<String> dsMaCH) throws SQLException {
+        return deThi.themDeThi(maDT, maTK, tenDT, matKhau, ngayThi, thoiGianBatDau, trangThai, soLuongCau, thoiGianLamBai, maLop, dsMaCH);
+    }
+
+    public deThiDTO layDeThiTheoMaDT(String maDT) throws SQLException {
+        return deThi.layDeThiTheoMaDT(maDT);
+    }
+
+    public boolean xoaDeThiBangMaDT(String maDT) throws SQLException {
+        return deThi.xoaDeThiBangMaDT(maDT);
+    }
 }

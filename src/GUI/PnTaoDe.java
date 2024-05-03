@@ -44,14 +44,24 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.SwingUtilities;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner.DateEditor;
 
 public class PnTaoDe extends JPanel {
 
@@ -60,13 +70,13 @@ public class PnTaoDe extends JPanel {
     private DefaultTableModel model_right;
     private Object[] columns = {"Mã câu hỏi", "Nội dung"};
 
-    private JComboBox<String> cbb_nguoiTao;
+//    private JComboBox<String> cbb_nguoiTao;
     private JTextField txt_ndCH;
     private JTable table_left, table_right;
-    private JButton btnThemRight, btnXoaRight, btnHoanThanhRight;
+    private JButton btnThemRight, btnXoaRight;
     private ArrayList<String> dsMaCH = new ArrayList<>();
     private cauHoiBUS ch;
-    private String tenMon = "Quản trị doanh nghiệp";
+//    private String tenMon = "Quản trị doanh nghiệp";
     private String maTK = "TK8";
 //
     private JPanel pnRight, pnLeft;
@@ -74,6 +84,7 @@ public class PnTaoDe extends JPanel {
     private JLabel lblDaChonCH;
     private JButton btnChonCH;
     private SpinnerModel spSLCH;
+    private JSpinner.DateEditor dateEditor;
     private JSpinner dateTime;
     private JButton btnLop, btnThem, btnSua, btnXoa;
     private JTable tblDeThi, tblDSCH;
@@ -82,21 +93,15 @@ public class PnTaoDe extends JPanel {
 
     private JComboBox cbbMon, cbbLop;
     private ArrayList<String> dsCauHoi = new ArrayList<>();
-
-    public ArrayList<String> getDsCauHoi() {
-        return dsCauHoi;
-    }
-
-    public void setDsCauHoi(ArrayList<String> dsCauHoi) {
-        this.dsCauHoi = dsCauHoi;
-    }
+    private JFormattedTextField txtNgayGio;
 
     public PnTaoDe() throws SQLException {
 
         init();
         initComponents();
-        loadTable_Left();
         loadData();
+
+        loadTable_Left();
         addEvent1();
         addEvent2();
 
@@ -149,8 +154,9 @@ public class PnTaoDe extends JPanel {
 
         SpinnerDateModel modeldate = new SpinnerDateModel();
         dateTime = new JSpinner(modeldate);
-        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateTime, "dd/MM/yyyy HH:mm:ss");
+        dateEditor = new JSpinner.DateEditor(dateTime, "dd/MM/yyyy HH:mm:ss");
         dateTime.setEditor(dateEditor);
+        txtNgayGio = dateEditor.getTextField();
 
         cbbMon = new JComboBox();
         cbbLop = new JComboBox();
@@ -315,14 +321,14 @@ public class PnTaoDe extends JPanel {
 //        pnRight.add(pnTable, BorderLayout.CENTER);
         JPanel pn_header = new JPanel(new FlowLayout(0, 10, 10));
         JLabel lb_ndCH = new JLabel("Câu hỏi:");
-        txt_ndCH = new JTextField(10);
-        JLabel lb_nguoiTao = new JLabel("Câu hỏi tạo bởi:");
-        String[] items = {"Tất cả giảng viên", "Chính mình"};
-        cbb_nguoiTao = new JComboBox<>(items);
+        txt_ndCH = new JTextField(15);
+//        JLabel lb_nguoiTao = new JLabel("Câu hỏi tạo bởi:");
+//        String[] items = {"Tất cả giảng viên", "Chính mình"};
+//        cbb_nguoiTao = new JComboBox<>(items);
         pn_header.add(lb_ndCH);
         pn_header.add(txt_ndCH);
-        pn_header.add(lb_nguoiTao);
-        pn_header.add(cbb_nguoiTao);
+//        pn_header.add(lb_nguoiTao);
+//        pn_header.add(cbb_nguoiTao);
 
         JPanel pn_table = new JPanel();
         GroupLayout layout_table = new GroupLayout(pn_table);
@@ -421,7 +427,6 @@ public class PnTaoDe extends JPanel {
 //        btnHoanThanhRight.setFocusPainted(false);
 //        btnHoanThanhRight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 //        pn_btn.add(btnHoanThanhRight);
-
         pnRight.add(pn_header, BorderLayout.NORTH);
         pnRight.add(pn_table, BorderLayout.CENTER);
 //        pnRight.add(pn_btn, BorderLayout.SOUTH);
@@ -479,31 +484,240 @@ public class PnTaoDe extends JPanel {
                     }
                     cbbLop.revalidate();
                     cbbLop.repaint();
+                    loadTable_Left();
+                    table_left.revalidate();
+                    table_left.repaint();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             }
         });
-        btnThem.addActionListener(new ActionListener(){
+        btnThem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                if (tfTenDe.getText().trim().isEmpty()) {
+                    new ShowDiaLog("Vui lòng nhập tên đề thi!", ShowDiaLog.ERROR_DIALONG);
+                    tfTenDe.requestFocus();
+                    tfTenDe.selectAll();
+                    return;
+                }
+                if (tfTgian.getText().trim().isEmpty()) {
+                    new ShowDiaLog("Vui lòng nhập thời gian làm bài!", ShowDiaLog.ERROR_DIALONG);
+                    tfTgian.requestFocus();
+                    tfTgian.selectAll();
+                    return;
+                }
+                if (tfMatKhau.getText().trim().isEmpty()) {
+                    new ShowDiaLog("Vui lòng nhập mật khẩu đề thi!", ShowDiaLog.ERROR_DIALONG);
+                    tfMatKhau.requestFocus();
+                    tfMatKhau.selectAll();
+                    return;
+                }
+                if (!isVietnamese(tfTenDe.getText().trim())) {
+                    new ShowDiaLog("Tên đề thi không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    tfTenDe.requestFocus();
+                    tfTenDe.selectAll();
+                    return;
+                }
+                if (!isNumber(tfTgian.getText().trim())) {
+                    new ShowDiaLog("Thời gian làm bài không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    tfTgian.requestFocus();
+                    tfTgian.selectAll();
+                    return;
+                }
+                if (dsMaCH.size() == 0) {
+                    new ShowDiaLog("Vui lòng chọn câu hỏi!", ShowDiaLog.ERROR_DIALONG);
+                    return;
+                }
+                try {
+                    String maMon = new monBUS().layMaMonTheoTenMon(cbbMon.getSelectedItem().toString()).trim().substring(1);
+                    int soLuongDe = new deThiBUS().laySoLuongDeThiTheoMon(new monBUS().layMaMonTheoTenMon(cbbMon.getSelectedItem().toString())) + 1;
+                    String maDT = "DT" + maMon + Integer.toString(soLuongDe);
+                    String tenDT = tfTenDe.getText();
+                    String matKhau = tfMatKhau.getText();
+                    SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    SimpleDateFormat newFormat_Date = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat newFormat_Hour = new SimpleDateFormat("HH:mm:ss");
+
+                    String ngay = null;
+                    String gio = null;
+                    try {
+                        Date date = originalFormat.parse(txtNgayGio.getText());
+                        ngay = newFormat_Date.format(date);
+                        gio = newFormat_Hour.format(date);
+
+                        System.out.println(ngay + gio);
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    }
+                    System.out.println(maDT + "\t" + tenDT);
+
+                    java.util.Date ngayThi = newFormat_Date.parse(ngay);
+                    Date newGio = newFormat_Hour.parse(gio);
+                    Time thoiGianBatDau = new Time(newGio.getTime());
+                    int trangThai = 0;
+                    int soLuongCau = dsMaCH.size();
+                    int thoiGianLamBai = Integer.parseInt(tfTgian.getText());
+                    String maLop = cbbLop.getSelectedItem().toString();
+
+                    if (new deThiBUS().themDeThi(maDT, maTK, tenDT, matKhau, ngayThi, thoiGianBatDau, trangThai, soLuongCau, thoiGianLamBai, maLop, dsMaCH)) {
+                        new ShowDiaLog("Thêm thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                        loadDSDT();
+                        dsMaCH.clear();
+                        loadTable_Right();
+                        return;
+
+                    } else {
+                        new ShowDiaLog("Thêm thất bại!", ShowDiaLog.ERROR_DIALONG);
+                        return;
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } catch (ParseException ex) {
+                    Logger.getLogger(PnTaoDe.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         });
+        table_left.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    try {
+                        String maCH = new cauHoiBUS().layMaCHTheoNoiDung(table_left.getValueAt(table_left.getSelectedRow(), 0).toString());
+                        new FrameXemChiTietCauHoi(maCH);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+        table_right.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    try {
+                        String maCH = new cauHoiBUS().layMaCHTheoNoiDung(table_right.getValueAt(table_right.getSelectedRow(), 0).toString());
+                        new FrameXemChiTietCauHoi(maCH);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+        /*tblDeThi.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = tblDeThi.getSelectedRow();
+                try {
+                    if (selectedRow != -1) {
+                        displayDeThi(selectedRow);
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });*/
+        btnXoa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = tblDeThi.getSelectedRow();
+                if (selectedRow != -1) {
+                    int a = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa đề thi?", "Thông báo", JOptionPane.YES_NO_OPTION);
+                    if (a == JOptionPane.YES_OPTION) {
+                        String maDT = tblDeThi.getValueAt(selectedRow, 0).toString();
+                        try {
+                            if (new deThiBUS().xoaDeThiBangMaDT(maDT)) {
+                                new ShowDiaLog("Xóa thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                                loadDSDT();
+                                return;
+                            }
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    } else {
+                        return;
+                    }
+                } else {
+                    new ShowDiaLog("Vui lòng chọn đề thi cần xóa!", ShowDiaLog.ERROR_DIALONG);
+                }
+            }
+        });
+    }
+
+    /*public void displayDeThi(int selectedRow) throws SQLException, ParseException {
+        String maDT = tblDeThi.getValueAt(selectedRow, 0).toString();
+        System.out.println(maDT);
+        tfTenDe.setText(maDT);
+        System.out.println(tfTenDe.getText());
+        deThiDTO dt = new deThiDTO();
+        dt = new deThiBUS().layDeThiTheoMaDT(maDT);
+        System.out.println(dt.getNgayThi());
+        System.out.println(dt.getThoiGianBatDauThi());
+        SimpleDateFormat ngayGioFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date ngayGioDate = ngayGioFormat.parse(dt.getNgayThi() + " " + dt.getThoiGianBatDauThi());
+        System.out.println(ngayGioDate);
+/*SpinnerDateModel modeldate = new SpinnerDateModel();
+        dateTime = new JSpinner(modeldate);
+        dateEditor = new JSpinner.DateEditor(dateTime, "dd/MM/yyyy HH:mm:ss");
+        dateTime.setEditor(dateEditor);
+        
+        // Tạo một SpinnerDateModel với giá trị là ngày và giờ đã chuyển đổi
+        SpinnerDateModel model = new SpinnerDateModel(ngayGioDate, null, null, java.util.Calendar.HOUR_OF_DAY);
+
+        // Tạo DateEditor cho SpinnerDateModel với định dạng ngày và giờ
+        dateTime = new JSpinner(model);
+        dateEditor = new JSpinner.DateEditor(dateTime, "dd-MM-yyyy HH:mm:ss");
+        dateTime.setEditor(dateEditor);
+
+        System.out.println(txtNgayGio.getText());
+        tfTgian.setText(Integer.toString(dt.getThoiGianLamBai()));
+        tfMatKhau.setText(dt.getMatKhau());
+        String maMon = "M" + maDT.substring(2, maDT.length() - 1);
+        System.out.println(maMon);
+        cbbMon.setSelectedItem(new monBUS().layTenMonTheoMaMon(maMon).toString());
+        cbbMon.revalidate();
+        cbbMon.repaint();
+        cbbLop.setSelectedItem(new chiTietDeLopBUS().layMaLopTheoMaDT(maDT).toString());
+        cbbLop.revalidate();
+        cbbLop.repaint();
+        for (String x : new chiTietDeBUS().layDSChiTietDeTheoMaDT(maDT)) {
+            dsMaCH.add(x);
+        }
+        loadTable_Right();
+
+    }*/
+    public boolean isVietnamese(String str) {
+        String regex = "[a-zA-ZàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆđĐìÌỉỈĩĨíÍịỊòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢùÙủỦũŨúÚụỤưỪừỬữỮứỨựỰỳỲỷỶỹỸýÝỵỴ\\s0-9]+$";
+        return Pattern.matches(regex, str);
+    }
+
+    public boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 //pnRight
 
     public void loadTable_Left() throws SQLException {
+
         ch = new cauHoiBUS();
         model_left = new DefaultTableModel();
         model_left.addColumn("Nội dung");
-        String maMon = new monBUS().layMaMonTheoTenMon(tenMon.trim());
-        String maKho = new khoCauHoiBUS().layMaKhoCHTheoMaMon(maMon);
+        if (cbbMon.getSelectedItem().toString() != null) {
+            String maMon = new monBUS().layMaMonTheoTenMon(cbbMon.getSelectedItem().toString().trim());
+            String maKho = new khoCauHoiBUS().layMaKhoCHTheoMaMon(maMon);
 
-        for (cauHoiDTO x : ch.layDanhSachCauHoi()) {
-            if (x.getMaKho().equalsIgnoreCase(maKho)) {
-                model_left.addRow(new Object[]{x.getNoidung()});
+            for (cauHoiDTO x : ch.layDanhSachCauHoi()) {
+                if (x.getMaKho().equalsIgnoreCase(maKho) && x.getTrangThai() == true) {
+                    model_left.addRow(new Object[]{x.getNoidung()});
 
+                }
             }
         }
         table_left.setModel(model_left);
@@ -576,17 +790,18 @@ public class PnTaoDe extends JPanel {
         return ketQua;
     }
 
-    public void loadTable_LeftTheoCmb(String ma) throws SQLException {
-        ch = new cauHoiBUS();
+    public void loadTable_LeftTheoCmb(String ma, String maMon) throws SQLException {
+        System.out.println(ma);
+        String maKho = new khoCauHoiBUS().layMaKhoCHTheoMaMon(maMon);
+        System.out.println(maKho);
         model_left = new DefaultTableModel();
-        model_left.addColumn("Mã câu hỏi");
         model_left.addColumn("Nội dung");
-        System.out.println("2");
-        for (cauHoiDTO x : ch.layDanhSachCauHoi()) {
+        for (cauHoiDTO x : new cauHoiBUS().layDanhSachCauHoi()) {
             System.out.println(x.getMaGV());
-            if (x.getMaGV().equalsIgnoreCase(ma)) {
-                System.out.println("4");
-                model_left.addRow(new Object[]{x.getMaCH(), x.getNoidung()});
+            System.out.println(x.getMaKho());
+
+            if (x.getMaKho().trim().equalsIgnoreCase(maKho.trim()) && x.getMaGV().trim().equalsIgnoreCase(ma.trim())) {
+                model_left.addRow(new Object[]{x.getNoidung()});
 
             }
         }
@@ -660,9 +875,9 @@ public class PnTaoDe extends JPanel {
                 }
             }
         });
-        cbb_nguoiTao.addItemListener(new ItemListener() {
+        /*cbb_nguoiTao.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 String luaChon = cbb_nguoiTao.getSelectedItem().toString();
                 if (luaChon.equalsIgnoreCase("Tất cả giảng viên")) {
                     try {
@@ -673,14 +888,14 @@ public class PnTaoDe extends JPanel {
                 } else {
                     try {
                         System.out.println("1");
-                        loadTable_LeftTheoCmb(maTK);
+                        loadTable_LeftTheoCmb(maTK, new monBUS().layMaMonTheoTenMon(cbbMon.getSelectedItem().toString()));
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 }
             }
-        });
-        
+        });*/
+
     }
 
     public static void main(String[] args) throws SQLException {

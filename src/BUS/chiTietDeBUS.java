@@ -24,4 +24,8 @@ public class chiTietDeBUS {
     public ArrayList<chiTietDeDTO> layDanhSachChiTietDe() throws SQLException {
         return ctd.layDanhSachChiTietDe();
     }
+
+    public ArrayList<String> layDSChiTietDeTheoMaDT(String maDT) throws SQLException {
+        return ctd.layDSChiTietDeTheoMaDT(maDT);
+    }
 }

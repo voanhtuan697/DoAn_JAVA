@@ -35,6 +35,16 @@ public class chiTietDeDAO {
         }
         return arr;
     }
-    
+    public ArrayList<String> layDSChiTietDeTheoMaDT(String maDT) throws SQLException {
+        ArrayList<String> arr = new ArrayList<>();
+        String sql = "SELECT * FROM chitietde WHERE MaDT=?";
+        PreparedStatement stmt = conn.preparedStatement(sql);
+        stmt.setString(1, maDT);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            arr.add(rs.getString(1));
+        }
+        return arr;
+    }
     
 }

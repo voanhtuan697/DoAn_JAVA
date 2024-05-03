@@ -35,6 +35,7 @@ public class cauHoiDAO {
             ch.setDoKho(rs.getString(5));
             ch.setMaGV(rs.getString(6));
             ch.setTrangThai(rs.getBoolean(7));
+            ch.setImg(rs.getString(8));
             arr.add(ch);
         }
         return arr;

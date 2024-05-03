@@ -15,7 +15,6 @@ public class testTuan {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //            new GiaoDienUser();
-
 //            new MenuFrameAd();
 //            new FrameBaiThi();
 

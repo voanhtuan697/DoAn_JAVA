@@ -9,12 +9,13 @@ package DTO;
  * @author Minh Phuc
  */
 public class dapAnDTO {
-    private String MaDa, MaCH, Noidung, DungSai;
+    private String MaDa, MaCH, Noidung;
+    private boolean DungSai;
 
     public dapAnDTO() {
     }
 
-    public dapAnDTO(String MaDa, String MaCH, String Noidung, String DungSai) {
+    public dapAnDTO(String MaDa, String MaCH, String Noidung, boolean DungSai) {
         this.MaDa = MaDa;
         this.MaCH = MaCH;
         this.Noidung = Noidung;
@@ -45,13 +46,15 @@ public class dapAnDTO {
         this.Noidung = Noidung;
     }
 
-    public String getDungSai() {
+    public boolean isDungSai() {
         return DungSai;
     }
 
-    public void setDungSai(String DungSai) {
+    public void setDungSai(boolean DungSai) {
         this.DungSai = DungSai;
     }
+
+    
     
     
 }

@@ -9,11 +9,15 @@ package DTO;
  * @author PHUNG
  */
 public class taiKhoanDTO {
+
     private String MaTK;
     private String TenDN;
     private String MatKhau;
     private boolean trangThai;
     private String MaQuyen;
+    private nguoiDungDTO NgDung = new nguoiDungDTO();
+
+    
 
     public taiKhoanDTO(String MaTK, String TenDN, String MatKhau, boolean bit, String MaQuyen) {
         this.MaTK = MaTK;
@@ -24,6 +28,14 @@ public class taiKhoanDTO {
     }
 
     public taiKhoanDTO() {
+    }
+
+    public nguoiDungDTO getNgDung() {
+        return NgDung;
+    }
+
+    public void setNgDung(nguoiDungDTO NgDung) {
+        this.NgDung = NgDung;
     }
 
     public String getMaTK() {
@@ -50,6 +62,7 @@ public class taiKhoanDTO {
         this.MatKhau = MatKhau;
     }
 
+
     public boolean isTrangThai() {
         return trangThai;
     }
@@ -57,8 +70,6 @@ public class taiKhoanDTO {
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
-
-    
 
     public String getMaQuyen() {
         return MaQuyen;

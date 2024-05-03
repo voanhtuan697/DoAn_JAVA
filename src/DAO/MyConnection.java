@@ -19,7 +19,7 @@ public class MyConnection {
     private String password;
 
     public MyConnection() throws SQLException {
-        dbName = "data_QLTN";
+//        dbName = "data_QLTN";
         url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTracNghiem;trustServerCertificate=true";
         driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         username = "sa";
@@ -62,4 +62,5 @@ public class MyConnection {
         }
         return conn.prepareStatement(query);
     }
+
 }

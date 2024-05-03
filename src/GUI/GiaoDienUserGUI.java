@@ -302,8 +302,6 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.setLayout(cardLayout);
 
 //------------------------------
-//        Phần thêm panel
-//String[] name_btn = new String[]{"Câu hỏi", "Môn thi","Thêm lớp", "Đề thi", "Kết quả", "Tài khoản", "Phân quyền"};
         JPanel pnThongTin = new ThongTinUserGUI(maTK);
         cards.add(pnThongTin, "pnThongTin");
         JPanel pnDuyetCauHoi = new PnDuyetCauHoi();
@@ -333,7 +331,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         
         JPanel pnLopSV = new PnDSLopSV(maTK);
         cards.add(pnLopSV, "pnLopSV");
-        JPanel pnDeThiSV = new PnDeThiSinhVien();
+        JPanel pnDeThiSV = new PnDeThiSinhVien(maTK);
         cards.add(pnDeThiSV, "pnDeThiSV");
         
         

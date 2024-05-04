@@ -10,8 +10,8 @@ package DTO;
  */
 public class cauHoiDTO {
 
-    private String MaCH, MaKho, MaHT, Noidung, DoKho, MaGV;
-    private String Img;
+
+    private String MaCH, MaKho, MaHT, Noidung, DoKho, MaGV, Img;
     private boolean TrangThai;
 
     public cauHoiDTO() {
@@ -91,4 +91,5 @@ public class cauHoiDTO {
     public void setImg(String Img) {
         this.Img = Img;
     }
+
 }

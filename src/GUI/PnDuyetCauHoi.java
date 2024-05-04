@@ -85,12 +85,7 @@ public class PnDuyetCauHoi extends JPanel{
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };;
-
-        // Thiết lập renderer cho tất cả các cột
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(new DisabledTableCellRenderer());
-        }
+        };
 //        set chiều ngang cho cột
 //        TableColumnModel columnModel = table.getColumnModel();
 //        columnModel.getColumn(0).setPreferredWidth(60); // Mã câu hỏi

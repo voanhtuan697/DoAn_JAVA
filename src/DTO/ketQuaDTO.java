@@ -4,15 +4,29 @@
  */
 package DTO;
 
-/**
- *
- * @author TK
- */
 public class ketQuaDTO {
-    private String MaKQ, MaDT,TGLamXong,MaTK;
-    private int SLCauDung, Diem;
+//<<<<<<< HEAD
 
-    public ketQuaDTO(String MaKQ, String MaDT, String TGLamXong, String MaTK, int SLCauDung, int Diem) {
+    private String MaKQ, MaDT, TGLamXong, MaTK;
+    private int SLCauDung;
+    private float Diem;
+    private lopDTO lopDTO = new lopDTO();
+    private nguoiDungDTO ngDungDTO = new nguoiDungDTO();
+
+    public ketQuaDTO() {
+    }
+//=======
+//    private String MaKQ, MaDT,TGLamXong,MaTK;
+//    private int SLCauDung;
+//    private float Diem;
+//
+//    public ketQuaDTO() {
+//    }
+    
+  
+//>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34
+
+    public ketQuaDTO(String MaKQ, String MaDT, String TGLamXong, String MaTK, int SLCauDung, float Diem) {
         this.MaKQ = MaKQ;
         this.MaDT = MaDT;
         this.TGLamXong = TGLamXong;
@@ -20,7 +34,6 @@ public class ketQuaDTO {
         this.SLCauDung = SLCauDung;
         this.Diem = Diem;
     }
-
 
     public String getMaKQ() {
         return MaKQ;
@@ -46,14 +59,15 @@ public class ketQuaDTO {
         this.SLCauDung = SLCauDung;
     }
 
-    public int getDiem() {
+    public float getDiem() {
         return Diem;
     }
 
-    public void setDiem(int Diem) {
+    public void setDiem(float Diem) {
         this.Diem = Diem;
     }
-     public String getTGLamXong() {
+
+    public String getTGLamXong() {
         return TGLamXong;
     }
 
@@ -68,4 +82,22 @@ public class ketQuaDTO {
     public void setMaTK(String MaTK) {
         this.MaTK = MaTK;
     }
+
+    public lopDTO getLopDTO() {
+        return lopDTO;
+    }
+
+    public nguoiDungDTO getNgDungDTO() {
+        return ngDungDTO;
+    }
+
+    public void setLopDTO(lopDTO lopDTO) {
+        this.lopDTO = lopDTO;
+    }
+
+    public void setNgDungDTO(nguoiDungDTO ngDungDTO) {
+        this.ngDungDTO = ngDungDTO;
+    }
+    
+
 }

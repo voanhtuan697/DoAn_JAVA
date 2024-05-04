@@ -3,41 +3,58 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
-
-/**
- *
- * @author Minh Phuc
- */
 import DTO.dapAnDTO;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.sql.SQLException;
-
+/**
+ *
+ * @author E7250
+ */
 public class dapAnDAO {
 
-    private MyConnection myConnection;
+    private MyConnection conn;
     private List<dapAnDTO> danhSachDapAn;
 
-    public dapAnDAO() {
-        try {
-            myConnection = new MyConnection();
-            myConnection.Connect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Khong the ket noi den co so du lieu");
+    public dapAnDAO() throws SQLException {
+        conn = new MyConnection();
+        conn.Connect();
+    }
+
+    public ArrayList<dapAnDTO> layCacDapAnBangMaCH(String maCH) throws SQLException {
+        ArrayList<dapAnDTO> arr = new ArrayList<>();
+        String sql = "select* from dapan where mach = '" + maCH + "'";
+        PreparedStatement pre = conn.preparedStatement(sql);
+        ResultSet rs = pre.executeQuery();
+        while (rs.next()) {
+            dapAnDTO da = new dapAnDTO();
+            da.setMaDa(rs.getString(1));
+            da.setMaCH(rs.getString(2));
+            da.setNoidung(rs.getString(3));
+            da.setDungSai(rs.getBoolean(4));
+            arr.add(da);
         }
+        return arr;
+    }
+
+    public int laySoDapAnCuaMotCauHoi(String maCH) throws SQLException {
+        int soLuong = 0;
+        String sql = "select count(*) from dapan where mach = '" + maCH + "'";
+        PreparedStatement pre = conn.preparedStatement(sql);
+        ResultSet rs = pre.executeQuery();
+        while (rs.next()) {
+            soLuong = rs.getInt(1);
+            return soLuong;
+        }
+        return soLuong;
     }
 
     public List<dapAnDTO> layDanhSachdapAnTheoMaCH(String maCH) {
         danhSachDapAn = new ArrayList<>();
         try {
             String query = "SELECT * FROM dapAn WHERE MaCH = ?";
-            PreparedStatement ps = myConnection.preparedStatement(query);
+            PreparedStatement ps = conn.preparedStatement(query);
             ps.setString(1, maCH);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -57,7 +74,7 @@ public class dapAnDAO {
     public void themdapAn(dapAnDTO dapAn) {
         try {
             String query = "INSERT INTO dapAn(MaDa, MaCH, Noidung, DungSai) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = myConnection.preparedStatement(query);
+            PreparedStatement ps = conn.preparedStatement(query);
             ps.setString(1, dapAn.getMaDa());
             ps.setString(2, dapAn.getMaCH());
             ps.setString(3, dapAn.getNoidung());
@@ -74,7 +91,7 @@ public class dapAnDAO {
     public void suadapAn(dapAnDTO dapAn) {
         try {
             String query = "UPDATE dapAn SET Noidung = ?, DungSai = ? WHERE MaDa = ?";
-            PreparedStatement ps = myConnection.preparedStatement(query);
+            PreparedStatement ps = conn.preparedStatement(query);
             ps.setString(1, dapAn.getNoidung());
             ps.setBoolean(2, dapAn.isDungSai());
             ps.setString(3, dapAn.getMaDa());
@@ -96,7 +113,7 @@ public class dapAnDAO {
     public void xoadapAn(String maDa) {
         try {
             String query = "DELETE FROM dapAn WHERE MaDa = ?";
-            PreparedStatement ps = myConnection.preparedStatement(query);
+            PreparedStatement ps = conn.preparedStatement(query);
             ps.setString(1, maDa);
             ps.executeUpdate();
 
@@ -105,6 +122,6 @@ public class dapAnDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
 
+    }
 }

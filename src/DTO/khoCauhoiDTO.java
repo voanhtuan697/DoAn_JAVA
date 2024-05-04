@@ -4,17 +4,13 @@
  */
 package DTO;
 
-/**
- *
- * @author Minh Phuc
- */
-public class khoCauhoiDTO {
+public class khoCauHoiDTO {
     private String MaKho, MaMon, MaTBM;
 
-    public khoCauhoiDTO() {
+    public khoCauHoiDTO() {
     }
 
-    public khoCauhoiDTO(String MaKho, String MaMon, String MaTBM) {
+    public khoCauHoiDTO(String MaKho, String MaMon, String MaTBM) {
         this.MaKho = MaKho;
         this.MaMon = MaMon;
         this.MaTBM = MaTBM;
@@ -43,6 +39,5 @@ public class khoCauhoiDTO {
     public void setMaTBM(String MaTBM) {
         this.MaTBM = MaTBM;
     }
-    
     
 }

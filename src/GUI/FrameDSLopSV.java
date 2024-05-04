@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -85,16 +86,18 @@ public class FrameDSLopSV extends JFrame {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };;
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(new DisabledTableCellRenderer());
-        }
+        };
 
         JScrollPane scrollPane_table = new JScrollPane(table);
         pnTable.add(scrollPane_table, BorderLayout.CENTER);
+        
+        JPanel pn_btn = new JPanel(new FlowLayout(1,10,10));
+        JButton btn_xoa = new JButton("Xóa");
+        pn_btn.add(btn_xoa);
 
         this.getContentPane().add(pnHeader, BorderLayout.NORTH);
         this.getContentPane().add(pnTable, BorderLayout.CENTER);
+        this.getContentPane().add(pn_btn, BorderLayout.SOUTH);
 
         this.setVisible(true);
     }

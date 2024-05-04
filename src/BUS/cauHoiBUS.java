@@ -4,32 +4,43 @@
  */
 package BUS;
 
-/**
- *
- * @author Minh Phuc
- */
 import DAO.cauHoiDAO;
 import DTO.cauHoiDTO;
+import java.sql.*;
+import java.util.ArrayList;
 
+/**
+ *
+ * @author PHUNG
+ */
 public class cauHoiBUS {
-    private cauHoiDAO dao;
 
-    public cauHoiBUS() {
-        dao = new cauHoiDAO();
+    private cauHoiDAO ch;
+
+    public cauHoiBUS() throws SQLException {
+        this.ch = new cauHoiDAO();
     }
 
-    // Thêm câu hỏi
+    public ArrayList<cauHoiDTO> layDanhSachCauHoi() throws SQLException {
+        return ch.layDanhSachCauHoi();
+    }
+
+    public String layMaCHTheoNoiDung(String noiDung) throws SQLException {
+        return ch.layMaCHTheoNoiDung(noiDung);
+    }
+
+
     public boolean themCauHoi(cauHoiDTO cauHoi) {
-        return dao.themCauHoi(cauHoi);
+        return ch.themCauHoi(cauHoi);
     }
 
-    // Sửa câu hỏi
+
     public boolean suaCauHoi(cauHoiDTO cauHoi) {
-        return dao.suaCauHoi(cauHoi);
+        return ch.suaCauHoi(cauHoi);
     }
 
-    // Xóa câu hỏi
+
     public boolean xoaCauHoi(String maCH) {
-        return dao.xoaCauHoi(maCH);
+        return ch.xoaCauHoi(maCH);
     }
 }

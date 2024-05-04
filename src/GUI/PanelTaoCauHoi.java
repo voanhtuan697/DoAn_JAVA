@@ -9,6 +9,8 @@ import BUS.hinhThucBUS;
 import DAO.cauHoiDAO;
 import DTO.cauHoiDTO;
 import DTO.dapAnDTO;
+import BUS.hinhThucBUS2;
+>>>>>>> 63cbdba3280b3fc269f97696674efa0536188cd1
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -209,9 +211,6 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         };
 
         // Thiết lập renderer cho tất cả các cột
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(new DisabledTableCellRenderer());
-        }
 //        set chiều ngang cho cột
 //        TableColumnModel columnModel = table.getColumnModel();
 //        columnModel.getColumn(0).setPreferredWidth(60); // Mã câu hỏi
@@ -425,7 +424,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
             btn.setBorderPainted(false);
             btn.setFocusPainted(false);
             if (i < 3) {
-                btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(GiaoDienUser.class.getResource("..//image//" + name_image[i]))).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+                btn.setIcon(new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(GiaoDienUserGUI.class.getResource("..//image//" + name_image[i]))).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
             }
             btn.setBackground(dark_green);
             btn.setFont(new Font("typeface", Font.BOLD, 10));
@@ -708,6 +707,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         cards.add(scrollPane, "pn_TN_Nhieu");
     }
 
+<<<<<<< HEAD
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(800, 500);
@@ -717,6 +717,8 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         f.setVisible(true);
     }
 
+=======
+>>>>>>> 63cbdba3280b3fc269f97696674efa0536188cd1
     @Override
     public void actionPerformed(ActionEvent e) {
         String selectedOption = (String) this.getCbb_hinhThuc().getSelectedItem();
@@ -742,5 +744,14 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
             }
 
         }
+    }
+    
+    public static void main(String[] args) {
+        JFrame f = new JFrame();
+        f.setSize(800, 500);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.getContentPane().add(new PanelTaoCauHoi());
+        f.setVisible(true);
     }
 }

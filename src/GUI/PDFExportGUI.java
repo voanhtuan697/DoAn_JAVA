@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import helper.writePDF;
+import XULY.writePDF;
 
 
 public class PDFExportGUI extends JFrame implements ActionListener {

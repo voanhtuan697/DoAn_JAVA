@@ -206,12 +206,12 @@ public class PnTaoLopMoi extends JPanel {
 
                 int number = Integer.parseInt(soLuong);
                 if (soLuong.isEmpty()) {
-                    new ShowDiaLog("Không được để rỗng", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Không được để rỗng", ShowDiaLog.ERROR_DIALOG);
                     tfSL.requestFocus();
                 } else if (!soLuong.matches("^\\d+$")) {
-                    new ShowDiaLog("Vui lòng nhập số nguyên dương", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập số nguyên dương", ShowDiaLog.ERROR_DIALOG);
                 } else if (number > 100) {
-                    new ShowDiaLog("Số phải là số dương và nhỏ hơn hoặc bằng 100", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Số phải là số dương và nhỏ hơn hoặc bằng 100", ShowDiaLog.ERROR_DIALOG);
                 } else {
                     themLop();
                     tfSL.setText("");
@@ -347,7 +347,7 @@ public class PnTaoLopMoi extends JPanel {
     private void XoaLop() {
         int i = table.getSelectedRow();
         if (i == -1) {
-            new ShowDiaLog("Vui lòng chọn 1 dòng để xóa", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Vui lòng chọn 1 dòng để xóa", ShowDiaLog.ERROR_DIALOG);
         } else {
             String MaLop = table.getValueAt(i, 0) + "";
             System.out.println(MaLop);

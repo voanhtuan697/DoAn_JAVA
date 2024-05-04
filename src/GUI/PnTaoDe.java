@@ -504,37 +504,37 @@ public class PnTaoDe extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tfTenDe.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập tên đề thi!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập tên đề thi!", ShowDiaLog.ERROR_DIALOG);
                     tfTenDe.requestFocus();
                     tfTenDe.selectAll();
                     return;
                 }
                 if (tfTgian.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập thời gian làm bài!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập thời gian làm bài!", ShowDiaLog.ERROR_DIALOG);
                     tfTgian.requestFocus();
                     tfTgian.selectAll();
                     return;
                 }
                 if (tfMatKhau.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập mật khẩu đề thi!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập mật khẩu đề thi!", ShowDiaLog.ERROR_DIALOG);
                     tfMatKhau.requestFocus();
                     tfMatKhau.selectAll();
                     return;
                 }
                 if (!isVietnamese(tfTenDe.getText().trim())) {
-                    new ShowDiaLog("Tên đề thi không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Tên đề thi không hợp lệ!", ShowDiaLog.ERROR_DIALOG);
                     tfTenDe.requestFocus();
                     tfTenDe.selectAll();
                     return;
                 }
                 if (!isNumber(tfTgian.getText().trim())) {
-                    new ShowDiaLog("Thời gian làm bài không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Thời gian làm bài không hợp lệ!", ShowDiaLog.ERROR_DIALOG);
                     tfTgian.requestFocus();
                     tfTgian.selectAll();
                     return;
                 }
                 if (dsMaCH.size() == 0) {
-                    new ShowDiaLog("Vui lòng chọn câu hỏi!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng chọn câu hỏi!", ShowDiaLog.ERROR_DIALOG);
                     return;
                 }
                 try {
@@ -579,7 +579,7 @@ public class PnTaoDe extends JPanel {
                         return;
 
                     } else {
-                        new ShowDiaLog("Thêm thất bại!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Thêm thất bại!", ShowDiaLog.ERROR_DIALOG);
                         return;
                     }
                 } catch (SQLException ex) {
@@ -656,7 +656,7 @@ public class PnTaoDe extends JPanel {
                                 }
                             }
                         }
-                        new ShowDiaLog("Không thể xóa! Đề thi này đã/đang được làm!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Không thể xóa! Đề thi này đã/đang được làm!", ShowDiaLog.ERROR_DIALOG);
                         return;
 
                     } catch (SQLException ex) {
@@ -664,54 +664,12 @@ public class PnTaoDe extends JPanel {
                     }
 
                 } else {
-                    new ShowDiaLog("Vui lòng chọn đề thi cần xóa!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng chọn đề thi cần xóa!", ShowDiaLog.ERROR_DIALOG);
                 }
             }
         });
     }
 
-    /*public void displayDeThi(int selectedRow) throws SQLException, ParseException {
-        String maDT = tblDeThi.getValueAt(selectedRow, 0).toString();
-        System.out.println(maDT);
-        tfTenDe.setText(maDT);
-        System.out.println(tfTenDe.getText());
-        deThiDTO dt = new deThiDTO();
-        dt = new deThiBUS().layDeThiTheoMaDT(maDT);
-        System.out.println(dt.getNgayThi());
-        System.out.println(dt.getThoiGianBatDauThi());
-        SimpleDateFormat ngayGioFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date ngayGioDate = ngayGioFormat.parse(dt.getNgayThi() + " " + dt.getThoiGianBatDauThi());
-        System.out.println(ngayGioDate);
-/*SpinnerDateModel modeldate = new SpinnerDateModel();
-        dateTime = new JSpinner(modeldate);
-        dateEditor = new JSpinner.DateEditor(dateTime, "dd/MM/yyyy HH:mm:ss");
-        dateTime.setEditor(dateEditor);
-        
-        // Tạo một SpinnerDateModel với giá trị là ngày và giờ đã chuyển đổi
-        SpinnerDateModel model = new SpinnerDateModel(ngayGioDate, null, null, java.util.Calendar.HOUR_OF_DAY);
-
-        // Tạo DateEditor cho SpinnerDateModel với định dạng ngày và giờ
-        dateTime = new JSpinner(model);
-        dateEditor = new JSpinner.DateEditor(dateTime, "dd-MM-yyyy HH:mm:ss");
-        dateTime.setEditor(dateEditor);
-
-        System.out.println(txtNgayGio.getText());
-        tfTgian.setText(Integer.toString(dt.getThoiGianLamBai()));
-        tfMatKhau.setText(dt.getMatKhau());
-        String maMon = "M" + maDT.substring(2, maDT.length() - 1);
-        System.out.println(maMon);
-        cbbMon.setSelectedItem(new monBUS().layTenMonTheoMaMon(maMon).toString());
-        cbbMon.revalidate();
-        cbbMon.repaint();
-        cbbLop.setSelectedItem(new chiTietDeLopBUS().layMaLopTheoMaDT(maDT).toString());
-        cbbLop.revalidate();
-        cbbLop.repaint();
-        for (String x : new chiTietDeBUS().layDSChiTietDeTheoMaDT(maDT)) {
-            dsMaCH.add(x);
-        }
-        loadTable_Right();
-
-    }*/
     public boolean isVietnamese(String str) {
         String regex = "[a-zA-ZàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆđĐìÌỉỈĩĨíÍịỊòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢùÙủỦũŨúÚụỤưỪừỬữỮứỨựỰỳỲỷỶỹỸýÝỵỴ\\s0-9]+$";
         return Pattern.matches(regex, str);
@@ -737,7 +695,7 @@ public class PnTaoDe extends JPanel {
             String maKho = new khoCauHoiBUS().layMaKhoCHTheoMaMon(maMon);
 
             for (cauHoiDTO x : ch.layDanhSachCauHoi()) {
-                if (x.getMaKho().equalsIgnoreCase(maKho) && x.getTrangThai() == true) {
+                if (x.getMaKho().equalsIgnoreCase(maKho) && x.isTrangThai()) {
                     model_left.addRow(new Object[]{x.getNoidung()});
 
                 }
@@ -773,7 +731,7 @@ public class PnTaoDe extends JPanel {
                 if (x.getNoidung().equalsIgnoreCase(noiDungCH)) {
                     for (String y : dsMaCH) {
                         if (y.equalsIgnoreCase(x.getMaCH())) {
-                            new ShowDiaLog("Câu hỏi đã được chọn!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Câu hỏi đã được chọn!", ShowDiaLog.ERROR_DIALOG);
                             return;
                         }
                     }
@@ -845,7 +803,7 @@ public class PnTaoDe extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (table_right.getSelectedRow() != -1) {
-                        new ShowDiaLog("Vui lòng chọn câu hỏi ở bảng bên trái!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Vui lòng chọn câu hỏi ở bảng bên trái!", ShowDiaLog.ERROR_DIALOG);
                         return;
                     }
                     luuCauHoiDaChon();
@@ -862,7 +820,7 @@ public class PnTaoDe extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (table_left.getSelectedRow() != -1) {
-                        new ShowDiaLog("Vui lòng chọn câu hỏi ở bảng bên phải!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Vui lòng chọn câu hỏi ở bảng bên phải!", ShowDiaLog.ERROR_DIALOG);
                         return;
                     }
                     xoaCauHoiDaChon();

@@ -204,7 +204,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
 
                     try {
                         if (kequaBUS.kiemTraSVDaLamDeChua(maTK, maDT)) {
-                            new ShowDiaLog("Bạn đã thi bài thi này rồi!!!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Bạn đã thi bài thi này rồi!!!", ShowDiaLog.ERROR_DIALOG);
                         } else {
                             try {
                                 new FrameDNVaoDeThi(maDT, maTK);
@@ -225,7 +225,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
                         String thoiGianLamXong = kq.getTGLamXong().substring(0, 8);
                         lb_thoiGianLam.setText("Thời gian làm: "+thoiGianLamXong);
                     } else {
-                        new ShowDiaLog("Bạn đã không thi bài thi này!!!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Bạn đã không thi bài thi này!!!", ShowDiaLog.ERROR_DIALOG);
                         lb_diem.setText("Điểm: ");
                         lb_soCauDung.setText("Số câu đúng: ");
                         lb_thoiGianLam.setText("Thời gian làm: ");

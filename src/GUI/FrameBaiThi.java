@@ -452,7 +452,7 @@ public class FrameBaiThi extends JFrame implements ActionListener {
                     thongBao += x + ",";
                 }
                 thongBao = thongBao.substring(0, thongBao.length() - 1);
-                new ShowDiaLog(thongBao, ShowDiaLog.ERROR_DIALONG);
+                new ShowDiaLog(thongBao, ShowDiaLog.ERROR_DIALOG);
             }
         }
 

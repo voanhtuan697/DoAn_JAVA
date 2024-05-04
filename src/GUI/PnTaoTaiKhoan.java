@@ -326,25 +326,25 @@ public class PnTaoTaiKhoan extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (txtHoTen.getText().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALOG);
 //                    JOptionPane.showMessageDialog(null, "Vui lòng nhập họ tên!");
                     txtHoTen.requestFocus();
                     txtHoTen.selectAll();
                     return;
                 }
                 if (!isVietnamese(txtHoTen.getText())) {
-                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALOG);
                     txtHoTen.requestFocus();
                     txtHoTen.selectAll();
                     return;
                 }
                 if (model1.getValue() == null) {
-                    new ShowDiaLog("Vui lòng chọn ngày sinh!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng chọn ngày sinh!", ShowDiaLog.ERROR_DIALOG);
 //                    JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày sinh!");
                     return;
                 }
                 if (userId != null) {
-                    new ShowDiaLog("Người dùng đã tồn tại! Vui lòng clear form và nhập lại thông tin!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Người dùng đã tồn tại! Vui lòng clear form và nhập lại thông tin!", ShowDiaLog.ERROR_DIALOG);
 //                    JOptionPane.showMessageDialog(null, "Người dùng đã tồn tại! Vui lòng clear form và nhập lại thông tin!");
                     return;
                 }
@@ -396,20 +396,20 @@ public class PnTaoTaiKhoan extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (txtHoTen.getText().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALOG);
 //                    JOptionPane.showMessageDialog(null, "Vui lòng nhập họ tên!");
                     txtHoTen.requestFocus();
                     txtHoTen.selectAll();
                     return;
                 }
                 if (!isVietnamese(txtHoTen.getText())) {
-                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALOG);
                     txtHoTen.requestFocus();
                     txtHoTen.selectAll();
                     return;
                 }
                 if (model1.getValue() == null) {
-                    new ShowDiaLog("Vui lòng chọn ngày sinh!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng chọn ngày sinh!", ShowDiaLog.ERROR_DIALOG);
 //                    JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày sinh!");
                     return;
                 }
@@ -473,7 +473,7 @@ public class PnTaoTaiKhoan extends JPanel {
                     }
 
                 } else {
-                    new ShowDiaLog("Vui lòng chọn người dùng cần xóa!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng chọn người dùng cần xóa!", ShowDiaLog.ERROR_DIALOG);
 
 //                    JOptionPane.showMessageDialog(null, "Vui lòng chọn người dùng cần xóa!");
                     return;
@@ -563,7 +563,7 @@ public class PnTaoTaiKhoan extends JPanel {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                new ShowDiaLog("Xuất thành công!", ShowDiaLog.ERROR_DIALONG);
+                new ShowDiaLog("Xuất thành công!", ShowDiaLog.ERROR_DIALOG);
 
 //                JOptionPane.showMessageDialog(null, "Xuất thành công!");
             }

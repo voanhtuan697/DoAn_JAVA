@@ -32,30 +32,15 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-//<<<<<<< HEAD:src/GUI/PnThemLop.java
-//public class PnThemLop extends JPanel {
-//=======
-///**
-// *
-// * @author E7250
-// */
+
 public class PnTaoLopMoi extends JPanel {
-//>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34:src/GUI/PnTaoLopMoi.java
 
     private JPanel pnTop, pnCenter, pnBottom;
     private JComboBox cbb_TrThLop, cbb_HocKy, cbb_TrangThai, cb_GiaoVien, cb_Mon;
@@ -120,9 +105,6 @@ public class PnTaoLopMoi extends JPanel {
             lbl[i] = new JLabel(title[i]);
             lbl[i].setFont(font14);
         }
-//=======
-//>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34:src/GUI/PnTaoLopMoi.java
-
         cb_GiaoVien = new JComboBox();
         cb_Mon = new JComboBox();
         cbb_HocKy = new JComboBox<>(new String[]{"1", "2"});

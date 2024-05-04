@@ -10,21 +10,22 @@ package DTO;
  */
 public class cauHoiDTO {
 
+
     private String MaCH, MaKho, MaHT, Noidung, DoKho, MaGV, Img;
     private boolean TrangThai;
 
     public cauHoiDTO() {
     }
 
-    public cauHoiDTO(String MaCH, String MaKho, String MaHT, String Noidung, String DoKho, String MaGV, boolean TrangThai, String Img) {
+    public cauHoiDTO(String MaCH, String MaKho, String MaHT, String Noidung, String DoKho, String MaGV, String Img, boolean TrangThai) {
         this.MaCH = MaCH;
         this.MaKho = MaKho;
         this.MaHT = MaHT;
         this.Noidung = Noidung;
         this.DoKho = DoKho;
         this.MaGV = MaGV;
-        this.TrangThai = TrangThai;
         this.Img = Img;
+        this.TrangThai = TrangThai;
     }
 
     public String getMaCH() {
@@ -75,7 +76,7 @@ public class cauHoiDTO {
         this.MaGV = MaGV;
     }
 
-    public boolean getTrangThai() {
+    public boolean isTrangThai() {
         return TrangThai;
     }
 

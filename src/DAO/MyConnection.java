@@ -20,7 +20,7 @@ public class MyConnection {
 
     public MyConnection() throws SQLException {
 //        dbName = "data_QLTN";
-        url = "jdbc:sqlserver://localhost:1433;databaseName=data_QLTN;trustServerCertificate=true";
+        url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTracNghiem;trustServerCertificate=true";
         driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         username = "sa";
         password = "quynh1409";  //moi nguoi se co pass khac nhau

@@ -16,6 +16,11 @@ public class monDTO {
     public monDTO() {
     }
 
+    public monDTO(String TenMon) {
+        this.TenMon = TenMon;
+    }
+    
+
     public String getMaMon() {
         return MaMon;
     }

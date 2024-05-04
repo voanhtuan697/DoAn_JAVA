@@ -5,6 +5,8 @@
 package BUS;
 
 import DAO.monDAO2;
+import DTO.monDTO;
+import XULY.ShowDiaLog;
 import java.util.ArrayList;
 
 public class monBUS2 {
@@ -31,5 +33,13 @@ public class monBUS2 {
 
     public String getNameByMaMon(String MaMon) {
         return dao.getNameByMaMon(MaMon);
+    }
+
+    public boolean ThemMon(String MaMon, String TenMon) {
+        monDTO m = new monDTO();
+        m.setMaMon(MaMon);
+        m.setTenMon(TenMon);
+        return dao.ThemMon(m);
+
     }
 }

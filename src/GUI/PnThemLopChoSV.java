@@ -4,11 +4,11 @@
  */
 package GUI;
 
-import BUS.chiTietLopBUS;
-import BUS.lopBUS;
-import BUS.monBUS;
-import BUS.nguoiDungBUS;
-import BUS.taiKhoanBUS;
+import BUS.chiTietLopBUS2;
+import BUS.lopBUS2;
+import BUS.monBUS2;
+import BUS.nguoiDungBUS2;
+import BUS.taiKhoanBUS2;
 import DTO.lopDTO;
 import DTO.monDTO;
 import DTO.nguoiDungDTO;
@@ -50,11 +50,11 @@ public class PnThemLopChoSV extends JPanel {
     private DefaultTableModel model;
     private String maSV;
     private JButton btnThem;
-    private lopBUS busLop = new lopBUS();
-    private monBUS busMon = new monBUS();
-    private nguoiDungBUS busNgDung = new nguoiDungBUS();
-    private chiTietLopBUS busCTLop = new chiTietLopBUS();
-    private taiKhoanBUS busTK = new taiKhoanBUS();
+    private lopBUS2 busLop = new lopBUS2();
+    private monBUS2 busMon = new monBUS2();
+    private nguoiDungBUS2 busNgDung = new nguoiDungBUS2();
+    private chiTietLopBUS2 busCTLop = new chiTietLopBUS2();
+    private taiKhoanBUS2 busTK = new taiKhoanBUS2();
     private ArrayList<String> choose = new ArrayList<>();
     
     public PnThemLopChoSV() {

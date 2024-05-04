@@ -4,13 +4,13 @@
  */
 package BUS;
 
-import DAO.taiKhoanDAO;
+import DAO.taiKhoanDAO2;
 import DTO.taiKhoanDTO;
 import java.util.ArrayList;
 
-public class taiKhoanBUS {
+public class taiKhoanBUS2 {
 
-    private taiKhoanDAO dao = new taiKhoanDAO();
+    private taiKhoanDAO2 dao = new taiKhoanDAO2();
 
   
     

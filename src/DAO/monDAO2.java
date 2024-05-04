@@ -10,11 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class monDAO {
+public class monDAO2 {
 
     private MyConnection conn;
 
-    public monDAO() {
+    public monDAO2() {
         try {
             conn = new MyConnection();
         } catch (SQLException e) {
@@ -82,7 +82,7 @@ public class monDAO {
     
 
     public static void main(String[] args) {
-        monDAO dao = new monDAO();
+        monDAO2 dao = new monDAO2();
         ArrayList<monDTO> arr = dao.listMon();
         for (monDTO x : arr) {
             System.out.println(x.getTenMon());

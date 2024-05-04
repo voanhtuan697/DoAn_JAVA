@@ -12,12 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ketQuaDAO {
+public class ketQuaDAO2 {
 
     private MyConnection conn;
     private ketQuaDTO kq;
 
-    public ketQuaDAO() {
+    public ketQuaDAO2() {
         try {
             conn = new MyConnection();
         } catch (SQLException e) {
@@ -238,7 +238,7 @@ public class ketQuaDAO {
     }
 
     public static void main(String[] args) {
-        ketQuaDAO p = new ketQuaDAO();
+        ketQuaDAO2 p = new ketQuaDAO2();
 //        ArrayList<ketQuaDTO> list = p.DanhSachTruot("Quản trị doanh nghiệp", "DTQTDN1", "LQTDN1");
         ArrayList<ketQuaDTO> list = p.DanhSachKhoang("Quản trị doanh nghiệp", "DTQTDN1", "LQTDN1", 5, 8);
         for (ketQuaDTO k : list) {

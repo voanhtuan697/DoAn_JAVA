@@ -1,9 +1,9 @@
 package GUI;
 
-import BUS.deThiBUS;
-import BUS.ketQuaBUS;
-import BUS.lopBUS;
-import BUS.monBUS;
+import BUS.deThiBUS2;
+import BUS.ketQuaBUS2;
+import BUS.lopBUS2;
+import BUS.monBUS2;
 import DTO.deThiDTO;
 import DTO.ketQuaDTO;
 import DTO.lopDTO;
@@ -48,10 +48,10 @@ public class PnKetQua extends JPanel {
     private JComboBox cbMonthi, cbDeThi, cbLop;
     private JTable table;
     private ButtonGroup group;
-    private ketQuaBUS busKQ = new ketQuaBUS();
-    private monBUS busMon = new monBUS();
-    private deThiBUS busThi = new deThiBUS();
-    private lopBUS busLop = new lopBUS();
+    private ketQuaBUS2 busKQ = new ketQuaBUS2();
+    private monBUS2 busMon = new monBUS2();
+    private deThiBUS2 busThi = new deThiBUS2();
+    private lopBUS2 busLop = new lopBUS2();
 
     public PnKetQua() {
         init();

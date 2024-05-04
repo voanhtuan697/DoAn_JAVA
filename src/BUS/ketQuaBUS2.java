@@ -4,13 +4,13 @@
  */
 package BUS;
 
-import DAO.ketQuaDAO;
+import DAO.ketQuaDAO2;
 import DTO.ketQuaDTO;
 import java.util.ArrayList;
 
 
-public class ketQuaBUS {
-    private ketQuaDAO dao = new ketQuaDAO();
+public class ketQuaBUS2 {
+    private ketQuaDAO2 dao = new ketQuaDAO2();
     
     
     public ArrayList<ketQuaDTO> DanhSach(String TenMon, String MaDT, String MaLop){

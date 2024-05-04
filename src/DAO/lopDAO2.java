@@ -11,12 +11,12 @@ import java.sql.SQLException;
 import java.time.Year;
 import java.util.ArrayList;
 
-public class lopDAO {
+public class lopDAO2 {
 
     private MyConnection conn;
     private lopDTO lop;
 
-    public lopDAO() {
+    public lopDAO2() {
         try {
             conn = new MyConnection();
         } catch (SQLException e) {
@@ -56,7 +56,7 @@ public class lopDAO {
             pre.setString(4, l.getMaMon());
             pre.setInt(5, l.getNam());
             pre.setInt(6, l.getHocKy());
-            pre.setBoolean(7, l.getTrangThai());
+            pre.setBoolean(7, l.isTrangThai());
             pre.setInt(8, l.getNhomLop());
             success = pre.executeUpdate() > 0;
             conn.disconnect();
@@ -252,7 +252,7 @@ public class lopDAO {
     }
 
     public static void main(String[] args) {
-        lopDAO dao = new lopDAO();
+        lopDAO2 dao = new lopDAO2();
         String x = dao.getMaLop("Toán rời rạc");
         System.out.println(x);
 

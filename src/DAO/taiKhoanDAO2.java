@@ -4,19 +4,17 @@
  */
 package DAO;
 
-import DTO.nguoiDungDTO;
 import DTO.taiKhoanDTO;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
-public class taiKhoanDAO {
+public class taiKhoanDAO2 {
 
     private MyConnection conn;
     private taiKhoanDTO tk;
 
-    public taiKhoanDAO() {
+    public taiKhoanDAO2() {
         try {
             conn = new MyConnection();
         } catch (SQLException e) {

@@ -4,17 +4,17 @@
  */
 package BUS;
 
-import DAO.lopDAO;
+import DAO.lopDAO2;
 import DTO.lopDTO;
 import XULY.ShowDiaLog;
 import java.util.ArrayList;
 
-public class lopBUS {
+public class lopBUS2 {
 
-    private lopDAO dao = new lopDAO();
+    private lopDAO2 dao = new lopDAO2();
     private ArrayList list;
 
-    public lopBUS() {
+    public lopBUS2() {
         list = new ArrayList<>();
         init();
     }

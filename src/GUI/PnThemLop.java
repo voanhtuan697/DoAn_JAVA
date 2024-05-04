@@ -4,10 +4,10 @@
  */
 package GUI;
 
-import BUS.lopBUS;
-import BUS.monBUS;
-import BUS.nguoiDungBUS;
-import BUS.taiKhoanBUS;
+import BUS.lopBUS2;
+import BUS.monBUS2;
+import BUS.nguoiDungBUS2;
+import BUS.taiKhoanBUS2;
 import DTO.lopDTO;
 import DTO.monDTO;
 import DTO.nguoiDungDTO;
@@ -55,10 +55,10 @@ public class PnThemLop extends JPanel {
     private JButton btnThem, btnLopKT, btnNhapE, btnXoa;
     private JTable table;
     private DefaultTableModel model;
-    private lopBUS bus = new lopBUS();
-    private taiKhoanBUS busTK = new taiKhoanBUS();
-    private monBUS busMon = new monBUS();
-    private nguoiDungBUS busNg = new nguoiDungBUS();
+    private lopBUS2 bus = new lopBUS2();
+    private taiKhoanBUS2 busTK = new taiKhoanBUS2();
+    private monBUS2 busMon = new monBUS2();
+    private nguoiDungBUS2 busNg = new nguoiDungBUS2();
 
     public PnThemLop() {
         init();
@@ -291,16 +291,16 @@ public class PnThemLop extends JPanel {
         }
 
         model.setRowCount(0);
-        lopBUS busLop = new lopBUS();
+        lopBUS2 busLop = new lopBUS2();
         ArrayList<lopDTO> listLop = busLop.getList();
         for (lopDTO lop : listLop) {
             String TenGv, TenMon;
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
             String TrangThai = "";
-            if (lop.getTrangThai() == true) {
+            if (lop.isTrangThai() == true) {
                 TrangThai = "Hoạt động";
-            } else if (lop.getTrangThai() == false) {
+            } else if (lop.isTrangThai() == false) {
                 TrangThai = "Kết thúc";
             }
 
@@ -370,7 +370,7 @@ public class PnThemLop extends JPanel {
             String TenGv, TenMon;
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
-            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.getTrangThai()};
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.isTrangThai()};
             model.addRow(row);
         }
         if (keyword == "") {
@@ -385,7 +385,7 @@ public class PnThemLop extends JPanel {
             String TenGv, TenMon;
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
-            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.getTrangThai()};
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.isTrangThai()};
             model.addRow(row);
         }
     }

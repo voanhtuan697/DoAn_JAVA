@@ -9,8 +9,9 @@ package DTO;
  * @author TK
  */
 public class deThiDTO {
-    private int SLCauHoi;
-    private String MaDT, MaGV, MaKho, HienThiDA, TienLui,NgayThi, TenDeThi,MatKhau,TrangThai, ThoiGianBatDauThi;
+
+    private String MaDT, MaGV, NgayThi, TenDeThi, MatKhau, ThoiGianBatDauThi;
+    private int trangThai, thoiGianLamBai, SLCauHoi;
 
     public deThiDTO() {
     }
@@ -24,19 +25,24 @@ public class deThiDTO {
         this.MaDT = MaDT;
     }
 
-    
-    public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String MaKho, String HienThiDA, String TienLui, String NgayThi, String TenDeThi, String MatKhau, String TrangThai, String ThoiGianBatDauThi) {
+    public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String NgayThi, String TenDeThi, String MatKhau, String ThoiGianBatDauThi, int trangThai, int thoiGianLamBai) {
         this.SLCauHoi = SLCauHoi;
         this.MaDT = MaDT;
         this.MaGV = MaGV;
-        this.MaKho = MaKho;
-        this.HienThiDA = HienThiDA;
-        this.TienLui = TienLui;
         this.NgayThi = NgayThi;
         this.TenDeThi = TenDeThi;
         this.MatKhau = MatKhau;
-        this.TrangThai = TrangThai;
         this.ThoiGianBatDauThi = ThoiGianBatDauThi;
+        this.trangThai = trangThai;
+        this.thoiGianLamBai = thoiGianLamBai;
+    }
+
+    public int getThoiGianLamBai() {
+        return thoiGianLamBai;
+    }
+
+    public void setThoiGianLamBai(int thoiGianLamBai) {
+        this.thoiGianLamBai = thoiGianLamBai;
     }
 
     public int getSLCauHoi() {
@@ -63,28 +69,12 @@ public class deThiDTO {
         this.MaGV = MaGV;
     }
 
-    public String getMaKho() {
-        return MaKho;
+    public int getTrangThai() {
+        return trangThai;
     }
 
-    public void setMaKho(String MaKho) {
-        this.MaKho = MaKho;
-    }
-
-    public String getHienThiDA() {
-        return HienThiDA;
-    }
-
-    public void setHienThiDA(String HienThiDA) {
-        this.HienThiDA = HienThiDA;
-    }
-
-    public String getTienLui() {
-        return TienLui;
-    }
-
-    public void setTienLui(String TienLui) {
-        this.TienLui = TienLui;
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     public String getNgayThi() {
@@ -111,14 +101,6 @@ public class deThiDTO {
         this.MatKhau = MatKhau;
     }
 
-    public String getTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(String TrangThai) {
-        this.TrangThai = TrangThai;
-    }
-
     public String getThoiGianBatDauThi() {
         return ThoiGianBatDauThi;
     }
@@ -126,7 +108,4 @@ public class deThiDTO {
     public void setThoiGianBatDauThi(String ThoiGianBatDauThi) {
         this.ThoiGianBatDauThi = ThoiGianBatDauThi;
     }
-
-   
-    
 }

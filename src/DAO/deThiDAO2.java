@@ -13,12 +13,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class deThiDAO {
+public class deThiDAO2 {
 
     private MyConnection conn;
     private deThiDTO de;
 
-    public deThiDAO() {
+    public deThiDAO2() {
         try {
             conn = new MyConnection();
         } catch (SQLException e) {

@@ -4,7 +4,7 @@
  */
 package BUS;
 
-import DAO.chiTietLopDAO;
+import DAO.chiTietLopDAO2;
 import DTO.chiTietLopDTO;
 import XULY.ShowDiaLog;
 
@@ -12,9 +12,9 @@ import XULY.ShowDiaLog;
  *
  * @author Admin
  */
-public class chiTietLopBUS {
+public class chiTietLopBUS2 {
 
-    private chiTietLopDAO dao = new chiTietLopDAO();
+    private chiTietLopDAO2 dao = new chiTietLopDAO2();
     private chiTietLopDTO ct;
 
     public boolean themSV(String MaLop, String MaSV) {

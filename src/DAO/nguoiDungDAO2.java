@@ -10,12 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class nguoiDungDAO {
+public class nguoiDungDAO2 {
 
     private MyConnection conn;
     private nguoiDungDTO ng;
 
-    public nguoiDungDAO() {
+    public nguoiDungDAO2() {
         try {
             conn = new MyConnection();
         } catch (SQLException e) {
@@ -124,7 +124,7 @@ public class nguoiDungDAO {
     }
 
     public static void main(String[] args) {
-        nguoiDungDAO dao = new nguoiDungDAO();
+        nguoiDungDAO2 dao = new nguoiDungDAO2();
         ArrayList<nguoiDungDTO> list = dao.TimKiem(2024, 1, "Quản trị doanh nghiệp", "LQTDN1", "L");
         for (nguoiDungDTO x : list) {
             System.out.println(x.getMaUser() + "    " + x.getHoTen());

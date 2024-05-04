@@ -22,16 +22,16 @@ public class lopDTO {
         this.NhomLop = NhomLop;
     }
 
+    public lopDTO() {
+
+    }
+
     public lopDTO(int Nam) {
         this.Nam = Nam;
     }
 
     public lopDTO(String MaLop) {
         this.MaLop = MaLop;
-    }
-
-    public lopDTO() {
-
     }
 
     public String getMaLop() {
@@ -58,7 +58,7 @@ public class lopDTO {
         this.MaMon = MaMon;
     }
 
-    public boolean getTrangThai() {
+    public boolean isTrangThai() {
         return TrangThai;
     }
 

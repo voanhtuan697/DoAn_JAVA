@@ -4,15 +4,15 @@
  */
 package BUS;
 
-import DAO.monDAO;
+import DAO.monDAO2;
 import java.util.ArrayList;
 
-public class monBUS {
+public class monBUS2 {
 
     private ArrayList list;
-    private monDAO dao = new monDAO();
+    private monDAO2 dao = new monDAO2();
 
-    public monBUS() {
+    public monBUS2() {
         list = new ArrayList();
         init();
     }

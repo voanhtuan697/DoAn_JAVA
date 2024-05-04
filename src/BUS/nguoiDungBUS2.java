@@ -4,13 +4,13 @@
  */
 package BUS;
 
-import DAO.nguoiDungDAO;
+import DAO.nguoiDungDAO2;
 import DTO.nguoiDungDTO;
 import java.util.ArrayList;
 
-public class nguoiDungBUS {
+public class nguoiDungBUS2 {
 
-    private nguoiDungDAO dao = new nguoiDungDAO();
+    private nguoiDungDAO2 dao = new nguoiDungDAO2();
 
     public ArrayList<nguoiDungDTO> getThongTinSV(int Nam, int HocKy, String TenMon, String MaLop) {
         return dao.getThongTinSV(Nam, HocKy, TenMon, MaLop);

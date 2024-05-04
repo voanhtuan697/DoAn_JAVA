@@ -4,10 +4,6 @@
  */
 package DTO;
 
-/**
- *
- * @author TK
- */
 public class ketQuaDTO {
 
     private String MaKQ, MaDT, TGLamXong, MaTK;
@@ -15,6 +11,9 @@ public class ketQuaDTO {
     private float Diem;
     private lopDTO lopDTO = new lopDTO();
     private nguoiDungDTO ngDungDTO = new nguoiDungDTO();
+
+    public ketQuaDTO() {
+    }
 
     public ketQuaDTO(String MaKQ, String MaDT, String TGLamXong, String MaTK, int SLCauDung, float Diem) {
         this.MaKQ = MaKQ;
@@ -81,7 +80,6 @@ public class ketQuaDTO {
         return ngDungDTO;
     }
 
-
     public void setLopDTO(lopDTO lopDTO) {
         this.lopDTO = lopDTO;
     }
@@ -90,4 +88,5 @@ public class ketQuaDTO {
         this.ngDungDTO = ngDungDTO;
     }
     
+
 }

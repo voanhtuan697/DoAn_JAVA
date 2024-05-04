@@ -8,6 +8,6 @@ package BUS;
  *
  * @author Admin
  */
-public class hinhThucBUS {
+public class hinhThucBUS2 {
     
 }

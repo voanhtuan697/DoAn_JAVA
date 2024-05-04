@@ -50,13 +50,14 @@ public class taiKhoanDTO {
         this.MatKhau = MatKhau;
     }
 
-    public boolean getTrangThai() {
+    public boolean isTrangThai() {
         return TrangThai;
     }
 
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
+
 
     public String getMaQuyen() {
         return MaQuyen;
@@ -73,6 +74,5 @@ public class taiKhoanDTO {
     public void setNgDung(nguoiDungDTO NgDung) {
         this.NgDung = NgDung;
     }
-    
     
 }

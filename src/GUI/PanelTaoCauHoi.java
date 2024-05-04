@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import BUS.hinhThucBUS;
+import BUS.hinhThucBUS2;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;

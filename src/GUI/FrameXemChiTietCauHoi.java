@@ -4,10 +4,6 @@
  */
 package GUI;
 
-<<<<<<< HEAD
-import DAO.cauHoiDAO;
-import DTO.cauHoiDTO;
-=======
 import BUS.cauHoiBUS1;
 import BUS.dapAnBUS;
 import BUS.monBUS;
@@ -16,7 +12,6 @@ import DTO.cauHoiDTO;
 import DTO.dapAnDTO;
 import DTO.nguoiDungDTO;
 import static GUI.BASE.font14;
->>>>>>> 63cbdba3280b3fc269f97696674efa0536188cd1
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -49,13 +44,6 @@ public class FrameXemChiTietCauHoi extends JFrame {
     private dapAnBUS dapAnBUS;
     private String[] bangChuCai;
 
-<<<<<<< HEAD
-    public FrameXemChiTietCauHoi(String maCH) {
-        init(maCH);
-    }
-
-    public void init(String maCH) {
-=======
     public FrameXemChiTietCauHoi(String maCH) throws SQLException {
         this.maCH = maCH;
         cauHoiBUS = new cauHoiBUS1();
@@ -65,43 +53,12 @@ public class FrameXemChiTietCauHoi extends JFrame {
     }
 
     public void init() throws SQLException {
->>>>>>> 63cbdba3280b3fc269f97696674efa0536188cd1
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.getContentPane().setLayout(new BorderLayout());
-<<<<<<< HEAD
-        JPanel pn_header = new JPanel();
-        pn_header.setPreferredSize(new Dimension(500, 300));
-        JLabel lb_img = new JLabel();
-        lb_img.setIcon(BASE.createResizedIcon(FrameXemChiTietCauHoi.class, "..//image//anhTruong.jpg", pn_header.getPreferredSize().width, pn_header.getPreferredSize().height));
-        pn_header.add(lb_img, BorderLayout.CENTER);
-
-        Font font = new Font("Arial", Font.PLAIN, 18);
-
-        bangChuCai = new String[]{"A", "B", "C", "D", "E", "F", "J", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        JPanel pn_content = new JPanel();
-        pn_content.setLayout(new BoxLayout(pn_content, BoxLayout.Y_AXIS));
-
-        JPanel pn_cauHoi = new JPanel();
-        pn_cauHoi.setLayout(new BorderLayout());
-//        pn_cauHoi.setMaximumSize(new Dimension(1400, 100));
-
-        JTextArea txta = new JTextArea();
-        txta.setFont(font);
-        txta.setLineWrap(true);
-        pn_cauHoi.setMaximumSize(new Dimension(1200, 50));
-
-        JScrollPane scrollPane = new JScrollPane(txta);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        pn_cauHoi.add(scrollPane, BorderLayout.CENTER);
-
-        pn_content.add(pn_cauHoi);
-=======
         Font font = new Font("Arial", Font.PLAIN, 18);
         bangChuCai = new String[]{"A", "B", "C", "D", "E", "F", "J", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
->>>>>>> 63cbdba3280b3fc269f97696674efa0536188cd1
 
         JPanel pn_thongTinCH = new JPanel(new FlowLayout(0, 20, 10));
         pn_thongTinCH.setBorder(BorderFactory.createTitledBorder(null, "Chi tiết câu hỏi", DEFAULT_JUSTIFICATION, DEFAULT_POSITION, new Font(font14) {
@@ -163,17 +120,6 @@ public class FrameXemChiTietCauHoi extends JFrame {
             panel.add(chk, BorderLayout.EAST);
             pn_tn4.add(panel);
         }
-<<<<<<< HEAD
-
-//        JPanel pn_footer = new JPanel();
-//        JLabel lb_gv = 
-//        pn_footer.add(lb)
-        this.getContentPane().add(pn_header, BorderLayout.NORTH);
-        this.getContentPane().add(pn_content, BorderLayout.CENTER);
-
-        this.setVisible(true);
-    }
-=======
         pn_cauHoiWrap.add(pn_tn4, BorderLayout.CENTER);
 
         JTextArea txtaCauHoi = new JTextArea();
@@ -191,8 +137,4 @@ public class FrameXemChiTietCauHoi extends JFrame {
     }
 
     
-//    public static void main(String[] args) throws SQLException {
-//        new FrameXemChiTietCauHoi("CHTHUE1");
-//    }
->>>>>>> 63cbdba3280b3fc269f97696674efa0536188cd1
 }

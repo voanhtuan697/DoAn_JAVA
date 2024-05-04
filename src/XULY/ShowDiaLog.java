@@ -18,9 +18,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class ShowDiaLog extends JDialog {
-
-    static int ERROR_DIALONG;
-
     private String text = "Đăng ký thành công";
     private int type;
     JPanel pnTop, pnCenter, pnBottom, pnMain;
@@ -139,7 +136,7 @@ public class ShowDiaLog extends JDialog {
         getRootPane().setDefaultButton(btnOK);
     }
     
-//    public static void main(String[] args) {
-//        new ShowDiaLog("thanh cong", ShowDiaLog.ERROR_DIALONG);
-//    }
+    public static void main(String[] args) {
+        new ShowDiaLog("thanh cong", ShowDiaLog.ERROR_DIALOG);
+    }
 }

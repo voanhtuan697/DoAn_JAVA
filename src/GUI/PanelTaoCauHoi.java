@@ -5,12 +5,8 @@
 package GUI;
 
 import BUS.cauHoiBUS;
-import BUS.hinhThucBUS;
 import DAO.cauHoiDAO;
 import DTO.cauHoiDTO;
-import DTO.dapAnDTO;
-import BUS.hinhThucBUS2;
->>>>>>> 63cbdba3280b3fc269f97696674efa0536188cd1
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -55,8 +51,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.event.ListSelectionEvent;
@@ -82,7 +81,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
     private cauHoiDAO cauHoiDAO;
     private File selectedFile;
 
-    public PanelTaoCauHoi() {
+    public PanelTaoCauHoi() throws SQLException {
         init();
         phanCauHoi(0);
         cauHoiDAO = new cauHoiDAO();
@@ -217,7 +216,6 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
 //        columnModel.getColumn(1).setPreferredWidth(80); // Mã giảng viên
 //        columnModel.getColumn(2).setPreferredWidth(1000); // Nội dung
 //        columnModel.getColumn(3).setPreferredWidth(70); // Độ khó
-
         JScrollPane scrollPane_table = new JScrollPane(table);
         pn2.add(scrollPane_table, BorderLayout.CENTER);
 
@@ -507,7 +505,12 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
                     cauHoiMoi.setTrangThai(false); // hoặc 0
                 }
                 // Gọi phương thức thêm câu hỏi từ lớp BUS
-                cauHoiBUS bus = new cauHoiBUS();
+                cauHoiBUS bus = null;
+                try {
+                    bus = new cauHoiBUS();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
                 if (bus.themCauHoi(cauHoiMoi)) {
                     new ShowDiaLog("Thêm câu hỏi thành công!", ShowDiaLog.SUCCESS_DIALOG);
                 } else {
@@ -515,7 +518,12 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
                 }
 
                 // Cập nhật lại table model sau khi thêm câu hỏi vào cơ sở dữ liệu
-                cauHoiDAO dao = new cauHoiDAO();
+                cauHoiDAO dao = null;
+                try {
+                    dao = new cauHoiDAO();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PanelTaoCauHoi.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dao.loadDataFromDatabase(model);
             }
         });
@@ -532,7 +540,12 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
                 String maCH = txtMaCH.getText();
 
                 // Gọi phương thức xóa câu hỏi từ lớp DAO
-                cauHoiDAO dao = new cauHoiDAO();
+                cauHoiDAO dao = null;
+                try {
+                    dao = new cauHoiDAO();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
                 if (dao.xoaCauHoi(maCH)) {
                     // Nếu xóa thành công, thông báo và cập nhật lại dữ liệu trên bảng
                     new ShowDiaLog("Xóa câu hỏi thành công!", ShowDiaLog.SUCCESS_DIALOG);
@@ -574,7 +587,12 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
                 }
 
                 // Gọi phương thức sửa câu hỏi từ lớp DAO
-                cauHoiDAO dao = new cauHoiDAO();
+                cauHoiDAO dao = null;
+                try {
+                    dao = new cauHoiDAO();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
                 if (dao.suaCauHoi(cauHoiMoi)) {
                     // Nếu sửa thành công, thông báo và cập nhật lại dữ liệu trên bảng
                     new ShowDiaLog("Sửa câu hỏi thành công!", ShowDiaLog.SUCCESS_DIALOG);
@@ -591,7 +609,11 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 cauHoiDTO cauHoi = new cauHoiDTO();
                 String maCH = cauHoi.getMaCH();
-                new FrameXemChiTietCauHoi(maCH); // Khởi tạo FrameXemChiTietCauHoi với mã câu hỏi
+                try {
+                    new FrameXemChiTietCauHoi(maCH); // Khởi tạo FrameXemChiTietCauHoi với mã câu hỏi
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -707,19 +729,8 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         cards.add(scrollPane, "pn_TN_Nhieu");
     }
 
-<<<<<<< HEAD
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(800, 500);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.getContentPane().add(new PanelTaoCauHoi());
-        f.setVisible(true);
-    }
-
-=======
->>>>>>> 63cbdba3280b3fc269f97696674efa0536188cd1
     @Override
+
     public void actionPerformed(ActionEvent e) {
         String selectedOption = (String) this.getCbb_hinhThuc().getSelectedItem();
         if (selectedOption.equals("Trắc nghiệm một lựa chọn đúng")) {
@@ -745,13 +756,13 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
 
         }
     }
-    
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws SQLException {
         JFrame f = new JFrame();
         f.setSize(800, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
-        f.getContentPane().add(new PanelTaoCauHoi());
+        Component add = f.getContentPane().add(new PanelTaoCauHoi());
         f.setVisible(true);
     }
 }

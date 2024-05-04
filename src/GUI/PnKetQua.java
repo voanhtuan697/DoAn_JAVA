@@ -369,15 +369,15 @@ public class PnKetQua extends JPanel {
 
         if (txtDiem.getText().isEmpty() && txtDiemTu.getText().isEmpty()) {
             txtDiemTu.requestFocus();
-            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALOG);
             return;
         } else if (txtDiem.getText().isEmpty()) {
             txtDiem.requestFocus();
-            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALOG);
             return;
         } else if (txtDiemTu.getText().isEmpty()) {
             txtDiemTu.requestFocus();
-            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALOG);
             return;
         }
 
@@ -385,15 +385,15 @@ public class PnKetQua extends JPanel {
             start = Float.parseFloat(txtDiemTu.getText());
             end = Float.parseFloat(txtDiem.getText());
         } catch (NumberFormatException e) {
-            new ShowDiaLog("Điểm phải là số", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Điểm phải là số", ShowDiaLog.ERROR_DIALOG);
             return;
         }
 
         if (start < 0 || start > 10 || end < 0 || end > 10) {
             txtDiemTu.requestFocus();
-            new ShowDiaLog("Điểm phải trong khoảng từ 0 đến 10", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Điểm phải trong khoảng từ 0 đến 10", ShowDiaLog.ERROR_DIALOG);
         } else if (start > end) {
-            new ShowDiaLog("Chọn khoảng không hợp lệ", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Chọn khoảng không hợp lệ", ShowDiaLog.ERROR_DIALOG);
             txtDiemTu.requestFocus();
         } else {
             model.setRowCount(0);

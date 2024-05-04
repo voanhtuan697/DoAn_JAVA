@@ -261,13 +261,13 @@ public class ThongTinUserGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tfHoTen.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALOG);
                     tfHoTen.requestFocus();
                     tfHoTen.selectAll();
                     return;
                 }
                 if (!isVietnamese(tfHoTen.getText())) {
-                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALOG);
                     tfHoTen.requestFocus();
                     tfHoTen.selectAll();
                     return;
@@ -281,13 +281,13 @@ public class ThongTinUserGUI extends JPanel {
                 if (a == JOptionPane.YES_OPTION) {
                     try {
                         if (nd.updateNguoiDung(hoTen, newNgaySinh, nd.layMaUserTheoMaTK(maTK))) {
-                            new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                            new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.ERROR_DIALOG);
                             pnLeft.revalidate();
                             pnLeft.repaint();
                             
                             return;
                         } else {
-                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALOG);
                         }
 
                     } catch (SQLException ex) {
@@ -304,14 +304,14 @@ public class ThongTinUserGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tfMk.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập mật khẩu cũ!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập mật khẩu cũ!", ShowDiaLog.ERROR_DIALOG);
                     tfMk.requestFocus();
                     return;
                 }
                 try {
                     taiKhoanDTO x = new taiKhoanBUS().layTaiKhoan(maTK);
                     if (!tfMk.getText().trim().equalsIgnoreCase(x.getMatKhau())) {
-                        new ShowDiaLog("Mật khẩu cũ không đúng!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Mật khẩu cũ không đúng!", ShowDiaLog.ERROR_DIALOG);
                         tfMk.requestFocus();
                         tfMk.selectAll();
                         return;
@@ -320,17 +320,17 @@ public class ThongTinUserGUI extends JPanel {
                     ex.printStackTrace();
                 }
                 if (tfMKMoi.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập mật khẩu mới!", ShowDiaLog.ERROR_DIALOG);
                     tfMKMoi.requestFocus();
                     return;
                 }
                 if (tfMkNL.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập lại mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập lại mật khẩu mới!", ShowDiaLog.ERROR_DIALOG);
                     tfMkNL.requestFocus();
                     return;
                 }
                 if (!tfMKMoi.getText().trim().equalsIgnoreCase(tfMkNL.getText().trim())) {
-                    new ShowDiaLog("Mật khẩu nhập lại không trùng với mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Mật khẩu nhập lại không trùng với mật khẩu mới!", ShowDiaLog.ERROR_DIALOG);
                     tfMkNL.requestFocus();
                     tfMkNL.selectAll();
                     return;
@@ -350,7 +350,7 @@ public class ThongTinUserGUI extends JPanel {
                             pnRight.repaint();
                             return;
                         } else {
-                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALOG);
                         }
 
                     } catch (SQLException ex) {

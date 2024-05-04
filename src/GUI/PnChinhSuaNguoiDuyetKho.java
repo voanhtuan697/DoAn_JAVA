@@ -176,7 +176,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
                             cbb_mon.removeAllItems();
                             loadCBBMon();
                         } else {
-                            new ShowDiaLog("Thêm người duyệt kho câu hỏi " + monSelect + "thất bại!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Thêm người duyệt kho câu hỏi " + monSelect + "thất bại!", ShowDiaLog.ERROR_DIALOG);
                         }
                     } catch (SQLException ex) {
                         ex.printStackTrace();
@@ -184,7 +184,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
 
                 }
             } else {
-                new ShowDiaLog("Bạn chưa chọn người phụ trách kho câu hỏi!", ShowDiaLog.ERROR_DIALONG);
+                new ShowDiaLog("Bạn chưa chọn người phụ trách kho câu hỏi!", ShowDiaLog.ERROR_DIALOG);
             }
         } else if (btn.equals("Xóa")) {
 
@@ -207,7 +207,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
                                 cbb_mon.removeAllItems();
                                 loadCBBMon();
                             } else {
-                                new ShowDiaLog("Xóa người duyệt câu hỏi môn " + tenMon + " thất bại!", ShowDiaLog.ERROR_DIALONG);
+                                new ShowDiaLog("Xóa người duyệt câu hỏi môn " + tenMon + " thất bại!", ShowDiaLog.ERROR_DIALOG);
                             }
                         } catch (SQLException ex) {
                             ex.printStackTrace();
@@ -217,7 +217,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
                     new ShowDiaLog("Người này chưa duyệt kho nào!", ShowDiaLog.INFO_DIALOG);
                 }
             } else {
-                new ShowDiaLog("Bạn chưa chọn người để xóa quyền duyệt kho câu hỏi!", ShowDiaLog.ERROR_DIALONG);
+                new ShowDiaLog("Bạn chưa chọn người để xóa quyền duyệt kho câu hỏi!", ShowDiaLog.ERROR_DIALOG);
             }
         }
     }

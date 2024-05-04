@@ -21,7 +21,6 @@ public class nguoiDungBUS {
         this.user = new nguoiDungDAO();
     }
 
-//   ArrayList<nguoiDungDTO> user = new ArrayList<>();
     public ArrayList<nguoiDungDTO> getNguoiDung() throws SQLException {
         return user.getNguoiDung();
     }
@@ -49,6 +48,10 @@ public class nguoiDungBUS {
 
     public String layTenNguoiDungTheoMaTK(String maTK) {
         return user.layTenNguoiDungTheoMaTK(maTK);
+    }
+
+    public String layMaUserTheoMaTK(String maTK) {
+        return user.layMaUserTheoMaTK(maTK);
     }
 
 }

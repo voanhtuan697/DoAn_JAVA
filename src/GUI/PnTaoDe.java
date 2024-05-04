@@ -127,8 +127,16 @@ public class PnTaoDe extends JPanel {
                 return false;
             }
         };
+        
+        
 
-        tblDeThi = new JTable(modelDeThi);
+//        tblDeThi = new JTable(modelDeThi);
+        tblDeThi = new JTable(modelDeThi) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         setTableFont(tblDeThi);
 
         JScrollPane scrDeThi = new JScrollPane(tblDeThi);
@@ -565,6 +573,9 @@ public class PnTaoDe extends JPanel {
                         loadDSDT();
                         dsMaCH.clear();
                         loadTable_Right();
+                        tfTenDe.setText("");
+                        tfTgian.setText("");
+                        tfMatKhau.setText("");
                         return;
 
                     } else {
@@ -625,21 +636,33 @@ public class PnTaoDe extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = tblDeThi.getSelectedRow();
                 if (selectedRow != -1) {
-                    int a = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa đề thi?", "Thông báo", JOptionPane.YES_NO_OPTION);
-                    if (a == JOptionPane.YES_OPTION) {
+                    try {
                         String maDT = tblDeThi.getValueAt(selectedRow, 0).toString();
-                        try {
-                            if (new deThiBUS().xoaDeThiBangMaDT(maDT)) {
-                                new ShowDiaLog("Xóa thành công!", ShowDiaLog.SUCCESS_DIALOG);
-                                loadDSDT();
-                                return;
+                        for (deThiDTO x : new deThiBUS().layDanhSachDeThi()) {
+                            if (x.getMaDT().equalsIgnoreCase(maDT) && x.getTrangThai() == 0) {
+                                int a = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa đề thi?", "Thông báo", JOptionPane.YES_NO_OPTION);
+                                if (a == JOptionPane.YES_OPTION) {
+                                    try {
+                                        if (new deThiBUS().xoaDeThiBangMaDT(maDT)) {
+                                            new ShowDiaLog("Xóa thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                                            loadDSDT();
+                                            return;
+                                        }
+                                    } catch (SQLException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                } else {
+                                    return;
+                                }
                             }
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
                         }
-                    } else {
+                        new ShowDiaLog("Không thể xóa! Đề thi này đã/đang được làm!", ShowDiaLog.ERROR_DIALONG);
                         return;
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
                     }
+
                 } else {
                     new ShowDiaLog("Vui lòng chọn đề thi cần xóa!", ShowDiaLog.ERROR_DIALONG);
                 }

@@ -37,4 +37,14 @@ public class chucNangDAO {
         }
         return arr;
     }
+    public String layMaChucNangTheoMaQuyen(String maQuyen) throws SQLException{
+        String sql = "SELECT MaCN FROM chitietquyen WHERE MaQuyen=?";
+        PreparedStatement stmt = conn.preparedStatement(sql);
+        stmt.setString(1, maQuyen);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return rs.getString(1);
+        }
+        return null;
+    }
 }

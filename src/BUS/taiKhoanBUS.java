@@ -67,4 +67,8 @@ public class taiKhoanBUS {
         taiKhoanDTO tk = this.acc.layTaiKhoan(maTK);
         return tk;
     }
+
+    public String layMaTKTheoTenDN(String tenDN) throws SQLException {
+        return acc.layMaTKTheoTenDN(tenDN);
+    }
 }

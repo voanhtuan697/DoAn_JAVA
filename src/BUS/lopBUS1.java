@@ -7,20 +7,26 @@ package BUS;
 import DAO.lopDAO1;
 import DTO.lopDTO;
 import java.sql.SQLException;
+
 /**
  *
  * @author E7250
  */
 public class lopBUS1 {
+
     private lopDAO1 lop;
 
     public lopBUS1() throws SQLException {
         lop = new lopDAO1();
     }
-    
-    
-    public lopDTO layLopBangMaDe(String maDT){
+
+    public lopDTO layLopBangMaDe(String maDT) {
         lopDTO l = lop.layLopBangMaDe(maDT);
         return l;
+    }
+
+    public int layNhomLopMaTKvaMaDT(String maTK, String maDT) {
+        int nhomLop = this.lop.layNhomLopMaTKvaMaDT(maTK, maDT);
+        return nhomLop;
     }
 }

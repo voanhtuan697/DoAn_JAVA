@@ -15,8 +15,7 @@ public class lopDTO {
 
     public lopDTO() {
     }
-    
-    
+  
     
     public lopDTO(String MaLop, String MaGV, String MaMon, boolean TrangThai, int SoLuong, int Nam, int HocKy, int NhomLop) {
         this.MaLop = MaLop;
@@ -94,5 +93,5 @@ public class lopDTO {
     public void setNhomLop(int NhomLop) {
         this.NhomLop = NhomLop;
     }
-    
+
 }

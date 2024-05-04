@@ -71,7 +71,8 @@ public class nguoiDungDAO {
         }
         return false;
     }
- public boolean updateNguoiDung(String hoTen, String ngSinh, String maUser) throws SQLException {
+
+    public boolean updateNguoiDung(String hoTen, String ngSinh, String maUser) throws SQLException {
         String sql = "UPDATE nguoidung SET HoTen=?, NgSinh=? WHERE MaUser=?";
         PreparedStatement stmt = conn.preparedStatement(sql);
         stmt.setString(1, hoTen);
@@ -83,11 +84,11 @@ public class nguoiDungDAO {
         }
         return false;
     }
-    
+
     public nguoiDungDTO layNguoiDung(String maTK) {
         nguoiDungDTO user = new nguoiDungDTO();
         try {
-            String query = "SELECT MaUser, HoTen, NgSinh FROM TAIKHOAN JOIN NGUOIDUNG ON TAIKHOAN.TenDN = NGUOIDUNG.MaUser WHERE MaTK ='"+maTK+"'";
+            String query = "SELECT MaUser, HoTen, NgSinh FROM TAIKHOAN JOIN NGUOIDUNG ON TAIKHOAN.TenDN = NGUOIDUNG.MaUser WHERE MaTK ='" + maTK + "'";
 
             PreparedStatement pre = conn.preparedStatement(query);
             ResultSet rs = pre.executeQuery();
@@ -96,6 +97,25 @@ public class nguoiDungDAO {
                 user.setHoTen(rs.getString("HoTen"));
                 user.setNgSinh(rs.getString("NgSinh"));
                 return user;
+            } else {
+                // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
+                System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String layTenNguoiDungTheoMaTK(String maTK) {
+        try {
+            String query = "SELECT HoTen FROM TAIKHOAN JOIN NGUOIDUNG ON TAIKHOAN.TenDN = NGUOIDUNG.MaUser WHERE MaTK ='" + maTK + "'";
+
+            PreparedStatement pre = conn.preparedStatement(query);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
             } else {
                 // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
                 System.out.println("Không có dữ liệu phù hợp với điều kiện.");

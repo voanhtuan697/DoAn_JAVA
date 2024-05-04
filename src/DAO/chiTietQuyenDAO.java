@@ -15,13 +15,14 @@ import java.util.ArrayList;
  * @author E7250
  */
 public class chiTietQuyenDAO {
+
     private MyConnection conn;
 
     public chiTietQuyenDAO() throws SQLException {
         conn = new MyConnection();
         conn.Connect();
     }
-    
+
     public ArrayList<chiTietQuyenDTO> layDanhSachCTQuyen() {
         ArrayList<chiTietQuyenDTO> arr = new ArrayList<>();
         try {
@@ -32,7 +33,7 @@ public class chiTietQuyenDAO {
                 chiTietQuyenDTO ctq = new chiTietQuyenDTO();
                 ctq.setMaCN(rs.getString(1));
                 ctq.setMaQuyen(rs.getString(2));
-                
+
                 arr.add(ctq);
             }
             pre.close();
@@ -41,7 +42,7 @@ public class chiTietQuyenDAO {
         }
         return arr;
     }
-    
+
     public void xoaQuyenTrongDSCTQ(String maQuyen) {
         try {
             String query = "DELETE FROM CHITIETQUYEN WHERE MaQuyen = ?";
@@ -58,7 +59,7 @@ public class chiTietQuyenDAO {
             e.printStackTrace();
         }
     }
-    
+
     public void themChiTietQuyen(chiTietQuyenDTO ctq) {
         String insertQuery = "INSERT INTO CHITIETQUYEN VALUES(?,?)";
         try {
@@ -71,5 +72,22 @@ public class chiTietQuyenDAO {
             e.printStackTrace();
         }
     }
-    
+
+    public boolean kiemTraTKcoTonTaiCN(String maTK, String maCN) throws SQLException {
+        String sql = "select count(*)\n"
+                + "from taikhoan tk\n"
+                + "join quyen q on tk.maquyen = q.maquyen\n"
+                + "join chitietquyen ctq on ctq.maquyen = q.maquyen\n"
+                + "where tk.matk = '"+maTK+"' and macn = '"+maCN+"'";
+        PreparedStatement pre = conn.preparedStatement(sql);
+        ResultSet rs = pre.executeQuery();
+        if (rs.next()) {
+            int count = rs.getInt(1);
+            if (count > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

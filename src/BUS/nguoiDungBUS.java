@@ -14,7 +14,9 @@ import java.util.ArrayList;
  * @author PHUNG
  */
 public class nguoiDungBUS {
+
     private nguoiDungDAO user;
+
     public nguoiDungBUS() throws SQLException {
         this.user = new nguoiDungDAO();
     }
@@ -43,6 +45,10 @@ public class nguoiDungBUS {
     public nguoiDungDTO layNguoiDung(String maTK) {
         nguoiDungDTO u = user.layNguoiDung(maTK);
         return u;
+    }
+
+    public String layTenNguoiDungTheoMaTK(String maTK) {
+        return user.layTenNguoiDungTheoMaTK(maTK);
     }
 
 }

@@ -6,7 +6,11 @@ package GUI;
 
 import BUS.nguoiDungBUS;
 import BUS.quyenBUS;
+import BUS.chiTietQuyenBUS;
+import BUS.khoCauHoiBUS1;
+import BUS.monBUS1;
 import BUS.taiKhoanBUS;
+import DTO.khoCauHoiDTO;
 import DTO.nguoiDungDTO;
 import DTO.quyenDTO;
 import static GUI.BASE.createResizedIcon;
@@ -43,18 +47,19 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 public class ThongTinUserGUI extends JPanel {
+
     private String maTK;
     private nguoiDungDTO user;
     private quyenBUS q;
     private JPanel pnLeft, pnRight;
-    private JButton btnLHoc, btnLDay, btnMon, btnDThi, btnCapNhat, btnDoiMK;
+    private JButton btnCapNhat, btnDoiMK;
     private JTextField tfHoTen, tfMk, tfMKMoi, tfMkNL;
     private JLabel lblTenDn, lblChucVu, lblTrMon;
     private final nguoiDungBUS u;
     private final quyenDTO quyen;
 
     public ThongTinUserGUI(String maTK) throws SQLException {
-        this.maTK =maTK;
+        this.maTK = maTK;
         u = new nguoiDungBUS();
         user = u.layNguoiDung(maTK);
         q = new quyenBUS();
@@ -70,8 +75,6 @@ public class ThongTinUserGUI extends JPanel {
     public void setMaTK(String maTK) {
         this.maTK = maTK;
     }
-    
-    
 
     public void init() {
         this.setLayout(new BorderLayout());
@@ -93,7 +96,7 @@ public class ThongTinUserGUI extends JPanel {
         this.add(pnLeft, BorderLayout.CENTER);
         this.add(pnRight, BorderLayout.EAST);
     }
-    
+
     private static void setDateFromString(UtilDateModel model, String dateString) {
         // Phân tích chuỗi ngày tháng năm thành các thành phần
         String[] parts = dateString.split("-");
@@ -105,8 +108,8 @@ public class ThongTinUserGUI extends JPanel {
         model.setDate(year, month, day);
     }
 
-    public void initComponents() {
-        JLabel lbTenDN, lbHoTen, lbNgSinh, lbChucVu, lbTrBM, lbLopDay, lbLopHoc, lbMonDay, lbDeThi;
+    public void initComponents() throws SQLException {
+        JLabel lbTenDN, lbHoTen, lbNgSinh, lbChucVu, lbTrBM;
 
         JPanel pnDN = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -133,19 +136,17 @@ public class ThongTinUserGUI extends JPanel {
         UtilDateModel modell = new UtilDateModel();
         JDatePanel datePanel = new JDatePanelImpl(modell);
         JDatePicker datePicker = new JDatePickerImpl((JDatePanelImpl) datePanel);
-        
-        
+
         String ngSinh = user.getNgSinh();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date;
-            try {
-                date = sdf.parse(ngSinh);
-                modell.setValue(date);
-            } catch (ParseException ex) {
-                System.out.println("Invalid date format");
-            }
-        
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
+        try {
+            date = sdf.parse(ngSinh);
+            modell.setValue(date);
+        } catch (ParseException ex) {
+            System.out.println("Invalid date format");
+        }
+
         pnNgSinh.add(lbNgSinh);
         pnNgSinh.add((JComponent) datePicker);
 
@@ -157,80 +158,6 @@ public class ThongTinUserGUI extends JPanel {
         lblChucVu.setFont(font16);
         pnChucVu.add(lbChucVu);
         pnChucVu.add(lblChucVu);
-
-        JPanel pnTrBM = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        lbTrBM = new JLabel("Trưởng bộ môn:");
-        lbTrBM.setFont(font16);
-        lblTrMon = new JLabel("Khoa học máy tính");
-        lblTrMon.setFont(font16);
-        pnTrBM.add(lbTrBM);
-        pnTrBM.add(lblTrMon);
-
-        JPanel pnLopDay = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        lbLopDay = new JLabel("Danh sách lớp dạy:");
-        lbLopDay.setFont(font16);
-        btnLDay = new JButton("show", createResizedIcon(ThongTinUserGUI.class, "..//image//eye-icon.png", 20, 20));
-        btnLDay.setHorizontalTextPosition(JButton.LEFT);
-        btnLDay.setVerticalTextPosition(JButton.CENTER);
-        btnLDay.setBackground(dark_green);
-        btnLDay.setForeground(white);
-        btnLDay.setBorderPainted(false);
-        btnLDay.setFocusPainted(false);
-        btnLDay.setFont(font16);
-        btnLDay.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        pnLopDay.add(lbLopDay);
-        pnLopDay.add(btnLDay);
-
-        JPanel pnLopHoc = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        lbLopHoc = new JLabel("Danh sách lớp học:");
-        lbLopHoc.setFont(font16);
-        btnLHoc = new JButton("show", createResizedIcon(ThongTinUserGUI.class, "..//image//eye-icon.png", 20, 20));
-        btnLHoc.setHorizontalTextPosition(JButton.LEFT);
-        btnLHoc.setVerticalTextPosition(JButton.CENTER);
-        btnLHoc.setBackground(dark_green);
-        btnLHoc.setForeground(white);
-        btnLHoc.setBorderPainted(false);
-        btnLHoc.setFocusPainted(false);
-        btnLHoc.setFont(font16);
-        btnLHoc.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        pnLopHoc.add(lbLopHoc);
-        pnLopHoc.add(btnLHoc);
-
-        JPanel pnMonDay = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        lbMonDay = new JLabel("Danh sách môn dạy:");
-        lbMonDay.setFont(font16);
-        btnMon = new JButton("show", createResizedIcon(ThongTinUserGUI.class, "..//image//eye-icon.png", 20, 20));
-        btnMon.setHorizontalTextPosition(JButton.LEFT);
-        btnMon.setVerticalTextPosition(JButton.CENTER);
-        btnMon.setBackground(dark_green);
-        btnMon.setForeground(white);
-        btnMon.setBorderPainted(false);
-        btnMon.setFocusPainted(false);
-        btnMon.setFont(font16);
-        btnMon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        pnMonDay.add(lbMonDay);
-        pnMonDay.add(btnMon);
-
-        JPanel pnDethi = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        lbDeThi = new JLabel("Đề thi:");
-        lbDeThi.setFont(font16);
-        btnDThi = new JButton("show", createResizedIcon(ThongTinUserGUI.class, "..//image//eye-icon.png", 20, 20));
-        btnDThi.setHorizontalTextPosition(JButton.LEFT);
-        btnDThi.setVerticalTextPosition(JButton.CENTER);
-        btnDThi.setBackground(dark_green);
-        btnDThi.setForeground(white);
-        btnDThi.setBorderPainted(false);
-        btnDThi.setFocusPainted(false);
-        btnDThi.setFont(font16);
-        btnDThi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        pnDethi.add(lbDeThi);
-        pnDethi.add(btnDThi);
 
         JPanel pnCapNhat = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -247,12 +174,27 @@ public class ThongTinUserGUI extends JPanel {
         pnLeft.add(pnHoTen);
         pnLeft.add(pnNgSinh);
         pnLeft.add(pnChucVu);
-        pnLeft.add(pnTrBM);
+
+        JPanel pnTrBM = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        
+        chiTietQuyenBUS chiTietQuyenBUS = new chiTietQuyenBUS();
+        if (chiTietQuyenBUS.kiemTraTKcoTonTaiCN(maTK, "CNDCH")) {
+            lbTrBM = new JLabel("Trưởng bộ môn:");
+            lbTrBM.setFont(font16);
+            
+            khoCauHoiBUS1 kchBUS = new khoCauHoiBUS1();
+            monBUS1 mon = new monBUS1();
+            khoCauHoiDTO kch = kchBUS.layKhoBangMaTK(maTK);
+            String tenMon = mon.layTenMonBangMaMon(kch.getMaMon()).trim();
+            lblTrMon = new JLabel(tenMon);
+            lblTrMon.setFont(font16);
+            pnTrBM.add(lbTrBM);
+            pnTrBM.add(lblTrMon);
+            
+            pnLeft.add(pnTrBM);
+        }
+
         pnLeft.add(Box.createVerticalStrut(10));
-        pnLeft.add(pnLopDay);
-        pnLeft.add(pnLopHoc);
-        pnLeft.add(pnMonDay);
-        pnLeft.add(pnDethi);
         pnLeft.add(pnCapNhat);
 
         JPanel pnMKcu = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -309,7 +251,7 @@ public class ThongTinUserGUI extends JPanel {
         f.setSize(950, 450);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ThongTinUserGUI p = new ThongTinUserGUI("TK1");
+        ThongTinUserGUI p = new ThongTinUserGUI("TK10");
         f.getContentPane().setLayout(new BorderLayout());
         f.add(p);
         f.setVisible(true);

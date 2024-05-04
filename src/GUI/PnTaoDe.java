@@ -127,16 +127,8 @@ public class PnTaoDe extends JPanel {
                 return false;
             }
         };
-        
-        
 
-//        tblDeThi = new JTable(modelDeThi);
-        tblDeThi = new JTable(modelDeThi) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        tblDeThi = new JTable(modelDeThi);
         setTableFont(tblDeThi);
 
         JScrollPane scrDeThi = new JScrollPane(tblDeThi);
@@ -670,6 +662,48 @@ public class PnTaoDe extends JPanel {
         });
     }
 
+    /*public void displayDeThi(int selectedRow) throws SQLException, ParseException {
+        String maDT = tblDeThi.getValueAt(selectedRow, 0).toString();
+        System.out.println(maDT);
+        tfTenDe.setText(maDT);
+        System.out.println(tfTenDe.getText());
+        deThiDTO dt = new deThiDTO();
+        dt = new deThiBUS().layDeThiTheoMaDT(maDT);
+        System.out.println(dt.getNgayThi());
+        System.out.println(dt.getThoiGianBatDauThi());
+        SimpleDateFormat ngayGioFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date ngayGioDate = ngayGioFormat.parse(dt.getNgayThi() + " " + dt.getThoiGianBatDauThi());
+        System.out.println(ngayGioDate);
+/*SpinnerDateModel modeldate = new SpinnerDateModel();
+        dateTime = new JSpinner(modeldate);
+        dateEditor = new JSpinner.DateEditor(dateTime, "dd/MM/yyyy HH:mm:ss");
+        dateTime.setEditor(dateEditor);
+        
+        // Tạo một SpinnerDateModel với giá trị là ngày và giờ đã chuyển đổi
+        SpinnerDateModel model = new SpinnerDateModel(ngayGioDate, null, null, java.util.Calendar.HOUR_OF_DAY);
+
+        // Tạo DateEditor cho SpinnerDateModel với định dạng ngày và giờ
+        dateTime = new JSpinner(model);
+        dateEditor = new JSpinner.DateEditor(dateTime, "dd-MM-yyyy HH:mm:ss");
+        dateTime.setEditor(dateEditor);
+
+        System.out.println(txtNgayGio.getText());
+        tfTgian.setText(Integer.toString(dt.getThoiGianLamBai()));
+        tfMatKhau.setText(dt.getMatKhau());
+        String maMon = "M" + maDT.substring(2, maDT.length() - 1);
+        System.out.println(maMon);
+        cbbMon.setSelectedItem(new monBUS().layTenMonTheoMaMon(maMon).toString());
+        cbbMon.revalidate();
+        cbbMon.repaint();
+        cbbLop.setSelectedItem(new chiTietDeLopBUS().layMaLopTheoMaDT(maDT).toString());
+        cbbLop.revalidate();
+        cbbLop.repaint();
+        for (String x : new chiTietDeBUS().layDSChiTietDeTheoMaDT(maDT)) {
+            dsMaCH.add(x);
+        }
+        loadTable_Right();
+
+    }*/
     public boolean isVietnamese(String str) {
         String regex = "[a-zA-ZàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆđĐìÌỉỈĩĨíÍịỊòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢùÙủỦũŨúÚụỤưỪừỬữỮứỨựỰỳỲỷỶỹỸýÝỵỴ\\s0-9]+$";
         return Pattern.matches(regex, str);

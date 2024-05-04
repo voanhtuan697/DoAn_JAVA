@@ -44,7 +44,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author E7250
  */
-public class PnThemTBMChoKho extends JPanel implements MouseListener, ActionListener {
+public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, ActionListener {
 
     private DefaultTableModel model;
     private String maTK;
@@ -57,7 +57,7 @@ public class PnThemTBMChoKho extends JPanel implements MouseListener, ActionList
     private monBUS monBUS;
     private Map<String, String> mapCBB_mon = new HashMap<>();
 
-    public PnThemTBMChoKho(String maTK) throws SQLException {
+    public PnChinhSuaNguoiDuyetKho(String maTK) throws SQLException {
         tkBUS = new taiKhoanBUS();
         ndBUS = new nguoiDungBUS();
         monBUS = new monBUS();
@@ -150,20 +150,6 @@ public class PnThemTBMChoKho extends JPanel implements MouseListener, ActionList
         }
     }
 
-    public static void main(String[] args) throws SQLException {
-        JFrame f = new JFrame();
-        f.setSize(800, 500);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.getContentPane().add(new PnThemTBMChoKho(""));
-        f.setVisible(true);
-//        khoCauHoiDTO kch = kchBUS.layKhoBangMaTK(maTK);
-//int row = table.getSelectedRow();
-//            if (row != -1) { // Kiểm tra xem có hàng nào được chọn không
-//                String trangThai = table.getValueAt(row, 8).toString();
-    }
-//    JButton btn_them = new JButton("Thêm");
-//        JButton btn_xoa = new JButton("Xóa");
 
     @Override
     public void actionPerformed(ActionEvent e) {

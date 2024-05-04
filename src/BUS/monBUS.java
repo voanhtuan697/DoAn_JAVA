@@ -45,4 +45,13 @@ public class monBUS {
         ArrayList<monDTO> arr = mon.layCacMonChuaCoKho();
         return arr;
     }
+    
+    public String layTenMonBangMaCH(String maCH){
+        String tenMon = mon.layTenMonBangMaCH(maCH);
+        return tenMon;
+    }
+    public String layTenMonBangMaDT(String maDT){
+        String tenMon = mon.layTenMonBangMaDT(maDT);
+        return tenMon;
+    }
 }

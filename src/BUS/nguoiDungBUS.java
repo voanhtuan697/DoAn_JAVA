@@ -50,4 +50,8 @@ public class nguoiDungBUS {
         return user.layTenNguoiDungTheoMaTK(maTK);
     }
 
+    public String layMaUserTheoMaTK(String maTK) {
+        return user.layMaUserTheoMaTK(maTK);
+    }
+
 }

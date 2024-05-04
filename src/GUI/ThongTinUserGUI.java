@@ -8,11 +8,12 @@ import BUS.nguoiDungBUS;
 import BUS.quyenBUS;
 import BUS.chiTietQuyenBUS;
 import BUS.khoCauHoiBUS;
-import BUS.monBUS1;
+import BUS.monBUS;
 import BUS.taiKhoanBUS;
 import DTO.khoCauHoiDTO;
 import DTO.nguoiDungDTO;
 import DTO.quyenDTO;
+import DTO.taiKhoanDTO;
 import static GUI.BASE.createResizedIcon;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
@@ -34,11 +35,17 @@ import static GUI.BASE.dark_green;
 import static GUI.BASE.font16;
 import static GUI.BASE.font16;
 import static GUI.BASE.white;
+import XULY.ShowDiaLog;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import net.sourceforge.jdatepicker.JDateComponentFactory;
 import net.sourceforge.jdatepicker.JDatePanel;
 import net.sourceforge.jdatepicker.JDatePicker;
@@ -53,10 +60,12 @@ public class ThongTinUserGUI extends JPanel {
     private quyenBUS q;
     private JPanel pnLeft, pnRight;
     private JButton btnCapNhat, btnDoiMK;
-    private JTextField tfHoTen, tfMk, tfMKMoi, tfMkNL;
+    private JTextField tfHoTen;
+    private JPasswordField tfMk, tfMKMoi, tfMkNL;
     private JLabel lblTenDn, lblChucVu, lblTrMon;
     private final nguoiDungBUS u;
     private final quyenDTO quyen;
+    private UtilDateModel modell;
 
     public ThongTinUserGUI(String maTK) throws SQLException {
         this.maTK = maTK;
@@ -66,6 +75,7 @@ public class ThongTinUserGUI extends JPanel {
         quyen = q.layQuyen(maTK);
         init();
         initComponents();
+        addEvent();
     }
 
     public String getMaTK() {
@@ -133,7 +143,7 @@ public class ThongTinUserGUI extends JPanel {
 
         lbNgSinh = new JLabel("Ngày sinh:");
         lbNgSinh.setFont(font16);
-        UtilDateModel modell = new UtilDateModel();
+        modell = new UtilDateModel();
         JDatePanel datePanel = new JDatePanelImpl(modell);
         JDatePicker datePicker = new JDatePickerImpl((JDatePanelImpl) datePanel);
 
@@ -176,21 +186,20 @@ public class ThongTinUserGUI extends JPanel {
         pnLeft.add(pnChucVu);
 
         JPanel pnTrBM = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        
+
         chiTietQuyenBUS chiTietQuyenBUS = new chiTietQuyenBUS();
         if (chiTietQuyenBUS.kiemTraTKcoTonTaiCN(maTK, "CNDCH")) {
             lbTrBM = new JLabel("Trưởng bộ môn:");
             lbTrBM.setFont(font16);
-            
             khoCauHoiBUS kchBUS = new khoCauHoiBUS();
-            monBUS1 mon = new monBUS1();
+            monBUS mon = new monBUS();
             khoCauHoiDTO kch = kchBUS.layKhoBangMaTK(maTK);
-            String tenMon = mon.layTenMonBangMaMon(kch.getMaMon()).trim();
+            String tenMon = mon.layTenMonTheoMaMon(kch.getMaMon()).trim();
             lblTrMon = new JLabel(tenMon);
             lblTrMon.setFont(font16);
             pnTrBM.add(lbTrBM);
             pnTrBM.add(lblTrMon);
-            
+
             pnLeft.add(pnTrBM);
         }
 
@@ -202,7 +211,7 @@ public class ThongTinUserGUI extends JPanel {
         pnMKcu.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbMKcu = new JLabel("Nhập mật khẩu cũ:");
         lbMKcu.setFont(font16);
-        tfMk = new JTextField(25);
+        tfMk = new JPasswordField(25);
         tfMk.setPreferredSize(new Dimension(tfMk.getPreferredSize().width, 30));
         pnMKcu.add(lbMKcu);
         pnMKcu.add(tfMk);
@@ -212,7 +221,7 @@ public class ThongTinUserGUI extends JPanel {
         pnMkMoi.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbMkmoi = new JLabel("Nhập mật khẩu mới:");
         lbMkmoi.setFont(font16);
-        tfMKMoi = new JTextField(25);
+        tfMKMoi = new JPasswordField(25);
         tfMKMoi.setPreferredSize(new Dimension(tfMKMoi.getPreferredSize().width, 30));
         pnMkMoi.add(lbMkmoi);
         pnMkMoi.add(tfMKMoi);
@@ -222,7 +231,7 @@ public class ThongTinUserGUI extends JPanel {
         pnNhapLai.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbNhapLai = new JLabel("Nhập lại mật khẩu:");
         lbNhapLai.setFont(font16);
-        tfMkNL = new JTextField(25);
+        tfMkNL = new JPasswordField(25);
         tfMkNL.setPreferredSize(new Dimension(tfMkNL.getPreferredSize().width, 30));
         pnNhapLai.add(lbNhapLai);
         pnNhapLai.add(tfMkNL);
@@ -246,15 +255,118 @@ public class ThongTinUserGUI extends JPanel {
 
     }
 
-    public static void main(String[] args) throws SQLException {
-        JFrame f = new JFrame();
-        f.setSize(950, 450);
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ThongTinUserGUI p = new ThongTinUserGUI("TK10");
-        f.getContentPane().setLayout(new BorderLayout());
-        f.add(p);
-        f.setVisible(true);
+    public void addEvent() throws SQLException {
+        nguoiDungBUS nd = new nguoiDungBUS();
+        btnCapNhat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (tfHoTen.getText().trim().isEmpty()) {
+                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALONG);
+                    tfHoTen.requestFocus();
+                    tfHoTen.selectAll();
+                    return;
+                }
+                if (!isVietnamese(tfHoTen.getText())) {
+                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    tfHoTen.requestFocus();
+                    tfHoTen.selectAll();
+                    return;
+                }
+                String hoTen = tfHoTen.getText();
+                Date selectedDate = modell.getValue();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String newNgaySinh = dateFormat.format(selectedDate);
+                int a = JOptionPane.showConfirmDialog(null, "Bạn muốn cập nhật thông tin?", "Thông báo", JOptionPane.YES_NO_OPTION);
+
+                if (a == JOptionPane.YES_OPTION) {
+                    try {
+                        if (nd.updateNguoiDung(hoTen, newNgaySinh, nd.layMaUserTheoMaTK(maTK))) {
+                            new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                            pnLeft.revalidate();
+                            pnLeft.repaint();
+                            
+                            return;
+                        } else {
+                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALONG);
+                        }
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    return;
+                }
+
+            }
+        }
+        );
+        btnDoiMK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (tfMk.getText().trim().isEmpty()) {
+                    new ShowDiaLog("Vui lòng nhập mật khẩu cũ!", ShowDiaLog.ERROR_DIALONG);
+                    tfMk.requestFocus();
+                    return;
+                }
+                try {
+                    taiKhoanDTO x = new taiKhoanBUS().layTaiKhoan(maTK);
+                    if (!tfMk.getText().trim().equalsIgnoreCase(x.getMatKhau())) {
+                        new ShowDiaLog("Mật khẩu cũ không đúng!", ShowDiaLog.ERROR_DIALONG);
+                        tfMk.requestFocus();
+                        tfMk.selectAll();
+                        return;
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                if (tfMKMoi.getText().trim().isEmpty()) {
+                    new ShowDiaLog("Vui lòng nhập mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    tfMKMoi.requestFocus();
+                    return;
+                }
+                if (tfMkNL.getText().trim().isEmpty()) {
+                    new ShowDiaLog("Vui lòng nhập lại mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    tfMkNL.requestFocus();
+                    return;
+                }
+                if (!tfMKMoi.getText().trim().equalsIgnoreCase(tfMkNL.getText().trim())) {
+                    new ShowDiaLog("Mật khẩu nhập lại không trùng với mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    tfMkNL.requestFocus();
+                    tfMkNL.selectAll();
+                    return;
+                }
+
+                String newPw = tfMKMoi.getText();
+                int a = JOptionPane.showConfirmDialog(null, "Bạn muốn cập nhật mật khẩu?", "Thông báo", JOptionPane.YES_NO_OPTION);
+
+                if (a == JOptionPane.YES_OPTION) {
+                    try {
+                        if (new taiKhoanBUS().updateMatKhau(newPw, maTK)) {
+                            new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                            tfMk.setText("");
+                            tfMKMoi.setText("");
+                            tfMkNL.setText("");
+                            pnRight.revalidate();
+                            pnRight.repaint();
+                            return;
+                        } else {
+                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALONG);
+                        }
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    return;
+                }
+
+            }
+        });
+    }
+
+    public boolean isVietnamese(String str) {
+        String regex = "[a-zA-ZàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆđĐìÌỉỈĩĨíÍịỊòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢùÙủỦũŨúÚụỤưỪừỬữỮứỨựỰỳỲỷỶỹỸýÝỵỴ\\s]+$";
+        return Pattern.matches(regex, str);
     }
 
 }

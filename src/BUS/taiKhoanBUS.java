@@ -46,6 +46,10 @@ public class taiKhoanBUS {
         return acc.updateTaiKhoan(maQuyen, tenDN);
     }
 
+    public boolean updateMatKhau(String matKhau, String maTK) throws SQLException {
+        return acc.updateMatKhau(matKhau, maTK);
+    }
+
     public taiKhoanDTO dangNhapTaiKhoan(String tenDN, String matKhau) throws SQLException {
         ArrayList<taiKhoanDTO> arr = acc.getTaiKhoan();
         for (taiKhoanDTO x : arr) {
@@ -55,7 +59,6 @@ public class taiKhoanBUS {
         }
         return null;
     }
-
 
     public ArrayList<String> layDanhSachMaCN(String maTK) {
         ArrayList<String> arr = this.acc.layDanhSachMaCN(maTK);

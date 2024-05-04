@@ -94,6 +94,8 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
             return "Đề đã tạo";
         }else if (maCN.equals("CNTCH")) {
             return "Tạo câu hỏi mới";
+        }else if(maCN.equals("CNCSNDK")){
+            return "Chỉnh sửa người duyệt kho";
         }
         return "";
     }
@@ -130,6 +132,8 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         }else if (maCN.equals("Thông tin")) {
             return "..//image//taoCauHoi_icon.png";
         }else if (maCN.equals("Đăng xuất")) {
+            return "..//image//taoCauHoi_icon.png";
+        }else if(maCN.equals("CNCSNDK")){
             return "..//image//taoCauHoi_icon.png";
         }
         return "";
@@ -320,7 +324,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.add(pnThemMonGiangVien, "pnThemMonGiangVien");
         JPanel pnTaoTaiKhoan = new PnTaoTaiKhoan();
         cards.add(pnTaoTaiKhoan, "pnTaoTaiKhoan");
-        JPanel pnDSDDT = new PnDsDeThiDaTao("maTK");
+        JPanel pnDSDDT = new PnDsDeThiDaTao(maTK);
         cards.add(pnDSDDT, "pnDSDDT");
         JPanel pnKetQua = new PnKetQua();
         cards.add(pnKetQua, "pnKetQua");
@@ -335,6 +339,8 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.add(pnLopSV, "pnLopSV");
         JPanel pnDeThiSV = new PnDeThiSinhVien(maTK);
         cards.add(pnDeThiSV, "pnDeThiSV");
+        JPanel pnCSNDK = new PnChinhSuaNguoiDuyetKho(maTK);
+        cards.add(pnCSNDK, "pnCSNDK");
         
         
         
@@ -400,6 +406,9 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         } else if (btn_name.equals("Thông tin")) {
             cardLayout.show(cards, "pnThongTin");
             lb_Header.setText("Thông tin");
+        }else if (btn_name.equals("Chỉnh sửa người duyệt kho")) {
+            cardLayout.show(cards, "pnCSNDK");
+            lb_Header.setText("Chỉnh sửa người duyệt kho");
         } else if (btn_name.equals("Đăng xuất")) {
             System.exit(0);
         } 

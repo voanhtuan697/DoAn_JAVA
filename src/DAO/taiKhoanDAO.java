@@ -37,7 +37,6 @@ public class taiKhoanDAO {
         return arr;
     }
 
-
     public int getSoLuongTaiKhoan() throws SQLException {
         String sql = "SELECT COUNT(MaTK) FROM taikhoan";
         PreparedStatement stmt = conn.preparedStatement(sql);
@@ -54,7 +53,7 @@ public class taiKhoanDAO {
         stmt.setString(1, a.getMaTK());
         stmt.setString(2, a.getTenDN());
         stmt.setString(3, a.getMatKhau());
-        stmt.setBoolean(4,a.isTrangThai());
+        stmt.setBoolean(4, a.isTrangThai());
         stmt.setString(5, a.getMaQuyen());
         int ketQua = stmt.executeUpdate();
         if (ketQua > 0) {
@@ -99,6 +98,19 @@ public class taiKhoanDAO {
         return false;
     }
 
+    public boolean updateMatKhau(String matKhau, String maTK) throws SQLException {
+        String sql = "UPDATE taikhoan SET MatKhau=? WHERE MaTK=?";
+        PreparedStatement stmt = conn.preparedStatement(sql);
+        stmt.setString(1, matKhau);
+        stmt.setString(2, maTK);
+
+        int rs = stmt.executeUpdate();
+        if (rs > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public ArrayList<taiKhoanDTO> listGgTrBm() {
         ArrayList<taiKhoanDTO> list = new ArrayList<>();
         try {
@@ -121,7 +133,7 @@ public class taiKhoanDAO {
         return list;
     }
 
-    public String layMaTKTheoTenDN(String tenDN)throws SQLException{
+    public String layMaTKTheoTenDN(String tenDN) throws SQLException {
         String maTK = null;
         String sql = "SELECT MaTK FROM taikhoan WHERE TenDN=?";
         PreparedStatement stmt = conn.preparedStatement(sql);
@@ -132,6 +144,7 @@ public class taiKhoanDAO {
         }
         return maTK;
     }
+
     public String getMaTkByName(String ten) {
         String MaTk = "";
         try {
@@ -150,8 +163,6 @@ public class taiKhoanDAO {
         }
         return MaTk;
     }
-
-   
 
     public ArrayList<String> layDanhSachMaCN(String maTK) {
         ArrayList<String> arr = new ArrayList<>();
@@ -197,7 +208,7 @@ public class taiKhoanDAO {
         }
     }
 
- public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException {
         taiKhoanDAO dao = new taiKhoanDAO();
         ArrayList<taiKhoanDTO> arr = dao.listGgTrBm();
         for (taiKhoanDTO x : arr) {

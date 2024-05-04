@@ -105,7 +105,7 @@ public class PnTaoLopMoi extends JPanel {
                 return false;
             }
         };
-//<<<<<<< HEAD:src/GUI/PnThemLop.java
+////<<<<<<< HEAD:src/GUI/PnThemLop.java
         table = new JTable(model);
         setTableFont(table);
         JScrollPane scrlTable = new JScrollPane(table);
@@ -120,8 +120,8 @@ public class PnTaoLopMoi extends JPanel {
             lbl[i] = new JLabel(title[i]);
             lbl[i].setFont(font14);
         }
-//=======
-//>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34:src/GUI/PnTaoLopMoi.java
+////=======
+////>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34:src/GUI/PnTaoLopMoi.java
 
         cb_GiaoVien = new JComboBox();
         cb_Mon = new JComboBox();
@@ -295,7 +295,7 @@ public class PnTaoLopMoi extends JPanel {
 
     private void loadData() {
 
-        ArrayList<monDTO> listMon = busMon.getList();
+        ArrayList<monDTO> listMon = busMon.listMon();
         cb_Mon.removeAllItems();
         for (monDTO m : listMon) {
             cb_Mon.addItem(m.getTenMon());

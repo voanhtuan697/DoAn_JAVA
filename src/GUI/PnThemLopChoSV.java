@@ -230,7 +230,7 @@ public class PnThemLopChoSV extends JPanel {
             cbNam.addItem(n.getNam());
         }
 
-        ArrayList<monDTO> listMon = busMon.getList();
+        ArrayList<monDTO> listMon = busMon.listMon();
         for (monDTO m : listMon) {
             cbMon.addItem(m.getTenMon());
         }

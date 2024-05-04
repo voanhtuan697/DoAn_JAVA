@@ -300,7 +300,7 @@ public class PnKetQua extends JPanel {
     private void loadData() {
         setLoad();
         cbMonthi.removeAllItems();
-        ArrayList<monDTO> listMon = busMon.getList();
+        ArrayList<monDTO> listMon = busMon.listMon();
         for (monDTO m : listMon) {
             cbMonthi.addItem(m.getTenMon());
         }

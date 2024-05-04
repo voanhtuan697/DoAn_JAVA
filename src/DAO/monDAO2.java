@@ -78,10 +78,10 @@ public class monDAO2 {
         }
         return TenMon;
     }
-    
-    public boolean ThemMon(monDTO m){
+
+    public boolean ThemMon(monDTO m) {
         boolean success = false;
-        try{
+        try {
             conn.Connect();
             String check = "SELECT COUNT(*) FROM MON WHERE TenMon=?";
             PreparedStatement preCheck = conn.preparedStatement(check);
@@ -89,23 +89,43 @@ public class monDAO2 {
             ResultSet rs = preCheck.executeQuery();
             rs.next();
             int count = rs.getInt(1);
-            if(count > 0){
+            if (count > 0) {
                 System.out.println("Môn đã tồn tại trong csdl");
                 return false;
+            } else {
+                String sql = "INSERT INTO MON(MaMon,TenMon) VALUES(?,?)";
+                PreparedStatement pre = conn.preparedStatement(sql);
+                pre.setString(1, m.getMaMon());
+                pre.setString(2, m.getTenMon());
+                success = pre.executeUpdate() > 0;
             }
-            String sql = "INSERT INTO MON(MaMon,TenMon) VALUES(?,?)";
-            PreparedStatement pre = conn.preparedStatement(sql);
-            pre.setString(1, m.getMaMon());
-            pre.setString(2, m.getTenMon());
-            success = pre.executeUpdate() > 0;
             conn.disconnect();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Them mon that bai" + e.getMessage());
         }
         return success;
     }
-    
-    
+
+    public ArrayList<monDTO> TimKiem(String keyword) {
+        ArrayList<monDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String name = "%" + keyword + "%";
+            String sql = "SELECT * FROM MON WHERE TenMon LIKE ?";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, name);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    monDTO m = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
+                    list.add(m);
+                }
+            }
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.out.println("tim kiem that bai" + e.getMessage());
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
         monDAO2 dao = new monDAO2();

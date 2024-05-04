@@ -11,20 +11,10 @@ import java.util.ArrayList;
 
 public class monBUS2 {
 
-    private ArrayList list;
     private monDAO2 dao = new monDAO2();
 
-    public monBUS2() {
-        list = new ArrayList();
-        init();
-    }
-
-    public void init() {
-        list = dao.listMon();
-    }
-
-    public ArrayList getList() {
-        return list;
+    public ArrayList<monDTO> listMon() {
+        return dao.listMon();
     }
 
     public String getMaMonByName(String name) {
@@ -40,6 +30,9 @@ public class monBUS2 {
         m.setMaMon(MaMon);
         m.setTenMon(TenMon);
         return dao.ThemMon(m);
-
+    }
+    
+    public ArrayList<monDTO> TimKiem(String keyword){
+        return dao.TimKiem(keyword);
     }
 }

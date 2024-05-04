@@ -13,7 +13,7 @@ public class khoCauHoiBUS2 {
 
     public boolean ThemKho(String MaKho, String MaMon, String MaTBM) {
         khoCauHoiDTO k = new khoCauHoiDTO();
-        k.setMaKho(MaKho);;
+        k.setMaKho(MaKho);
         k.setMaMon(MaMon);
         k.setMaTBM(MaTBM);
         return dao.ThemKho(k);

@@ -15,6 +15,15 @@ public class deThiDTO {
     public deThiDTO() {
     }
 
+    public deThiDTO(String MaDT, String TenDeThi) {
+        this.MaDT = MaDT;
+        this.TenDeThi = TenDeThi;
+    }
+
+    public deThiDTO(String MaDT) {
+        this.MaDT = MaDT;
+    }
+
     
     public deThiDTO(int SLCauHoi, String MaDT, String MaGV, String MaKho, String HienThiDA, String TienLui, String NgayThi, String TenDeThi, String MatKhau, String TrangThai, String ThoiGianBatDauThi) {
         this.SLCauHoi = SLCauHoi;

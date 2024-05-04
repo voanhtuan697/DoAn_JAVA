@@ -4,10 +4,6 @@
  */
 package DTO;
 
-/**
- *
- * @author PHUNG
- */
 public class monDTO {
     private String MaMon;
     private String TenMon;

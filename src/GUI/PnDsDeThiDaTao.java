@@ -5,8 +5,8 @@
 package GUI;
 
 import BUS.deThiBUS;
-import BUS.lopBUS1;
-import BUS.monBUS1;
+import BUS.lopBUS;
+import BUS.monBUS;
 import DTO.nguoiDungDTO;
 import BUS.nguoiDungBUS;
 import DTO.deThiDTO;
@@ -42,7 +42,6 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
     private DefaultTableModel model;
     private JTextField txt_mon;
     private JComboBox<String> cbb_trangThai;
-    private JTextField txt_maDe;
     private String maTK;
     private JTable table;
     private deThiBUS deThi;
@@ -66,16 +65,11 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
     public void init() {
         this.setLayout(new BorderLayout());
         JPanel pn_header = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-
-        JLabel lb_maDe = new JLabel("Mã đề:");
-        txt_maDe = new JTextField(10);
         JLabel lb_mon = new JLabel("Tên môn:");
         txt_mon = new JTextField(10);
         cbb_trangThai = new JComboBox<>(new String[]{"Sắp diễn ra", "Đang diễn ra", "Đã diễn ra"});
         cbb_trangThai.setPreferredSize(new Dimension(100, cbb_trangThai.getPreferredSize().height));
         cbb_trangThai.addActionListener(this);
-        pn_header.add(lb_maDe);
-        pn_header.add(txt_maDe);
 
         pn_header.add(lb_mon);
         pn_header.add(txt_mon);
@@ -114,22 +108,13 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
     public void loadData(int trangThai) throws SQLException {
         ArrayList<deThiDTO> arr = this.deThi.layDSDeThiDaTao(maTK, trangThai);
         for (deThiDTO dt : arr) {
-            lopBUS1 lopBUS = new lopBUS1();
+            lopBUS lopBUS = new lopBUS();
             lopDTO lop = lopBUS.layLopBangMaDe(dt.getMaDT());
-            monBUS1 monBUS = new monBUS1();
-            String tenMon = monBUS.layTenMonBangMaMon(lop.getMaMon());
+            monBUS monBUS = new monBUS();
+            String tenMon = monBUS.layTenMonTheoMaMon(lop.getMaMon()).trim();
             model.addRow(new Object[]{dt.getMaDT(), dt.getTenDeThi(), tenMon, lop.getNhomLop(), dt.getNgayThi(), dt.getThoiGianBatDauThi(), dt.getSLCauHoi(), dt.getThoiGianLamBai()});
         }
         table.setModel(model);
-    }
-
-    public static void main(String[] args) throws SQLException {
-        JFrame f = new JFrame();
-        f.setSize(800, 500);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.getContentPane().add(new PnDsDeThiDaTao("TK4"));
-        f.setVisible(true);
     }
 
     @Override
@@ -177,6 +162,16 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
             }
             pn_btn.setVisible(false);
         }
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        JFrame f = new JFrame();
+        f.setSize(900, 500);
+        PnDsDeThiDaTao p = new PnDsDeThiDaTao("TK4");
+        f.add(p);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
     }
 
 }

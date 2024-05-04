@@ -5,8 +5,8 @@ import BUS.chiTietDeBUS1;
 import BUS.dapAnBUS;
 import BUS.deThiBUS;
 import BUS.ketQuaBUS1;
-import BUS.lopBUS1;
-import BUS.monBUS1;
+import BUS.lopBUS;
+import BUS.monBUS;
 import BUS.nguoiDungBUS;
 import DTO.cauHoiDTO;
 import DTO.chiTietDeDTO;
@@ -26,8 +26,6 @@ import static javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION;
 import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FrameBaiThi extends JFrame implements ActionListener {
 
@@ -76,9 +74,9 @@ public class FrameBaiThi extends JFrame implements ActionListener {
         lb_time.setFont(font14);
 
         JPanel pn_thongTinDe = new JPanel(new FlowLayout(0, 10, 10));
-        monBUS1 monBUS = new monBUS1();
+        monBUS monBUS = new monBUS();
         JLabel lb_mon = new JLabel("Môn: "+monBUS.layTenMonBangMaDT(maDT));
-        lopBUS1 lopBUS = new lopBUS1();
+        lopBUS lopBUS = new lopBUS();
         JLabel lb_nhomLop = new JLabel("Nhóm: "+ lopBUS.layNhomLopMaTKvaMaDT(maTK, maDT));
         nguoiDungBUS ndBUS = new nguoiDungBUS();
         nguoiDungDTO nguoiRaDe = ndBUS.layNguoiDung(deThi.getMaGV());
@@ -459,9 +457,4 @@ public class FrameBaiThi extends JFrame implements ActionListener {
         }
 
     }
-
-    public static void main(String[] args) throws SQLException {
-        new FrameBaiThi("DTTHUE1", "TK13");
-    }
-
 }

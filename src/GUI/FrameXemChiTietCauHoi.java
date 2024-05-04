@@ -6,7 +6,7 @@ package GUI;
 
 import BUS.cauHoiBUS1;
 import BUS.dapAnBUS;
-import BUS.monBUS1;
+import BUS.monBUS;
 import BUS.nguoiDungBUS;
 import DTO.cauHoiDTO;
 import DTO.dapAnDTO;
@@ -67,7 +67,7 @@ public class FrameXemChiTietCauHoi extends JFrame {
         nguoiDungBUS ndBus = new nguoiDungBUS();
         nguoiDungDTO gv = ndBus.layNguoiDung(this.ch.getMaGV());
         String tenGV = gv.getHoTen();
-        monBUS1 monBUS = new monBUS1();
+        monBUS monBUS = new monBUS();
         String tenMon = monBUS.layTenMonBangMaCH(maCH);
         JLabel lb_mon = new JLabel("Môn: " + tenMon);
         JLabel lb_nguoiTaoCH = new JLabel("Người tạo câu hỏi: " + tenGV);

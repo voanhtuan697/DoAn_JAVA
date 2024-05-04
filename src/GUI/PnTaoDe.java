@@ -127,8 +127,16 @@ public class PnTaoDe extends JPanel {
                 return false;
             }
         };
+        
+        
 
-        tblDeThi = new JTable(modelDeThi);
+//        tblDeThi = new JTable(modelDeThi);
+        tblDeThi = new JTable(modelDeThi) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         setTableFont(tblDeThi);
 
         JScrollPane scrDeThi = new JScrollPane(tblDeThi);

@@ -6,6 +6,7 @@ package BUS;
 
 import java.sql.*;
 import DAO.lopDAO;
+import DTO.lopDTO;
 import java.util.ArrayList;
 
 /**
@@ -22,5 +23,15 @@ public class lopBUS {
 
     public ArrayList<String> layMaLopTheoMon(String tenMon) throws SQLException {
         return lop.layMaLopTheoMon(tenMon);
+    }
+    
+    public lopDTO layLopBangMaDe(String maDT) {
+        lopDTO l = lop.layLopBangMaDe(maDT);
+        return l;
+    }
+
+    public int layNhomLopMaTKvaMaDT(String maTK, String maDT) {
+        int nhomLop = this.lop.layNhomLopMaTKvaMaDT(maTK, maDT);
+        return nhomLop;
     }
 }

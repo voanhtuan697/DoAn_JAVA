@@ -6,6 +6,8 @@
 package GUI;
 
 import BUS.taiKhoanBUS;
+import BUS.updateTrangThaiDeThiBUS;
+import DAO.updateTrangThai;
 import DTO.taiKhoanDTO;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -33,7 +35,8 @@ public class dangNhapTaiKhoanGUI extends JFrame implements ActionListener {
     private JPasswordField txtMatkhau;
     private JButton btnForgot, btnLogin;
 
-    public dangNhapTaiKhoanGUI() {
+    public dangNhapTaiKhoanGUI() throws SQLException {
+        new updateTrangThaiDeThiBUS();
         initComponents();
     }
 

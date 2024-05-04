@@ -40,4 +40,9 @@ public class monBUS {
     public ArrayList<monDTO> layMonTuLop() throws SQLException {
         return mon.layMonTuLop();
     }
+    
+    public ArrayList<monDTO> layCacMonChuaCoKho() throws SQLException{
+        ArrayList<monDTO> arr = mon.layCacMonChuaCoKho();
+        return arr;
+    }
 }

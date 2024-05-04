@@ -74,13 +74,24 @@ public class monDAO {
         PreparedStatement stmt = conn.preparedStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-//                if (x.getMaMon().equalsIgnoreCase(rs.getString(1)) == false) {
             monDTO mon = new monDTO();
             mon.setMaMon(rs.getString(1));
             mon.setTenMon(rs.getString(2));
             arr.add(mon);
-//                    break;
-
+        }
+        return arr;
+    }
+    
+    public ArrayList<monDTO> layCacMonChuaCoKho() throws SQLException{
+        ArrayList<monDTO> arr = new ArrayList<>();
+        String sql = "select m.mamon, tenmon from mon m join khocauhoi kch on kch.mamon = m.mamon where matbm IS NULL";
+        PreparedStatement pre = conn.preparedStatement(sql);
+        ResultSet rs = pre.executeQuery();
+        while (rs.next()) {
+            monDTO mon = new monDTO();
+            mon.setMaMon(rs.getString(1));
+            mon.setTenMon(rs.getString(2));
+            arr.add(mon);
         }
         return arr;
     }

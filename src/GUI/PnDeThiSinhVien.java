@@ -256,7 +256,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
         f.setSize(800, 500);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PnDeThiSinhVien p = new PnDeThiSinhVien("TK12");
+        PnDeThiSinhVien p = new PnDeThiSinhVien("TK14");
         f.getContentPane().setLayout(new BorderLayout());
         f.add(p);
         f.setVisible(true);

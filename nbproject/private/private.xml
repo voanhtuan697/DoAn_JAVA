@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/GUI/PnTaoTaiKhoan.java</file>
-=======
-            <file>file:/D:/java/Doan_JAVA/src/Main/main.java</file>
-            <file>file:/D:/java/Doan_JAVA/src/GUI/GiaoDienUserGUI.java</file>
->>>>>>> 82720d0acfb5d36c03ab57b109ef0d5ab53879ff
+            <file>file:/D:/java/Doan_JAVA/src/GUI/PnThemTBMChoKho.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/DAO/khoCauHoiDAO.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/DAO/monDAO.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/BUS/khoCauHoiBUS.java</file>
         </group>
     </open-files>
 </project-private>

@@ -7,7 +7,7 @@ package GUI;
 import BUS.nguoiDungBUS;
 import BUS.quyenBUS;
 import BUS.chiTietQuyenBUS;
-import BUS.khoCauHoiBUS1;
+import BUS.khoCauHoiBUS;
 import BUS.monBUS1;
 import BUS.taiKhoanBUS;
 import DTO.khoCauHoiDTO;
@@ -182,7 +182,7 @@ public class ThongTinUserGUI extends JPanel {
             lbTrBM = new JLabel("Trưởng bộ môn:");
             lbTrBM.setFont(font16);
             
-            khoCauHoiBUS1 kchBUS = new khoCauHoiBUS1();
+            khoCauHoiBUS kchBUS = new khoCauHoiBUS();
             monBUS1 mon = new monBUS1();
             khoCauHoiDTO kch = kchBUS.layKhoBangMaTK(maTK);
             String tenMon = mon.layTenMonBangMaMon(kch.getMaMon()).trim();

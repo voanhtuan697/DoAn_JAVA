@@ -22,7 +22,6 @@ public class taiKhoanBUS {
 
     }
 
-//   ArrayList<nguoiDungDTO> user = new ArrayList<>();
     public ArrayList<taiKhoanDTO> getTaiKhoan() throws SQLException {
         return acc.getTaiKhoan();
     }

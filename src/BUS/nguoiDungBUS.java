@@ -21,7 +21,6 @@ public class nguoiDungBUS {
         this.user = new nguoiDungDAO();
     }
 
-//   ArrayList<nguoiDungDTO> user = new ArrayList<>();
     public ArrayList<nguoiDungDTO> getNguoiDung() throws SQLException {
         return user.getNguoiDung();
     }

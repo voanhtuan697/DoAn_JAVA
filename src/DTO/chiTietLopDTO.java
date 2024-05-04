@@ -11,6 +11,9 @@ package DTO;
 public class chiTietLopDTO {
     private String MaLop, MaSV;
 
+    public chiTietLopDTO() {
+    }
+
     public chiTietLopDTO(String MaLop, String MaSV) {
         this.MaLop = MaLop;
         this.MaSV = MaSV;

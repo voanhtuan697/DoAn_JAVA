@@ -5,10 +5,10 @@
 package GUI;
 
 import BUS.nguoiDungBUS;
-import BUS.quyenBUS;
 import BUS.chiTietQuyenBUS;
 import BUS.khoCauHoiBUS;
 import BUS.monBUS;
+import BUS.quyenBUS;
 import BUS.taiKhoanBUS;
 import DTO.khoCauHoiDTO;
 import DTO.nguoiDungDTO;

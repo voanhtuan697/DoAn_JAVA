@@ -5,6 +5,7 @@
 package DTO;
 
 public class ketQuaDTO {
+//<<<<<<< HEAD
 
     private String MaKQ, MaDT, TGLamXong, MaTK;
     private int SLCauDung;
@@ -14,6 +15,16 @@ public class ketQuaDTO {
 
     public ketQuaDTO() {
     }
+//=======
+//    private String MaKQ, MaDT,TGLamXong,MaTK;
+//    private int SLCauDung;
+//    private float Diem;
+//
+//    public ketQuaDTO() {
+//    }
+    
+  
+//>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34
 
     public ketQuaDTO(String MaKQ, String MaDT, String TGLamXong, String MaTK, int SLCauDung, float Diem) {
         this.MaKQ = MaKQ;

@@ -42,7 +42,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class PnThemLopChoSV extends JPanel {
-    
+
     private JPanel pnTop, pnCenter, pnBottom;
     private JTextField tfTimKiem;
     private JComboBox cbNam, cbHocKy, cbMon, cbLop;
@@ -56,28 +56,28 @@ public class PnThemLopChoSV extends JPanel {
     private chiTietLopBUS2 busCTLop = new chiTietLopBUS2();
     private taiKhoanBUS2 busTK = new taiKhoanBUS2();
     private ArrayList<String> choose = new ArrayList<>();
-    
+
     public PnThemLopChoSV() {
         init();
         initComponents();
         LoadData();
     }
-    
+
     public void init() {
         this.setLayout(new BorderLayout());
         pnTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
         pnTop.setBackground(gray_bg);
-        
+
         pnCenter = new JPanel(new BorderLayout());
-        
+
         pnBottom = new JPanel(new BorderLayout());
         pnBottom.setBackground(gray_bg);
-        
+
         this.add(pnTop, BorderLayout.NORTH);
         this.add(pnCenter, BorderLayout.CENTER);
         this.add(pnBottom, BorderLayout.SOUTH);
     }
-    
+
     public void initComponents() {
         JLabel lblTimKiem, lblNam, lblHocKy, lblTenMon, lblLop;
         lblTimKiem = CreateLabel("Tìm kiếm:");
@@ -85,7 +85,7 @@ public class PnThemLopChoSV extends JPanel {
         lblHocKy = CreateLabel("Học kỳ:");
         lblTenMon = CreateLabel("Tên môn:");
         lblLop = CreateLabel("Lớp:");
-        
+
         tfTimKiem = new JTextField(15);
         cbHocKy = new JComboBox<>(new Integer[]{1, 2});
         cbHocKy.setPreferredSize(new Dimension(50, cbHocKy.getPreferredSize().height));
@@ -95,7 +95,7 @@ public class PnThemLopChoSV extends JPanel {
         cbMon.setPreferredSize(new Dimension(200, cbMon.getPreferredSize().height));
         cbNam = new JComboBox();
         cbNam.setPreferredSize(new Dimension(90, cbNam.getPreferredSize().height));
-        
+
         Object[] columns = {"Mã sinh viên", "Tên sinh viên", "Ngày sinh"};
         model = new DefaultTableModel(columns, 0) {
             @Override
@@ -106,7 +106,7 @@ public class PnThemLopChoSV extends JPanel {
         table = new JTable(model);
         setTableFont(table);
         JScrollPane scrlTable = new JScrollPane(table);
-        
+
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
         btnThem.setFont(font14b);
@@ -115,11 +115,11 @@ public class PnThemLopChoSV extends JPanel {
         btnThem.setFocusPainted(false);
         btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnThem.setMaximumSize(new Dimension(120, 20));
-        
+
         pnTop.add(lblTimKiem);
         pnTop.add(tfTimKiem);
         pnCenter.add(scrlTable, BorderLayout.CENTER);
-        
+
         JPanel container = new JPanel(new FlowLayout(FlowLayout.CENTER));
         container.setBackground(gray_bg);
         container.add(lblNam);
@@ -131,9 +131,9 @@ public class PnThemLopChoSV extends JPanel {
         container.add(lblLop);
         container.add(cbLop);
         container.add(btnThem);
-        
+
         pnBottom.add(container, BorderLayout.CENTER);
-        
+
         cbNam.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,7 +141,7 @@ public class PnThemLopChoSV extends JPanel {
                 loadDSSV();
             }
         });
-        
+
         cbHocKy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -156,14 +156,14 @@ public class PnThemLopChoSV extends JPanel {
                 loadDSSV();
             }
         });
-        
+
         cbMon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadDSSV();
             }
         });
-        
+
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -179,7 +179,7 @@ public class PnThemLopChoSV extends JPanel {
                 }
             }
         });
-        
+
         btnThem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,64 +195,64 @@ public class PnThemLopChoSV extends JPanel {
                 }
             }
         });
-        
-        tfTimKiem.addActionListener(new ActionListener(){
+
+        tfTimKiem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DSTimKiem();
             }
         });
     }
-    
+
     private JLabel CreateLabel(String txt) {
         JLabel lbl = new JLabel(txt);
         lbl.setFont(font14);
         return lbl;
     }
-    
+
     private void setTableFont(JTable table) {
         table.setFont(font14);
-        
+
         JTableHeader header = table.getTableHeader();
         header.setFont(font14);
-        
+
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font14);
         table.setDefaultRenderer(Object.class, renderer);
     }
-    
+
     private void LoadData() {
         cbNam.removeAllItems();
         cbMon.removeAllItems();
-        
+
         ArrayList<lopDTO> listNam = busLop.getListNam();
         for (lopDTO n : listNam) {
             cbNam.addItem(n.getNam());
         }
-        
+
         ArrayList<monDTO> listMon = busMon.getList();
         for (monDTO m : listMon) {
             cbMon.addItem(m.getTenMon());
         }
-        
+
     }
-    
+
     private void showCbLop() {
         int Nam = Integer.parseInt(cbNam.getSelectedItem() + "");
         int HocKy = Integer.parseInt(cbHocKy.getSelectedItem() + "");
         String TenMon = cbMon.getSelectedItem() + "";
-        
+
         cbLop.removeAllItems();
         ArrayList<lopDTO> listMon = busLop.getMaByNamHKMon(Nam, HocKy, TenMon);
         for (lopDTO x : listMon) {
             cbLop.addItem(x.getMaLop());
         }
     }
-    
+
     private void ThemSV(String MaLop, String MaSV) {
         busCTLop.themSV(MaLop, MaSV);
     }
-    
+
     private void loadDSSV() {
         model.setRowCount(0);
         int Nam = Integer.parseInt(cbNam.getSelectedItem() + "");
@@ -267,7 +267,7 @@ public class PnThemLopChoSV extends JPanel {
             }
         }
     }
-    
+
     private void DSTimKiem() {
         model.setRowCount(0);
         int Nam = Integer.parseInt(cbNam.getSelectedItem() + "");
@@ -284,7 +284,7 @@ public class PnThemLopChoSV extends JPanel {
             tfTimKiem.setText("");
         }
     }
-    
+
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(900, 400);
@@ -294,5 +294,5 @@ public class PnThemLopChoSV extends JPanel {
         f.setLocationRelativeTo(null);
         f.setVisible(true);
     }
-    
+
 }

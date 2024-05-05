@@ -8,11 +8,11 @@ import DTO.chiTietLopDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class chiTietLopDAO2 {
+public class chiTietLopDAO {
     private chiTietLopDTO ctlop;
     private MyConnection conn;
     
-    public chiTietLopDAO2(){
+    public chiTietLopDAO(){
          try{
             conn = new MyConnection();
         }catch(SQLException e){

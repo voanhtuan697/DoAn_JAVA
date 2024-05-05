@@ -25,10 +25,6 @@ public class deThiBUS {
         return deThi.layDanhSachDeThi();
     }
 
-//    public ArrayList<deThiDTO> layDanhSachDeThi() throws SQLException {
-//        ArrayList<deThiDTO> arr = deThi.layDanhSachDeThi();
-//        return arr;
-//    }
     public deThiDTO layDeThiBangMaDT(String maDT) throws SQLException {
         ArrayList<deThiDTO> arr = deThi.layDanhSachDeThi();
         for (deThiDTO dt : arr) {
@@ -76,6 +72,13 @@ public class deThiBUS {
         deThi.updateTrangThaiDeThi(maDT);
     }
     
+    public ArrayList<deThiDTO> getMaTen(){
+        return deThi.getMaTen();
+    }
+    
+     public ArrayList<deThiDTO> getDSMaDT(String MaMon) {
+         return deThi.getDSMaDT(MaMon);
+     }
     
     
 }

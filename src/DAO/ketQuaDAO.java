@@ -7,24 +7,76 @@ package DAO;
 import DTO.ketQuaDTO;
 import DTO.lopDTO;
 import DTO.nguoiDungDTO;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
-public class ketQuaDAO2 {
+/**
+ *
+ * @author E7250
+ */
+public class ketQuaDAO {
 
-    private MyConnection conn;
-    private ketQuaDTO kq;
+    private final MyConnection conn;
+    private ketQuaDTO ketQuaDTO;
+    public ketQuaDAO() throws SQLException {
+        conn = new MyConnection();
+        conn.Connect();
+    }
 
-    public ketQuaDAO2() {
-        try {
-            conn = new MyConnection();
-        } catch (SQLException e) {
-            System.err.println("Ket noi db that bai");
+    public void taoKetQua(ketQuaDTO kq) throws SQLException {
+        String sql = "INSERT INTO ketqua(MaKQ, MaDT, Diem,SLCauDung,TGLamXong,MaTK) VALUES (?,?,?,?,?,?)";
+        PreparedStatement pre = conn.preparedStatement(sql);
+        pre.setString(1, kq.getMaKQ());
+        pre.setString(2, kq.getMaDT());
+        pre.setFloat(3, kq.getDiem());
+        pre.setInt(4, kq.getSLCauDung());
+        pre.setString(5, kq.getTGLamXong());
+        pre.setString(6, kq.getMaTK());
+        if (pre.executeUpdate() > 0) {
+            System.out.println("Tao kq thanh cong");
+        } else {
+            System.out.println("Tao kq that bai");
         }
     }
 
+    public boolean kiemTraSVDaLamDeChua(String maTK, String maDT) throws SQLException {
+        String sql = "select count(*) from ketqua where madt = '" + maDT + "' and matk = '" + maTK + "'";
+        PreparedStatement pre = conn.preparedStatement(sql);
+        ResultSet rs = pre.executeQuery();
+        if (rs.next()) {
+            int count = rs.getInt(1);
+            if (count > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ketQuaDTO layKetQuaBangMaTKvaMaDT(String maTK,String maDT) {
+        ketQuaDTO ketQua = new ketQuaDTO();
+        try {
+            String query = "select* from ketqua where maDT ='"+maDT+"' and matk='"+maTK+"'";
+
+            PreparedStatement pre = conn.preparedStatement(query);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                ketQua.setMaKQ(rs.getString(1));
+                ketQua.setMaDT(rs.getString(2));
+                ketQua.setDiem(rs.getFloat(3));
+                ketQua.setSLCauDung(rs.getInt(4));
+                ketQua.setTGLamXong(rs.getString(5));
+                ketQua.setMaTK(rs.getString(6));
+                return ketQua;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    
     public ArrayList<ketQuaDTO> DanhSach(String TenMon, String MaDT, String MaLop) {
         ArrayList<ketQuaDTO> list = new ArrayList<>();
         try {
@@ -46,16 +98,16 @@ public class ketQuaDAO2 {
                 pre.setString(3, MaLop);
                 ResultSet rs = pre.executeQuery();
                 while (rs.next()) {
-                    kq = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
+                    ketQuaDTO = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
                     lopDTO lop = new lopDTO();
                     lop.setMaLop(rs.getString("MaLop"));
                     lop.getMonDTO().setTenMon(rs.getString("TenMon"));
-                    kq.setLopDTO(lop);
+                    ketQuaDTO.setLopDTO(lop);
                     nguoiDungDTO ngdung = new nguoiDungDTO();
                     ngdung.setHoTen(rs.getString("HoTen"));
                     ngdung.setMaUser(rs.getString("MaUser"));
-                    kq.setNgDungDTO(ngdung);
-                    list.add(kq);
+                    ketQuaDTO.setNgDungDTO(ngdung);
+                    list.add(ketQuaDTO);
                 }
             }
             conn.disconnect();
@@ -90,16 +142,16 @@ public class ketQuaDAO2 {
                 pre.setString(6, TenMon);
                 ResultSet rs = pre.executeQuery();
                 while (rs.next()) {
-                    kq = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
+                    ketQuaDTO = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
                     lopDTO lop = new lopDTO();
                     lop.setMaLop(rs.getString("MaLop"));
                     lop.getMonDTO().setTenMon(rs.getString("TenMon"));
-                    kq.setLopDTO(lop);
+                    ketQuaDTO.setLopDTO(lop);
                     nguoiDungDTO ngdung = new nguoiDungDTO();
                     ngdung.setHoTen(rs.getString("HoTen"));
                     ngdung.setMaUser(rs.getString("MaUser"));
-                    kq.setNgDungDTO(ngdung);
-                    list.add(kq);
+                    ketQuaDTO.setNgDungDTO(ngdung);
+                    list.add(ketQuaDTO);
                 }
             }
             conn.disconnect();
@@ -134,16 +186,16 @@ public class ketQuaDAO2 {
                 pre.setString(6, TenMon);
                 ResultSet rs = pre.executeQuery();
                 while (rs.next()) {
-                    kq = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
+                    ketQuaDTO = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
                     lopDTO lop = new lopDTO();
                     lop.setMaLop(rs.getString("MaLop"));
                     lop.getMonDTO().setTenMon(rs.getString("TenMon"));
-                    kq.setLopDTO(lop);
+                    ketQuaDTO.setLopDTO(lop);
                     nguoiDungDTO ngdung = new nguoiDungDTO();
                     ngdung.setHoTen(rs.getString("HoTen"));
                     ngdung.setMaUser(rs.getString("MaUser"));
-                    kq.setNgDungDTO(ngdung);
-                    list.add(kq);
+                    ketQuaDTO.setNgDungDTO(ngdung);
+                    list.add(ketQuaDTO);
                 }
             }
             conn.disconnect();
@@ -175,16 +227,16 @@ public class ketQuaDAO2 {
                 pre.setString(3, MaLop);
                 ResultSet rs = pre.executeQuery();
                 while (rs.next()) {
-                    kq = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
+                    ketQuaDTO = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
                     lopDTO lop = new lopDTO();
                     lop.setMaLop(rs.getString("MaLop"));
                     lop.getMonDTO().setTenMon(rs.getString("TenMon"));
-                    kq.setLopDTO(lop);
+                    ketQuaDTO.setLopDTO(lop);
                     nguoiDungDTO ngdung = new nguoiDungDTO();
                     ngdung.setHoTen(rs.getString("HoTen"));
                     ngdung.setMaUser(rs.getString("MaUser"));
-                    kq.setNgDungDTO(ngdung);
-                    list.add(kq);
+                    ketQuaDTO.setNgDungDTO(ngdung);
+                    list.add(ketQuaDTO);
                 }
             }
             conn.disconnect();
@@ -218,16 +270,16 @@ public class ketQuaDAO2 {
                 pre.setFloat(5, end);
                 ResultSet rs = pre.executeQuery();
                 while (rs.next()) {
-                    kq = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
+                    ketQuaDTO = new ketQuaDTO(rs.getString("MaKQ"), rs.getString("MaDT"), rs.getString("TGLamXong"), rs.getString("MaTK"), rs.getInt("SLCauDung"), rs.getFloat("Diem"));
                     lopDTO lop = new lopDTO();
                     lop.setMaLop(rs.getString("MaLop"));
                     lop.getMonDTO().setTenMon(rs.getString("TenMon"));
-                    kq.setLopDTO(lop);
+                    ketQuaDTO.setLopDTO(lop);
                     nguoiDungDTO ngdung = new nguoiDungDTO();
                     ngdung.setHoTen(rs.getString("HoTen"));
                     ngdung.setMaUser(rs.getString("MaUser"));
-                    kq.setNgDungDTO(ngdung);
-                    list.add(kq);
+                    ketQuaDTO.setNgDungDTO(ngdung);
+                    list.add(ketQuaDTO);
                 }
             }
             conn.disconnect();
@@ -237,13 +289,13 @@ public class ketQuaDAO2 {
         return list;
     }
 
-    public static void main(String[] args) {
-        ketQuaDAO2 p = new ketQuaDAO2();
-//        ArrayList<ketQuaDTO> list = p.DanhSachTruot("Quản trị doanh nghiệp", "DTQTDN1", "LQTDN1");
-        ArrayList<ketQuaDTO> list = p.DanhSachKhoang("Quản trị doanh nghiệp", "DTQTDN1", "LQTDN1", 5, 8);
-        for (ketQuaDTO k : list) {
-//            System.out.println(x.getNgDungDTO().getHoTen() + "  " + x.getDiem());
-            System.out.println(k.getNgDungDTO().getMaUser() + "  " + k.getNgDungDTO().getHoTen() + "  " + k.getDiem() + "  " + k.getLopDTO().getMaLop() + "  " + k.getLopDTO().getMonDTO().getTenMon());
-        }
-    }
+//    public static void main(String[] args) {
+//        ketQuaDAO2 p = new ketQuaDAO2();
+////        ArrayList<ketQuaDTO> list = p.DanhSachTruot("Quản trị doanh nghiệp", "DTQTDN1", "LQTDN1");
+//        ArrayList<ketQuaDTO> list = p.DanhSachKhoang("Quản trị doanh nghiệp", "DTQTDN1", "LQTDN1", 5, 8);
+//        for (ketQuaDTO k : list) {
+////            System.out.println(x.getNgDungDTO().getHoTen() + "  " + x.getDiem());
+//            System.out.println(k.getNgDungDTO().getMaUser() + "  " + k.getNgDungDTO().getHoTen() + "  " + k.getDiem() + "  " + k.getLopDTO().getMaLop() + "  " + k.getLopDTO().getMonDTO().getTenMon());
+//        }
+//    }
 }

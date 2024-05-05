@@ -96,8 +96,10 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
             return "Tạo câu hỏi mới";
         }else if(maCN.equals("CNCSNDK")){
             return "Chỉnh sửa người duyệt kho";
+        }else if(maCN.equals("CNXKQCDT")){
+            return "Xem kết quả thi các đề thi";
         }
-        return "";
+        return "";  
     }
 
     public String layIconBtn(String maCN) {
@@ -382,9 +384,9 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         } else if (btn_name.equals("Tạo tài khoản")) {
             cardLayout.show(cards, "pnTaoTaiKhoan");
             lb_Header.setText("Tạo tài khoản");
-        } else if (btn_name.equals("Xem kết quả thi")) {
+        } else if (btn_name.equals("Xem kết quả thi các đề thi")) {
             cardLayout.show(cards, "pnKetQua");
-            lb_Header.setText("Xem kết quả thi");
+            lb_Header.setText("Xem kết quả thi các đề thi");
         }else if (btn_name.equals("Tạo câu hỏi mới")) {
             cardLayout.show(cards, "pnTaoCauHoi");
             lb_Header.setText("Tạo câu hỏi mới");

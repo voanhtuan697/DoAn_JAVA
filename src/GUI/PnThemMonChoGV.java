@@ -51,14 +51,14 @@ public class PnThemMonChoGV extends JPanel {
     private JButton btnThem;
     private nguoiDungBUS busNgDung;
     private taiKhoanBUS busTK;
-    private monBUS busMon ;
+    private monBUS busMon;
     private chiTietMonBUS busCTMon;
 
-    public PnThemMonChoGV()throws SQLException {
+    public PnThemMonChoGV() throws SQLException {
         busTK = new taiKhoanBUS();
         busNgDung = new nguoiDungBUS();
-         busMon = new monBUS();
-         busCTMon = new chiTietMonBUS();
+        busMon = new monBUS();
+        busCTMon = new chiTietMonBUS();
         init();
         initComponents();
         loadData();
@@ -161,6 +161,7 @@ public class PnThemMonChoGV extends JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
+        table.setRowHeight(30);
     }
 
     private void loadData() {

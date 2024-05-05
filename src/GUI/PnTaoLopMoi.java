@@ -42,7 +42,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-
 public class PnTaoLopMoi extends JPanel {
 
     private JPanel pnTop, pnCenter, pnBottom;
@@ -59,7 +58,7 @@ public class PnTaoLopMoi extends JPanel {
     public PnTaoLopMoi() throws SQLException {
         bus = new lopBUS();
         busTK = new taiKhoanBUS();
-        busNg  = new nguoiDungBUS();
+        busNg = new nguoiDungBUS();
         busMon = new monBUS();
         init();
         initComponents();
@@ -88,7 +87,7 @@ public class PnTaoLopMoi extends JPanel {
         cbb_TrThLop = new JComboBox<>(cacTrangThai);
         cbb_TrThLop.setFont(font16);
         tfSearch = new JTextField();
-        tfSearch.setPreferredSize(new Dimension(90,30));
+        tfSearch.setPreferredSize(new Dimension(150, 30));
         pnTop.add(lblTrangthai);
         pnTop.add(cbb_TrThLop);
         pnTop.add(lblSearch);
@@ -109,7 +108,7 @@ public class PnTaoLopMoi extends JPanel {
 
         tfTenLop = new JTextField();
         tfSL = new JTextField();
-        tfSL.setPreferredSize(new Dimension(90,30));
+        tfSL.setPreferredSize(new Dimension(90, 30));
 //        JLabel lblTenLop, lblMon, lblHocKy, lblGv, lblSL, lblTThai;
         String[] title = {"Tên lớp", "Tên môn:", "Học kỳ:", "Giảng viên:", "Số lượng:", "Trạng thái:"};
         JLabel[] lbl = new JLabel[title.length]; // Đổi độ dài của mảng thành title.length
@@ -189,7 +188,7 @@ public class PnTaoLopMoi extends JPanel {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(btnThem)
                         .addComponent(btnXoa)
-//                        .addComponent(btnNhapE)
+                //                        .addComponent(btnNhapE)
                 )
         );
 
@@ -211,7 +210,7 @@ public class PnTaoLopMoi extends JPanel {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl[3])
                         .addComponent(cb_GiaoVien)
-//                        .addComponent(btnNhapE)
+                //                        .addComponent(btnNhapE)
                 )
         );
 
@@ -345,6 +344,8 @@ public class PnTaoLopMoi extends JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
+        table.setRowHeight(30);
+
     }
 
     private void themLop() throws SQLException {

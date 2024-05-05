@@ -72,6 +72,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -228,7 +229,6 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         cbb_trangThaiCH.setFont(font13);
         cbb_trangThaiCH.addActionListener(this);
 
-
         cbb_trangThaiCH.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -261,6 +261,10 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
                 return false;
             }
         };
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(BASE.clTable);
+        header.setFont(font16);
+        table.setRowHeight(30);
         table.addMouseListener(this);
 
         // Thiết lập renderer cho tất cả các cột
@@ -732,7 +736,6 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         lb_c.setFont(font16);
         JLabel lb_d = new JLabel("D");
         lb_d.setFont(font16);
-
 
         JTextField txt_ctl_a = new JTextField();
         txt_ctl_a.setFont(font16);

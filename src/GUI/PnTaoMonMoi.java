@@ -70,7 +70,7 @@ public class PnTaoMonMoi extends JPanel {
         lblTimKiem = new JLabel("Tìm kiếm");
         lblTimKiem.setFont(font16);
         tfTimKiem = new JTextField();
-        tfTimKiem.setPreferredSize(new Dimension(170,26));
+        tfTimKiem.setPreferredSize(new Dimension(170, 26));
         pnTop.add(lblTimKiem);
         pnTop.add(tfTimKiem);
 
@@ -89,7 +89,7 @@ public class PnTaoMonMoi extends JPanel {
         lblTenMon = new JLabel("Tên môn:");
         lblTenMon.setFont(font16);
         tfTenMon = new JTextField();
-        tfTenMon.setPreferredSize(new Dimension(190,30));
+        tfTenMon.setPreferredSize(new Dimension(190, 30));
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
         btnThem.setFont(font16b);
@@ -99,11 +99,9 @@ public class PnTaoMonMoi extends JPanel {
         btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnThem.setMaximumSize(new Dimension(120, 20));
 
-
         pnBottom.add(lblTenMon);
         pnBottom.add(tfTenMon);
         pnBottom.add(btnThem);
-
 
         btnThem.addActionListener(new ActionListener() {
             @Override
@@ -140,14 +138,14 @@ public class PnTaoMonMoi extends JPanel {
                 }
             }
         });
-        
+
         tfTimKiem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = tfTimKiem.getText();
-                if(!name.isEmpty()){
+                if (!name.isEmpty()) {
                     TimKiem(name);
-                }else{
+                } else {
                     loadData();
                 }
             }
@@ -164,6 +162,7 @@ public class PnTaoMonMoi extends JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
+        table.setRowHeight(30);
     }
 
     private void loadData() {
@@ -186,20 +185,20 @@ public class PnTaoMonMoi extends JPanel {
     private void ThemKho(String MaKho, String MaMon) {
         busKho.ThemKho(MaKho, MaMon, null);
     }
-    
-    private void TimKiem(String keyword){
+
+    private void TimKiem(String keyword) {
         ArrayList<monDTO> list = busMon.TimKiem(keyword);
         model.setRowCount(0);
-        for(monDTO m : list){
+        for (monDTO m : list) {
             Object[] row = {m.getMaMon(), m.getTenMon()};
             model.addRow(row);
         }
     }
-    
-    private void NhapExcel(){
+
+    private void NhapExcel() {
         xuLyFileExcel nhapExcel = new xuLyFileExcel();
         nhapExcel.nhapExcel(table);
-        
+
     }
 
     public static void main(String[] args) throws SQLException {

@@ -23,6 +23,8 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import java.util.Date;
 import javax.swing.JComboBox;
 import static GUI.BASE.dark_green;
+import static GUI.BASE.font13;
+import static GUI.BASE.font14;
 import static GUI.BASE.font16;
 import static GUI.BASE.font16;
 import static GUI.BASE.gray_bg;
@@ -125,6 +127,7 @@ public class PnTaoTaiKhoan extends JPanel {
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
         btnThem.setForeground(white);
+        btnThem.setFont(font13);
         btnThem.setBorderPainted(false);
         btnThem.setFocusPainted(false);
         btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -132,6 +135,7 @@ public class PnTaoTaiKhoan extends JPanel {
         btnXoa = new JButton("Xóa");
         btnXoa.setBackground(dark_green);
         btnXoa.setForeground(white);
+        btnXoa.setFont(font13);
         btnXoa.setBorderPainted(false);
         btnXoa.setFocusPainted(false);
         btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -139,6 +143,7 @@ public class PnTaoTaiKhoan extends JPanel {
         btnNhap = new JButton("Nhập Excel");
         btnNhap.setBackground(dark_green);
         btnNhap.setForeground(white);
+        btnNhap.setFont(font13);
         btnNhap.setBorderPainted(false);
         btnNhap.setFocusPainted(false);
         btnNhap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -146,6 +151,7 @@ public class PnTaoTaiKhoan extends JPanel {
         btnXuat = new JButton("Xuất Excel");
         btnXuat.setBackground(dark_green);
         btnXuat.setForeground(white);
+        btnXuat.setFont(font13);
         btnXuat.setBorderPainted(false);
         btnXuat.setFocusPainted(false);
         btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -153,6 +159,7 @@ public class PnTaoTaiKhoan extends JPanel {
         btnSua = new JButton("Sửa");
         btnSua.setBackground(dark_green);
         btnSua.setForeground(white);
+        btnSua.setFont(font13);
         btnSua.setBorderPainted(false);
         btnSua.setFocusPainted(false);
         btnSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -160,6 +167,7 @@ public class PnTaoTaiKhoan extends JPanel {
         btnClear = new JButton("Clear");
         btnClear.setBackground(dark_green);
         btnClear.setForeground(white);
+        btnClear.setFont(font13);
         btnClear.setBorderPainted(false);
         btnClear.setFocusPainted(false);
         btnClear.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -652,6 +660,7 @@ public class PnTaoTaiKhoan extends JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
+        table.setRowHeight(30);
     }
 
     public void displaySelectedRow(int selectedRow) throws SQLException {
@@ -724,7 +733,7 @@ public class PnTaoTaiKhoan extends JPanel {
             String name = table.getValueAt(i, 0) + "";
             String ngsinh = table.getValueAt(i, 1) + "";
             String tenQuyen = table.getValueAt(i, 2) + "";
-            
+
             System.out.println(ngsinh);
             System.out.println(name);
             System.out.println(tenQuyen);

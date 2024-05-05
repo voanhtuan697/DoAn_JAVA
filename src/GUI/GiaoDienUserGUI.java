@@ -162,7 +162,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
 
     public void init() throws SQLException {
         this.setTitle("Frame");
-        this.setSize(900, 600);
+        this.setSize(1200, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -406,9 +406,5 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         } else if (btn_name.equals("Đăng xuất")) {
             System.exit(0);
         }
-    }
-    
-    public static void main(String[] args) throws SQLException {
-        new GiaoDienUserGUI("TK2");
     }
 }

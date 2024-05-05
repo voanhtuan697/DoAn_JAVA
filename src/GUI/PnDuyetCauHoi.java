@@ -23,10 +23,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font13;
+import static GUI.BASE.font16;
+import static GUI.BASE.font14;
 import static GUI.BASE.gray_bg;
 import static GUI.BASE.white;
 import XULY.ShowDiaLog;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +40,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingConstants;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -83,17 +87,19 @@ public class PnDuyetCauHoi extends JPanel implements ActionListener, MouseListen
         JLabel lb_mon = new JLabel();
         String tenMon = monbus.layTenMonTheoMaMon(khDAO.getMaMon()).trim();
         lb_mon.setText("Tên môn: " + tenMon);
-        lb_mon.setFont(font13);
+        lb_mon.setFont(font16);
         String[] trangThai = {"Chưa duyệt", "Đã duyệt"};
         cbb_trangThai = new JComboBox(trangThai);
+        cbb_trangThai.setFont(font16);
         cbb_trangThai.addActionListener(this);
 
         JPanel pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         pnSearch.setBackground(gray_bg);
 
         JLabel lblSearch = new JLabel("Tìm kiếm");
-        lblSearch.setFont(font13);
+        lblSearch.setFont(font16);
         JTextField txtSearch = new JTextField(15);
+        txtSearch.setPreferredSize(new Dimension(200,30));
 
         pn_header.add(lb_mon);
         pn_header.add(cbb_trangThai);
@@ -117,6 +123,11 @@ public class PnDuyetCauHoi extends JPanel implements ActionListener, MouseListen
                 return false;
             }
         };
+        JTableHeader headertb = table.getTableHeader();
+        headertb.setBackground(Color.decode("#E7E6E4"));
+        headertb.setFont(font16);
+        table.setRowHeight(30);
+                
         table.addMouseListener(this);
 //        set chiều ngang cho cột
 //        TableColumnModel columnModel = table.getColumnModel();
@@ -132,8 +143,10 @@ public class PnDuyetCauHoi extends JPanel implements ActionListener, MouseListen
         pn_btn.setLayout(new FlowLayout(1, 10, 10));
         pn_btn.setBackground(gray_bg);
         JButton btn = new JButton("Duyệt câu hỏi");
+        btn.setPreferredSize(new Dimension(200,30));
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
+        btn.setFont(font14);
         btn.setForeground(white);
         btn.setBackground(dark_green);
         btn.addActionListener(this);

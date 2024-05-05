@@ -24,7 +24,7 @@ public class lopBUS {
     public ArrayList<String> layMaLopTheoMon(String tenMon) throws SQLException {
         return lop.layMaLopTheoMon(tenMon);
     }
-    
+
     public lopDTO layLopBangMaDe(String maDT) {
         lopDTO l = lop.layLopBangMaDe(maDT);
         return l;
@@ -33,6 +33,10 @@ public class lopBUS {
     public int layNhomLopMaTKvaMaDT(String maTK, String maDT) {
         int nhomLop = this.lop.layNhomLopMaTKvaMaDT(maTK, maDT);
         return nhomLop;
+    }
+
+    public ArrayList<lopDTO> layDanhSachLopTheoMaGV(String maGV) throws SQLException {
+        return lop.layDanhSachLopTheoMaGV(maGV);
     }
     
     public ArrayList getList() {

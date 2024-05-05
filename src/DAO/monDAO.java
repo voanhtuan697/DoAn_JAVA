@@ -230,10 +230,4 @@ public class monDAO {
         }
         return success;
     }
-    
-    public static void main(String[] args) throws SQLException {
-        monDAO m = new monDAO();
-        String ss = m.layTenMonBangMaDT("DTTH1");
-        System.out.println(ss);
-    }
 }

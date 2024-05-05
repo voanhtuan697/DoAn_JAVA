@@ -44,6 +44,7 @@ public class khoCauHoiDAO {
                 kho.setMaTBM(rs.getString(3));
                 return kho;
             } else {
+                conn.disconnect();
                 return null;
             }
         } catch (SQLException e) {
@@ -106,4 +107,5 @@ public class khoCauHoiDAO {
         }
         return success;
     }
+    
 }

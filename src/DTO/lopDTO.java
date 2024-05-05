@@ -65,7 +65,7 @@ public class lopDTO {
         this.MaMon = MaMon;
     }
 
-    public boolean isTrangThai() {
+    public boolean getTrangThai() {
         return TrangThai;
     }
 

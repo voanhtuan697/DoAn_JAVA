@@ -314,9 +314,9 @@ public class PnTaoLopMoi extends JPanel {
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
             String TrangThai = "";
-            if (lop.isTrangThai() == true) {
+            if (lop.getTrangThai() == true) {
                 TrangThai = "Hoạt động";
-            } else if (lop.isTrangThai() == false) {
+            } else if (lop.getTrangThai() == false) {
                 TrangThai = "Kết thúc";
             }
 
@@ -386,7 +386,7 @@ public class PnTaoLopMoi extends JPanel {
             String TenGv, TenMon;
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
-            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.isTrangThai()};
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.getTrangThai()};
             model.addRow(row);
         }
         if (keyword == "") {
@@ -401,7 +401,7 @@ public class PnTaoLopMoi extends JPanel {
             String TenGv, TenMon;
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
-            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.isTrangThai()};
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.getTrangThai()};
             model.addRow(row);
         }
     }

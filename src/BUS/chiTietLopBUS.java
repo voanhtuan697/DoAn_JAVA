@@ -6,7 +6,6 @@ package BUS;
 
 import DAO.chiTietLopDAO;
 import DTO.chiTietLopDTO;
-import XULY.ShowDiaLog;
 
 /**
  *

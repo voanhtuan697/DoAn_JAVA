@@ -6,7 +6,6 @@ package BUS;
 
 import DAO.chiTietMonDAO;
 import DTO.chiTietMonDTO;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -17,11 +16,11 @@ public class chiTietMonBUS {
 
     chiTietMonDAO ctm;
 
-    public chiTietMonBUS() throws SQLException {
+    public chiTietMonBUS()  {
         ctm = new chiTietMonDAO();
     }
 
-    public ArrayList<chiTietMonDTO> layDanhSachChiTietMon() throws SQLException {
+    public ArrayList<chiTietMonDTO> layDanhSachChiTietMon()  {
         return ctm.layDanhSachChiTietMon();
     }
 }

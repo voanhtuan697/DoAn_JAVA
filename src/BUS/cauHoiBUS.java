@@ -6,7 +6,6 @@ package BUS;
 
 import DAO.cauHoiDAO;
 import DTO.cauHoiDTO;
-import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -17,15 +16,15 @@ public class cauHoiBUS {
 
     private cauHoiDAO ch;
 
-    public cauHoiBUS() throws SQLException {
+    public cauHoiBUS()  {
         this.ch = new cauHoiDAO();
     }
 
-    public ArrayList<cauHoiDTO> layDanhSachCauHoi() throws SQLException {
+    public ArrayList<cauHoiDTO> layDanhSachCauHoi()  {
         return ch.layDanhSachCauHoi();
     }
 
-    public String layMaCHTheoNoiDung(String noiDung) throws SQLException {
+    public String layMaCHTheoNoiDung(String noiDung)  {
         return ch.layMaCHTheoNoiDung(noiDung);
     }
 
@@ -45,7 +44,7 @@ public class cauHoiBUS {
     }
     
     
-    public cauHoiDTO layCauHoiBangMaCH(String maCH) throws SQLException{
+    public cauHoiDTO layCauHoiBangMaCH(String maCH) {
         cauHoiDTO cauHoi = ch.layCauHoiBangMaCH(maCH);
         return cauHoi;
     }

@@ -17,48 +17,73 @@ public class chiTietDeDAO {
 
     private MyConnection conn;
 
-    public chiTietDeDAO() throws SQLException {
-        conn = new MyConnection();
-        conn.Connect();
+    public chiTietDeDAO() {
+        try {
+            conn = new MyConnection();
+        } catch (Exception e) {
+            System.out.println("Ket noi database khong thanh cong" + e.getMessage());
+        }
     }
 
-    public ArrayList<chiTietDeDTO> layDanhSachChiTietDe() throws SQLException {
+    public ArrayList<chiTietDeDTO> layDanhSachChiTietDe() {
         ArrayList<chiTietDeDTO> arr = new ArrayList<>();
-        String sql = "SELECT * FROM chitietde";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            chiTietDeDTO ctd = new chiTietDeDTO();
-            ctd.setMaCH(rs.getString(1));
-            ctd.setMaDT(rs.getString(2));
-            arr.add(ctd);
+        try {
+            conn.Connect();
+            String sql = "SELECT * FROM chitietde";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                chiTietDeDTO ctd = new chiTietDeDTO();
+                ctd.setMaCH(rs.getString(1));
+                ctd.setMaDT(rs.getString(2));
+                arr.add(ctd);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay danh sach chi tiet de khong thanh cong" + e.getMessage());
         }
         return arr;
     }
-    public ArrayList<String> layDSChiTietDeTheoMaDT(String maDT) throws SQLException {
+
+    public ArrayList<String> layDSChiTietDeTheoMaDT(String maDT) {
         ArrayList<String> arr = new ArrayList<>();
-        String sql = "SELECT * FROM chitietde WHERE MaDT=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, maDT);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            arr.add(rs.getString(1));
+        try {
+            conn.Connect();
+            String sql = "SELECT * FROM chitietde WHERE MaDT=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, maDT);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                arr.add(rs.getString(1));
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Ket noi database khong thanh cong" + e.getMessage());
         }
         return arr;
     }
-    
-    public ArrayList<chiTietDeDTO> layDanhSachChiTietDeBangMaDe(String maDT) throws SQLException {
+
+    public ArrayList<chiTietDeDTO> layDanhSachChiTietDeBangMaDe(String maDT) {
         ArrayList<chiTietDeDTO> arr = new ArrayList<>();
-        String sql = "select* from chitietde where madt = '"+maDT+"'";
-        PreparedStatement pre = conn.preparedStatement(sql);
-        ResultSet rs = pre.executeQuery();
-        while (rs.next()) {
-            chiTietDeDTO ctd = new chiTietDeDTO();
-            ctd.setMaCH(rs.getString(1));
-            ctd.setMaDT(rs.getString(2));
-            arr.add(ctd);
+        try {
+            conn.Connect();
+            String sql = "select* from chitietde where madt = '" + maDT + "'";
+            PreparedStatement pre = conn.preparedStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                chiTietDeDTO ctd = new chiTietDeDTO();
+                ctd.setMaCH(rs.getString(1));
+                ctd.setMaDT(rs.getString(2));
+                arr.add(ctd);
+            }
+            pre.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Ket noi database khong thanh cong" + e.getMessage());
         }
         return arr;
     }
-    
+
 }

@@ -12,101 +12,152 @@ import java.util.ArrayList;
 
 public class taiKhoanDAO {
 
-    private final MyConnection conn;
+    private MyConnection conn;
 
-    public taiKhoanDAO() throws SQLException {
-        conn = new MyConnection();
-        conn.Connect();
+    public taiKhoanDAO() {
+        try {
+            conn = new MyConnection();
+        } catch (Exception e) {
+            System.out.println("Ket noi database khong thanh cong" + e.getMessage());
+        }
     }
-//    private final Connection conn = connect.Connect();
 
-    public ArrayList<taiKhoanDTO> getTaiKhoan() throws SQLException {
+    public ArrayList<taiKhoanDTO> getTaiKhoan() {
         ArrayList<taiKhoanDTO> arr = new ArrayList<>();
-        String sql = "SELECT * FROM taikhoan";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            taiKhoanDTO acc = new taiKhoanDTO();
-            acc.setMaTK(rs.getString(1));
-            acc.setTenDN(rs.getString(2));
-            acc.setMatKhau(rs.getString(3));
-            acc.setTrangThai(rs.getBoolean(4));
-            acc.setMaQuyen(rs.getString(5));
-            arr.add(acc);
+        try {
+            conn.Connect();
+            String sql = "SELECT * FROM taikhoan";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                taiKhoanDTO acc = new taiKhoanDTO();
+                acc.setMaTK(rs.getString(1));
+                acc.setTenDN(rs.getString(2));
+                acc.setMatKhau(rs.getString(3));
+                acc.setTrangThai(rs.getBoolean(4));
+                acc.setMaQuyen(rs.getString(5));
+                arr.add(acc);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay danh sach tai khoan khong thanh cong" + e.getMessage());
         }
         return arr;
     }
 
-    public int getSoLuongTaiKhoan() throws SQLException {
-        String sql = "SELECT COUNT(MaTK) FROM taikhoan";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            return Integer.parseInt(rs.getString(1));
+    public int getSoLuongTaiKhoan() {
+        try {
+            conn.Connect();
+            String sql = "SELECT COUNT(MaTK) FROM taikhoan";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Integer.parseInt(rs.getString(1));
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.err.println("Lay so luong tai khoan khong thanh cong" + e.getMessage());
         }
         return 0;
     }
 
-    public boolean addTaiKhoan(taiKhoanDTO a) throws SQLException {
-        String sql = "INSERT INTO taiKhoan(MaTK, TenDN, MatKhau, TrangThai, MaQuyen) VALUES (?,?,?,?,?)";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, a.getMaTK());
-        stmt.setString(2, a.getTenDN());
-        stmt.setString(3, a.getMatKhau());
-        stmt.setBoolean(4, a.isTrangThai());
-        stmt.setString(5, a.getMaQuyen());
-        int ketQua = stmt.executeUpdate();
-        if (ketQua > 0) {
-            return true;
+    public boolean addTaiKhoan(taiKhoanDTO a) {
+        try {
+            conn.Connect();
+            String sql = "INSERT INTO taiKhoan(MaTK, TenDN, MatKhau, TrangThai, MaQuyen) VALUES (?,?,?,?,?)";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, a.getMaTK());
+            stmt.setString(2, a.getTenDN());
+            stmt.setString(3, a.getMatKhau());
+            stmt.setBoolean(4, a.isTrangThai());
+            stmt.setString(5, a.getMaQuyen());
+            int ketQua = stmt.executeUpdate();
+            stmt.close();
+            conn.disconnect();
+            if (ketQua > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("Them khong thanh cong" + e.getMessage());
         }
         return false;
 
     }
 
-    public String getMaQuyenTheoTenDN(String tenDN) throws SQLException {
+    public String getMaQuyenTheoTenDN(String tenDN) {
         String maQuyen = null;
-        String sql = "SELECT MaQuyen FROM taikhoan WHERE TenDN=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, tenDN);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            maQuyen = rs.getString(1);
+        try {
+            conn.Connect();
+            String sql = "SELECT MaQuyen FROM taikhoan WHERE TenDN=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, tenDN);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                maQuyen = rs.getString(1);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.err.println("Lay ma quyen khong thanh cong" + e.getMessage());
         }
         return maQuyen;
     }
 
-    public boolean deleteTaiKhoan(String tenDN) throws SQLException {
-        String sql = "UPDATE taikhoan SET TrangThai='0' WHERE TenDN=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, tenDN);
-        int rs = stmt.executeUpdate();
-        if (rs > 0) {
-            return true;
+    public boolean deleteTaiKhoan(String tenDN) {
+        try {
+            conn.Connect();
+            String sql = "UPDATE taikhoan SET TrangThai='0' WHERE TenDN=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, tenDN);
+            int rs = stmt.executeUpdate();
+            stmt.close();
+            conn.disconnect();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("Xoa tai khoan khong thanh cong" + e.getMessage());
         }
         return false;
     }
 
-    public boolean updateTaiKhoan(String maQuyen, String tenDN) throws SQLException {
-        String sql = "UPDATE taikhoan SET MaQuyen=? WHERE TenDN=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, maQuyen);
-        stmt.setString(2, tenDN);
-        int rs = stmt.executeUpdate();
-        if (rs > 0) {
-            return true;
+    public boolean updateTaiKhoan(String maQuyen, String tenDN) {
+        try {
+            conn.Connect();
+            String sql = "UPDATE taikhoan SET MaQuyen=? WHERE TenDN=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, maQuyen);
+            stmt.setString(2, tenDN);
+            int rs = stmt.executeUpdate();
+            stmt.close();
+            conn.disconnect();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("Cap nhat tai khoan khong thanh cong" + e.getMessage());
         }
         return false;
     }
 
-    public boolean updateMatKhau(String matKhau, String maTK) throws SQLException {
-        String sql = "UPDATE taikhoan SET MatKhau=? WHERE MaTK=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, matKhau);
-        stmt.setString(2, maTK);
+    public boolean updateMatKhau(String matKhau, String maTK) {
+        try {
+            conn.Connect();
+            String sql = "UPDATE taikhoan SET MatKhau=? WHERE MaTK=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, matKhau);
+            stmt.setString(2, maTK);
 
-        int rs = stmt.executeUpdate();
-        if (rs > 0) {
-            return true;
+            int rs = stmt.executeUpdate();
+            stmt.close();
+            conn.disconnect();
+            if (rs > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("Cap nhat mat khau khong thanh cong" + e.getMessage());
         }
         return false;
     }
@@ -125,6 +176,7 @@ public class taiKhoanDAO {
                     item.setNgDung(ngDung);
                     list.add(item);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -133,14 +185,21 @@ public class taiKhoanDAO {
         return list;
     }
 
-    public String layMaTKTheoTenDN(String tenDN) throws SQLException {
+    public String layMaTKTheoTenDN(String tenDN) {
         String maTK = null;
-        String sql = "SELECT MaTK FROM taikhoan WHERE TenDN=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, tenDN);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            maTK = rs.getString(1);
+        try {
+            conn.Connect();
+            String sql = "SELECT MaTK FROM taikhoan WHERE TenDN=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, tenDN);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                maTK = rs.getString(1);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.err.println("Lay ma TK khong thanh cong" + e.getMessage());
         }
         return maTK;
     }
@@ -156,8 +215,10 @@ public class taiKhoanDAO {
                 if (rs.next()) {
                     MaTk = rs.getString("MaTK");
                 }
+                pre.close();
             }
             conn.disconnect();
+
         } catch (SQLException e) {
             System.err.println("Chuyen doi ma that bai" + e.getMessage());
         }
@@ -167,6 +228,7 @@ public class taiKhoanDAO {
     public ArrayList<String> layDanhSachMaCN(String maTK) {
         ArrayList<String> arr = new ArrayList<>();
         try {
+            conn.Connect();
             String query = "SELECT MaCN\n"
                     + "FROM TAIKHOAN TK\n"
                     + "JOIN QUYEN Q ON TK.MaQuyen = Q.MaQuyen\n"
@@ -177,6 +239,8 @@ public class taiKhoanDAO {
             while (rs.next()) {
                 arr.add(rs.getString(1).trim());
             }
+            pre.close();
+            conn.disconnect();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -186,6 +250,7 @@ public class taiKhoanDAO {
     public taiKhoanDTO layTaiKhoan(String maTK) {
         taiKhoanDTO tk = new taiKhoanDTO();
         try {
+            conn.Connect();
             String query = "SELECT* FROM TAIKHOAN TK WHERE TK.MaTK ='" + maTK + "'";
 
             PreparedStatement pre = conn.preparedStatement(query);
@@ -196,10 +261,13 @@ public class taiKhoanDAO {
                 tk.setMatKhau(rs.getString(3));
                 tk.setTrangThai(rs.getBoolean(4));
                 tk.setMaQuyen(rs.getString(5).trim());
+                pre.close();
+                conn.disconnect();
                 return tk;
             } else {
                 // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
                 System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                conn.disconnect();
                 return null;
             }
         } catch (SQLException e) {
@@ -219,8 +287,10 @@ public class taiKhoanDAO {
                 if (rs.next()) {
                     MaTk = rs.getString("HoTen");
                 }
+                pre.close();
             }
             conn.disconnect();
+
         } catch (SQLException e) {
             System.err.println("Chuyen doi ten that bai" + e.getMessage());
         }
@@ -238,6 +308,7 @@ public class taiKhoanDAO {
                 if (rs.next()) {
                     MaTk = rs.getString("MaTK");
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -245,6 +316,5 @@ public class taiKhoanDAO {
         }
         return MaTk;
     }
-    
-    
+
 }

@@ -6,7 +6,6 @@ package BUS;
 
 import DTO.chiTietDeDTO;
 import DAO.chiTietDeDAO;
-import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -17,19 +16,19 @@ public class chiTietDeBUS {
 
     private chiTietDeDAO ctd;
 
-    public chiTietDeBUS() throws SQLException {
+    public chiTietDeBUS()  {
         this.ctd = new chiTietDeDAO();
     }
 
-    public ArrayList<chiTietDeDTO> layDanhSachChiTietDe() throws SQLException {
+    public ArrayList<chiTietDeDTO> layDanhSachChiTietDe()  {
         return ctd.layDanhSachChiTietDe();
     }
 
-    public ArrayList<String> layDSChiTietDeTheoMaDT(String maDT) throws SQLException {
+    public ArrayList<String> layDSChiTietDeTheoMaDT(String maDT)  {
         return ctd.layDSChiTietDeTheoMaDT(maDT);
     }
     
-    public ArrayList<chiTietDeDTO> layDanhSachChiTietDeBangMaDe(String maDT) throws SQLException {
+    public ArrayList<chiTietDeDTO> layDanhSachChiTietDeBangMaDe(String maDT)  {
         ArrayList<chiTietDeDTO> arr = ctd.layDanhSachChiTietDeBangMaDe(maDT);
         return arr;
     }

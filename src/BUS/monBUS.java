@@ -6,7 +6,6 @@ package BUS;
 
 import DAO.monDAO;
 import DTO.monDTO;
-import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -18,31 +17,31 @@ public class monBUS {
     private monDAO mon;
     
 
-    public monBUS() throws SQLException {
+    public monBUS()  {
         this.mon = new monDAO();
     }
 
-    public ArrayList<monDTO> layDanhSachMon() throws SQLException {
+    public ArrayList<monDTO> layDanhSachMon()  {
         return mon.layDanhSachMon();
     }
 
-    public String layTenMonTheoMaMon(String maMon) throws SQLException {
+    public String layTenMonTheoMaMon(String maMon)  {
         return mon.layTenMonTheoMaMon(maMon);
     }
 
-    public String layMaMonTheoTenMon(String tenMon) throws SQLException {
+    public String layMaMonTheoTenMon(String tenMon)  {
         return mon.layMaMonTheoTenMon(tenMon);
     }
 
-    public String layTenMonTheoMaDeThi(String maDT) throws SQLException {
+    public String layTenMonTheoMaDeThi(String maDT)  {
         return mon.layTenMonTheoMaDeThi(maDT);
     }
 
-    public ArrayList<monDTO> layMonTuLop() throws SQLException {
+    public ArrayList<monDTO> layMonTuLop()  {
         return mon.layMonTuLop();
     }
 
-    public ArrayList<monDTO> layCacMonChuaCoKho() throws SQLException {
+    public ArrayList<monDTO> layCacMonChuaCoKho()  {
         ArrayList<monDTO> arr = mon.layCacMonChuaCoKho();
         return arr;
     }
@@ -52,7 +51,7 @@ public class monBUS {
         return tenMon;
     }
 
-    public String layTenMonBangMaDT(String maDT) throws SQLException {
+    public String layTenMonBangMaDT(String maDT)  {
         String tenMon = mon.layTenMonBangMaDT(maDT);
         return tenMon;
     }

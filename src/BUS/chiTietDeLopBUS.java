@@ -6,7 +6,6 @@ package BUS;
 
 import DAO.chiTietDeLopDAO;
 import DTO.chiTietDeLopDTO;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -17,15 +16,15 @@ public class chiTietDeLopBUS {
 
     private chiTietDeLopDAO ctdl;
 
-    public chiTietDeLopBUS() throws SQLException {
+    public chiTietDeLopBUS()  {
         ctdl = new chiTietDeLopDAO();
     }
 
-    public ArrayList<chiTietDeLopDTO> layDanhSachChiTietDeLop() throws SQLException {
+    public ArrayList<chiTietDeLopDTO> layDanhSachChiTietDeLop()  {
         return ctdl.layDanhSachChiTietDeLop();
     }
 
-    public String layMaLopTheoMaDT(String maDT) throws SQLException {
+    public String layMaLopTheoMaDT(String maDT)  {
         return ctdl.layMaLopTheoMaDT(maDT);
     }
 }

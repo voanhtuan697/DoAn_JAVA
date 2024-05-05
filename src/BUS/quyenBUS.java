@@ -6,7 +6,6 @@ package BUS;
 
 import DAO.quyenDAO;
 import DTO.quyenDTO;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -19,21 +18,21 @@ public class quyenBUS {
 
     quyenDAO role;
 
-    public quyenBUS() throws SQLException {
+    public quyenBUS()  {
         role = new quyenDAO();
         this.quyen = new quyenDAO();
 
     }
 
-    public ArrayList<quyenDTO> getQuyen() throws SQLException {
+    public ArrayList<quyenDTO> getQuyen()  {
         return role.getQuyen();
     }
 
-    public String getMaQuyenTheoTenQuyen(String tenQuyen) throws SQLException {
+    public String getMaQuyenTheoTenQuyen(String tenQuyen)  {
         return role.getMaQuyenTheoTenQuyen(tenQuyen);
     }
 
-    public String getTenQuyenTheoMaQuyen(String maQuyen) throws SQLException {
+    public String getTenQuyenTheoMaQuyen(String maQuyen)  {
         return role.getTenQuyenTheoMaQuyen(maQuyen);
     }
 

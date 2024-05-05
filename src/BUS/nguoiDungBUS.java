@@ -6,7 +6,6 @@ package BUS;
 
 import DAO.nguoiDungDAO;
 import DTO.nguoiDungDTO;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -17,27 +16,27 @@ public class nguoiDungBUS {
 
     private nguoiDungDAO user;
 
-    public nguoiDungBUS() throws SQLException {
+    public nguoiDungBUS()  {
         this.user = new nguoiDungDAO();
     }
 
-    public ArrayList<nguoiDungDTO> getNguoiDung() throws SQLException {
+    public ArrayList<nguoiDungDTO> getNguoiDung()  {
         return user.getNguoiDung();
     }
 
-    public int getSoLuongNguoiDung() throws SQLException {
+    public int getSoLuongNguoiDung()  {
         return user.getSoLuongNguoiDung();
     }
 
-    public boolean addNguoiDung(nguoiDungDTO a) throws SQLException {
+    public boolean addNguoiDung(nguoiDungDTO a)  {
         return user.addNguoiDung(a);
     }
 
-    public boolean deleteNguoiDung(String maUser) throws SQLException {
+    public boolean deleteNguoiDung(String maUser)  {
         return user.deleteNguoiDung(maUser);
     }
 
-    public boolean updateNguoiDung(String hoTen, String ngSinh, String maUser) throws SQLException {
+    public boolean updateNguoiDung(String hoTen, String ngSinh, String maUser)  {
         return user.updateNguoiDung(hoTen, ngSinh, maUser);
     }
 

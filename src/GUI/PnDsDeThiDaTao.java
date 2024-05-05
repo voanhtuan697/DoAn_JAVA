@@ -47,7 +47,7 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
     private deThiBUS deThi;
     private JPanel pn_btn;
 
-    public PnDsDeThiDaTao(String maTK) throws SQLException {
+    public PnDsDeThiDaTao(String maTK) {
         deThi = new deThiBUS();
         this.maTK = maTK;
         init();
@@ -105,7 +105,7 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
 
     }
 
-    public void loadData(int trangThai) throws SQLException {
+    public void loadData(int trangThai) {
         ArrayList<deThiDTO> arr = this.deThi.layDSDeThiDaTao(maTK, trangThai);
         for (deThiDTO dt : arr) {
             lopBUS lopBUS = new lopBUS();
@@ -125,46 +125,26 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
             int[] selectedRows = table.getSelectedRows();
             for (int row : selectedRows) {
                 Object maDeThi = table.getValueAt(row, 0);
-                try {
-                    deThi.updateTrangThaiDeThi(maDeThi.toString().trim());
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                deThi.updateTrangThaiDeThi(maDeThi.toString().trim());
             }
-            try {
-                loadData(1);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            loadData(1);
         }
         if (selectedOption.equals("Sắp diễn ra")) {
             model.setRowCount(0);
-            try {
-                this.loadData(0);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            this.loadData(0);
             pn_btn.setVisible(false);
         } else if (selectedOption.equals("Đang diễn ra")) {
             model.setRowCount(0);
-            try {
-                this.loadData(1);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            this.loadData(1);
             pn_btn.setVisible(true);
         } else if (selectedOption.equals("Đã diễn ra")) {
             model.setRowCount(0);
-            try {
-                this.loadData(2);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            this.loadData(2);
             pn_btn.setVisible(false);
         }
     }
-    
-    public static void main(String[] args) throws SQLException {
+
+    public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(900, 500);
         PnDsDeThiDaTao p = new PnDsDeThiDaTao("TK4");

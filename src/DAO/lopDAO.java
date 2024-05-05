@@ -18,19 +18,29 @@ public class lopDAO {
     private MyConnection conn;
     private lopDTO lop;
 
-    public lopDAO() throws SQLException {
-        this.conn = new MyConnection();
-        conn.Connect();
+    public lopDAO() {
+        try {
+            conn = new MyConnection();
+        } catch (Exception e) {
+            System.out.println("Ket noi database khong thanh cong" + e.getMessage());
+        }
     }
 
-    public ArrayList<String> layMaLopTheoMon(String tenMon) throws SQLException {
+    public ArrayList<String> layMaLopTheoMon(String tenMon) {
         ArrayList<String> arr = new ArrayList<>();
-        String sql = "SELECT MaLop FROM lop, mon WHERE lop.MaMon = mon.MaMon AND TenMon=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, tenMon);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            arr.add(rs.getString(1));
+        try {
+            conn.Connect();
+            String sql = "SELECT MaLop FROM lop, mon WHERE lop.MaMon = mon.MaMon AND TenMon=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, tenMon);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                arr.add(rs.getString(1));
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay ma lop khong thanh cong" + e.getMessage());
         }
         return arr;
     }
@@ -38,6 +48,7 @@ public class lopDAO {
     public lopDTO layLopBangMaDe(String maDT) {
         lopDTO lop = new lopDTO();
         try {
+            conn.Connect();
             String query = "select l.MaLop, MaGV, SoLuong, MaMon, Nam, HocKy, TrangThai, NhomLop\n"
                     + "from chitietdelop ctdl\n"
                     + "join lop l on ctdl.MaLop = l.MaLop\n"
@@ -54,8 +65,12 @@ public class lopDAO {
                 lop.setHocKy(rs.getInt(6));
                 lop.setTrangThai(rs.getBoolean(7));
                 lop.setNhomLop(rs.getInt(8));
+                pre.close();
+                conn.disconnect();
                 return lop;
             } else {
+                pre.close();
+                conn.disconnect();
                 return null;
             }
         } catch (SQLException e) {
@@ -79,10 +94,14 @@ public class lopDAO {
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
                 nhomLop = rs.getInt(1);
+                pre.close();
+                conn.disconnect();
                 return nhomLop;
             } else {
                 // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
                 System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                pre.close();
+                conn.disconnect();
                 return 0;
             }
         } catch (SQLException e) {
@@ -91,22 +110,29 @@ public class lopDAO {
         }
     }
 
-    public ArrayList<lopDTO> layDanhSachLopTheoMaGV(String maGV) throws SQLException {
+    public ArrayList<lopDTO> layDanhSachLopTheoMaGV(String maGV) {
         ArrayList<lopDTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM LOP WHERE MaGV=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, maGV);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            lopDTO x = new lopDTO();
-            x.setMaLop(rs.getString(1));
-            x.setSoLuong(rs.getInt(3));
-            x.setMaMon(rs.getString(4));
-            x.setNam(rs.getInt(5));
-            x.setHocKy(rs.getInt(6));
-            x.setTrangThai(rs.getBoolean(7));
-            x.setNhomLop(rs.getInt(8));
-            list.add(x);
+        try {
+            conn.Connect();
+            String sql = "SELECT * FROM LOP WHERE MaGV=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, maGV);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                lopDTO x = new lopDTO();
+                x.setMaLop(rs.getString(1));
+                x.setSoLuong(rs.getInt(3));
+                x.setMaMon(rs.getString(4));
+                x.setNam(rs.getInt(5));
+                x.setHocKy(rs.getInt(6));
+                x.setTrangThai(rs.getBoolean(7));
+                x.setNhomLop(rs.getInt(8));
+                list.add(x);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay danh sach lop khong thanh cong" + e.getMessage());
         }
         return list;
     }
@@ -122,6 +148,7 @@ public class lopDAO {
                     lopDTO item = new lopDTO(rs.getString("MaLop"), rs.getString("MaGV"), rs.getString("MaMon"), rs.getBoolean("TrangThai"), rs.getInt("SoLuong"), rs.getInt("Nam"), rs.getInt("HocKy"), rs.getInt("NhomLop"));
                     list.add(item);
                 }
+                pre.close();
             }
             conn.disconnect();
             System.out.println("Lay danh sach lop thanh cong");
@@ -146,6 +173,7 @@ public class lopDAO {
             pre.setBoolean(7, l.getTrangThai());
             pre.setInt(8, l.getNhomLop());
             success = pre.executeUpdate() > 0;
+            pre.close();
             conn.disconnect();
         } catch (SQLException e) {
             System.err.println("Them lop bat thai" + e.getMessage());
@@ -172,7 +200,7 @@ public class lopDAO {
                 pre.setString(1, MaLop);
                 success = pre.executeUpdate() > 0;
             }
-
+            pre1.close();
             conn.disconnect();
         } catch (SQLException e) {
             System.err.println("Xoa lop that bai" + e.getMessage());
@@ -193,10 +221,11 @@ public class lopDAO {
                     lopDTO item = new lopDTO(rs.getString("MaLop"), rs.getString("MaGV"), rs.getString("MaMon"), rs.getBoolean("TrangThai"), rs.getInt("SoLuong"), rs.getInt("Nam"), rs.getInt("HocKy"), rs.getInt("NhomLop"));
                     list.add(item);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
-            System.err.println("Lay danh sach that bai" + e.getMessage());
+            System.err.println("Tim kiem that bai" + e.getMessage());
         }
         return list;
     }
@@ -213,6 +242,7 @@ public class lopDAO {
                     lopDTO item = new lopDTO(rs.getString("MaLop"), rs.getString("MaGV"), rs.getString("MaMon"), rs.getBoolean("TrangThai"), rs.getInt("SoLuong"), rs.getInt("Nam"), rs.getInt("HocKy"), rs.getInt("NhomLop"));
                     list.add(item);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -238,7 +268,9 @@ public class lopDAO {
                 if (rs.next()) {
                     Malop = rs.getString("Malop");
                 }
+                pre.close();
             }
+            conn.disconnect();
         } catch (SQLException e) {
             System.err.println("error getMaLop" + e.getMessage());
         }
@@ -262,7 +294,9 @@ public class lopDAO {
                 if (rs.next()) {
                     nhom = rs.getInt("NhomLop");
                 }
+                pre.close();
             }
+            conn.disconnect();
         } catch (SQLException e) {
             System.err.println("error getMaLop" + e.getMessage());
         }
@@ -284,6 +318,7 @@ public class lopDAO {
                     lop = new lopDTO(rs.getString("MaLop"), rs.getString("MaGV"), rs.getString("MaMon"), rs.getBoolean("TrangThai"), rs.getInt("SoLuong"), rs.getInt("Nam"), rs.getInt("HocKy"), rs.getInt("NhomLop"));
                     list.add(lop);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -303,6 +338,7 @@ public class lopDAO {
                     lop = new lopDTO(rs.getInt("Nam"));
                     list.add(lop);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -330,6 +366,7 @@ public class lopDAO {
                     lop = new lopDTO(rs.getString("MaLop"));
                     list.add(lop);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {

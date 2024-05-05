@@ -7,7 +7,6 @@ package BUS;
 import DAO.taiKhoanDAO;
 import DTO.taiKhoanDTO;
 import java.util.ArrayList;
-import java.sql.*;
 
 /**
  *
@@ -17,40 +16,40 @@ public class taiKhoanBUS {
 
     private taiKhoanDAO acc;
 
-    public taiKhoanBUS() throws SQLException {
+    public taiKhoanBUS()  {
         acc = new taiKhoanDAO();
 
     }
 
-    public ArrayList<taiKhoanDTO> getTaiKhoan() throws SQLException {
+    public ArrayList<taiKhoanDTO> getTaiKhoan()  {
         return acc.getTaiKhoan();
     }
 
-    public int getSoLuongTaiKhoan() throws SQLException {
+    public int getSoLuongTaiKhoan()  {
         return acc.getSoLuongTaiKhoan();
     }
 
-    public boolean addTaiKhoan(taiKhoanDTO a) throws SQLException {
+    public boolean addTaiKhoan(taiKhoanDTO a)  {
         return acc.addTaiKhoan(a);
     }
 
-    public String getMaQuyenTheoTenDN(String tenDN) throws SQLException {
+    public String getMaQuyenTheoTenDN(String tenDN)  {
         return acc.getMaQuyenTheoTenDN(tenDN);
     }
 
-    public boolean deleteTaiKhoan(String tenDN) throws SQLException {
+    public boolean deleteTaiKhoan(String tenDN)  {
         return acc.deleteTaiKhoan(tenDN);
     }
 
-    public boolean updateTaiKhoan(String maQuyen, String tenDN) throws SQLException {
+    public boolean updateTaiKhoan(String maQuyen, String tenDN)  {
         return acc.updateTaiKhoan(maQuyen, tenDN);
     }
 
-    public boolean updateMatKhau(String matKhau, String maTK) throws SQLException {
+    public boolean updateMatKhau(String matKhau, String maTK)  {
         return acc.updateMatKhau(matKhau, maTK);
     }
 
-    public taiKhoanDTO dangNhapTaiKhoan(String tenDN, String matKhau) throws SQLException {
+    public taiKhoanDTO dangNhapTaiKhoan(String tenDN, String matKhau)  {
         ArrayList<taiKhoanDTO> arr = acc.getTaiKhoan();
         for (taiKhoanDTO x : arr) {
             if (tenDN.equals(x.getTenDN().trim()) && matKhau.equals(x.getMatKhau()) && x.isTrangThai()) {
@@ -70,7 +69,7 @@ public class taiKhoanBUS {
         return tk;
     }
 
-    public String layMaTKTheoTenDN(String tenDN) throws SQLException {
+    public String layMaTKTheoTenDN(String tenDN)  {
         return acc.layMaTKTheoTenDN(tenDN);
     }
     

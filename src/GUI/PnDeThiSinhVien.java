@@ -5,7 +5,7 @@
 package GUI;
 
 import BUS.deThiBUS;
-import BUS.ketQuaBUS1;
+import BUS.ketQuaBUS;
 import BUS.lopBUS;
 import BUS.monBUS;
 import BUS.nguoiDungBUS;
@@ -50,14 +50,14 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
     private JPanel pn_KetQua;
     private JTable table;
     private deThiBUS deThi;
-    private ketQuaBUS1 kequaBUS;
+    private ketQuaBUS kequaBUS;
     private JLabel lb_diem;
     private JLabel lb_soCauDung;
     private JLabel lb_thoiGianLam;
 
     public PnDeThiSinhVien(String maTK) throws SQLException {
         deThi = new deThiBUS();
-        kequaBUS = new ketQuaBUS1();
+        kequaBUS = new ketQuaBUS();
         this.maTK = maTK;
         init();
 //        model = (DefaultTableModel) table.getModel();

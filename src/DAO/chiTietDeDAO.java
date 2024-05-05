@@ -47,4 +47,18 @@ public class chiTietDeDAO {
         return arr;
     }
     
+    public ArrayList<chiTietDeDTO> layDanhSachChiTietDeBangMaDe(String maDT) throws SQLException {
+        ArrayList<chiTietDeDTO> arr = new ArrayList<>();
+        String sql = "select* from chitietde where madt = '"+maDT+"'";
+        PreparedStatement pre = conn.preparedStatement(sql);
+        ResultSet rs = pre.executeQuery();
+        while (rs.next()) {
+            chiTietDeDTO ctd = new chiTietDeDTO();
+            ctd.setMaCH(rs.getString(1));
+            ctd.setMaDT(rs.getString(2));
+            arr.add(ctd);
+        }
+        return arr;
+    }
+    
 }

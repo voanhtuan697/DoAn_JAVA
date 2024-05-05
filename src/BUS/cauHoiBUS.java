@@ -43,4 +43,10 @@ public class cauHoiBUS {
     public boolean xoaCauHoi(String maCH) {
         return ch.xoaCauHoi(maCH);
     }
+    
+    
+    public cauHoiDTO layCauHoiBangMaCH(String maCH) throws SQLException{
+        cauHoiDTO cauHoi = ch.layCauHoiBangMaCH(maCH);
+        return cauHoi;
+    }
 }

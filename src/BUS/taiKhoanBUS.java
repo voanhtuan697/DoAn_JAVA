@@ -73,4 +73,16 @@ public class taiKhoanBUS {
     public String layMaTKTheoTenDN(String tenDN) throws SQLException {
         return acc.layMaTKTheoTenDN(tenDN);
     }
+    
+    public String getMaTkByName(String name){
+        return acc.getMaTkByName(name);
+    }
+    
+    public String getNameByMaTk(String MaTK) {
+        return acc.getNameByMaTk(MaTK);
+    }
+    
+     public String getMaTkByTenDN(String TenDN){
+         return acc.getMaTkByTenDN(TenDN);
+     }
 }

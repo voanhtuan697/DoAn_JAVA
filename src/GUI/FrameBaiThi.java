@@ -1,10 +1,10 @@
 package GUI;
 
-import BUS.cauHoiBUS1;
-import BUS.chiTietDeBUS1;
+import BUS.cauHoiBUS;
+import BUS.chiTietDeBUS;
 import BUS.dapAnBUS;
 import BUS.deThiBUS;
-import BUS.ketQuaBUS1;
+import BUS.ketQuaBUS;
 import BUS.lopBUS;
 import BUS.monBUS;
 import BUS.nguoiDungBUS;
@@ -32,11 +32,11 @@ public class FrameBaiThi extends JFrame implements ActionListener {
     private String[] bangChuCai;
     private JLabel lb_time;
     private String maDT, maTK;
-    private chiTietDeBUS1 ctd;
+    private chiTietDeBUS ctd;
     private ArrayList<chiTietDeDTO> dsCTD;
     private ArrayList<Object> arrDA = new ArrayList<>();
     private ArrayList<String> mangMaCH = new ArrayList<>();
-    private cauHoiBUS1 cauHoiBUS;
+    private cauHoiBUS cauHoiBUS;
     private dapAnBUS dapAnBUS;
     private deThiBUS deThiBUS;
     private JButton btn_prev, btn_next, btn_finish;
@@ -48,11 +48,11 @@ public class FrameBaiThi extends JFrame implements ActionListener {
     public FrameBaiThi(String maDT, String maTK) throws SQLException {
         deThiBUS = new deThiBUS();
         dapAnBUS = new dapAnBUS();
-        ctd = new chiTietDeBUS1();
+        ctd = new chiTietDeBUS();
         this.maDT = maDT;
         this.maTK = maTK;
         dsCTD = ctd.layDanhSachChiTietDeBangMaDe(maDT);
-        cauHoiBUS = new cauHoiBUS1();
+        cauHoiBUS = new cauHoiBUS();
         deThi = deThiBUS.layDeThiBangMaDT(maDT);
 
         init();
@@ -439,7 +439,7 @@ public class FrameBaiThi extends JFrame implements ActionListener {
                     kq.setSLCauDung(soCauDung);
                     kq.setTGLamXong(thoiGianDaLam);
                     kq.setMaTK(maTK);
-                    ketQuaBUS1 ketQuaBUS = new ketQuaBUS1();
+                    ketQuaBUS ketQuaBUS = new ketQuaBUS();
                     ketQuaBUS.taoKetQua(kq);
                     this.dispose();
                 } catch (SQLException ex) {

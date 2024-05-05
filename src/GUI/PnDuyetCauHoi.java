@@ -48,7 +48,7 @@ public class PnDuyetCauHoi extends JPanel implements ActionListener, MouseListen
     private String maTK;
     private khoCauHoiBUS khoCHBUS;
     private cauHoiBUS cauHoiBUS;
-    private final khoCauHoiDTO khDAO;
+    private final khoCauHoiDTO khDAO ;
     private JTable table;
     private JComboBox cbb_trangThai;
     private JPanel pn_btn;

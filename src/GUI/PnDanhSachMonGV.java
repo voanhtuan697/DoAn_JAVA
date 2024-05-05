@@ -4,10 +4,17 @@
  */
 package GUI;
 
+import BUS.monBUS;
+import DTO.monDTO;
+import static GUI.BASE.font16;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,13 +22,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 
 public class PnDanhSachMonGV extends JPanel{
     private DefaultTableModel model;
     private String maGV;
     private Object[] columns = {"Mã môn", "Tên môn"};
+    private monBUS busMon;
 
     public DefaultTableModel getModel() {
         return model;
@@ -42,9 +52,11 @@ public class PnDanhSachMonGV extends JPanel{
     
     
     
-    public PnDanhSachMonGV(String maGV){
+    public PnDanhSachMonGV(String maGV)throws SQLException {
         this.maGV = maGV;
+        busMon = new monBUS();
         init();
+        loadData();
     }
     
     public void init(){
@@ -60,7 +72,9 @@ public class PnDanhSachMonGV extends JPanel{
 
 
         JLabel lb_timKiem = new JLabel("Tìm kiếm:");
+        lb_timKiem.setFont(font16);
         JTextField txt_timKiem = new JTextField(15);
+        txt_timKiem.setFont(font16);
         
         pnHeader.add(lb_timKiem);
         pnHeader.add(txt_timKiem);
@@ -68,19 +82,16 @@ public class PnDanhSachMonGV extends JPanel{
         JPanel pnTable = new JPanel();
         pnTable.setLayout(new BorderLayout());
         
-        Object[][] data = {     
-            {"L1", "Cơ sở dữ liệu"},    
-            };
-        
-        model = new DefaultTableModel(data, columns);
-        
-        JTable table = new JTable(model) {
+        JTable table = new JTable();
+         model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        
+
+        table = new JTable(model);
+        setTableFont(table);
         JScrollPane scrollPane_table = new JScrollPane(table);
         pnTable.add(scrollPane_table, BorderLayout.CENTER);
        
@@ -89,6 +100,47 @@ public class PnDanhSachMonGV extends JPanel{
         this.add(pnTable,BorderLayout.CENTER);
         
         this.setVisible(true);
+        
+        txt_timKiem.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String key = txt_timKiem.getText();
+                if(!key.isEmpty()){
+                    TimKiem(key);
+                }else{
+                    loadData();
+                }
+            }
+        });
+    }
+    
+    private void setTableFont(JTable table) {
+        table.setFont(font16);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font16);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font16);
+        table.setDefaultRenderer(Object.class, renderer);
+    }
+    
+    private void loadData(){
+        model.setRowCount(0);
+        ArrayList<monDTO> list = busMon.DSMon1GVDay(maGV);
+        for(monDTO x : list ){
+            Object[] row = {x.getMaMon(),x.getTenMon()};
+            model.addRow(row);
+        }
+    }
+    
+    private void TimKiem(String key){
+        model.setRowCount(0);
+        ArrayList<monDTO> list = busMon.TimKiemDSMon1GVDay(maGV, key);
+        for(monDTO x : list ){
+            Object[] row = {x.getMaMon(),x.getTenMon()};
+            model.addRow(row);
+        }
     }
     
     public static void main(String[] args) {
@@ -96,7 +148,7 @@ public class PnDanhSachMonGV extends JPanel{
         f.setSize(800, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
-        f.getContentPane().add(new PnDanhSachMonGV("ddd"));
+//        f.getContentPane().add(new PnDanhSachMonGV("ddd"));
         f.setVisible(true);
     }
 }

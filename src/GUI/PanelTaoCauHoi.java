@@ -41,6 +41,7 @@ import javax.swing.table.DefaultTableModel;
 import static GUI.BASE.cobalt_blue;
 import static GUI.BASE.dark_green;
 import static GUI.BASE.font13;
+import static GUI.BASE.font16;
 import static GUI.BASE.white;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -227,6 +228,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         cbb_trangThaiCH.setFont(font13);
         cbb_trangThaiCH.addActionListener(this);
 
+
         cbb_trangThaiCH.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -284,7 +286,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         pn_lb_cauhoi.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn_lb_cauhoi.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 3));
         JLabel lb_cauhoi = new JLabel("Nội dung câu hỏi loại:");
-        lb_cauhoi.setFont(font13);
+        lb_cauhoi.setFont(font16);
 
         cbb_hinhThuc = new JComboBox<>(new String[]{"Trắc nghiệm một lựa chọn đúng", "Trắc nghiệm nhiều lựa chọn đúng"});
 
@@ -316,7 +318,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         pn_lb_cautraloi.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn_lb_cautraloi.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 3));
         JLabel lb_cautraloi = new JLabel("Các câu trả lời");
-        lb_cautraloi.setFont(font13);
+        lb_cautraloi.setFont(font16);
         pn_lb_cautraloi.add(lb_cautraloi);
 
         JPanel pn_cautraloi = new JPanel();
@@ -335,7 +337,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         pn_img.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         JLabel lb_img = new JLabel("Hình ảnh:");
-        lb_img.setFont(font13);
+        lb_img.setFont(font16);
         JButton btn_img = new JButton("Upload Image");
         pn_img.add(lb_img);
         pn_img.add(btn_img);
@@ -371,7 +373,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         pn_doKho.setMaximumSize(new Dimension(1300, 10));
         pn_doKho.setBackground(new Color(0xB3, 0xBE, 0xCB));
         JLabel lb_doKho = new JLabel("Độ khó câu hỏi:");
-        lb_doKho.setFont(font13);
+        lb_doKho.setFont(font16);
         pn_doKho.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         ButtonGroup btnG_DoKho = new ButtonGroup();
@@ -380,17 +382,17 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         rdb_easy.setSelected(true);
         rdb_easy.setOpaque(false);
         JLabel lb_easy = new JLabel("Dễ");
-        lb_easy.setFont(font13);
+        lb_easy.setFont(font16);
 
         JRadioButton rdb_medium = new JRadioButton();
         rdb_medium.setOpaque(false);
         JLabel lb_medium = new JLabel("Trung bình");
-        lb_medium.setFont(font13);
+        lb_medium.setFont(font16);
 
         JRadioButton rdb_hard = new JRadioButton();
         rdb_hard.setOpaque(false);
         JLabel lb_hard = new JLabel("Khó");
-        lb_hard.setFont(font13);
+        lb_hard.setFont(font16);
 
         rdb_easy.addItemListener(new ItemListener() {
             @Override
@@ -723,18 +725,23 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListe
         layout_cauTraLoi.setAutoCreateContainerGaps(true);
 
         JLabel lb_a = new JLabel("A");
-        lb_a.setFont(font13);
+        lb_a.setFont(font16);
         JLabel lb_b = new JLabel("B");
-        lb_b.setFont(font13);
+        lb_b.setFont(font16);
         JLabel lb_c = new JLabel("C");
-        lb_c.setFont(font13);
+        lb_c.setFont(font16);
         JLabel lb_d = new JLabel("D");
-        lb_d.setFont(font13);
+        lb_d.setFont(font16);
 
-        txt_ctl_a = new JTextField();
-        txt_ctl_b = new JTextField();
-        txt_ctl_c = new JTextField();
-        txt_ctl_d = new JTextField();
+
+        JTextField txt_ctl_a = new JTextField();
+        txt_ctl_a.setFont(font16);
+        JTextField txt_ctl_b = new JTextField();
+        txt_ctl_b.setFont(font16);
+        JTextField txt_ctl_c = new JTextField();
+        txt_ctl_c.setFont(font16);
+        JTextField txt_ctl_d = new JTextField();
+        txt_ctl_d.setFont(font16);
 
         ButtonGroup btnG = new ButtonGroup();
         rdb_a = new JRadioButton();

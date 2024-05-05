@@ -112,7 +112,6 @@ public class cauHoiDAO {
             PreparedStatement ps = conn.preparedStatement(query);
 
             ps.setString(1, maCH);
-
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -122,40 +121,7 @@ public class cauHoiDAO {
         }
     }
 
-    public void loadDataFromDatabase(DefaultTableModel model) {
-        // Thực hiện truy vấn SQL để lấy dữ liệu từ bảng CAUHOI
-        String query = "SELECT MaCH, MaGV, NoiDung, DoKho, MaHT, Img FROM CAUHOI";
-        try {
-            PreparedStatement ps = conn.preparedStatement(query);
-            ResultSet rs = ps.executeQuery();
 
-            // Xóa tất cả các hàng hiện có trong table model
-            model.setRowCount(0);
-
-            // Duyệt qua kết quả của truy vấn và thêm dữ liệu vào table model
-            while (rs.next()) {
-                String maCH = rs.getString("MaCH");
-                String maGV = rs.getString("MaGV");
-                String noiDung = rs.getString("NoiDung");
-                String doKho = rs.getString("DoKho");
-                String maHT = rs.getString("MaHT");
-                String img = rs.getString("Img");
-
-                // Tạo một hàng mới cho dữ liệu từ cơ sở dữ liệu
-                Object[] newRow = {maCH, maGV, noiDung, doKho, maHT, img}; // Thêm dữ liệu ảnh vào hàng mới
-
-                // Thêm hàng mới vào table model
-                model.addRow(newRow);
-            }
-
-            // Đóng ResultSet và PreparedStatement
-            rs.close();
-            ps.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     
     public cauHoiDTO layCauHoiBangMaCH(String maCH) throws SQLException{
         cauHoiDTO cauHoi = new cauHoiDTO();

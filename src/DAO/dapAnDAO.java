@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
 import DTO.dapAnDTO;
 import java.sql.*;
 import java.util.ArrayList;
@@ -79,12 +80,19 @@ public class dapAnDAO {
             ps.setString(2, dapAn.getMaCH());
             ps.setString(3, dapAn.getNoidung());
             ps.setBoolean(4, dapAn.isDungSai());
-            ps.executeUpdate();
 
-            // Sau khi thêm vào cơ sở dữ liệu, cập nhật danh sách
-            danhSachDapAn.add(dapAn);
+            int rowsAffected = ps.executeUpdate(); // Thực thi truy vấn INSERT
+
+            if (rowsAffected > 0) {
+                // Hiển thị thông báo nếu thêm thành công
+                System.out.println("Thong cong");
+            } else {
+                System.out.println("That bai");
+            }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("error");
         }
     }
 
@@ -110,15 +118,12 @@ public class dapAnDAO {
         }
     }
 
-    public void xoadapAn(String maDa) {
+    public void xoadapAn(String mach) {
         try {
-            String query = "DELETE FROM dapAn WHERE MaDa = ?";
+            String query = "DELETE FROM dapAn WHERE MaCH = ?";
             PreparedStatement ps = conn.preparedStatement(query);
-            ps.setString(1, maDa);
+            ps.setString(1, mach);
             ps.executeUpdate();
-
-            // Sau khi xóa khỏi cơ sở dữ liệu thành công, cập nhật lại danh sách
-            danhSachDapAn.removeIf(da -> da.getMaDa().equals(maDa));
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

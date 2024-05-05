@@ -56,7 +56,7 @@ public class lopDAO2 {
             pre.setString(4, l.getMaMon());
             pre.setInt(5, l.getNam());
             pre.setInt(6, l.getHocKy());
-            pre.setBoolean(7, l.isTrangThai());
+            pre.setBoolean(7, l.getTrangThai());
             pre.setInt(8, l.getNhomLop());
             success = pre.executeUpdate() > 0;
             conn.disconnect();

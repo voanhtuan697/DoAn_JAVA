@@ -263,6 +263,7 @@ public class PnDSLopGV extends JPanel implements ActionListener {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
+        table.setRowHeight(30);
     }
 
     public static void main(String[] args) throws SQLException {

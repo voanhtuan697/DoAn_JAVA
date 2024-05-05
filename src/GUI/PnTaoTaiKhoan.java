@@ -652,6 +652,7 @@ public class PnTaoTaiKhoan extends JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
+        table.setRowHeight(30);
     }
 
     public void displaySelectedRow(int selectedRow) throws SQLException {
@@ -724,7 +725,7 @@ public class PnTaoTaiKhoan extends JPanel {
             String name = table.getValueAt(i, 0) + "";
             String ngsinh = table.getValueAt(i, 1) + "";
             String tenQuyen = table.getValueAt(i, 2) + "";
-            
+
             System.out.println(ngsinh);
             System.out.println(name);
             System.out.println(tenQuyen);

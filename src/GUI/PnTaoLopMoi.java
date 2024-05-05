@@ -87,7 +87,8 @@ public class PnTaoLopMoi extends JPanel {
         String[] cacTrangThai = new String[]{"Tất cả", "Đang mở", "Đã kết thúc"};
         cbb_TrThLop = new JComboBox<>(cacTrangThai);
         cbb_TrThLop.setFont(font16);
-        tfSearch = new JTextField(20);
+        tfSearch = new JTextField();
+        tfSearch.setPreferredSize(new Dimension(90,30));
         pnTop.add(lblTrangthai);
         pnTop.add(cbb_TrThLop);
         pnTop.add(lblSearch);
@@ -108,6 +109,7 @@ public class PnTaoLopMoi extends JPanel {
 
         tfTenLop = new JTextField();
         tfSL = new JTextField();
+        tfSL.setPreferredSize(new Dimension(90,30));
 //        JLabel lblTenLop, lblMon, lblHocKy, lblGv, lblSL, lblTThai;
         String[] title = {"Tên lớp", "Tên môn:", "Học kỳ:", "Giảng viên:", "Số lượng:", "Trạng thái:"};
         JLabel[] lbl = new JLabel[title.length]; // Đổi độ dài của mảng thành title.length
@@ -187,7 +189,7 @@ public class PnTaoLopMoi extends JPanel {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(btnThem)
                         .addComponent(btnXoa)
-                        .addComponent(btnNhapE)
+//                        .addComponent(btnNhapE)
                 )
         );
 
@@ -209,7 +211,7 @@ public class PnTaoLopMoi extends JPanel {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl[3])
                         .addComponent(cb_GiaoVien)
-                        .addComponent(btnNhapE)
+//                        .addComponent(btnNhapE)
                 )
         );
 

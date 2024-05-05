@@ -12,6 +12,7 @@ import static GUI.BASE.font16;
 import static GUI.BASE.font16b;
 import static GUI.BASE.gray_bg;
 import XULY.ShowDiaLog;
+import XULY.xuLyFileExcel;
 import java.awt.BorderLayout;
 import static java.awt.Color.white;
 import java.awt.Cursor;
@@ -41,7 +42,7 @@ public class PnTaoMonMoi extends JPanel {
     private JTextField tfTimKiem, tfTenMon;
     private DefaultTableModel model;
     private JTable table;
-    private JButton btnThem;
+    private JButton btnThem, btnNhapExcel;
     private JPanel pnTop, pnCenter, pnBottom;
     private monBUS busMon;
     private monDTO dtoMon = new monDTO();
@@ -71,7 +72,8 @@ public class PnTaoMonMoi extends JPanel {
         JLabel lblTimKiem, lblTenMon;
         lblTimKiem = new JLabel("Tìm kiếm");
         lblTimKiem.setFont(font16);
-        tfTimKiem = new JTextField(20);
+        tfTimKiem = new JTextField();
+        tfTimKiem.setPreferredSize(new Dimension(170,26));
         pnTop.add(lblTimKiem);
         pnTop.add(tfTimKiem);
 
@@ -89,7 +91,8 @@ public class PnTaoMonMoi extends JPanel {
 
         lblTenMon = new JLabel("Tên môn:");
         lblTenMon.setFont(font16);
-        tfTenMon = new JTextField(20);
+        tfTenMon = new JTextField();
+        tfTenMon.setPreferredSize(new Dimension(190,30));
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
         btnThem.setFont(font16b);
@@ -194,6 +197,12 @@ public class PnTaoMonMoi extends JPanel {
             Object[] row = {m.getMaMon(), m.getTenMon()};
             model.addRow(row);
         }
+    }
+    
+    private void NhapExcel(){
+        xuLyFileExcel nhapExcel = new xuLyFileExcel();
+        nhapExcel.nhapExcel(table);
+        
     }
 
     public static void main(String[] args) throws SQLException {

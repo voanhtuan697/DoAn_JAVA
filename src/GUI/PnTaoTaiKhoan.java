@@ -28,9 +28,13 @@ import static GUI.BASE.font16;
 import static GUI.BASE.gray_bg;
 import static GUI.BASE.white;
 import XULY.ShowDiaLog;
+import XULY.xuLyFileExcel;
 import java.awt.event.*;
 import java.io.*;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -39,6 +43,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import static org.apache.poi.hssf.usermodel.HeaderFooter.date;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -80,7 +85,8 @@ public class PnTaoTaiKhoan extends JPanel {
 
         JLabel lblSearch = new JLabel("Tìm kiếm");
         lblSearch.setFont(font16);
-        txtSearch = new JTextField(15);
+        txtSearch = new JTextField();
+        txtSearch.setPreferredSize(new Dimension(150, 26));
 
         JLabel lb_cbb_quyen = new JLabel("Quyền");
         lb_cbb_quyen.setFont(font16);
@@ -119,21 +125,44 @@ public class PnTaoTaiKhoan extends JPanel {
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
         btnThem.setForeground(white);
+        btnThem.setBorderPainted(false);
+        btnThem.setFocusPainted(false);
+        btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnXoa = new JButton("Xóa");
         btnXoa.setBackground(dark_green);
         btnXoa.setForeground(white);
+        btnXoa.setBorderPainted(false);
+        btnXoa.setFocusPainted(false);
+        btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnNhap = new JButton("Nhập Excel");
         btnNhap.setBackground(dark_green);
         btnNhap.setForeground(white);
+        btnNhap.setBorderPainted(false);
+        btnNhap.setFocusPainted(false);
+        btnNhap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnXuat = new JButton("Xuất Excel");
         btnXuat.setBackground(dark_green);
         btnXuat.setForeground(white);
+        btnXuat.setBorderPainted(false);
+        btnXuat.setFocusPainted(false);
+        btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnSua = new JButton("Sửa");
         btnSua.setBackground(dark_green);
         btnSua.setForeground(white);
+        btnSua.setBorderPainted(false);
+        btnSua.setFocusPainted(false);
+        btnSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         btnClear = new JButton("Clear");
         btnClear.setBackground(dark_green);
         btnClear.setForeground(white);
+        btnClear.setBorderPainted(false);
+        btnClear.setFocusPainted(false);
+        btnClear.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         model1 = new UtilDateModel();
         JDatePanel datePanel = new JDatePanelImpl(model1);
@@ -504,80 +533,96 @@ public class PnTaoTaiKhoan extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    File f = new File("C:\\Users\\PHUNG\\Videos\\NetBeansProjects\\DSNguoiDung.xlsx");
-                    FileInputStream fi = new FileInputStream(f);
-                    XSSFWorkbook wb = new XSSFWorkbook(fi);
-                    XSSFSheet sheet = wb.getSheetAt(0);
-                    FormulaEvaluator formula = wb.getCreationHelper().createFormulaEvaluator();
-                    for (Row row : sheet) {
-                        String id = row.getCell(0).getStringCellValue();
-                        String name = row.getCell(1).getStringCellValue();
-                        String birthday = row.getCell(2).getStringCellValue();
-                        nguoiDungDTO a = new nguoiDungDTO(id, name, birthday);
-                        dsGoc.add(a);
-                    }
-                    wb.close();
-                    fi.close();
-                    try {
-                        loadUser();
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                    NhapExcel();
+                    loadUser();
+//                try {
+//                    File f = new File("C:\\Users\\PHUNG\\Videos\\NetBeansProjects\\DSNguoiDung.xlsx");
+//                    FileInputStream fi = new FileInputStream(f);
+//                    XSSFWorkbook wb = new XSSFWorkbook(fi);
+//                    XSSFSheet sheet = wb.getSheetAt(0);
+//                    FormulaEvaluator formula = wb.getCreationHelper().createFormulaEvaluator();
+//                    for (Row row : sheet) {
+//                        String id = row.getCell(0).getStringCellValue();
+//                        String name = row.getCell(1).getStringCellValue();
+//                        String birthday = row.getCell(2).getStringCellValue();
+//                        nguoiDungDTO a = new nguoiDungDTO(id, name, birthday);
+//                        dsGoc.add(a);
+//                    }
+//                    wb.close();
+//                    fi.close();
+//                    try {
+//                        loadUser();
+//                    } catch (SQLException ex) {
+//                        ex.printStackTrace();
+//                    }
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+
+//                loadUser();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PnTaoTaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(PnTaoTaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
+//        btnXuat.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e
+//            ) {
+//                try {
+//                    XSSFWorkbook wb = new XSSFWorkbook();
+//                    XSSFSheet sheet = wb.createSheet();
+//                    XSSFRow row = null;
+//                    Cell cell = null;
+//                    row = sheet.createRow(3);
+//                    cell = row.createCell(0, CellType.STRING);
+//                    cell.setCellValue("Mã người dùng");
+//
+//                    cell = row.createCell(1, CellType.STRING);
+//                    cell.setCellValue("Họ tên");
+//
+//                    cell = row.createCell(2, CellType.STRING);
+//                    cell.setCellValue("Ngày sinh");
+//
+//                    for (int i = 0; i < dsGoc.size(); i++) {
+//                        row = sheet.createRow(4 + i);
+//
+//                        cell = row.createCell(0, CellType.STRING);
+//                        cell.setCellValue(dsGoc.get(i).getMaUser());
+//
+//                        cell = row.createCell(1, CellType.STRING);
+//                        cell.setCellValue(dsGoc.get(i).getHoTen());
+//
+//                        cell = row.createCell(2, CellType.STRING);
+//                        cell.setCellValue(dsGoc.get(i).getNgSinh());
+//
+//                    }
+//                    File f = new File("C:\\Users\\PHUNG\\Videos\\NetBeansProjects\\DSNguoiDung.xlsx");
+//                    try {
+//                        FileOutputStream fo = new FileOutputStream(f);
+//                        wb.write(fo);
+//                        fo.close();
+//                    } catch (FileNotFoundException ex) {
+//                        ex.printStackTrace();
+//                    }
+//
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+//                new ShowDiaLog("Xuất thành công!", ShowDiaLog.ERROR_DIALOG);
+//
+////                JOptionPane.showMessageDialog(null, "Xuất thành công!");
+//            }
+//        }
+//        );
         btnXuat.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e
-            ) {
-                try {
-                    XSSFWorkbook wb = new XSSFWorkbook();
-                    XSSFSheet sheet = wb.createSheet();
-                    XSSFRow row = null;
-                    Cell cell = null;
-                    row = sheet.createRow(3);
-                    cell = row.createCell(0, CellType.STRING);
-                    cell.setCellValue("Mã người dùng");
-
-                    cell = row.createCell(1, CellType.STRING);
-                    cell.setCellValue("Họ tên");
-
-                    cell = row.createCell(2, CellType.STRING);
-                    cell.setCellValue("Ngày sinh");
-
-                    for (int i = 0; i < dsGoc.size(); i++) {
-                        row = sheet.createRow(4 + i);
-
-                        cell = row.createCell(0, CellType.STRING);
-                        cell.setCellValue(dsGoc.get(i).getMaUser());
-
-                        cell = row.createCell(1, CellType.STRING);
-                        cell.setCellValue(dsGoc.get(i).getHoTen());
-
-                        cell = row.createCell(2, CellType.STRING);
-                        cell.setCellValue(dsGoc.get(i).getNgSinh());
-
-                    }
-                    File f = new File("C:\\Users\\PHUNG\\Videos\\NetBeansProjects\\DSNguoiDung.xlsx");
-                    try {
-                        FileOutputStream fo = new FileOutputStream(f);
-                        wb.write(fo);
-                        fo.close();
-                    } catch (FileNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
-
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                new ShowDiaLog("Xuất thành công!", ShowDiaLog.ERROR_DIALOG);
-
-//                JOptionPane.showMessageDialog(null, "Xuất thành công!");
+            public void actionPerformed(ActionEvent e) {
+//                XuatExcel();
             }
-        }
-        );
+        });
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e
@@ -663,6 +708,45 @@ public class PnTaoTaiKhoan extends JPanel {
 
         // Trả về danh sách kết quả
         return ketQua;
+    }
+
+    private void XuatExcel() {
+        xuLyFileExcel XuatFile = new xuLyFileExcel();
+        XuatFile.xuatExcel(table);
+
+    }
+
+    private void NhapExcel() throws SQLException, ParseException {
+        xuLyFileExcel NhapFile = new xuLyFileExcel();
+        NhapFile.nhapExcel(table);
+        int rowCount = table.getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            String name = table.getValueAt(i, 0) + "";
+            String ngsinh = table.getValueAt(i, 1) + "";
+            String tenQuyen = table.getValueAt(i, 2) + "";
+            
+            System.out.println(ngsinh);
+            System.out.println(name);
+            System.out.println(tenQuyen);
+
+            nguoiDungDTO a = new nguoiDungDTO();
+            taiKhoanDTO b = new taiKhoanDTO();
+            a.setHoTen(name);
+            a.setNgSinh(ngsinh);
+            int numAcc = acc.getSoLuongTaiKhoan();
+            int numUser = user.getSoLuongNguoiDung();
+
+            b.setMaTK("TK" + (numAcc + 1));
+            a.setMaUser("USER" + (numUser + 1));
+            b.setTenDN(a.getMaUser());
+            b.setMatKhau("12345");
+            b.setTrangThai(true);
+
+            b.setMaQuyen(role.getMaQuyenTheoTenQuyen(tenQuyen));
+            user.addNguoiDung(a);
+            acc.addTaiKhoan(b);
+
+        }
     }
 
     public static void main(String[] args) throws SQLException {

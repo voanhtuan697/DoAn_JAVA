@@ -13,6 +13,7 @@ import DTO.quyenDTO;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ public class PnPhanQuyen extends JPanel implements ActionListener {
     private chucNangBUS chucNang;
     private chiTietQuyenBUS chiTietQuyen;
     private JTabbedPane tabbedPane;
+    private Font fontBig;
 
     public PnPhanQuyen() throws SQLException {
         quyen = new quyenBUS();
@@ -54,11 +56,14 @@ public class PnPhanQuyen extends JPanel implements ActionListener {
 
         int soCot = 2;
         int soHang = arrChucNang.size() / 2;
-
+        fontBig = new Font("typeface", Font.PLAIN, 18);
         for (quyenDTO q : arrQuyen) {
             JPanel panel = new JPanel(new GridLayout(soHang, soCot, 10, 10));
             for (chucNangDTO cn : arrChucNang) {
                 JCheckBox checkBox = new JCheckBox(cn.getTenCN());
+
+                checkBox.setFont(fontBig);
+
                 checkBox.setActionCommand(q.getMaQuyen().trim() + "_" + cn.getMaCN().trim());
 //                System.out.println(checkBox.getActionCommand());
                 panel.add(checkBox);
@@ -152,15 +157,6 @@ public class PnPhanQuyen extends JPanel implements ActionListener {
             }
 
         }
-    }
-
-    public static void main(String[] args) throws SQLException {
-        JFrame f = new JFrame();
-        f.setSize(800, 500);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.getContentPane().add(new PnPhanQuyen());
-        f.setVisible(true);
     }
 
 }

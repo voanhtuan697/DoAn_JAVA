@@ -162,7 +162,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
 
     public void init() throws SQLException {
         this.setTitle("Frame");
-        this.setSize(900, 600);
+        this.setSize(1200, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -326,7 +326,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.add(pnDSDDT, "pnDSDDT");
         JPanel pnKetQua = new PnKetQua();
         cards.add(pnKetQua, "pnKetQua");
-        JPanel pnTaoCauHoi = new PanelTaoCauHoi();
+        JPanel pnTaoCauHoi = new PanelTaoCauHoi(maTK);
         cards.add(pnTaoCauHoi, "pnTaoCauHoi");
         JPanel pnMonGV = new PnDanhSachMonGV(maTK);
         cards.add(pnMonGV, "pnMonGV");

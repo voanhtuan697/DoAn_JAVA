@@ -20,11 +20,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//<<<<<<< HEAD
 import java.text.Normalizer;
-//=======
 import java.sql.SQLException;
-//>>>>>>> 73ec0ee8cea30e6f6372bf86e38de6a862d51295
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;

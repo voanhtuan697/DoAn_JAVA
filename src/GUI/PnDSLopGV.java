@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.*;
 import DTO.*;
+import static GUI.BASE.clTable;
 import static GUI.BASE.font16;
 import java.sql.*;
 import java.awt.BorderLayout;
@@ -259,6 +260,7 @@ public class PnDSLopGV extends JPanel implements ActionListener {
 
         JTableHeader header = table.getTableHeader();
         header.setFont(font16);
+        header.setBackground(clTable);
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);

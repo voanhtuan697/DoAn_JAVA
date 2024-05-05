@@ -62,8 +62,8 @@ public class dapAnBUS {
         da.suadapAn(dapAn);
     }
 
-    public void xoadapAn(String maDa) {
-        da.xoadapAn(maDa);
+    public void xoadapAn(String mach) {
+        da.xoadapAn(mach);
     }
 
     public List<dapAnDTO> layDanhSachdapAnTheoMaCH(String maCH) {

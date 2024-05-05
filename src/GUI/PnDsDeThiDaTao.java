@@ -11,6 +11,9 @@ import DTO.nguoiDungDTO;
 import BUS.nguoiDungBUS;
 import DTO.deThiDTO;
 import DTO.lopDTO;
+import static GUI.BASE.clTable;
+import static GUI.BASE.font16;
+import static GUI.BASE.gray_bg;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -34,6 +37,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -68,11 +72,15 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         JPanel pn_header = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         JLabel lb_search = new JLabel("Tìm kiếm:");
+        lb_search.setFont(font16);
         txt_seach = new JTextField(10);
+        txt_seach.setPreferredSize(new Dimension(200,30));
         cbb_trangThai = new JComboBox<>(new String[]{"Sắp diễn ra", "Đang diễn ra", "Đã diễn ra"});
+        cbb_trangThai.setFont(font16);
         cbb_trangThai.setPreferredSize(new Dimension(100, cbb_trangThai.getPreferredSize().height));
         cbb_trangThai.addActionListener(this);
 
+        pn_header.setBackground(gray_bg);
         pn_header.add(lb_search);
         pn_header.add(txt_seach);
 
@@ -91,6 +99,10 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
                 return false;
             }
         };
+        JTableHeader headertb = table.getTableHeader();
+        headertb.setFont(font16);
+        headertb.setBackground(clTable);
+        table.setRowHeight(30);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         JScrollPane scrollPane_table = new JScrollPane(table);

@@ -407,8 +407,4 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
             System.exit(0);
         }
     }
-    
-    public static void main(String[] args) throws SQLException {
-        new GiaoDienUserGUI("TK2");
-    }
 }

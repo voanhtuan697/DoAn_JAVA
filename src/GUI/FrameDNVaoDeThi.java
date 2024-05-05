@@ -115,7 +115,7 @@ public class FrameDNVaoDeThi extends JFrame implements ActionListener {
                 }
                 this.dispose();
             } else {
-                new ShowDiaLog("Mật khẩu không đúng", ShowDiaLog.ERROR_DIALONG);
+                new ShowDiaLog("Mật khẩu không đúng", ShowDiaLog.ERROR_DIALOG);
                 this.txt_passwd.setText("");
                 this.txt_passwd.requestFocus();
             }
@@ -129,7 +129,7 @@ public class FrameDNVaoDeThi extends JFrame implements ActionListener {
                 }
                 this.dispose();
             } else {
-                new ShowDiaLog("Mật khẩu không đúng", ShowDiaLog.ERROR_DIALONG);
+                new ShowDiaLog("Mật khẩu không đúng", ShowDiaLog.ERROR_DIALOG);
                 this.txt_passwd.setText("");
                 this.txt_passwd.requestFocus();
             }

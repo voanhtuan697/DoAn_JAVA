@@ -137,7 +137,4 @@ public class FrameXemChiTietCauHoi extends JFrame {
     }
 
     
-//    public static void main(String[] args) throws SQLException {
-//        new FrameXemChiTietCauHoi("CHTHUE1");
-//    }
 }

@@ -42,7 +42,7 @@ public class lopBUS2 {
         if (success) {
             new ShowDiaLog("Thêm lớp thành công", ShowDiaLog.SUCCESS_DIALOG);
         } else {
-            new ShowDiaLog("Thêm lớp thất bại", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Thêm lớp thất bại", ShowDiaLog.ERROR_DIALOG);
         }
         return success;
     }
@@ -53,7 +53,7 @@ public class lopBUS2 {
         if (success) {
             new ShowDiaLog("Xóa lớp thành công", ShowDiaLog.SUCCESS_DIALOG);
         } else {
-            new ShowDiaLog("Không thể xóa lớp đã tồn tại sinh viên", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Không thể xóa lớp đã tồn tại sinh viên", ShowDiaLog.ERROR_DIALOG);
         }
         return success;
     }

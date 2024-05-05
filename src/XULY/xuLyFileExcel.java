@@ -103,7 +103,7 @@ public class xuLyFileExcel {
                 new ShowDiaLog("Xuất file thành công!", ShowDiaLog.SUCCESS_DIALOG);
             }
         } catch (Exception e) {
-            new ShowDiaLog("Xuất file thất bại!", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Xuất file thất bại!", ShowDiaLog.ERROR_DIALOG);
         }
     }
 
@@ -154,10 +154,10 @@ public class xuLyFileExcel {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            new ShowDiaLog("Nhập file thất bại! Không thể đọc file.", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Nhập file thất bại! Không thể đọc file.", ShowDiaLog.ERROR_DIALOG);
         } catch (Exception e) {
             e.printStackTrace();
-            new ShowDiaLog("Nhập file thất bại!", ShowDiaLog.ERROR_DIALONG);
+            new ShowDiaLog("Nhập file thất bại!", ShowDiaLog.ERROR_DIALOG);
         }
     }
 

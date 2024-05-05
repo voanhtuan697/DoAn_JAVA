@@ -106,10 +106,10 @@ public class PnTaoMonMoi extends JPanel {
                 String TenMon = tfTenMon.getText();
 
                 if (TenMon.isEmpty()) {
-                    new ShowDiaLog("Bạn chưa nhập tên môn", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Bạn chưa nhập tên môn", ShowDiaLog.ERROR_DIALOG);
 
                 } else if (TenMon.matches(".*\\d.*")) {
-                    new ShowDiaLog("Tên môn không được chứa số", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Tên môn không được chứa số", ShowDiaLog.ERROR_DIALOG);
 
                 } else {
                     String ten = TenMon.trim().replaceAll("\\s+", " ");

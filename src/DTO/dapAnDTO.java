@@ -53,8 +53,4 @@ public class dapAnDTO {
     public void setDungSai(boolean DungSai) {
         this.DungSai = DungSai;
     }
-
-    
-    
-    
 }

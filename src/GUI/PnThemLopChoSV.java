@@ -191,7 +191,7 @@ public class PnThemLopChoSV extends JPanel {
                     loadDSSV();
                     new ShowDiaLog("Thêm danh sách sinh viên thành công", ShowDiaLog.SUCCESS_DIALOG);
                 } else {
-                    new ShowDiaLog("Vui lòng chọn ít nhất 1 sinh viên", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng chọn ít nhất 1 sinh viên", ShowDiaLog.ERROR_DIALOG);
                 }
             }
         });

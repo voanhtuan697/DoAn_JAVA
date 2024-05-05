@@ -18,7 +18,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class ShowDiaLog extends JDialog {
-
     private String text = "Đăng ký thành công";
     private int type;
     JPanel pnTop, pnCenter, pnBottom, pnMain;
@@ -28,7 +27,7 @@ public class ShowDiaLog extends JDialog {
     final ImageIcon iconSuccess = createResizedIcon(ShowDiaLog.class, "..//image//success_icon.png", 20, 20);
     final ImageIcon iconInfo = createResizedIcon(ShowDiaLog.class, "..//image//information_icon.png", 20, 20);
 
-    public final static int ERROR_DIALONG = 1;
+    public final static int ERROR_DIALOG = 1;
     public final static int SUCCESS_DIALOG = 2;
     public final static int INFO_DIALOG = 3;
 
@@ -86,7 +85,7 @@ public class ShowDiaLog extends JDialog {
 
         Color bgHeader = new Color(0);
         switch (type) {
-            case ERROR_DIALONG:
+            case ERROR_DIALOG:
                 bgHeader = new Color(220, 20, 60);
                 lblIcon.setIcon(iconError);
                 break;
@@ -138,6 +137,6 @@ public class ShowDiaLog extends JDialog {
     }
     
     public static void main(String[] args) {
-        new ShowDiaLog("thanh cong", ShowDiaLog.ERROR_DIALONG);
+        new ShowDiaLog("thanh cong", ShowDiaLog.ERROR_DIALOG);
     }
 }

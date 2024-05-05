@@ -97,7 +97,7 @@ public class PnTaoLopMoi extends JPanel {
                 return false;
             }
         };
-//<<<<<<< HEAD:src/GUI/PnThemLop.java
+////<<<<<<< HEAD:src/GUI/PnThemLop.java
         table = new JTable(model);
         setTableFont(table);
         JScrollPane scrlTable = new JScrollPane(table);
@@ -112,6 +112,12 @@ public class PnTaoLopMoi extends JPanel {
             lbl[i] = new JLabel(title[i]);
             lbl[i].setFont(font14);
         }
+//<<<<<<< HEAD
+//////=======
+//////>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34:src/GUI/PnTaoLopMoi.java
+//
+//=======
+//>>>>>>> 2e9c5d386f4d6c99caf1204174f0a720832cc056
         cb_GiaoVien = new JComboBox();
         cb_Mon = new JComboBox();
         cbb_HocKy = new JComboBox<>(new String[]{"1", "2"});

@@ -20,8 +20,8 @@ public class monDAO {
         conn = new MyConnection();
         conn.Connect();
     }
-    
-     public ArrayList<monDTO> layDanhSachMon() throws SQLException {
+
+    public ArrayList<monDTO> layDanhSachMon() throws SQLException {
         ArrayList<monDTO> arr = new ArrayList<>();
         String sql = "SELECT * FROM mon";
         PreparedStatement stmt = conn.preparedStatement(sql);
@@ -84,8 +84,8 @@ public class monDAO {
         }
         return arr;
     }
-    
-    public ArrayList<monDTO> layCacMonChuaCoKho() throws SQLException{
+
+    public ArrayList<monDTO> layCacMonChuaCoKho() throws SQLException {
         ArrayList<monDTO> arr = new ArrayList<>();
         String sql = "select m.mamon, tenmon from mon m join khocauhoi kch on kch.mamon = m.mamon where matbm IS NULL";
         PreparedStatement pre = conn.preparedStatement(sql);
@@ -98,7 +98,7 @@ public class monDAO {
         }
         return arr;
     }
-    
+
     public String layTenMonBangMaCH(String maCH) {
         String tenMon = "";
         try {
@@ -131,7 +131,7 @@ public class monDAO {
                     + "join chitietdelop ct on ct.madt = dt.madt\n"
                     + "join lop l on l.malop = ct.malop\n"
                     + "join mon m on m.mamon = l.mamon\n"
-                    + "where dt.madt = '"+maDT+"'";
+                    + "where dt.madt = '" + maDT + "'";
             PreparedStatement pre = conn.preparedStatement(query);
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
@@ -146,7 +146,6 @@ public class monDAO {
             return "";
         }
     }
-    
 
     public ArrayList<monDTO> listMon() {
         ArrayList<monDTO> list = new ArrayList<>();
@@ -204,10 +203,10 @@ public class monDAO {
         }
         return TenMon;
     }
-    
-    public boolean ThemMon(monDTO m){
+
+    public boolean ThemMon(monDTO m) {
         boolean success = false;
-        try{
+        try {
             conn.Connect();
             String check = "SELECT COUNT(*) FROM MON WHERE TenMon=?";
             PreparedStatement preCheck = conn.preparedStatement(check);
@@ -215,7 +214,7 @@ public class monDAO {
             ResultSet rs = preCheck.executeQuery();
             rs.next();
             int count = rs.getInt(1);
-            if(count > 0){
+            if (count > 0) {
                 System.out.println("Môn đã tồn tại trong csdl");
                 return false;
             }
@@ -225,12 +224,55 @@ public class monDAO {
             pre.setString(2, m.getTenMon());
             success = pre.executeUpdate() > 0;
             conn.disconnect();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Them mon that bai" + e.getMessage());
         }
         return success;
     }
-    
+
+    public ArrayList<monDTO> TimKiem(String keyword) {
+        ArrayList<monDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String name = "%" + keyword + "%";
+            String sql = "SELECT * FROM MON WHERE TenMon LIKE ?";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, name);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    monDTO m = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
+                    list.add(m);
+                }
+            }
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.out.println("tim kiem that bai" + e.getMessage());
+        }
+        return list;
+    }
+
+    public ArrayList<monDTO> DSMonGVCHTT(String MaTK) {
+        ArrayList<monDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String sql = "SELECT TenMon, MaMon "
+                    + "FROM MON "
+                    + "WHERE MaMon NOT IN (SELECT DISTINCT MaMon FROM CHITIETMON WHERE MaGV = ?)";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, MaTK);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    monDTO m = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
+                    list.add(m);
+                }
+            }
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.out.println("lay danh sach mon gv ch tt that bai" + e.getMessage());
+        }
+        return list;
+    }
+
     public static void main(String[] args) throws SQLException {
         monDAO m = new monDAO();
         String ss = m.layTenMonBangMaDT("DTTH1");

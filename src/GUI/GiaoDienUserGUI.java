@@ -417,6 +417,6 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) throws SQLException {
-        new GiaoDienUserGUI("TK7");
+        new GiaoDienUserGUI("TK11");
     }
 }

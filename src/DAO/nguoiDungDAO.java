@@ -127,6 +127,7 @@ public class nguoiDungDAO {
             return null;
         }
     }
+
     public String layMaUserTheoMaTK(String maTK) {
         try {
             String query = "SELECT MaUser FROM TAIKHOAN JOIN NGUOIDUNG ON TAIKHOAN.TenDN = NGUOIDUNG.MaUser WHERE MaTK ='" + maTK + "'";
@@ -145,7 +146,7 @@ public class nguoiDungDAO {
             return null;
         }
     }
-    
+
     public ArrayList<nguoiDungDTO> getThongTinSV(int Nam, int HocKy, String TenMon, String MaLop) {
         ArrayList<nguoiDungDTO> list = new ArrayList<>();
         try {
@@ -232,10 +233,10 @@ public class nguoiDungDAO {
                     + "WHERE TK.MaQuyen = 'QGV' "
                     + "AND TK.TrangThai = 1 "
                     + "AND M.TenMon = ?";
-            try(PreparedStatement pre = conn.preparedStatement(sql)){
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
                 pre.setString(1, TenMon);
                 ResultSet rs = pre.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
                     ng = new nguoiDungDTO(rs.getString("HoTen"));
                     list.add(ng);
                 }
@@ -245,4 +246,23 @@ public class nguoiDungDAO {
         }
         return list;
     }
+
+    public ArrayList<nguoiDungDTO> DSGiaoVien() {
+        ArrayList<nguoiDungDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String sql = "SELECT ND.MaUser, ND.HoTen, ND.NgSinh FROM NGUOIDUNG ND JOIN TAIKHOAN TK ON TK.TenDN = ND.MaUser WHERE TK.MaQuyen ='QGV' AND TK.TrangThai = 1";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    ng = new nguoiDungDTO(rs.getString("MaUser"), rs.getString("HoTen"), rs.getString("NgSinh"));
+                    list.add(ng);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lay danh sach gv that bai" + e.getMessage());
+        }
+        return list;
+    }
+
 }

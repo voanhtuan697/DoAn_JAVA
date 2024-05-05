@@ -23,7 +23,7 @@ public class MyConnection {
         url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTracNghiem;trustServerCertificate=true";
         driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         username = "sa";
-        password = "123456";  //moi nguoi se co pass khac nhau
+        password = "quynh1409";  //moi nguoi se co pass khac nhau
     }
 
     public MyConnection(Connection conn, String url, String dbName, String driver, String username, String password) {

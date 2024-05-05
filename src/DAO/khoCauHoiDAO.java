@@ -7,10 +7,7 @@ package DAO;
 import DTO.khoCauHoiDTO;
 import java.sql.*;
 
-/**
- *
- * @author PHUNG
- */
+
 public class khoCauHoiDAO {
 
     private MyConnection conn;
@@ -19,6 +16,8 @@ public class khoCauHoiDAO {
         conn = new MyConnection();
         conn.Connect();
     }
+    
+    
 
     public String layMaKhoCHTheoMaMon(String maMon) throws SQLException {
         String sql = "SELECT MaKho FROM khocauhoi WHERE MaMon=?";

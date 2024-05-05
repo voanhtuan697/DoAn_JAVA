@@ -326,7 +326,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.add(pnDSDDT, "pnDSDDT");
         JPanel pnKetQua = new PnKetQua();
         cards.add(pnKetQua, "pnKetQua");
-        JPanel pnTaoCauHoi = new PanelTaoCauHoi();
+        JPanel pnTaoCauHoi = new PanelTaoCauHoi(maTK);
         cards.add(pnTaoCauHoi, "pnTaoCauHoi");
         JPanel pnMonGV = new PnDanhSachMonGV(maTK);
         cards.add(pnMonGV, "pnMonGV");

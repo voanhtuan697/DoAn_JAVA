@@ -5,8 +5,12 @@
 package GUI;
 
 import BUS.cauHoiBUS;
+import BUS.dapAnBUS;
+import BUS.monBUS;
 import DAO.cauHoiDAO;
 import DTO.cauHoiDTO;
+import DTO.dapAnDTO;
+import DTO.monDTO;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -36,6 +40,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import static GUI.BASE.cobalt_blue;
 import static GUI.BASE.dark_green;
+import static GUI.BASE.font13;
 import static GUI.BASE.font16;
 import static GUI.BASE.white;
 import java.awt.event.ActionEvent;
@@ -45,15 +50,20 @@ import XULY.ShowDiaLog;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -67,9 +77,9 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author E7250
  */
-public class PanelTaoCauHoi extends JPanel implements ActionListener {
+public class PanelTaoCauHoi extends JPanel implements ActionListener, MouseListener {
 
-    private JComboBox<String> cbb_monThi;
+    private JComboBox<String> cbb_mon;
     private JComboBox<String> cbb_trangThaiCH;
     private JComboBox<String> cbb_hinhThuc;
     private DefaultTableModel model;
@@ -80,20 +90,57 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
     private String[] bangChuCai;
     private cauHoiDAO cauHoiDAO;
     private File selectedFile;
+    private String maTK;
+    private monBUS monbus;
+    private cauHoiBUS chBUS;
+    private JTable table;
+    private Map<String, String> mapCBB_mon = new HashMap<>();
+    private JTextField txt_ctl_a;
+    private JTextField txt_ctl_b;
+    private JTextField txt_ctl_c;
+    private JTextField txt_ctl_d;
+    private JRadioButton rdb_a;
+    private JRadioButton rdb_b;
+    private JRadioButton rdb_c;
+    private JRadioButton rdb_d;
+    private dapAnBUS da;
+    private JTextArea txta;
 
-    public PanelTaoCauHoi() throws SQLException {
+    public PanelTaoCauHoi(String maTK) throws SQLException {
+        da = new dapAnBUS();
+        chBUS = new cauHoiBUS();
+        this.maTK = maTK;
+        monbus = new monBUS();
         init();
         phanCauHoi(0);
+        loadCBBMon();
         cauHoiDAO = new cauHoiDAO();
-        cauHoiDAO.loadDataFromDatabase(model);
+        cbb_mon.setSelectedIndex(0);
+    }
+
+    public void loadData(String maKho, String trangThai) throws SQLException {
+        boolean status;
+        if (trangThai.equals("Đã duyệt")) {
+            status = true;
+        } else {
+            status = false;
+        }
+        model.setRowCount(0);
+        ArrayList<cauHoiDTO> arr = this.chBUS.layDanhSachCauHoi();
+        for (cauHoiDTO ch : arr) {
+            if (ch.getMaKho().trim().equals(maKho) && ch.isTrangThai() == status) {
+                model.addRow(new Object[]{ch.getMaCH(), ch.getMaGV(), ch.getNoidung(), ch.getDoKho(), ch.getMaHT(), ch.getImg()});
+            }
+            table.setModel(model);
+        }
     }
 
     public JComboBox<String> getCbb_monThi() {
-        return cbb_monThi;
+        return cbb_mon;
     }
 
     public void setCbb_monThi(JComboBox<String> cbb_monThi) {
-        this.cbb_monThi = cbb_monThi;
+        this.cbb_mon = cbb_monThi;
     }
 
     public JComboBox<String> getCbb_trangThaiCH() {
@@ -151,28 +198,36 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
     public void setTxt_soDapAn(JTextField txt_soDapAn) {
         this.txt_soDapAn = txt_soDapAn;
     }
+//ssssssssssssssssssssss
+
+    public void loadCBBMon() throws SQLException {
+        ArrayList<monDTO> arr = monbus.layDanhSachMon();
+        for (monDTO m : arr) {
+            cbb_mon.addItem(m.getTenMon());
+            String maKho = "K" + m.getMaMon().trim().substring(1);
+            mapCBB_mon.put(m.getTenMon().trim(), maKho);
+        }
+    }
 
     public void init() {
         JPanel pn1 = new JPanel();
         pn1.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn1.setPreferredSize(new Dimension(0, 40));
         pn1.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
-
-        JLabel lblMaCH = new JLabel("Mã câu hỏi:");
-        JTextField txtMaCH = new JTextField(10);
         JLabel lb_cbbMonThi = new JLabel("Tên môn:");
-        lb_cbbMonThi.setFont(font16);
-        String[] cacMonChinh = new String[]{"Toán", "Lý", "Sử", "Địa"};
-        cbb_monThi = new JComboBox<>(cacMonChinh);
-        cbb_monThi.setFont(font16);
-//        Thêm môn
-        cbb_monThi.addItem("Tiếng anh");
+        lb_cbbMonThi.setFont(font13);
+        cbb_mon = new JComboBox<>();
+
+        cbb_mon.setFont(font13);
+        cbb_mon.addActionListener(this);
 
         JLabel lb_cbbTrangThaiCH = new JLabel("Trạng thái:");
-        lb_cbbTrangThaiCH.setFont(font16);
-        String[] kiemDuyetCH = new String[]{"Đã duyệt", "Chưa duyệt"};
+        lb_cbbTrangThaiCH.setFont(font13);
+        String[] kiemDuyetCH = new String[]{"Chưa duyệt", "Đã duyệt"};
         cbb_trangThaiCH = new JComboBox<>(kiemDuyetCH);
-        cbb_trangThaiCH.setFont(font16);
+        cbb_trangThaiCH.setFont(font13);
+        cbb_trangThaiCH.addActionListener(this);
+
 
         cbb_trangThaiCH.addItemListener(new ItemListener() {
             @Override
@@ -185,11 +240,9 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         });
 
         pn1.add(lb_cbbMonThi);
-        pn1.add(cbb_monThi);
+        pn1.add(cbb_mon);
         pn1.add(lb_cbbTrangThaiCH);
         pn1.add(cbb_trangThaiCH);
-        pn1.add(lblMaCH);
-        pn1.add(txtMaCH);
 
 //-------------------------------------------------PANEL2------------------------------------------------------------
         JPanel pn2 = new JPanel();
@@ -198,16 +251,17 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         Object[][] data = {};
 
         // Tạo tiêu đề cho bảng
-        Object[] columns = {"Mã câu hỏi", "Mã giảng viên", "Nội dung", "Độ khó", "Ảnh"};
+        Object[] columns = {"Mã câu hỏi", "Mã giảng viên", "Nội dung", "Độ khó", "Mã hình thức", "Ảnh"};
         model = new DefaultTableModel(data, columns);
 
 //        Không cho người dùng tác động
-        JTable table = new JTable(model) {
+        table = new JTable(model) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+        table.addMouseListener(this);
 
         // Thiết lập renderer cho tất cả các cột
 //        set chiều ngang cho cột
@@ -253,7 +307,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         JPanel pn_cauhoi = new JPanel();
         pn_cauhoi.setPreferredSize(new Dimension(0, 100));
         pn_cauhoi.setLayout(new BorderLayout());
-        JTextArea txta = new JTextArea();
+        txta = new JTextArea();
         txta.setLineWrap(true);// tự động xuống hàng khi văn bản quá dài
 
         JScrollPane scrollPane_cauhoi = new JScrollPane(txta);
@@ -414,8 +468,8 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         pn3_btn.setBackground(new Color(0xB3, 0xBE, 0xCB));
         pn3_btn.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
 
-        String[] name_btn = new String[]{"Thêm", "Xóa", "Sửa", "Nhập Excel", "Xuất Excel", "Chi tiết"};
-        String[] name_image = new String[]{"plus_icon.png", "delete_icon.png", "edit_icon.png"};
+        String[] name_btn = new String[]{"Thêm", "Xóa"};
+        String[] name_image = new String[]{"plus_icon.png", "delete_icon.png"};
         for (int i = 0; i < name_btn.length; i++) {
             JButton btn = new JButton(name_btn[i]);
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -465,8 +519,34 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         btnThem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Cập nhật dữ liệu trên table model với các giá trị mới từ người dùng
-                String maCH = txtMaCH.getText(); // Lấy mã câu hỏi từ textField maCH
+                ArrayList<cauHoiDTO> arr = new ArrayList<>();
+                try {
+                    //kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+                    arr = chBUS.layDanhSachCauHoi();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                String selectCBB_mon = (String) cbb_mon.getSelectedItem();
+                String selectCBB_trangThai = (String) cbb_trangThaiCH.getSelectedItem();
+                String maKho = mapCBB_mon.get(selectCBB_mon.trim()).trim();
+//                
+                int soCat = maKho.length() + 1;
+                String maCHCuoi = "";
+                for (cauHoiDTO x : arr) {
+                    if (x.getMaKho().trim().equals(maKho.trim())) {
+                        maCHCuoi = x.getMaCH().trim();
+                    }
+                }
+                String maCH = "";
+                if (maCHCuoi == "") {
+                    maCHCuoi = "CH" + maKho.substring(1, soCat - 1) + "1";
+                    maCH = maCHCuoi;
+                } else {
+                    String prefix = maCHCuoi.substring(0, soCat);
+                    int so = Integer.parseInt(maCHCuoi.substring(soCat)) + 1;
+                    maCH = prefix + so;
+                }
+                ;
                 String noiDung = txta.getText(); // Lấy nội dung câu hỏi từ textField noiDung
                 String doKho = ""; // Khai báo biến để lưu độ khó được chọn
                 // Xử lý dựa trên giá trị của nút radio đã được chọn
@@ -478,32 +558,37 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
                     doKho = "Khó";
                 }
                 // Lấy đường dẫn hình ảnh từ người dùng
-                String imagePath = null; // Khởi tạo chuỗi để lưu đường dẫn hình ảnh
+                String imagePath = "";
 
                 // Kiểm tra xem người dùng đã chọn hình ảnh hay chưa
                 if (selectedFile != null && selectedFile.exists()) {
                     imagePath = selectedFile.getAbsolutePath();
                 }
+                String maHT = "";
+                String selectCBB_hinhThuc = (String) cbb_hinhThuc.getSelectedItem();
+                if (selectCBB_hinhThuc.equals("Trắc nghiệm một lựa chọn đúng")) {
+                    maHT = "TNBC";
+                } else {
+                    maHT = "TNNC";
+                }
 
-                // Tạo một hàng mới cho dữ liệu từ các trường nhập liệu
-                Object[] newRow = {maCH, "", noiDung, doKho, imagePath}; // Chú ý thêm dữ liệu hình ảnh vào hàng mới
-
-                // Thêm hàng mới vào table model
-                model.addRow(newRow);
-
-                // Thêm câu hỏi vào cơ sở dữ liệu
                 cauHoiDTO cauHoiMoi = new cauHoiDTO();
                 cauHoiMoi.setMaCH(maCH);
+                cauHoiMoi.setMaKho(maKho);
+                cauHoiMoi.setMaHT(maHT);
                 cauHoiMoi.setNoidung(noiDung);
                 cauHoiMoi.setDoKho(doKho);
-                cauHoiMoi.setImg(imagePath);
-                String trangThai = (String) cbb_trangThaiCH.getSelectedItem();
-                // Kiểm tra và gán giá trị tương ứng cho thuộc tính trangThai
-                if ("Đã duyệt".equals(trangThai)) {
-                    cauHoiMoi.setTrangThai(true); // hoặc 1
+                if (!imagePath.isEmpty()) {
+                    Path path = Paths.get(imagePath);
+                    String tenFile = path.getFileName().toString();
+                    cauHoiMoi.setImg(tenFile);
                 } else {
-                    cauHoiMoi.setTrangThai(false); // hoặc 0
+                    cauHoiMoi.setImg(imagePath);
                 }
+
+                cauHoiMoi.setMaGV(maTK);
+                cauHoiMoi.setTrangThai(false);
+
                 // Gọi phương thức thêm câu hỏi từ lớp BUS
                 cauHoiBUS bus = null;
                 try {
@@ -516,7 +601,50 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
                 } else {
                     new ShowDiaLog("Thêm câu hỏi thất bại! Vui lòng kiểm tra lại.", ShowDiaLog.ERROR_DIALOG);
                 }
+                if (selectCBB_hinhThuc.equals("Trắc nghiệm một lựa chọn đúng")) {
+                    dapAnDTO daa = new dapAnDTO();
+                    daa.setMaCH(maCH);
+                    daa.setMaDa("DAA");
+                    daa.setNoidung(txt_ctl_a.getText());
+                    daa.setDungSai(rdb_a.isSelected());
+                    da.themdapAn(daa);
 
+                    dapAnDTO dab = new dapAnDTO();
+                    dab.setMaCH(maCH);
+                    dab.setMaDa("DAB");
+                    dab.setNoidung(txt_ctl_b.getText());
+                    dab.setDungSai(rdb_b.isSelected());
+                    da.themdapAn(dab);
+
+                    dapAnDTO dac = new dapAnDTO();
+                    dac.setMaCH(maCH);
+                    dac.setMaDa("DAC");
+                    dac.setNoidung(txt_ctl_b.getText());
+                    dac.setDungSai(rdb_c.isSelected());
+                    da.themdapAn(dac);
+
+                    dapAnDTO dad = new dapAnDTO();
+                    dad.setMaCH(maCH);
+                    dad.setMaDa("DAD");
+                    dad.setNoidung(txt_ctl_d.getText());
+                    dad.setDungSai(rdb_d.isSelected());
+                    da.themdapAn(dad);
+
+                } else {
+                    System.out.println("ss");
+                }
+
+                txta.setText("");
+
+                try {
+                    loadData(maKho, selectCBB_trangThai);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                rdb_a.setText("");
+                rdb_b.setText("");
+                rdb_c.setText("");
+                rdb_d.setText("");
                 // Cập nhật lại table model sau khi thêm câu hỏi vào cơ sở dữ liệu
                 cauHoiDAO dao = null;
                 try {
@@ -524,98 +652,36 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
                 } catch (SQLException ex) {
                     Logger.getLogger(PanelTaoCauHoi.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                dao.loadDataFromDatabase(model);
+//                hhhhhhhhhhhhhhhhhhhhh
             }
         });
 
         // Gán Renderer cho cột ảnh của table
-        table.getColumnModel().getColumn(4).setCellRenderer(new ImageRenderer());
-
         // Đoạn code này nên được đặt trong constructor hoặc phương thức khởi tạo của PanelTaoCauHoi
         JButton btnXoa = (JButton) pn3_btn.getComponent(1); // Lấy nút Xóa từ panel pn3_btn
         btnXoa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lấy mã câu hỏi từ textField maCH
-                String maCH = txtMaCH.getText();
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    String maCH = table.getValueAt(row, 0).toString().trim();
+                    da.xoadapAn(maCH);
+                    chBUS.xoaCauHoi(maCH);
+                    String selectCBB_mon = (String) cbb_mon.getSelectedItem();
+                    String selectCBB_trangThai = (String) cbb_trangThaiCH.getSelectedItem();
+                    String value = mapCBB_mon.get(selectCBB_mon);
+                    try {
+                        loadData(value, selectCBB_trangThai.trim());
+                    } catch (SQLException ex) {
 
-                // Gọi phương thức xóa câu hỏi từ lớp DAO
-                cauHoiDAO dao = null;
-                try {
-                    dao = new cauHoiDAO();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-                if (dao.xoaCauHoi(maCH)) {
-                    // Nếu xóa thành công, thông báo và cập nhật lại dữ liệu trên bảng
-                    new ShowDiaLog("Xóa câu hỏi thành công!", ShowDiaLog.SUCCESS_DIALOG);
-                    dao.loadDataFromDatabase(model); // Cập nhật lại dữ liệu trên bảng
+                    }
                 } else {
-                    new ShowDiaLog("Xóa câu hỏi thất bại! Vui lòng kiểm tra lại.", ShowDiaLog.ERROR_DIALOG);
+                    new ShowDiaLog("Chưa chọn câu hỏi", ShowDiaLog.ERROR_DIALOG);
                 }
+
             }
         });
         // Đoạn code này nên được đặt trong constructor hoặc phương thức khởi tạo của PanelTaoCauHoi
-        JButton btnSua = (JButton) pn3_btn.getComponent(2); // Lấy nút Sửa từ panel pn3_btn
-        btnSua.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Lấy các giá trị từ các trường nhập liệu
-                String maCH = txtMaCH.getText(); // Lấy mã câu hỏi từ textField maCH
-                String noiDung = txta.getText(); // Lấy nội dung câu hỏi từ textField noiDung
-                String doKho = ""; // Khai báo biến để lưu độ khó được chọn
-                // Xử lý dựa trên giá trị của nút radio đã được chọn
-                if (rdb_easy.isSelected()) {
-                    doKho = "Dễ";
-                } else if (rdb_medium.isSelected()) {
-                    doKho = "Trung bình";
-                } else if (rdb_hard.isSelected()) {
-                    doKho = "Khó";
-                }
-
-                // Tạo một đối tượng câu hỏi mới
-                cauHoiDTO cauHoiMoi = new cauHoiDTO();
-                cauHoiMoi.setMaCH(maCH);
-                cauHoiMoi.setNoidung(noiDung);
-                cauHoiMoi.setDoKho(doKho);
-                String trangThai = (String) cbb_trangThaiCH.getSelectedItem();
-                // Kiểm tra và gán giá trị tương ứng cho thuộc tính trangThai
-                if ("Đã duyệt".equals(trangThai)) {
-                    cauHoiMoi.setTrangThai(true); // hoặc 1
-                } else {
-                    cauHoiMoi.setTrangThai(false); // hoặc 0
-                }
-
-                // Gọi phương thức sửa câu hỏi từ lớp DAO
-                cauHoiDAO dao = null;
-                try {
-                    dao = new cauHoiDAO();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-                if (dao.suaCauHoi(cauHoiMoi)) {
-                    // Nếu sửa thành công, thông báo và cập nhật lại dữ liệu trên bảng
-                    new ShowDiaLog("Sửa câu hỏi thành công!", ShowDiaLog.SUCCESS_DIALOG);
-                    dao.loadDataFromDatabase(model); // Cập nhật lại dữ liệu trên bảng
-                } else {
-                    new ShowDiaLog("Sửa câu hỏi thất bại! Vui lòng kiểm tra lại.", ShowDiaLog.ERROR_DIALOG);
-                }
-            }
-        });
-        JButton btnChiTiet = (JButton) pn3_btn.getComponent(5);
-        // Thêm sự kiện cho nút "Chi tiết"
-        btnChiTiet.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cauHoiDTO cauHoi = new cauHoiDTO();
-                String maCH = cauHoi.getMaCH();
-                try {
-                    new FrameXemChiTietCauHoi(maCH); // Khởi tạo FrameXemChiTietCauHoi với mã câu hỏi
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
 
         pn3.add(pn3_input, BorderLayout.CENTER);
         pn3.add(pn3_btn, BorderLayout.EAST);
@@ -639,6 +705,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
             JLabel label = new JLabel(bangChuCai[i]);
             label.setPreferredSize(new Dimension(15, 0));
             JTextField txt = new JTextField();
+//            txt.setName("DA"+bangChuCai[i]);
             JCheckBox checkBox = new JCheckBox();
 
             panel.add(label, BorderLayout.WEST);
@@ -666,6 +733,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         JLabel lb_d = new JLabel("D");
         lb_d.setFont(font16);
 
+
         JTextField txt_ctl_a = new JTextField();
         txt_ctl_a.setFont(font16);
         JTextField txt_ctl_b = new JTextField();
@@ -676,13 +744,14 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
         txt_ctl_d.setFont(font16);
 
         ButtonGroup btnG = new ButtonGroup();
-        JRadioButton rdb_a = new JRadioButton();
+        rdb_a = new JRadioButton();
+        rdb_a.setSelected(true);
         rdb_a.setOpaque(false);
-        JRadioButton rdb_b = new JRadioButton();
+        rdb_b = new JRadioButton();
         rdb_b.setOpaque(false);
-        JRadioButton rdb_c = new JRadioButton();
+        rdb_c = new JRadioButton();
         rdb_c.setOpaque(false);
-        JRadioButton rdb_d = new JRadioButton();
+        rdb_d = new JRadioButton();
         rdb_d.setOpaque(false);
 
         btnG.add(rdb_a);
@@ -734,8 +803,37 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
     }
 
     @Override
-
+//ssssssssssssssssssssssssssssssssssssssssssssssss
     public void actionPerformed(ActionEvent e) {
+        String selectCBB_mon = (String) cbb_mon.getSelectedItem();
+        String selectCBB_trangThai = (String) cbb_trangThaiCH.getSelectedItem();
+        for (String key : mapCBB_mon.keySet()) {
+            if (selectCBB_mon.equals(key)) {
+                String value = mapCBB_mon.get(key);
+                try {
+                    loadData(value, selectCBB_trangThai.trim());
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        if (selectCBB_trangThai.equals("Đã duyệt")) {
+            String maKho = mapCBB_mon.get(selectCBB_mon);
+            try {
+                loadData(maKho, "Đã duyệt");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            String maKho = mapCBB_mon.get(selectCBB_mon);
+            try {
+                loadData(maKho, "Chưa duyệt");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
         String selectedOption = (String) this.getCbb_hinhThuc().getSelectedItem();
         if (selectedOption.equals("Trắc nghiệm một lựa chọn đúng")) {
             this.getCardLayout().show(this.getCards(), "pn_TN4");
@@ -760,15 +858,44 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
 
         }
     }
-    
-    
 
     public static void main(String[] args) throws SQLException {
         JFrame f = new JFrame();
         f.setSize(800, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
-        Component add = f.getContentPane().add(new PanelTaoCauHoi());
+        Component add = f.getContentPane().add(new PanelTaoCauHoi("TK14"));
         f.setVisible(true);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                String maCH = table.getValueAt(row, 0).toString().trim();
+                try {
+                    new FrameXemChiTietCauHoi(maCH);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }

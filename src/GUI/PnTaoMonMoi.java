@@ -8,10 +8,11 @@ import BUS.khoCauHoiBUS;
 import BUS.monBUS;
 import DTO.monDTO;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font14;
-import static GUI.BASE.font14b;
+import static GUI.BASE.font16;
+import static GUI.BASE.font16b;
 import static GUI.BASE.gray_bg;
 import XULY.ShowDiaLog;
+import XULY.xuLyFileExcel;
 import java.awt.BorderLayout;
 import static java.awt.Color.white;
 import java.awt.Cursor;
@@ -41,7 +42,7 @@ public class PnTaoMonMoi extends JPanel {
     private JTextField tfTimKiem, tfTenMon;
     private DefaultTableModel model;
     private JTable table;
-    private JButton btnThem;
+    private JButton btnThem, btnNhapExcel;
     private JPanel pnTop, pnCenter, pnBottom;
     private monBUS busMon;
     private monDTO dtoMon = new monDTO();
@@ -70,8 +71,9 @@ public class PnTaoMonMoi extends JPanel {
     public void initComponents() {
         JLabel lblTimKiem, lblTenMon;
         lblTimKiem = new JLabel("Tìm kiếm");
-        lblTimKiem.setFont(font14);
-        tfTimKiem = new JTextField(20);
+        lblTimKiem.setFont(font16);
+        tfTimKiem = new JTextField();
+        tfTimKiem.setPreferredSize(new Dimension(170,26));
         pnTop.add(lblTimKiem);
         pnTop.add(tfTimKiem);
 
@@ -88,11 +90,12 @@ public class PnTaoMonMoi extends JPanel {
         pnCenter.add(scrlTable);
 
         lblTenMon = new JLabel("Tên môn:");
-        lblTenMon.setFont(font14);
-        tfTenMon = new JTextField(20);
+        lblTenMon.setFont(font16);
+        tfTenMon = new JTextField();
+        tfTenMon.setPreferredSize(new Dimension(190,30));
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
-        btnThem.setFont(font14b);
+        btnThem.setFont(font16b);
         btnThem.setForeground(white);
         btnThem.setBorderPainted(false);
         btnThem.setFocusPainted(false);
@@ -156,13 +159,13 @@ public class PnTaoMonMoi extends JPanel {
     }
 
     private void setTableFont(JTable table) {
-        table.setFont(font14);
+        table.setFont(font16);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(font14);
+        header.setFont(font16);
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setFont(font14);
+        renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
     }
 
@@ -194,6 +197,12 @@ public class PnTaoMonMoi extends JPanel {
             Object[] row = {m.getMaMon(), m.getTenMon()};
             model.addRow(row);
         }
+    }
+    
+    private void NhapExcel(){
+        xuLyFileExcel nhapExcel = new xuLyFileExcel();
+        nhapExcel.nhapExcel(table);
+        
     }
 
     public static void main(String[] args) throws SQLException {

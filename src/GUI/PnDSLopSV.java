@@ -4,11 +4,11 @@
  */
 package GUI;
 
-
 import BUS.lopBUS;
 import BUS.monBUS;
 import BUS.taiKhoanBUS;
 import DTO.lopDTO;
+import static GUI.BASE.font16;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,7 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -74,11 +76,15 @@ public class PnDSLopSV extends JPanel {
         pnHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
         JLabel lb_trangThaiLop = new JLabel("Trạng thái:");
+        lb_trangThaiLop.setFont(font16);
         String[] cacTrangThai = new String[]{"Đang học", "Đã học"};
         cbb_trangThai = new JComboBox<>(cacTrangThai);
+        cbb_trangThai.setFont(font16);
 
         JLabel lb_timKiem = new JLabel("Tìm kiếm:");
+        lb_timKiem.setFont(font16);
         JTextField txt_timKiem = new JTextField(15);
+        txt_timKiem.setFont(font16);
 
         pnHeader.add(lb_trangThaiLop);
         pnHeader.add(cbb_trangThai);
@@ -90,7 +96,7 @@ public class PnDSLopSV extends JPanel {
 
         Object[][] data = {
             {"L1", "CNTT", "Lý Mạc Sầu", "Toán", "2024", "1"},};
-        Object[] columns = {"Mã lớp","Nhóm lớp", "Tên giảng viên", "Tên môn", "Năm học", "Học kỳ"};
+        Object[] columns = {"Mã lớp", "Nhóm lớp", "Tên giảng viên", "Tên môn", "Năm học", "Học kỳ"};
         model = new DefaultTableModel(data, columns);
 
         JTable table = new JTable(model) {
@@ -100,6 +106,8 @@ public class PnDSLopSV extends JPanel {
             }
         };
 
+        table = new JTable(model);
+        setTableFont(table);
         JScrollPane scrollPane_table = new JScrollPane(table);
         pnTable.add(scrollPane_table, BorderLayout.CENTER);
 
@@ -121,14 +129,14 @@ public class PnDSLopSV extends JPanel {
                 DSTrangThai(trangthai);
             }
         });
-        
-        txt_timKiem.addActionListener(new ActionListener(){
+
+        txt_timKiem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String keyword = txt_timKiem.getText();
-                if(keyword.isEmpty()){
+                if (keyword.isEmpty()) {
                     loadData();
-                }else{
+                } else {
                     timkiem(keyword);
                 }
             }
@@ -141,7 +149,7 @@ public class PnDSLopSV extends JPanel {
         for (lopDTO x : list) {
             String TenMon = busMon.getNameByMaMon(x.getMaMon());
             String TenGV = busTK.getNameByMaTk(x.getMaGV());
-            Object[] row = {x.getMaLop(),x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
+            Object[] row = {x.getMaLop(), x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
             model.addRow(row);
         }
     }
@@ -152,7 +160,7 @@ public class PnDSLopSV extends JPanel {
         for (lopDTO x : list) {
             String TenMon = busMon.getNameByMaMon(x.getMaMon());
             String TenGV = busTK.getNameByMaTk(x.getMaGV());
-            Object[] row = {x.getMaLop(),x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
+            Object[] row = {x.getMaLop(), x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
             model.addRow(row);
         }
     }
@@ -163,9 +171,20 @@ public class PnDSLopSV extends JPanel {
         for (lopDTO x : list) {
             String TenMon = busMon.getNameByMaMon(x.getMaMon());
             String TenGV = busTK.getNameByMaTk(x.getMaGV());
-            Object[] row = {x.getMaLop(),x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
+            Object[] row = {x.getMaLop(), x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
             model.addRow(row);
         }
+    }
+
+    private void setTableFont(JTable table) {
+        table.setFont(font16);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font16);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font16);
+        table.setDefaultRenderer(Object.class, renderer);
     }
 
 //    public static void main(String[] args) {

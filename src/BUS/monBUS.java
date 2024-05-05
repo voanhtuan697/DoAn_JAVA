@@ -83,4 +83,12 @@ public class monBUS {
         m.setTenMon(TenMon);
         return mon.ThemMon(m);
     }
+    
+    public ArrayList<monDTO> DSMon1GVDay(String MaTK) {
+        return mon.DSMon1GVDay(MaTK);
+    }
+    
+     public ArrayList<monDTO> TimKiemDSMon1GVDay(String MaTK,String keyword) {
+         return mon.TimKiemDSMon1GVDay(MaTK, keyword);
+     }
 }

@@ -28,51 +28,51 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GiaoDienUserGUI extends JFrame implements ActionListener {
-    
+
     private String maTK;
     private JPanel cards;
     private CardLayout cardLayout;
     private JLabel lb_Header;
     private taiKhoanBUS taiKhoan;
-    
+
     public GiaoDienUserGUI(String maTK) throws SQLException {
         this.maTK = maTK;
         this.taiKhoan = new taiKhoanBUS();
         init();
     }
-    
+
     public JPanel getCards() {
         return cards;
     }
-    
+
     public void setCards(JPanel cards) {
         this.cards = cards;
     }
-    
+
     public CardLayout getCardLayout() {
         return cardLayout;
     }
-    
+
     public void setCardLayout(CardLayout cardLayout) {
         this.cardLayout = cardLayout;
     }
-    
+
     public JLabel getLb_Header() {
         return lb_Header;
     }
-    
+
     public void setLb_Header(JLabel lb_Header) {
         this.lb_Header = lb_Header;
     }
-    
+
     public String getMaTK() {
         return maTK;
     }
-    
+
     public void setMaTK(String maTK) {
         this.maTK = maTK;
     }
-    
+
     public String layTenBtn(String maCN) {
         if (maCN.equals("CNDCH")) {
             return "Duyệt câu hỏi";
@@ -99,9 +99,9 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         } else if (maCN.equals("CNXKQCDT")) {
             return "Xem kết quả thi các đề thi";
         }
-        return "";        
+        return "";
     }
-    
+
     public String layIconBtn(String maCN) {
         if (maCN.equals("CNDCH")) {
             return "..//image//success_icon.png";
@@ -142,12 +142,12 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         }
         return "";
     }
-    
+
     public ArrayList<String> layChucNangCoBan(String maTK) throws SQLException {
         taiKhoanDTO tk = taiKhoan.layTaiKhoan(maTK);
         String maQuyen = tk.getMaQuyen();
         ArrayList<String> arrCNCB = new ArrayList<>();
-        
+
         if (maQuyen.equals("QGV")) {
             arrCNCB.add("Môn giảng viên");
             arrCNCB.add("Lớp giảng viên");
@@ -159,7 +159,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         arrCNCB.add("Đăng xuất");
         return arrCNCB;
     }
-    
+
     public void init() throws SQLException {
         this.setTitle("Frame");
         this.setSize(900, 600);
@@ -167,12 +167,12 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.getContentPane().setLayout(new BorderLayout());
-        
+
         JPanel pn_left = new JPanel();
         pn_left.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         pn_left.setPreferredSize(new Dimension(200, 0));
         pn_left.setBackground(cobalt_blue);
-        
+
         JPanel pn_tittle = new JPanel();
         pn_tittle.setLayout(new BorderLayout());
         pn_tittle.setBackground(dark_green);
@@ -184,12 +184,12 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         lb_tittle.setHorizontalAlignment(JLabel.CENTER);
         lb_tittle.setVerticalAlignment(JLabel.CENTER);
         pn_left.add(pn_tittle);
-        
+
         ArrayList<String> arrMaCN = taiKhoan.layDanhSachMaCN(maTK);
         ArrayList<String> arrCNCB = layChucNangCoBan(maTK);
-        
+
         ArrayList<JButton> arrBtn = new ArrayList<>();
-        
+
         for (String maCN : arrMaCN) {
             JButton btn = new JButton(layTenBtn(maCN));
             btn.addActionListener(this);
@@ -208,16 +208,16 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
                 public void mouseEntered(MouseEvent e) {
                     // Thay đổi màu nền khi chuột hover vào
                     btn.setBackground(dark_green);
-                    
+
                 }
-                
+
                 @Override
                 public void mouseExited(MouseEvent e) {
                     if (!btn.isSelected()) {
                         btn.setBackground(cobalt_blue);
                     }
                 }
-                
+
                 public void mouseClicked(MouseEvent e) {
                     // Thiết lập lại màu nền của tất cả các JButton
                     for (JButton btn : arrBtn) {
@@ -248,16 +248,16 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
                 public void mouseEntered(MouseEvent e) {
                     // Thay đổi màu nền khi chuột hover vào
                     btn.setBackground(dark_green);
-                    
+
                 }
-                
+
                 @Override
                 public void mouseExited(MouseEvent e) {
                     if (!btn.isSelected()) {
                         btn.setBackground(cobalt_blue);
                     }
                 }
-                
+
                 public void mouseClicked(MouseEvent e) {
                     // Thiết lập lại màu nền của tất cả các JButton
                     for (JButton btn : arrBtn) {
@@ -270,7 +270,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
                 }
             });
         }
-        
+
         for (JButton btn : arrBtn) {
             if (btn.getText().equals("Thông tin")) {
                 btn.setBackground(dark_green);
@@ -278,8 +278,6 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
                 break;
             }
         }
-        
-        
 
 //panel right
         JPanel pn_right = new JPanel();
@@ -289,14 +287,14 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         pn_header.setLayout(new BorderLayout());
         pn_header.setPreferredSize(new Dimension(0, 40));
         pn_header.setBackground(dark_green);
-        
+
         lb_Header = new JLabel("Thông tin");
         lb_Header.setFont(font16);
         lb_Header.setForeground(white);
         pn_header.add(lb_Header, BorderLayout.CENTER);
         lb_Header.setHorizontalAlignment(JLabel.CENTER);
         lb_Header.setVerticalAlignment(JLabel.CENTER);
-        
+
         JPanel pn_content = new JPanel();
         pn_content.setLayout(new BorderLayout());
 //card layout
@@ -334,7 +332,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.add(pnMonGV, "pnMonGV");
         JPanel pnLopGV = new PnDSLopGV(maTK);
         cards.add(pnLopGV, "pnLopGV");
-        
+
         JPanel pnLopSV = new PnDSLopSV(maTK);
         cards.add(pnLopSV, "pnLopSV");
         JPanel pnDeThiSV = new PnDeThiSinhVien(maTK);
@@ -345,12 +343,12 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
 //        cardLayout.show(cards, "pnDeThi");
         pn_right.add(pn_header, BorderLayout.NORTH);
         pn_right.add(pn_content, BorderLayout.CENTER);
-        
+
         this.add(pn_left, BorderLayout.WEST);
         this.add(pn_right, BorderLayout.CENTER);
         this.setVisible(true);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String btn_name = e.getActionCommand();
@@ -407,7 +405,10 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
             lb_Header.setText("Chỉnh sửa người duyệt kho");
         } else if (btn_name.equals("Đăng xuất")) {
             System.exit(0);
-        }        
+        }
     }
     
+    public static void main(String[] args) throws SQLException {
+        new GiaoDienUserGUI("TK2");
+    }
 }

@@ -19,6 +19,7 @@ public class BASE extends DefaultTableCellRenderer {
     public static Color dark_blue = Color.decode("#5BC0EB");
     public static Color white = Color.decode("#ffffff");
     public static Color gray_bg = Color.decode("#B3BECB");
+    public static Color clTable = Color.decode("#E7E6E4");
     public static String typeface = "Segoe UI";
     public static Font font16 = new Font("typeface", Font.PLAIN, 16);
     public static Font font16b = new Font("typeface", Font.BOLD, 16);

@@ -86,14 +86,20 @@ public class PnThemLopChoSV extends JPanel {
     public void initComponents() {
         JLabel lblTimKiem, lblNam, lblHocKy, lblTenMon, lblLop;
         lblTimKiem = CreateLabel("Tìm kiếm:");
+        lblTimKiem.setFont(font16);
         lblNam = CreateLabel("Năm:");
+        lblNam.setFont(font16);
         lblHocKy = CreateLabel("Học kỳ:");
+        lblHocKy.setFont(font16);
         lblTenMon = CreateLabel("Tên môn:");
+        lblTenMon.setFont(font16);
         lblLop = CreateLabel("Lớp:");
+        lblLop.setFont(font16);
 
         tfTimKiem = new JTextField(15);
         cbHocKy = new JComboBox<>(new Integer[]{1, 2});
         cbHocKy.setPreferredSize(new Dimension(50, cbHocKy.getPreferredSize().height));
+        cbHocKy.setFont(font16);
         cbLop = new JComboBox();
         cbLop.setPreferredSize(new Dimension(120, cbLop.getPreferredSize().height));
         cbLop.setFont(font16);
@@ -227,6 +233,7 @@ public class PnThemLopChoSV extends JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
+        table.setRowHeight(30);
     }
 
     private void LoadData() {

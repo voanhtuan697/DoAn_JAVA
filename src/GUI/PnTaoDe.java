@@ -129,6 +129,9 @@ public class PnTaoDe extends JPanel {
         };
 
         tblDeThi = new JTable(modelDeThi);
+        JTableHeader header = tblDeThi.getTableHeader();
+        header.setFont(font16);
+        tblDeThi.setRowHeight(30);
         setTableFont(tblDeThi);
 
         JScrollPane scrDeThi = new JScrollPane(tblDeThi);

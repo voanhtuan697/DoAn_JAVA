@@ -185,6 +185,7 @@ public class PnDSLopSV extends JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
+        table.setRowHeight(30);
     }
 
 //    public static void main(String[] args) {

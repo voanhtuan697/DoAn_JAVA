@@ -96,7 +96,7 @@ public class PnTaoDe extends JPanel {
     private JFormattedTextField txtNgayGio;
 
     public PnTaoDe() throws SQLException {
-
+//        this.maTK = maTK;
         init();
         initComponents();
         loadData();

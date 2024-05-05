@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -120,6 +121,11 @@ public class PnDSLopGV extends JPanel implements ActionListener {
             getModel().setDataVector(newData, getColumns());
         }
     }
+    public void loadDSLopGV() throws SQLServerException{
+        
+    }
+    
+    
     
     public static void main(String[] args) {
         JFrame f = new JFrame();

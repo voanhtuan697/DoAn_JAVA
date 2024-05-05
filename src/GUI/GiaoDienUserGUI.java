@@ -104,39 +104,41 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
 
     public String layIconBtn(String maCN) {
         if (maCN.equals("CNDCH")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//success_icon.png";
         } else if (maCN.equals("CNPQ")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//account_icon.png";
         } else if (maCN.equals("CNTD")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//taoDeThi_icon.png";
         } else if (maCN.equals("CNTLM")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//class_icon.png";
         } else if (maCN.equals("CNTLSV")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//taoLopSV.png";
         } else if (maCN.equals("CNTMGV")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//taoMonGV.png";
         } else if (maCN.equals("CNTMM")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//make_new_subject.png";
         } else if (maCN.equals("CNTTT")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//makeNewAcc.png";
         } else if (maCN.equals("CNDSDDT")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//dsBKTDT.png";
         }else if (maCN.equals("CNTCH")) {
             return "..//image//taoCauHoi_icon.png";
         }else if (maCN.equals("Môn giảng viên")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//monGV.png";
         }else if (maCN.equals("Lớp giảng viên")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//lopGV.png";
         }else if (maCN.equals("Lớp sinh viên")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//lopSV.png";
         }else if (maCN.equals("Đề thi")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//lamDT.png";
         }else if (maCN.equals("Thông tin")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//information_icon.png";
         }else if (maCN.equals("Đăng xuất")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//dangXuat.png";
         }else if(maCN.equals("CNCSNDK")){
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//khCH.png";
+        }else if(maCN.equals("CNXKQCDT")){
+            return "..//image//ketQuaBKT.png";
         }
         return "";
     }

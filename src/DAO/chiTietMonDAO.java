@@ -17,21 +17,30 @@ public class chiTietMonDAO {
 
     MyConnection conn;
 
-    public chiTietMonDAO() throws SQLException {
-        conn = new MyConnection();
-        conn.Connect();
+    public chiTietMonDAO()  {
+        try {
+            conn = new MyConnection();
+        } catch (Exception e) {
+            System.out.println("Ket noi database khong thanh cong" + e.getMessage());
+        }
     }
 
-    public ArrayList<chiTietMonDTO> layDanhSachChiTietMon() throws SQLException {
+    public ArrayList<chiTietMonDTO> layDanhSachChiTietMon()  {
         ArrayList<chiTietMonDTO> arr = new ArrayList<>();
-        String sql = "SELECT * FROM chitietmon";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            chiTietMonDTO ctm = new chiTietMonDTO();
-            ctm.setMaGV(rs.getString(2));
-            ctm.setMaMon(rs.getString(1));
-            arr.add(ctm);
+        try {
+            conn.Connect();
+            String sql = "SELECT * FROM chitietmon";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                chiTietMonDTO ctm = new chiTietMonDTO();
+                ctm.setMaGV(rs.getString(2));
+                ctm.setMaMon(rs.getString(1));
+                arr.add(ctm);
+            }stmt.close();
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.err.println("Lay danh sach chi tiet mon that bai" + e.getMessage());
         }
         return arr;
     }
@@ -45,6 +54,7 @@ public class chiTietMonDAO {
             pre.setString(1, t.getMaLop());
             pre.setString(2, t.getMaSV());
             success = pre.executeUpdate() > 0;
+            pre.close();
             conn.disconnect();
         } catch (SQLException e) {
             System.err.println("Them sinh vao lop hoc that bai" + e.getMessage());

@@ -14,49 +14,72 @@ import java.util.ArrayList;
  */
 public class quyenDAO {
 
-    private quyenDTO role = new quyenDTO();
-    private final MyConnection conn;
+    private MyConnection conn;
 
-    public quyenDAO() throws SQLException {
-        conn = new MyConnection();
-        conn.Connect();
+    public quyenDAO() {
+        try {
+            conn = new MyConnection();
+        } catch (Exception e) {
+            System.out.println("Ket noi database khong thanh cong" + e.getMessage());
+        }
     }
 
-    public ArrayList<quyenDTO> getQuyen() throws SQLException {
+    public ArrayList<quyenDTO> getQuyen() {
         ArrayList<quyenDTO> dsQuyen = new ArrayList<>();
-        String sql = "SELECT * FROM quyen";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            quyenDTO r = new quyenDTO();
-            r.setMaQuyen(rs.getString(1));
-            System.out.println(rs.getString(2));
-            r.setTenQuyen(rs.getString(2));
-            dsQuyen.add(r);
+        try {
+            conn.Connect();
+            String sql = "SELECT * FROM quyen";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                quyenDTO r = new quyenDTO();
+                r.setMaQuyen(rs.getString(1));
+                System.out.println(rs.getString(2));
+                r.setTenQuyen(rs.getString(2));
+                dsQuyen.add(r);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay danh sach quyen khong thanh cong" + e.getMessage());
         }
         return dsQuyen;
     }
 
-    public String getMaQuyenTheoTenQuyen(String tenQuyen) throws SQLException {
+    public String getMaQuyenTheoTenQuyen(String tenQuyen) {
         String maQuyen = null;
-        String sql = "SELECT * FROM quyen WHERE TenQuyen=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, tenQuyen);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            maQuyen = rs.getString(1);
+        try {
+            conn.Connect();
+            String sql = "SELECT * FROM quyen WHERE TenQuyen=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, tenQuyen);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                maQuyen = rs.getString(1);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay ma quyen khong thanh cong" + e.getMessage());
         }
         return maQuyen;
     }
 
-    public String getTenQuyenTheoMaQuyen(String maQuyen) throws SQLException {
+    public String getTenQuyenTheoMaQuyen(String maQuyen) {
         String tenQuyen = null;
-        String sql = "SELECT TenQuyen FROM quyen WHERE MaQuyen=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, maQuyen);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            tenQuyen = rs.getString(1);
+        try {
+            conn.Connect();
+            String sql = "SELECT TenQuyen FROM quyen WHERE MaQuyen=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, maQuyen);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                tenQuyen = rs.getString(1);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay ten quyen khong thanh cong" + e.getMessage());
         }
         return tenQuyen;
     }
@@ -64,6 +87,7 @@ public class quyenDAO {
     public ArrayList<quyenDTO> layDanhSachQuyen() {
         ArrayList<quyenDTO> arr = new ArrayList<>();
         try {
+            conn.Connect();
             String query = "SELECT * FROM QUYEN";
             PreparedStatement pre = conn.preparedStatement(query);
             ResultSet rs = pre.executeQuery();
@@ -74,6 +98,7 @@ public class quyenDAO {
                 arr.add(q);
             }
             pre.close();
+            conn.disconnect();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,6 +108,7 @@ public class quyenDAO {
     public quyenDTO layQuyen(String maTK) {
         quyenDTO quyen = new quyenDTO();
         try {
+            conn.Connect();
             String query = "SELECT TK.MaQuyen, TenQuyen FROM TAIKHOAN TK JOIN QUYEN Q ON TK.MaQuyen = Q.MaQuyen WHERE TK.MaTK = '" + maTK + "'";
 
             PreparedStatement pre = conn.preparedStatement(query);
@@ -90,10 +116,14 @@ public class quyenDAO {
             if (rs.next()) {
                 quyen.setMaQuyen(rs.getString(1));
                 quyen.setTenQuyen(rs.getString(2));
+                pre.close();
+                conn.disconnect();
                 return quyen;
             } else {
                 // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
                 System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                pre.close();
+                conn.disconnect();
                 return null;
             }
         } catch (SQLException e) {
@@ -101,5 +131,5 @@ public class quyenDAO {
             return null;
         }
     }
-    
+
 }

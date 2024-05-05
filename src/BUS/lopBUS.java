@@ -4,7 +4,6 @@
  */
 package BUS;
 
-import java.sql.*;
 import DAO.lopDAO;
 import DTO.lopDTO;
 import XULY.ShowDiaLog;
@@ -13,12 +12,11 @@ import java.util.ArrayList;
 public class lopBUS {
 
     private lopDAO lop;
-
-    public lopBUS() throws SQLException {
+    public lopBUS()  {
         lop = new lopDAO();
     }
 
-    public ArrayList<String> layMaLopTheoMon(String tenMon) throws SQLException {
+    public ArrayList<String> layMaLopTheoMon(String tenMon)  {
         return lop.layMaLopTheoMon(tenMon);
     }
 
@@ -32,7 +30,7 @@ public class lopBUS {
         return nhomLop;
     }
 
-    public ArrayList<lopDTO> layDanhSachLopTheoMaGV(String maGV) throws SQLException {
+    public ArrayList<lopDTO> layDanhSachLopTheoMaGV(String maGV)  {
         return lop.layDanhSachLopTheoMaGV(maGV);
     }
 

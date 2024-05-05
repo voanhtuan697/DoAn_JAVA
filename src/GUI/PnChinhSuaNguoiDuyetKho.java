@@ -61,7 +61,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
     private Map<String, String> mapCBB_mon = new HashMap<>();
     private JTextField txt_timKiem;
 
-    public PnChinhSuaNguoiDuyetKho(String maTK) throws SQLException {
+    public PnChinhSuaNguoiDuyetKho(String maTK) {
         tkBUS = new taiKhoanBUS();
         ndBUS = new nguoiDungBUS();
         monBUS = new monBUS();
@@ -142,11 +142,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    try {
-                        search();
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
+                    search();
                 }
             }
 
@@ -156,7 +152,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
         });
     }
 
-    public void loadData() throws SQLException {
+    public void loadData() {
         ArrayList<taiKhoanDTO> arr = this.tkBUS.getTaiKhoan();
         for (taiKhoanDTO tk : arr) {
             if (ctqBUS.kiemTraTKcoTonTaiCN(tk.getMaTK(), "CNDCH")) {
@@ -167,7 +163,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
         table.setModel(model);
     }
 
-    public void loadCBBMon() throws SQLException {
+    public void loadCBBMon() {
         ArrayList<monDTO> arr = monBUS.layCacMonChuaCoKho();
         for (monDTO m : arr) {
             cbb_mon.addItem(m.getTenMon());
@@ -185,25 +181,18 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
                 khoCauHoiDTO kch = khoBUS.layKhoBangMaTK(maTK);
                 String tenMon = "";
                 if (kch != null) {
-                    try {
-                        tenMon = monBUS.layTenMonTheoMaMon(kch.getMaMon());
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
+                    tenMon = monBUS.layTenMonTheoMaMon(kch.getMaMon());
+
                     new ShowDiaLog("Đã duyệt kho câu hỏi môn: " + tenMon, ShowDiaLog.INFO_DIALOG);
                 } else {
                     String monSelect = (String) cbb_mon.getSelectedItem();
                     String maMon = mapCBB_mon.get(monSelect);
-                    try {
-                        if (khoBUS.themTBMChoKhoCH(maTK, maMon)) {
-                            new ShowDiaLog("Thêm người duyệt kho câu hỏi " + monSelect + "thành công!", ShowDiaLog.SUCCESS_DIALOG);
-                            cbb_mon.removeAllItems();
-                            loadCBBMon();
-                        } else {
-                            new ShowDiaLog("Thêm người duyệt kho câu hỏi " + monSelect + "thất bại!", ShowDiaLog.ERROR_DIALOG);
-                        }
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
+                    if (khoBUS.themTBMChoKhoCH(maTK, maMon)) {
+                        new ShowDiaLog("Thêm người duyệt kho câu hỏi " + monSelect + "thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                        cbb_mon.removeAllItems();
+                        loadCBBMon();
+                    } else {
+                        new ShowDiaLog("Thêm người duyệt kho câu hỏi " + monSelect + "thất bại!", ShowDiaLog.ERROR_DIALOG);
                     }
 
                 }
@@ -218,24 +207,18 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
                 khoCauHoiDTO kch = khoBUS.layKhoBangMaTK(maTK);
                 String tenMon = "";
                 if (kch != null) {
-                    try {
-                        tenMon = monBUS.layTenMonTheoMaMon(kch.getMaMon());
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
+                    tenMon = monBUS.layTenMonTheoMaMon(kch.getMaMon());
+
                     int option = JOptionPane.showConfirmDialog(this, "Đang duyệt kho câu hỏi môn " + tenMon + "\nBạn có muốn xóa quyền duyệt kho của người này không?", "Thông báo", JOptionPane.OK_CANCEL_OPTION);
                     if (option == JOptionPane.OK_OPTION) {
-                        try {
-                            if (khoBUS.xoaMaTBMKhoiKhoCH(kch.getMaKho())) {
-                                new ShowDiaLog("Xóa người duyệt câu hỏi môn " + tenMon + " thành công!", ShowDiaLog.SUCCESS_DIALOG);
-                                cbb_mon.removeAllItems();
-                                loadCBBMon();
-                            } else {
-                                new ShowDiaLog("Xóa người duyệt câu hỏi môn " + tenMon + " thất bại!", ShowDiaLog.ERROR_DIALOG);
-                            }
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
+                        if (khoBUS.xoaMaTBMKhoiKhoCH(kch.getMaKho())) {
+                            new ShowDiaLog("Xóa người duyệt câu hỏi môn " + tenMon + " thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                            cbb_mon.removeAllItems();
+                            loadCBBMon();
+                        } else {
+                            new ShowDiaLog("Xóa người duyệt câu hỏi môn " + tenMon + " thất bại!", ShowDiaLog.ERROR_DIALOG);
                         }
+
                     }
                 } else {
                     new ShowDiaLog("Người này chưa duyệt kho nào!", ShowDiaLog.INFO_DIALOG);
@@ -255,11 +238,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
                 khoCauHoiDTO kch = khoBUS.layKhoBangMaTK(maTK);
                 String tenMon = "";
                 if (kch != null) {
-                    try {
-                        tenMon = monBUS.layTenMonTheoMaMon(kch.getMaMon());
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
+                    tenMon = monBUS.layTenMonTheoMaMon(kch.getMaMon());
                     new ShowDiaLog("Đã duyệt kho câu hỏi môn: " + tenMon, ShowDiaLog.INFO_DIALOG);
                 } else {
                     new ShowDiaLog("Chưa duyệt kho nào!" + tenMon, ShowDiaLog.INFO_DIALOG);
@@ -284,7 +263,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
     public void mouseExited(MouseEvent e) {
     }
 
-    private void search() throws SQLException {
+    private void search() {
         String searchText = txt_timKiem.getText().toLowerCase();
         model.setRowCount(0);
         ArrayList<taiKhoanDTO> arr = this.tkBUS.getTaiKhoan();
@@ -300,7 +279,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
         }
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(800, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

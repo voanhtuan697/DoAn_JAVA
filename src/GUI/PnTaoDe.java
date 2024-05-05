@@ -95,7 +95,7 @@ public class PnTaoDe extends JPanel {
     private ArrayList<String> dsCauHoi = new ArrayList<>();
     private JFormattedTextField txtNgayGio;
 
-    public PnTaoDe() throws SQLException {
+    public PnTaoDe() {
 //        this.maTK = maTK;
         init();
         initComponents();
@@ -444,7 +444,7 @@ public class PnTaoDe extends JPanel {
         table.setDefaultRenderer(Object.class, renderer);
     }
 
-    public void loadData() throws SQLException {
+    public void loadData() {
         loadDSDT();
         loadCbbMonLop();
         this.revalidate();
@@ -452,7 +452,7 @@ public class PnTaoDe extends JPanel {
 
     }
 
-    public void loadDSDT() throws SQLException {
+    public void loadDSDT() {
         modelDeThi = new DefaultTableModel(colDeThi, 0);
         for (deThiDTO x : new deThiBUS().layDanhSachDeThi()) {
             modelDeThi.addRow(new Object[]{x.getMaDT(), new nguoiDungBUS().layTenNguoiDungTheoMaTK(x.getMaGV()), x.getTenDeThi(), new monBUS().layTenMonTheoMaDeThi(x.getMaDT()),
@@ -462,7 +462,7 @@ public class PnTaoDe extends JPanel {
 
     }
 
-    public void loadCbbMonLop() throws SQLException {
+    public void loadCbbMonLop() {
         for (monDTO x : new monBUS().layMonTuLop()) {
             cbbMon.addItem(x.getTenMon());
         }
@@ -473,23 +473,19 @@ public class PnTaoDe extends JPanel {
         cbbLop.repaint();
     }
 
-    public void addEvent1() throws SQLException {
+    public void addEvent1() {
         cbbMon.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 cbbLop.removeAllItems();
-                try {
-                    for (String x : new lopBUS().layMaLopTheoMon(cbbMon.getSelectedItem().toString())) {
-                        cbbLop.addItem(x);
-                    }
-                    cbbLop.revalidate();
-                    cbbLop.repaint();
-                    loadTable_Left();
-                    table_left.revalidate();
-                    table_left.repaint();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                for (String x : new lopBUS().layMaLopTheoMon(cbbMon.getSelectedItem().toString())) {
+                    cbbLop.addItem(x);
                 }
+                cbbLop.revalidate();
+                cbbLop.repaint();
+                loadTable_Left();
+                table_left.revalidate();
+                table_left.repaint();
             }
         });
         btnThem.addActionListener(new ActionListener() {
@@ -574,17 +570,18 @@ public class PnTaoDe extends JPanel {
                         new ShowDiaLog("Thêm thất bại!", ShowDiaLog.ERROR_DIALOG);
                         return;
                     }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
                 } catch (ParseException ex) {
                     Logger.getLogger(PnTaoDe.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
-        });
-        table_left.addMouseListener(new MouseAdapter() {
+        }
+        );
+        table_left.addMouseListener(
+                new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e
+            ) {
                 if (e.getClickCount() == 2) {
                     try {
                         String maCH = new cauHoiBUS().layMaCHTheoNoiDung(table_left.getValueAt(table_left.getSelectedRow(), 0).toString());
@@ -594,10 +591,13 @@ public class PnTaoDe extends JPanel {
                     }
                 }
             }
-        });
-        table_right.addMouseListener(new MouseAdapter() {
+        }
+        );
+        table_right.addMouseListener(
+                new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e
+            ) {
                 if (e.getClickCount() == 2) {
                     try {
                         String maCH = new cauHoiBUS().layMaCHTheoNoiDung(table_right.getValueAt(table_right.getSelectedRow(), 0).toString());
@@ -607,7 +607,8 @@ public class PnTaoDe extends JPanel {
                     }
                 }
             }
-        });
+        }
+        );
         /*tblDeThi.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -623,46 +624,41 @@ public class PnTaoDe extends JPanel {
                 }
             }
         });*/
-        btnXoa.addActionListener(new ActionListener() {
+        btnXoa.addActionListener(
+                new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e
+            ) {
                 int selectedRow = tblDeThi.getSelectedRow();
                 if (selectedRow != -1) {
-                    try {
-                        String maDT = tblDeThi.getValueAt(selectedRow, 0).toString();
-                        for (deThiDTO x : new deThiBUS().layDanhSachDeThi()) {
-                            if (x.getMaDT().equalsIgnoreCase(maDT) && x.getTrangThai() == 0) {
-                                int a = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa đề thi?", "Thông báo", JOptionPane.YES_NO_OPTION);
-                                if (a == JOptionPane.YES_OPTION) {
-                                    try {
-                                        if (new deThiBUS().xoaDeThiBangMaDT(maDT)) {
-                                            new ShowDiaLog("Xóa thành công!", ShowDiaLog.SUCCESS_DIALOG);
-                                            loadDSDT();
-                                            return;
-                                        }
-                                    } catch (SQLException ex) {
-                                        ex.printStackTrace();
-                                    }
-                                } else {
+                    String maDT = tblDeThi.getValueAt(selectedRow, 0).toString();
+                    for (deThiDTO x : new deThiBUS().layDanhSachDeThi()) {
+                        if (x.getMaDT().equalsIgnoreCase(maDT) && x.getTrangThai() == 0) {
+                            int a = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa đề thi?", "Thông báo", JOptionPane.YES_NO_OPTION);
+                            if (a == JOptionPane.YES_OPTION) {
+                                if (new deThiBUS().xoaDeThiBangMaDT(maDT)) {
+                                    new ShowDiaLog("Xóa thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                                    loadDSDT();
                                     return;
                                 }
+
+                            } else {
+                                return;
                             }
                         }
-                        new ShowDiaLog("Không thể xóa! Đề thi này đã/đang được làm!", ShowDiaLog.ERROR_DIALOG);
-                        return;
-
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
                     }
+                    new ShowDiaLog("Không thể xóa! Đề thi này đã/đang được làm!", ShowDiaLog.ERROR_DIALOG);
+                    return;
 
                 } else {
                     new ShowDiaLog("Vui lòng chọn đề thi cần xóa!", ShowDiaLog.ERROR_DIALOG);
                 }
             }
-        });
+        }
+        );
     }
 
-    /*public void displayDeThi(int selectedRow) throws SQLException, ParseException {
+    /*public void displayDeThi(int selectedRow) , ParseException {
         String maDT = tblDeThi.getValueAt(selectedRow, 0).toString();
         System.out.println(maDT);
         tfTenDe.setText(maDT);
@@ -719,7 +715,7 @@ public class PnTaoDe extends JPanel {
     }
 //pnRight
 
-    public void loadTable_Left() throws SQLException {
+    public void loadTable_Left() {
 
         ch = new cauHoiBUS();
         model_left = new DefaultTableModel();
@@ -740,7 +736,7 @@ public class PnTaoDe extends JPanel {
         this.repaint();
     }
 
-    public void loadTable_Right() throws SQLException {
+    public void loadTable_Right() {
         ch = new cauHoiBUS();
         model_right = new DefaultTableModel();
         model_right.addColumn("Nội dung");
@@ -756,7 +752,7 @@ public class PnTaoDe extends JPanel {
         this.repaint();
     }
 
-    public void luuCauHoiDaChon() throws SQLException {
+    public void luuCauHoiDaChon() {
         String maCH = null;
         int selectedRow = table_left.getSelectedRow();
         if (selectedRow != -1) {
@@ -778,7 +774,7 @@ public class PnTaoDe extends JPanel {
         }
     }
 
-    public void xoaCauHoiDaChon() throws SQLException {
+    public void xoaCauHoiDaChon() {
         String tmp = "";
         int selectedRow = table_right.getSelectedRow();
         if (selectedRow != -1) {
@@ -793,7 +789,7 @@ public class PnTaoDe extends JPanel {
         }
     }
 
-    public ArrayList<cauHoiDTO> timKiem(ArrayList<cauHoiDTO> ds, String tuKhoa) throws SQLException {
+    public ArrayList<cauHoiDTO> timKiem(ArrayList<cauHoiDTO> ds, String tuKhoa) {
         ArrayList<cauHoiDTO> ketQua = new ArrayList<>();
 
         for (cauHoiDTO x : new cauHoiBUS().layDanhSachCauHoi()) {
@@ -805,7 +801,7 @@ public class PnTaoDe extends JPanel {
         return ketQua;
     }
 
-    public void loadTable_LeftTheoCmb(String ma, String maMon) throws SQLException {
+    public void loadTable_LeftTheoCmb(String ma, String maMon) {
         System.out.println(ma);
         String maKho = new khoCauHoiBUS().layMaKhoCHTheoMaMon(maMon);
         System.out.println(maKho);
@@ -866,21 +862,18 @@ public class PnTaoDe extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     model_left = new DefaultTableModel();
                     model_left.addColumn("Nội dung");
-                    try {
-                        ArrayList<cauHoiDTO> ketQua = timKiem(new cauHoiBUS().layDanhSachCauHoi(), txt_ndCH.getText());
-                        for (cauHoiDTO y : ketQua) {
-                            model_left.addRow(new Object[]{
-                                y.getNoidung()
-                            });
-                            break;
-                        }
 
-                        table_left.setModel(model_left);
-                        ketQua.clear();
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-
+                    ArrayList<cauHoiDTO> ketQua = timKiem(new cauHoiBUS().layDanhSachCauHoi(), txt_ndCH.getText());
+                    for (cauHoiDTO y : ketQua) {
+                        model_left.addRow(new Object[]{
+                            y.getNoidung()
+                        });
+                        break;
                     }
+
+                    table_left.setModel(model_left);
+                    ketQua.clear();
+
                 }
             }
         });
@@ -907,7 +900,7 @@ public class PnTaoDe extends JPanel {
 
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(900, 500);
         PnTaoDe p = new PnTaoDe();

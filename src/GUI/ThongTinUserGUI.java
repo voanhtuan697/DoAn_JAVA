@@ -284,20 +284,16 @@ public class ThongTinUserGUI extends JPanel {
                 int a = JOptionPane.showConfirmDialog(null, "Bạn muốn cập nhật thông tin?", "Thông báo", JOptionPane.YES_NO_OPTION);
 
                 if (a == JOptionPane.YES_OPTION) {
-                    try {
-                        if (nd.updateNguoiDung(hoTen, newNgaySinh, nd.layMaUserTheoMaTK(maTK))) {
-                            new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.ERROR_DIALOG);
-                            pnLeft.revalidate();
-                            pnLeft.repaint();
-                            
-                            return;
-                        } else {
-                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALOG);
-                        }
+                    if (nd.updateNguoiDung(hoTen, newNgaySinh, nd.layMaUserTheoMaTK(maTK))) {
+                        new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                        pnLeft.revalidate();
+                        pnLeft.repaint();
 
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
+                        return;
+                    } else {
+                        new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALOG);
                     }
+
                 } else {
                     return;
                 }
@@ -313,7 +309,6 @@ public class ThongTinUserGUI extends JPanel {
                     tfMk.requestFocus();
                     return;
                 }
-                try {
                     taiKhoanDTO x = new taiKhoanBUS().layTaiKhoan(maTK);
                     if (!tfMk.getText().trim().equalsIgnoreCase(x.getMatKhau())) {
                         new ShowDiaLog("Mật khẩu cũ không đúng!", ShowDiaLog.ERROR_DIALOG);
@@ -321,9 +316,6 @@ public class ThongTinUserGUI extends JPanel {
                         tfMk.selectAll();
                         return;
                     }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
                 if (tfMKMoi.getText().trim().isEmpty()) {
                     new ShowDiaLog("Vui lòng nhập mật khẩu mới!", ShowDiaLog.ERROR_DIALOG);
                     tfMKMoi.requestFocus();
@@ -345,7 +337,6 @@ public class ThongTinUserGUI extends JPanel {
                 int a = JOptionPane.showConfirmDialog(null, "Bạn muốn cập nhật mật khẩu?", "Thông báo", JOptionPane.YES_NO_OPTION);
 
                 if (a == JOptionPane.YES_OPTION) {
-                    try {
                         if (new taiKhoanBUS().updateMatKhau(newPw, maTK)) {
                             new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.SUCCESS_DIALOG);
                             tfMk.setText("");
@@ -358,9 +349,6 @@ public class ThongTinUserGUI extends JPanel {
                             new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALOG);
                         }
 
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
                 } else {
                     return;
                 }

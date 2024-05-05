@@ -29,6 +29,7 @@ public class chiTietLopDAO {
             pre.setString(1, t.getMaLop());
             pre.setString(2, t.getMaSV());
             success = pre.executeUpdate() > 0;
+            pre.close();
             conn.disconnect();
         }catch(SQLException e){
             System.err.println("Them sinh vao lop hoc that bai" + e.getMessage());

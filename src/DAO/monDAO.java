@@ -16,85 +16,128 @@ public class monDAO {
 
     private MyConnection conn;
 
-    public monDAO() throws SQLException {
-        conn = new MyConnection();
-        conn.Connect();
+    public monDAO() {
+        try {
+            conn = new MyConnection();
+        } catch (Exception e) {
+            System.out.println("Ket noi database khong thanh cong" + e.getMessage());
+        }
     }
 
-    public ArrayList<monDTO> layDanhSachMon() throws SQLException {
+    public ArrayList<monDTO> layDanhSachMon() {
         ArrayList<monDTO> arr = new ArrayList<>();
-        String sql = "SELECT * FROM mon";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            monDTO mon = new monDTO();
-            mon.setMaMon(rs.getString(1));
-            mon.setTenMon(rs.getString(2));
-            arr.add(mon);
+        try {
+            conn.Connect();
+            String sql = "SELECT * FROM mon";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                monDTO mon = new monDTO();
+                mon.setMaMon(rs.getString(1));
+                mon.setTenMon(rs.getString(2));
+                arr.add(mon);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay danh sach mon khong thanh cong" + e.getMessage());
         }
         return arr;
     }
 
-    public String layTenMonTheoMaMon(String maMon) throws SQLException {
-        String sql = "SELECT TenMon FROM mon WHERE MaMon=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, maMon);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            return rs.getString(1);
+    public String layTenMonTheoMaMon(String maMon) {
+        try {
+            conn.Connect();
+            String sql = "SELECT TenMon FROM mon WHERE MaMon=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, maMon);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay ten mon khong thanh cong" + e.getMessage());
         }
         return null;
     }
 
-    public String layMaMonTheoTenMon(String tenMon) throws SQLException {
-        String sql = "SELECT MaMon FROM mon WHERE TenMon=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, tenMon);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            return rs.getString(1);
+    public String layMaMonTheoTenMon(String tenMon) {
+        try {
+            conn.Connect();
+            String sql = "SELECT MaMon FROM mon WHERE TenMon=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, tenMon);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay ma mon khong thanh cong" + e.getMessage());
         }
         return null;
     }
 
-    public String layTenMonTheoMaDeThi(String maDT) throws SQLException {
-        String sql = "select TenMon from MON, CHITIETDELOP, LOP,DETHI where MON.MaMon=LOP.MaMon and CHITIETDELOP.MaLop=LOP.MaLop and DETHI.MaDT = CHITIETDELOP.MaDT and DETHI.MaDT=?";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        stmt.setString(1, maDT);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            return rs.getString(1);
+    public String layTenMonTheoMaDeThi(String maDT) {
+        try {
+            conn.Connect();
+            String sql = "select TenMon from MON, CHITIETDELOP, LOP,DETHI where MON.MaMon=LOP.MaMon and CHITIETDELOP.MaLop=LOP.MaLop and DETHI.MaDT = CHITIETDELOP.MaDT and DETHI.MaDT=?";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            stmt.setString(1, maDT);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay ten mon khong thanh cong" + e.getMessage());
         }
         return null;
     }
 
-    public ArrayList<monDTO> layMonTuLop() throws SQLException {
+    public ArrayList<monDTO> layMonTuLop() {
         ArrayList<monDTO> arr = new ArrayList<>();
-        String sql = "SELECT DISTINCT mon.MaMon, TenMon FROM mon,lop WHERE lop.MaMon = mon.MaMon";
-        PreparedStatement stmt = conn.preparedStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-//                if (x.getMaMon().equalsIgnoreCase(rs.getString(1)) == false) {
-            monDTO mon = new monDTO();
-            mon.setMaMon(rs.getString(1));
-            mon.setTenMon(rs.getString(2));
-            arr.add(mon);
-//                    break;
+        try {
+            conn.Connect();
+            String sql = "SELECT DISTINCT mon.MaMon, TenMon FROM mon,lop WHERE lop.MaMon = mon.MaMon";
+            PreparedStatement stmt = conn.preparedStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                monDTO mon = new monDTO();
+                mon.setMaMon(rs.getString(1));
+                mon.setTenMon(rs.getString(2));
+                arr.add(mon);
 
+            }
+            stmt.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay mon khong thanh cong" + e.getMessage());
         }
         return arr;
     }
 
-    public ArrayList<monDTO> layCacMonChuaCoKho() throws SQLException {
+    public ArrayList<monDTO> layCacMonChuaCoKho() {
         ArrayList<monDTO> arr = new ArrayList<>();
-        String sql = "select m.mamon, tenmon from mon m join khocauhoi kch on kch.mamon = m.mamon where matbm IS NULL";
-        PreparedStatement pre = conn.preparedStatement(sql);
-        ResultSet rs = pre.executeQuery();
-        while (rs.next()) {
-            monDTO mon = new monDTO();
-            mon.setMaMon(rs.getString(1));
-            mon.setTenMon(rs.getString(2));
-            arr.add(mon);
+        try {
+            conn.Connect();
+            String sql = "select m.mamon, tenmon from mon m join khocauhoi kch on kch.mamon = m.mamon where matbm IS NULL";
+            PreparedStatement pre = conn.preparedStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                monDTO mon = new monDTO();
+                mon.setMaMon(rs.getString(1));
+                mon.setTenMon(rs.getString(2));
+                arr.add(mon);
+            }
+            pre.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            System.out.println("Lay mon chua co kho khong thanh cong" + e.getMessage());
         }
         return arr;
     }
@@ -102,6 +145,7 @@ public class monDAO {
     public String layTenMonBangMaCH(String maCH) {
         String tenMon = "";
         try {
+            conn.Connect();
             String query = "select tenmon\n"
                     + "from cauhoi ch\n"
                     + "join khocauhoi k on ch.makho = k.makho\n"
@@ -111,10 +155,14 @@ public class monDAO {
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
                 tenMon = rs.getString(1);
+                pre.close();
+                conn.disconnect();
                 return tenMon;
             } else {
                 // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
                 System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                pre.close();
+                conn.disconnect();
                 return "";
             }
         } catch (SQLException e) {
@@ -126,6 +174,7 @@ public class monDAO {
     public String layTenMonBangMaDT(String maDT) {
         String tenMon = "";
         try {
+            conn.Connect();
             String query = "select TOP 1 tenmon\n"
                     + "from dethi dt\n"
                     + "join chitietdelop ct on ct.madt = dt.madt\n"
@@ -136,9 +185,13 @@ public class monDAO {
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
                 tenMon = rs.getString(1);
+                pre.close();
+                conn.disconnect();
                 return tenMon;
             } else {
                 System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                pre.close();
+                conn.disconnect();
                 return "";
             }
         } catch (SQLException e) {
@@ -158,6 +211,7 @@ public class monDAO {
                     monDTO item = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
                     list.add(item);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -177,6 +231,7 @@ public class monDAO {
                 if (rs.next()) {
                     MaMon = rs.getString("MaMon");
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -196,6 +251,7 @@ public class monDAO {
                 if (rs.next()) {
                     TenMon = rs.getString("TenMon");
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -223,12 +279,14 @@ public class monDAO {
             pre.setString(1, m.getMaMon());
             pre.setString(2, m.getTenMon());
             success = pre.executeUpdate() > 0;
+            pre.close();
             conn.disconnect();
         } catch (SQLException e) {
             System.out.println("Them mon that bai" + e.getMessage());
         }
         return success;
     }
+
     public ArrayList<monDTO> TimKiem(String keyword) {
         ArrayList<monDTO> list = new ArrayList<>();
         try {
@@ -242,6 +300,7 @@ public class monDAO {
                     monDTO m = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
                     list.add(m);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {
@@ -264,6 +323,7 @@ public class monDAO {
                     monDTO m = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
                     list.add(m);
                 }
+                pre.close();
             }
             conn.disconnect();
         } catch (SQLException e) {

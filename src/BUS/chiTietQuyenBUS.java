@@ -6,7 +6,6 @@ package BUS;
 
 import DAO.chiTietQuyenDAO;
 import DTO.chiTietQuyenDTO;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 public class chiTietQuyenBUS {
     private chiTietQuyenDAO chiTietQ;
 
-    public chiTietQuyenBUS() throws SQLException {
+    public chiTietQuyenBUS()  {
         this.chiTietQ = new chiTietQuyenDAO();
     }
     
@@ -33,7 +32,7 @@ public class chiTietQuyenBUS {
         this.chiTietQ.themChiTietQuyen(ctq);
     }
     
-    public boolean kiemTraTKcoTonTaiCN(String maTK, String maCN) throws SQLException {
+    public boolean kiemTraTKcoTonTaiCN(String maTK, String maCN)  {
         return this.chiTietQ.kiemTraTKcoTonTaiCN(maTK, maCN);
     }
     

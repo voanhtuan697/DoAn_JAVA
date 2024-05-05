@@ -81,7 +81,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
     private cauHoiDAO cauHoiDAO;
     private File selectedFile;
 
-    public PanelTaoCauHoi() throws SQLException {
+    public PanelTaoCauHoi() {
         init();
         phanCauHoi(0);
         cauHoiDAO = new cauHoiDAO();
@@ -506,11 +506,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
                 }
                 // Gọi phương thức thêm câu hỏi từ lớp BUS
                 cauHoiBUS bus = null;
-                try {
-                    bus = new cauHoiBUS();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                bus = new cauHoiBUS();
                 if (bus.themCauHoi(cauHoiMoi)) {
                     new ShowDiaLog("Thêm câu hỏi thành công!", ShowDiaLog.SUCCESS_DIALOG);
                 } else {
@@ -519,11 +515,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
 
                 // Cập nhật lại table model sau khi thêm câu hỏi vào cơ sở dữ liệu
                 cauHoiDAO dao = null;
-                try {
-                    dao = new cauHoiDAO();
-                } catch (SQLException ex) {
-                    Logger.getLogger(PanelTaoCauHoi.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                dao = new cauHoiDAO();
                 dao.loadDataFromDatabase(model);
             }
         });
@@ -541,11 +533,8 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
 
                 // Gọi phương thức xóa câu hỏi từ lớp DAO
                 cauHoiDAO dao = null;
-                try {
-                    dao = new cauHoiDAO();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                dao = new cauHoiDAO();
+
                 if (dao.xoaCauHoi(maCH)) {
                     // Nếu xóa thành công, thông báo và cập nhật lại dữ liệu trên bảng
                     new ShowDiaLog("Xóa câu hỏi thành công!", ShowDiaLog.SUCCESS_DIALOG);
@@ -588,11 +577,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
 
                 // Gọi phương thức sửa câu hỏi từ lớp DAO
                 cauHoiDAO dao = null;
-                try {
-                    dao = new cauHoiDAO();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                dao = new cauHoiDAO();
                 if (dao.suaCauHoi(cauHoiMoi)) {
                     // Nếu sửa thành công, thông báo và cập nhật lại dữ liệu trên bảng
                     new ShowDiaLog("Sửa câu hỏi thành công!", ShowDiaLog.SUCCESS_DIALOG);
@@ -759,7 +744,7 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
     
     
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(800, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

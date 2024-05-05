@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import BUS.cauHoiBUS1;
+import BUS.cauHoiBUS;
 import BUS.dapAnBUS;
 import BUS.monBUS;
 import BUS.nguoiDungBUS;
@@ -39,14 +39,14 @@ import static javax.swing.border.TitledBorder.DEFAULT_POSITION;
 public class FrameXemChiTietCauHoi extends JFrame {
 
     private String maCH;
-    private cauHoiBUS1 cauHoiBUS;
+    private cauHoiBUS cauHoiBUS;
     private cauHoiDTO ch;
     private dapAnBUS dapAnBUS;
     private String[] bangChuCai;
 
     public FrameXemChiTietCauHoi(String maCH) throws SQLException {
         this.maCH = maCH;
-        cauHoiBUS = new cauHoiBUS1();
+        cauHoiBUS = new cauHoiBUS();
         dapAnBUS = new dapAnBUS();
         ch = cauHoiBUS.layCauHoiBangMaCH(maCH);
         init();

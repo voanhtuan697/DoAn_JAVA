@@ -89,4 +89,21 @@ public class khoCauHoiDAO {
             return false;
         }
     }
+    
+    public boolean ThemKho(khoCauHoiDTO k) {
+        boolean success = false;
+        try{
+            conn.Connect();
+            String sql = "INSERT INTO KHOCAUHOI(MaKho,MaMon,MaTBM) VALUES(?,?,?)";
+            PreparedStatement pre = conn.preparedStatement(sql);
+            pre.setString(1, k.getMaKho());
+            pre.setString(2, k.getMaMon());
+            pre.setString(3, k.getMaTBM());
+            success = pre.executeUpdate() > 0;
+            conn.disconnect();
+        }catch(SQLException e){
+            System.err.println("Them kho that bai" + e.getMessage());
+        }
+        return success;
+    }
 }

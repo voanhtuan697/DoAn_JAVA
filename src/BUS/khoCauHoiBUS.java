@@ -39,4 +39,12 @@ public class khoCauHoiBUS {
     public boolean themTBMChoKhoCH(String maTBM, String maMon) throws SQLException {
         return kho.themTBMChoKhoCH(maTBM, maMon);
     }
+    
+    public boolean ThemKho(String MaKho, String MaMon, String MaTBM) {
+        khoCauHoiDTO k = new khoCauHoiDTO();
+        k.setMaKho(MaKho);;
+        k.setMaMon(MaMon);
+        k.setMaTBM(MaTBM);
+        return kho.ThemKho(k);
+    }
 }

@@ -1,9 +1,9 @@
 package GUI;
 
-import BUS.deThiBUS2;
-import BUS.ketQuaBUS2;
-import BUS.lopBUS2;
-import BUS.monBUS2;
+import BUS.deThiBUS;
+import BUS.ketQuaBUS;
+import BUS.lopBUS;
+import BUS.monBUS;
 import DTO.deThiDTO;
 import DTO.ketQuaDTO;
 import DTO.lopDTO;
@@ -32,6 +32,7 @@ import XULY.ShowDiaLog;
 import XULY.xuLyFileExcel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
@@ -48,12 +49,16 @@ public class PnKetQua extends JPanel {
     private JComboBox cbMonthi, cbDeThi, cbLop;
     private JTable table;
     private ButtonGroup group;
-    private ketQuaBUS2 busKQ = new ketQuaBUS2();
-    private monBUS2 busMon = new monBUS2();
-    private deThiBUS2 busThi = new deThiBUS2();
-    private lopBUS2 busLop = new lopBUS2();
+    private ketQuaBUS busKQ;
+    private monBUS busMon;
+    private deThiBUS busThi;
+    private lopBUS busLop;
 
-    public PnKetQua() {
+    public PnKetQua() throws SQLException {
+        busThi = new deThiBUS();
+        busKQ = new ketQuaBUS();
+        busMon = new monBUS();
+        busLop = new lopBUS();
         init();
         initComponent();
         showLayout();
@@ -61,7 +66,7 @@ public class PnKetQua extends JPanel {
     }
 
     private void init() {
-
+        
         pnHeader = new JPanel();
         pnHeader.setBackground(gray_bg);
 
@@ -413,16 +418,5 @@ public class PnKetQua extends JPanel {
     private void xuatExcel() {
         xuLyFileExcel file = new xuLyFileExcel();
         file.xuatExcel(table);
-    }
-
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(950, 450);
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PnKetQua p = new PnKetQua();
-        f.getContentPane().setLayout(new BorderLayout());
-        f.add(p);
-        f.setVisible(true);
     }
 }

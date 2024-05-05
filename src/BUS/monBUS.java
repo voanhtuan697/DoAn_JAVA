@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class monBUS {
 
     private monDAO mon;
+    
 
     public monBUS() throws SQLException {
         this.mon = new monDAO();
@@ -40,18 +41,39 @@ public class monBUS {
     public ArrayList<monDTO> layMonTuLop() throws SQLException {
         return mon.layMonTuLop();
     }
-    
-    public ArrayList<monDTO> layCacMonChuaCoKho() throws SQLException{
+
+    public ArrayList<monDTO> layCacMonChuaCoKho() throws SQLException {
         ArrayList<monDTO> arr = mon.layCacMonChuaCoKho();
         return arr;
     }
-    
-    public String layTenMonBangMaCH(String maCH){
+
+    public String layTenMonBangMaCH(String maCH) {
         String tenMon = mon.layTenMonBangMaCH(maCH);
         return tenMon;
     }
-    public String layTenMonBangMaDT(String maDT){
+
+    public String layTenMonBangMaDT(String maDT) throws SQLException {
         String tenMon = mon.layTenMonBangMaDT(maDT);
         return tenMon;
+    }
+
+    public ArrayList getList() {
+        ArrayList<monDTO> list = mon.listMon();
+        return list;
+    }
+
+    public String getMaMonByName(String name) {
+        return mon.getMaMonByName(name);
+    }
+
+    public String getNameByMaMon(String MaMon) {
+        return mon.getNameByMaMon(MaMon);
+    }
+
+    public boolean ThemMon(String MaMon, String TenMon) {
+        monDTO m = new monDTO();
+        m.setMaMon(MaMon);
+        m.setTenMon(TenMon);
+        return mon.ThemMon(m);
     }
 }

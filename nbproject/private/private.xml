@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/GUI/PnDSLopGV.java</file>
+=======
+            <file>file:/D:/java/Doan_JAVA/src/BUS/cauHoiBUS.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/Main/main.java</file>
+>>>>>>> 00b154d62ccea2b1ef10b9278701c5dd311c122b
         </group>
     </open-files>
 </project-private>

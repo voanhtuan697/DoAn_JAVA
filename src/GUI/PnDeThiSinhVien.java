@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static GUI.BASE.font14;
+import static GUI.BASE.font16;
 import static GUI.BASE.gray_bg;
 import XULY.ShowDiaLog;
 import java.awt.CardLayout;
@@ -41,6 +42,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseListener {
 
@@ -88,13 +91,17 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
         pnHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
         JLabel lb_trangThaiDeThi = new JLabel("Trạng thái:");
+        lb_trangThaiDeThi.setFont(font16);
         String[] cacTrangThai = new String[]{"Đề sắp diễn ra", "Đề đang diễn ra", "Đề đã diễn ra"};
         cbb_trangThai = new JComboBox<>(cacTrangThai);
+        cbb_trangThai.setFont(font16);
         cbb_trangThai.addActionListener(this);
         cbb_trangThai.setPreferredSize(new Dimension(150, cbb_trangThai.getPreferredSize().height));
 
         JLabel lb_timKiem = new JLabel("Tìm kiếm:");
+        lb_timKiem.setFont(font16);
         JTextField txt_timKiem = new JTextField(15);
+        txt_timKiem.setFont(font16);
 
         pnHeader.add(lb_trangThaiDeThi);
         pnHeader.add(cbb_trangThai);
@@ -104,17 +111,18 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
         JPanel pnTable = new JPanel();
         pnTable.setLayout(new BorderLayout());
 
-        Object[][] data = {};
         Object[] columns = {"Mã đề", "Môn", "Nhóm lớp", "Giảng viên", "Ngày thi", "Thời gian bắt đầu", "Số câu", "Thời gian làm bài(Phút)", "Trạng thái"};
-        model = new DefaultTableModel(data, columns);
-
-        table = new JTable(model) {
+        model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+
+        table = new JTable(model);
         table.addMouseListener(this);
+
+        setTableFont(table);
         JScrollPane scrollPane_table = new JScrollPane(table);
         pnTable.add(scrollPane_table, BorderLayout.CENTER);
 
@@ -122,9 +130,13 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
         pn_KetQua.setLayout(new FlowLayout(0, 10, 10));
 
         JLabel lb_ketQua = new JLabel("Kết quả");
+        lb_ketQua.setFont(font16);
         lb_diem = new JLabel("Điểm:");
+        lb_diem.setFont(font16);
         lb_soCauDung = new JLabel("Số câu đúng: ");
+        lb_soCauDung.setFont(font16);
         lb_thoiGianLam = new JLabel("Thời gian làm: ");
+        lb_thoiGianLam.setFont(font16);
         pn_KetQua.add(lb_ketQua);
         pn_KetQua.add(lb_diem);
         pn_KetQua.add(lb_soCauDung);
@@ -223,7 +235,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
                         lb_diem.setText("Điểm: " + kq.getDiem());
                         lb_soCauDung.setText("Số câu đúng: " + kq.getSLCauDung());
                         String thoiGianLamXong = kq.getTGLamXong().substring(0, 8);
-                        lb_thoiGianLam.setText("Thời gian làm: "+thoiGianLamXong);
+                        lb_thoiGianLam.setText("Thời gian làm: " + thoiGianLamXong);
                     } else {
                         new ShowDiaLog("Bạn đã không thi bài thi này!!!", ShowDiaLog.ERROR_DIALOG);
                         lb_diem.setText("Điểm: ");
@@ -251,5 +263,15 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
     public void mouseExited(MouseEvent e) {
     }
 
+    private void setTableFont(JTable table) {
+        table.setFont(font16);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font16);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font16);
+        table.setDefaultRenderer(Object.class, renderer);
+    }
 
 }

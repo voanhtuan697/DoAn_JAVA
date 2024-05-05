@@ -8,8 +8,8 @@ import BUS.khoCauHoiBUS;
 import BUS.monBUS;
 import DTO.monDTO;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font14;
-import static GUI.BASE.font14b;
+import static GUI.BASE.font16;
+import static GUI.BASE.font16b;
 import static GUI.BASE.gray_bg;
 import XULY.ShowDiaLog;
 import java.awt.BorderLayout;
@@ -70,7 +70,7 @@ public class PnTaoMonMoi extends JPanel {
     public void initComponents() {
         JLabel lblTimKiem, lblTenMon;
         lblTimKiem = new JLabel("Tìm kiếm");
-        lblTimKiem.setFont(font14);
+        lblTimKiem.setFont(font16);
         tfTimKiem = new JTextField(20);
         pnTop.add(lblTimKiem);
         pnTop.add(tfTimKiem);
@@ -88,11 +88,11 @@ public class PnTaoMonMoi extends JPanel {
         pnCenter.add(scrlTable);
 
         lblTenMon = new JLabel("Tên môn:");
-        lblTenMon.setFont(font14);
+        lblTenMon.setFont(font16);
         tfTenMon = new JTextField(20);
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
-        btnThem.setFont(font14b);
+        btnThem.setFont(font16b);
         btnThem.setForeground(white);
         btnThem.setBorderPainted(false);
         btnThem.setFocusPainted(false);
@@ -156,13 +156,13 @@ public class PnTaoMonMoi extends JPanel {
     }
 
     private void setTableFont(JTable table) {
-        table.setFont(font14);
+        table.setFont(font16);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(font14);
+        header.setFont(font16);
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setFont(font14);
+        renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
     }
 

@@ -13,8 +13,8 @@ import DTO.monDTO;
 import DTO.nguoiDungDTO;
 import DTO.taiKhoanDTO;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font14;
-import static GUI.BASE.font14b;
+import static GUI.BASE.font16;
+import static GUI.BASE.font16b;
 import static GUI.BASE.gray_bg;
 import XULY.ShowDiaLog;
 import XULY.xuLyFileExcel;
@@ -81,9 +81,12 @@ public class PnTaoLopMoi extends JPanel {
     public void initComponents() {
         JLabel lblTrangthai, lblSearch;
         lblTrangthai = new JLabel("Trạng thái");
+        lblTrangthai.setFont(font16);
         lblSearch = new JLabel("Tìm kiếm");
+        lblSearch.setFont(font16);
         String[] cacTrangThai = new String[]{"Tất cả", "Đang mở", "Đã kết thúc"};
         cbb_TrThLop = new JComboBox<>(cacTrangThai);
+        cbb_TrThLop.setFont(font16);
         tfSearch = new JTextField(20);
         pnTop.add(lblTrangthai);
         pnTop.add(cbb_TrThLop);
@@ -97,7 +100,7 @@ public class PnTaoLopMoi extends JPanel {
                 return false;
             }
         };
-////<<<<<<< HEAD:src/GUI/PnThemLop.java
+
         table = new JTable(model);
         setTableFont(table);
         JScrollPane scrlTable = new JScrollPane(table);
@@ -110,22 +113,21 @@ public class PnTaoLopMoi extends JPanel {
         JLabel[] lbl = new JLabel[title.length]; // Đổi độ dài của mảng thành title.length
         for (int i = 0; i < title.length; i++) {
             lbl[i] = new JLabel(title[i]);
-            lbl[i].setFont(font14);
+            lbl[i].setFont(font16);
         }
-//<<<<<<< HEAD
-//////=======
-//////>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34:src/GUI/PnTaoLopMoi.java
-//
-//=======
-//>>>>>>> 2e9c5d386f4d6c99caf1204174f0a720832cc056
+
         cb_GiaoVien = new JComboBox();
+        cb_GiaoVien.setFont(font16);
         cb_Mon = new JComboBox();
+        cb_Mon.setFont(font16);
         cbb_HocKy = new JComboBox<>(new String[]{"1", "2"});
+        cbb_HocKy.setFont(font16);
         cbb_TrangThai = new JComboBox<>(new String[]{"Hoạt động", "Kết thúc"});
+        cbb_TrangThai.setFont(font16);
 
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
-        btnThem.setFont(font14b);
+        btnThem.setFont(font16b);
         btnThem.setForeground(white);
         btnThem.setBorderPainted(false);
         btnThem.setFocusPainted(false);
@@ -135,7 +137,7 @@ public class PnTaoLopMoi extends JPanel {
         btnNhapE = new JButton("Nhập Excel");
         btnNhapE.setBackground(dark_green);
         btnNhapE.setForeground(white);
-        btnNhapE.setFont(font14b);
+        btnNhapE.setFont(font16b);
         btnNhapE.setBorderPainted(false);
         btnNhapE.setFocusPainted(false);
         btnNhapE.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -144,7 +146,7 @@ public class PnTaoLopMoi extends JPanel {
         btnXoa = new JButton("Xóa");
         btnXoa.setBackground(dark_green);
         btnXoa.setForeground(white);
-        btnXoa.setFont(font14b);
+        btnXoa.setFont(font16b);
         btnXoa.setBorderPainted(false);
         btnXoa.setFocusPainted(false);
         btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -153,7 +155,7 @@ public class PnTaoLopMoi extends JPanel {
         btnLopKT = new JButton("Lớp kết thúc");
         btnLopKT.setBackground(dark_green);
         btnLopKT.setForeground(white);
-        btnLopKT.setFont(font14b);
+        btnLopKT.setFont(font16b);
         btnLopKT.setBorderPainted(false);
         btnLopKT.setFocusPainted(false);
         btnLopKT.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -333,13 +335,13 @@ public class PnTaoLopMoi extends JPanel {
     }
 
     private void setTableFont(JTable table) {
-        table.setFont(font14);
+        table.setFont(font16);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(font14);
+        header.setFont(font16);
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setFont(font14);
+        renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
     }
 

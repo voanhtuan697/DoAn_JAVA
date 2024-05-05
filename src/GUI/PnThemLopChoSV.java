@@ -14,8 +14,8 @@ import DTO.monDTO;
 import DTO.nguoiDungDTO;
 import static GUI.BASE.createResizedIcon;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font14;
-import static GUI.BASE.font14b;
+import static GUI.BASE.font16;
+import static GUI.BASE.font16b;
 import static GUI.BASE.font16;
 import static GUI.BASE.gray_bg;
 import XULY.ShowDiaLog;
@@ -96,10 +96,13 @@ public class PnThemLopChoSV extends JPanel {
         cbHocKy.setPreferredSize(new Dimension(50, cbHocKy.getPreferredSize().height));
         cbLop = new JComboBox();
         cbLop.setPreferredSize(new Dimension(120, cbLop.getPreferredSize().height));
+        cbLop.setFont(font16);
         cbMon = new JComboBox();
         cbMon.setPreferredSize(new Dimension(200, cbMon.getPreferredSize().height));
+        cbMon.setFont(font16);
         cbNam = new JComboBox();
         cbNam.setPreferredSize(new Dimension(90, cbNam.getPreferredSize().height));
+        cbNam.setFont(font16);
 
         Object[] columns = {"Mã sinh viên", "Tên sinh viên", "Ngày sinh"};
         model = new DefaultTableModel(columns, 0) {
@@ -114,7 +117,7 @@ public class PnThemLopChoSV extends JPanel {
 
         btnThem = new JButton("Thêm");
         btnThem.setBackground(dark_green);
-        btnThem.setFont(font14b);
+        btnThem.setFont(font16b);
         btnThem.setForeground(white);
         btnThem.setBorderPainted(false);
         btnThem.setFocusPainted(false);
@@ -211,18 +214,18 @@ public class PnThemLopChoSV extends JPanel {
 
     private JLabel CreateLabel(String txt) {
         JLabel lbl = new JLabel(txt);
-        lbl.setFont(font14);
+        lbl.setFont(font16);
         return lbl;
     }
 
     private void setTableFont(JTable table) {
-        table.setFont(font14);
+        table.setFont(font16);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(font14);
+        header.setFont(font16);
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setFont(font14);
+        renderer.setFont(font16);
         table.setDefaultRenderer(Object.class, renderer);
     }
 

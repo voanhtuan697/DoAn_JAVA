@@ -345,9 +345,6 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.add(pnCSNDK, "pnCSNDK");
         
         
-        
-        
-//        cardLayout.show(cards, "pnDeThi");
 
         pn_right.add(pn_header, BorderLayout.NORTH);
         pn_right.add(pn_content, BorderLayout.CENTER);
@@ -417,6 +414,6 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) throws SQLException {
-        new GiaoDienUserGUI("TK11");
+        new GiaoDienUserGUI("TK17");
     }
 }

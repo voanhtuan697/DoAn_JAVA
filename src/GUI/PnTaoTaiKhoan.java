@@ -1,4 +1,4 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -23,8 +23,8 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import java.util.Date;
 import javax.swing.JComboBox;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font13;
-import static GUI.BASE.font14;
+import static GUI.BASE.font16;
+import static GUI.BASE.font16;
 import static GUI.BASE.gray_bg;
 import static GUI.BASE.white;
 import XULY.ShowDiaLog;
@@ -37,6 +37,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -77,12 +79,14 @@ public class PnTaoTaiKhoan extends JPanel {
         pn_header.setBackground(gray_bg);
 
         JLabel lblSearch = new JLabel("Tìm kiếm");
-        lblSearch.setFont(font14);
+        lblSearch.setFont(font16);
         txtSearch = new JTextField(15);
 
         JLabel lb_cbb_quyen = new JLabel("Quyền");
+        lb_cbb_quyen.setFont(font16);
 
         cbb_table_quyen = new JComboBox<>(arr_table_quyen);
+        cbb_table_quyen.setFont(font16);
         pn_header.add(lb_cbb_quyen);
         pn_header.add(cbb_table_quyen);
 
@@ -101,12 +105,15 @@ public class PnTaoTaiKhoan extends JPanel {
         pn_input.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 3));
 
         JLabel lb_name = new JLabel("Họ tên:");
-        lb_name.setFont(font13);
+        lb_name.setFont(font16);
         txtHoTen = new JTextField(18);
+        txtHoTen.setFont(font16);
         JLabel lb_ngaySinh = new JLabel("Ngày sinh:");
-        lb_ngaySinh.setFont(font13);
+        lb_ngaySinh.setFont(font16);
         JLabel lb_quyen = new JLabel("Quyền:");
+        lb_quyen.setFont(font16);
         cbb_quyen = new JComboBox<>();
+        cbb_quyen.setFont(font16);
         cbb_quyen.setPreferredSize(new Dimension(202, cbb_quyen.getPreferredSize().height));
 
         btnThem = new JButton("Thêm");
@@ -165,6 +172,8 @@ public class PnTaoTaiKhoan extends JPanel {
             }
         };
 
+        table = new JTable(model);
+        setTableFont(table);
         JScrollPane scrTabel = new JScrollPane(table);
         pn_table.add(scrTabel, BorderLayout.CENTER);
 
@@ -490,7 +499,7 @@ public class PnTaoTaiKhoan extends JPanel {
 
             }
         });
-        
+
         btnNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -587,6 +596,17 @@ public class PnTaoTaiKhoan extends JPanel {
         }
         );
 
+    }
+
+    private void setTableFont(JTable table) {
+        table.setFont(font16);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font16);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font16);
+        table.setDefaultRenderer(Object.class, renderer);
     }
 
     public void displaySelectedRow(int selectedRow) throws SQLException {

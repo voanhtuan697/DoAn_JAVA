@@ -273,9 +273,57 @@ public class monDAO {
         return list;
     }
 
+    public ArrayList<monDTO> DSMon1GVDay(String MaTK) {
+        ArrayList<monDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String sql = "SELECT m.* "
+                    + "FROM CHITIETMON c "
+                    + "JOIN MON m ON c.MaMon = m.MaMon "
+                    + "WHERE c.MaGV = ?";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, MaTK);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    monDTO m = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
+                    list.add(m);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lay ds mon 1gv that bai" + e.getMessage());
+        }
+        return list;
+    }
+    
+     public ArrayList<monDTO> TimKiemDSMon1GVDay(String MaTK,String keyword) {
+        ArrayList<monDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String key = "%" + keyword + "%";
+            String sql = "SELECT m.* "
+                    + "FROM CHITIETMON c "
+                    + "JOIN MON m ON c.MaMon = m.MaMon "
+                    + "WHERE c.MaGV = ? AND m.TenMon LIKE ?";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, MaTK);
+                pre.setString(2, key);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    monDTO m = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
+                    list.add(m);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lay ds mon 1gv that bai" + e.getMessage());
+        }
+        return list;
+    }
+
     public static void main(String[] args) throws SQLException {
         monDAO m = new monDAO();
-        String ss = m.layTenMonBangMaDT("DTTH1");
-        System.out.println(ss);
+        ArrayList<monDTO> list = m.DSMon1GVDay("TK16");
+        for(monDTO x : list){
+            System.out.println(x.getTenMon());
+        }
     }
 }

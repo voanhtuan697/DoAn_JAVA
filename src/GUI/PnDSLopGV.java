@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.*;
 import DTO.*;
+import static GUI.BASE.font16;
 import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,7 +27,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -82,13 +85,17 @@ public class PnDSLopGV extends JPanel implements ActionListener {
         pnHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
         JLabel lb_trangThaiLop = new JLabel("Trạng thái:");
+        lb_trangThaiLop.setFont(font16);
         String[] cacTrangThai = new String[]{"Đang dạy", "Đã dạy"};
         cbb_trangThai = new JComboBox<>(cacTrangThai);
 //        ChangeTableLopGV listener = new ChangeTableLopGV(this);
+        cbb_trangThai.setFont(font16);
         cbb_trangThai.addActionListener(this);
 
         JLabel lb_timKiem = new JLabel("Tìm kiếm:");
+        lb_timKiem.setFont(font16);
         txt_timKiem = new JTextField(15);
+        txt_timKiem.setFont(font16);
 
         pnHeader.add(lb_trangThaiLop);
         pnHeader.add(cbb_trangThai);
@@ -108,7 +115,7 @@ public class PnDSLopGV extends JPanel implements ActionListener {
                 return false;
             }
         };
-
+        setTableFont(table);
         JScrollPane scrollPane_table = new JScrollPane(table);
         pnTable.add(scrollPane_table, BorderLayout.CENTER);
 
@@ -249,6 +256,17 @@ public class PnDSLopGV extends JPanel implements ActionListener {
         table.setModel(model);
         table.revalidate();
         table.repaint();
+    }
+
+    private void setTableFont(JTable table) {
+        table.setFont(font16);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font16);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font16);
+        table.setDefaultRenderer(Object.class, renderer);
     }
 
     public static void main(String[] args) throws SQLException {

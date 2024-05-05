@@ -17,7 +17,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import static GUI.BASE.dark_green;
-import static GUI.BASE.font13;
+import static GUI.BASE.font14;
+import static GUI.BASE.font14b;
 import static GUI.BASE.gray_bg;
 import static GUI.BASE.white;
 
@@ -39,7 +40,7 @@ public class PnDuyetCauHoi extends JPanel{
         pn_header.setBackground(gray_bg);
         String tenMon = "Cơ sở dữ liệu";
         JLabel lb_mon = new JLabel("Tên môn: "+tenMon );
-        lb_mon.setFont(font13);
+        lb_mon.setFont(font14);
         String []trangThai = {"Chưa duyệt","Đã duyệt"};
         JComboBox cbb_trangThai = new JComboBox(trangThai);
         
@@ -47,7 +48,7 @@ public class PnDuyetCauHoi extends JPanel{
         pnSearch.setBackground(gray_bg);
         
         JLabel lblSearch = new JLabel("Tìm kiếm");
-        lblSearch.setFont(font13);
+        lblSearch.setFont(font14);
         JTextField txtSearch = new JTextField(15);
         
         
@@ -106,6 +107,7 @@ public class PnDuyetCauHoi extends JPanel{
             btn.setBorderPainted(false);
             btn.setFocusPainted(false);
             btn.setForeground(white);
+            btn.setFont(font14b);
             btn.setBackground(dark_green);
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             pn_btn.add(btn);

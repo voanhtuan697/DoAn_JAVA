@@ -4,12 +4,10 @@
  */
 package GUI;
 
-import BUS.chiTietLopBUS2;
-import BUS.chiTietMonBUS2;
-import BUS.lopBUS2;
-import BUS.monBUS2;
-import BUS.nguoiDungBUS2;
-import BUS.taiKhoanBUS2;
+import BUS.chiTietMonBUS;
+import BUS.monBUS;
+import BUS.nguoiDungBUS;
+import BUS.taiKhoanBUS;
 import DTO.monDTO;
 import DTO.nguoiDungDTO;
 import static GUI.BASE.dark_green;
@@ -25,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -49,12 +48,16 @@ public class PnThemMonChoGV extends JPanel {
     private DefaultTableModel model;
     private String maSV;
     private JButton btnThem;
-    private nguoiDungBUS2 busNgDung = new nguoiDungBUS2();
-    private taiKhoanBUS2 busTK = new taiKhoanBUS2();
-    private monBUS2 busMon = new monBUS2();
-    private chiTietMonBUS2 busCTMon = new chiTietMonBUS2();
+    private nguoiDungBUS busNgDung;
+    private taiKhoanBUS busTK;
+    private monBUS busMon ;
+    private chiTietMonBUS busCTMon;
 
-    public PnThemMonChoGV() {
+    public PnThemMonChoGV()throws SQLException {
+        busTK = new taiKhoanBUS();
+        busNgDung = new nguoiDungBUS();
+         busMon = new monBUS();
+         busCTMon = new chiTietMonBUS();
         init();
         initComponents();
         loadData();
@@ -191,13 +194,13 @@ public class PnThemMonChoGV extends JPanel {
         }
     }
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(900, 500);
-        PnThemMonChoGV p = new PnThemMonChoGV();
-        f.add(p);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        JFrame f = new JFrame();
+//        f.setSize(900, 500);
+//        PnThemMonChoGV p = new PnThemMonChoGV();
+//        f.add(p);
+//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        f.setLocationRelativeTo(null);
+//        f.setVisible(true);
+//    }
 }

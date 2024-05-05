@@ -4,9 +4,8 @@
  */
 package GUI;
 
-import BUS.khoCauHoiBUS2;
-import BUS.monBUS2;
-import DAO.khoCauHoiDAO2;
+import BUS.khoCauHoiBUS;
+import BUS.monBUS;
 import DTO.monDTO;
 import static GUI.BASE.dark_green;
 import static GUI.BASE.font14;
@@ -20,7 +19,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+//<<<<<<< HEAD
 import java.text.Normalizer;
+//=======
+import java.sql.SQLException;
+//>>>>>>> 73ec0ee8cea30e6f6372bf86e38de6a862d51295
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,11 +43,13 @@ public class PnTaoMonMoi extends JPanel {
     private JTable table;
     private JButton btnThem;
     private JPanel pnTop, pnCenter, pnBottom;
-    private monBUS2 busMon = new monBUS2();
+    private monBUS busMon;
     private monDTO dtoMon = new monDTO();
-    private khoCauHoiBUS2 busKho = new khoCauHoiBUS2();
+    private khoCauHoiBUS busKho;
 
-    public PnTaoMonMoi() {
+    public PnTaoMonMoi() throws SQLException {
+        busMon = new monBUS();
+        busKho = new khoCauHoiBUS();
         init();
         initComponents();
         loadData();
@@ -163,7 +168,7 @@ public class PnTaoMonMoi extends JPanel {
 
     private void loadData() {
         model.setRowCount(0);
-        ArrayList<monDTO> list = busMon.listMon();
+        ArrayList<monDTO> list = busMon.getList();
         for (monDTO m : list) {
             Object[] row = {m.getMaMon(), m.getTenMon()};
             model.addRow(row);
@@ -191,7 +196,7 @@ public class PnTaoMonMoi extends JPanel {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         JFrame f = new JFrame();
         f.setSize(900, 400);
         PnTaoMonMoi p = new PnTaoMonMoi();

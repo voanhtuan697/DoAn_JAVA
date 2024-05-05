@@ -4,9 +4,10 @@
  */
 package GUI;
 
-import BUS.lopBUS2;
-import BUS.monBUS2;
-import BUS.taiKhoanBUS2;
+
+import BUS.lopBUS;
+import BUS.monBUS;
+import BUS.taiKhoanBUS;
 import DTO.lopDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +15,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -34,9 +36,9 @@ public class PnDSLopSV extends JPanel {
     private DefaultTableModel model;
     private JComboBox<String> cbb_trangThai;
     private String maSV;
-    private lopBUS2 bus = new lopBUS2();
-    private monBUS2 busMon = new monBUS2();
-    private taiKhoanBUS2 busTK = new taiKhoanBUS2();
+    private lopBUS bus;
+    private monBUS busMon;
+    private taiKhoanBUS busTK;
 
     public DefaultTableModel getModel() {
         return model;
@@ -54,8 +56,11 @@ public class PnDSLopSV extends JPanel {
         this.cbb_trangThai = cbb_trangThai;
     }
 
-    public PnDSLopSV(String maSV) {
+    public PnDSLopSV(String maSV) throws SQLException {
         this.maSV = maSV;
+        bus = new lopBUS();
+        busMon = new monBUS();
+        busTK = new taiKhoanBUS();
         init();
         loadData();
     }
@@ -85,7 +90,7 @@ public class PnDSLopSV extends JPanel {
 
         Object[][] data = {
             {"L1", "CNTT", "Lý Mạc Sầu", "Toán", "2024", "1"},};
-        Object[] columns = {"Mã lớp", "Tên giảng viên", "Tên môn", "Năm học", "Học kỳ"};
+        Object[] columns = {"Mã lớp","Nhóm lớp", "Tên giảng viên", "Tên môn", "Năm học", "Học kỳ"};
         model = new DefaultTableModel(data, columns);
 
         JTable table = new JTable(model) {
@@ -136,7 +141,7 @@ public class PnDSLopSV extends JPanel {
         for (lopDTO x : list) {
             String TenMon = busMon.getNameByMaMon(x.getMaMon());
             String TenGV = busTK.getNameByMaTk(x.getMaGV());
-            Object[] row = {x.getMaLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
+            Object[] row = {x.getMaLop(),x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
             model.addRow(row);
         }
     }
@@ -147,7 +152,7 @@ public class PnDSLopSV extends JPanel {
         for (lopDTO x : list) {
             String TenMon = busMon.getNameByMaMon(x.getMaMon());
             String TenGV = busTK.getNameByMaTk(x.getMaGV());
-            Object[] row = {x.getMaLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
+            Object[] row = {x.getMaLop(),x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
             model.addRow(row);
         }
     }
@@ -158,17 +163,17 @@ public class PnDSLopSV extends JPanel {
         for (lopDTO x : list) {
             String TenMon = busMon.getNameByMaMon(x.getMaMon());
             String TenGV = busTK.getNameByMaTk(x.getMaGV());
-            Object[] row = {x.getMaLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
+            Object[] row = {x.getMaLop(),x.getNhomLop(), TenGV, TenMon, x.getNam(), x.getHocKy()};
             model.addRow(row);
         }
     }
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(800, 500);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.getContentPane().add(new PnDSLopSV("TK14"));
-        f.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        JFrame f = new JFrame();
+//        f.setSize(800, 500);
+//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        f.setLocationRelativeTo(null);
+//        f.getContentPane().add(new PnDSLopSV("TK14"));
+//        f.setVisible(true);
+//    }
 }

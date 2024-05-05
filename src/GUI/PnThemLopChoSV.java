@@ -4,11 +4,11 @@
  */
 package GUI;
 
-import BUS.chiTietLopBUS2;
-import BUS.lopBUS2;
-import BUS.monBUS2;
-import BUS.nguoiDungBUS2;
-import BUS.taiKhoanBUS2;
+import BUS.chiTietLopBUS;
+import BUS.lopBUS;
+import BUS.monBUS;
+import BUS.nguoiDungBUS;
+import BUS.taiKhoanBUS;
 import DTO.lopDTO;
 import DTO.monDTO;
 import DTO.nguoiDungDTO;
@@ -26,6 +26,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -50,14 +51,18 @@ public class PnThemLopChoSV extends JPanel {
     private DefaultTableModel model;
     private String maSV;
     private JButton btnThem;
-    private lopBUS2 busLop = new lopBUS2();
-    private monBUS2 busMon = new monBUS2();
-    private nguoiDungBUS2 busNgDung = new nguoiDungBUS2();
-    private chiTietLopBUS2 busCTLop = new chiTietLopBUS2();
-    private taiKhoanBUS2 busTK = new taiKhoanBUS2();
+    private lopBUS busLop;
+    private monBUS busMon;
+    private nguoiDungBUS busNgDung;
+    private chiTietLopBUS busCTLop = new chiTietLopBUS();
+    private taiKhoanBUS busTK;
     private ArrayList<String> choose = new ArrayList<>();
 
-    public PnThemLopChoSV() {
+    public PnThemLopChoSV() throws SQLException {
+        busLop = new lopBUS();
+        busTK = new taiKhoanBUS();
+        busNgDung = new nguoiDungBUS();
+        busMon = new monBUS();
         init();
         initComponents();
         LoadData();
@@ -230,7 +235,7 @@ public class PnThemLopChoSV extends JPanel {
             cbNam.addItem(n.getNam());
         }
 
-        ArrayList<monDTO> listMon = busMon.listMon();
+        ArrayList<monDTO> listMon = busMon.getList();
         for (monDTO m : listMon) {
             cbMon.addItem(m.getTenMon());
         }
@@ -283,16 +288,6 @@ public class PnThemLopChoSV extends JPanel {
             }
             tfTimKiem.setText("");
         }
-    }
-
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(900, 400);
-        PnThemLopChoSV p = new PnThemLopChoSV();
-        f.add(p);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
     }
 
 }

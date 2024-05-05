@@ -7,10 +7,7 @@ package DAO;
 import DTO.khoCauHoiDTO;
 import java.sql.*;
 
-/**
- *
- * @author PHUNG
- */
+
 public class khoCauHoiDAO {
 
     private MyConnection conn;
@@ -19,6 +16,8 @@ public class khoCauHoiDAO {
         conn = new MyConnection();
         conn.Connect();
     }
+    
+    
 
     public String layMaKhoCHTheoMaMon(String maMon) throws SQLException {
         String sql = "SELECT MaKho FROM khocauhoi WHERE MaMon=?";
@@ -88,5 +87,22 @@ public class khoCauHoiDAO {
         } else {
             return false;
         }
+    }
+    
+    public boolean ThemKho(khoCauHoiDTO k) {
+        boolean success = false;
+        try{
+            conn.Connect();
+            String sql = "INSERT INTO KHOCAUHOI(MaKho,MaMon,MaTBM) VALUES(?,?,?)";
+            PreparedStatement pre = conn.preparedStatement(sql);
+            pre.setString(1, k.getMaKho());
+            pre.setString(2, k.getMaMon());
+            pre.setString(3, k.getMaTBM());
+            success = pre.executeUpdate() > 0;
+            conn.disconnect();
+        }catch(SQLException e){
+            System.err.println("Them kho that bai" + e.getMessage());
+        }
+        return success;
     }
 }

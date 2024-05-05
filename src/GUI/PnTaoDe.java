@@ -96,7 +96,7 @@ public class PnTaoDe extends JPanel {
     private JFormattedTextField txtNgayGio;
 
     public PnTaoDe() throws SQLException {
-
+//        this.maTK = maTK;
         init();
         initComponents();
         loadData();
@@ -826,12 +826,6 @@ public class PnTaoDe extends JPanel {
     }
 
     public void addEvent2() {
-//        this.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                dsMaCH.clear();
-//            }
-//        });
         btnThemRight.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

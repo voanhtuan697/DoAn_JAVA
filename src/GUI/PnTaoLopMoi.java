@@ -4,10 +4,10 @@
  */
 package GUI;
 
-import BUS.lopBUS2;
-import BUS.monBUS2;
-import BUS.nguoiDungBUS2;
-import BUS.taiKhoanBUS2;
+import BUS.lopBUS;
+import BUS.monBUS;
+import BUS.nguoiDungBUS;
+import BUS.taiKhoanBUS;
 import DTO.lopDTO;
 import DTO.monDTO;
 import DTO.nguoiDungDTO;
@@ -29,9 +29,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -48,12 +51,16 @@ public class PnTaoLopMoi extends JPanel {
     private JButton btnThem, btnLopKT, btnNhapE, btnXoa;
     private JTable table;
     private DefaultTableModel model;
-    private lopBUS2 bus = new lopBUS2();
-    private taiKhoanBUS2 busTK = new taiKhoanBUS2();
-    private monBUS2 busMon = new monBUS2();
-    private nguoiDungBUS2 busNg = new nguoiDungBUS2();
+    private lopBUS bus;
+    private taiKhoanBUS busTK;
+    private monBUS busMon;
+    private nguoiDungBUS busNg;
 
-    public PnTaoLopMoi() {
+    public PnTaoLopMoi() throws SQLException {
+        bus = new lopBUS();
+        busTK = new taiKhoanBUS();
+        busNg  = new nguoiDungBUS();
+        busMon = new monBUS();
         init();
         initComponents();
         loadData();
@@ -219,7 +226,11 @@ public class PnTaoLopMoi extends JPanel {
                 } else if (number > 100) {
                     new ShowDiaLog("Số phải là số dương và nhỏ hơn hoặc bằng 100", ShowDiaLog.ERROR_DIALOG);
                 } else {
-                    themLop();
+                    try {
+                        themLop();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PnTaoLopMoi.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     tfSL.setText("");
                 }
             }
@@ -229,7 +240,11 @@ public class PnTaoLopMoi extends JPanel {
         btnXoa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                XoaLop();
+                try {
+                    XoaLop();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PnTaoLopMoi.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -237,7 +252,11 @@ public class PnTaoLopMoi extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String keyword = tfSearch.getText();
-                TimKiem(keyword);
+                try {
+                    TimKiem(keyword);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PnTaoLopMoi.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 tfSearch.setText("");
             }
         });
@@ -252,7 +271,11 @@ public class PnTaoLopMoi extends JPanel {
                     } else if ("Đã kết thúc".equals(selectedItem)) {
                         listTrangThai(0);
                     } else if ("Tất cả".equals(selectedItem)) {
-                        loadData();
+                        try {
+                            loadData();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PnTaoLopMoi.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -281,25 +304,25 @@ public class PnTaoLopMoi extends JPanel {
 
     }
 
-    private void loadData() {
+    private void loadData() throws SQLException {
 
-        ArrayList<monDTO> listMon = busMon.listMon();
+        ArrayList<monDTO> listMon = busMon.getList();
         cb_Mon.removeAllItems();
         for (monDTO m : listMon) {
             cb_Mon.addItem(m.getTenMon());
         }
 
         model.setRowCount(0);
-        lopBUS2 busLop = new lopBUS2();
+        lopBUS busLop = new lopBUS();
         ArrayList<lopDTO> listLop = busLop.getList();
         for (lopDTO lop : listLop) {
             String TenGv, TenMon;
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
             String TrangThai = "";
-            if (lop.isTrangThai() == true) {
+            if (lop.getTrangThai() == true) {
                 TrangThai = "Hoạt động";
-            } else if (lop.isTrangThai() == false) {
+            } else if (lop.getTrangThai() == false) {
                 TrangThai = "Kết thúc";
             }
 
@@ -320,7 +343,7 @@ public class PnTaoLopMoi extends JPanel {
         table.setDefaultRenderer(Object.class, renderer);
     }
 
-    private void themLop() {
+    private void themLop() throws SQLException {
 
         String TenMon = cb_Mon.getSelectedItem().toString();
         String MaMon = busMon.getMaMonByName(TenMon);
@@ -350,7 +373,7 @@ public class PnTaoLopMoi extends JPanel {
         loadData();
     }
 
-    private void XoaLop() {
+    private void XoaLop() throws SQLException {
         int i = table.getSelectedRow();
         if (i == -1) {
             new ShowDiaLog("Vui lòng chọn 1 dòng để xóa", ShowDiaLog.ERROR_DIALOG);
@@ -362,14 +385,14 @@ public class PnTaoLopMoi extends JPanel {
         }
     }
 
-    private void TimKiem(String keyword) {
+    private void TimKiem(String keyword) throws SQLException {
         ArrayList<lopDTO> list = bus.TimKiem(keyword);
         model.setRowCount(0);
         for (lopDTO lop : list) {
             String TenGv, TenMon;
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
-            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.isTrangThai()};
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.getTrangThai()};
             model.addRow(row);
         }
         if (keyword == "") {
@@ -384,7 +407,7 @@ public class PnTaoLopMoi extends JPanel {
             String TenGv, TenMon;
             TenGv = busTK.getNameByMaTk(lop.getMaGV());
             TenMon = busMon.getNameByMaMon(lop.getMaMon());
-            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.isTrangThai()};
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.getTrangThai()};
             model.addRow(row);
         }
     }
@@ -428,13 +451,4 @@ public class PnTaoLopMoi extends JPanel {
         return id + 1;
     }
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        PnTaoLopMoi b = new PnTaoLopMoi();
-        f.add(b);
-        f.setSize(800, 500);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setVisible(true);
-        f.setLocationRelativeTo(null);
-    }
 }

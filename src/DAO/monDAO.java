@@ -8,10 +8,6 @@ import DTO.monDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- *
- * @author PHUNG
- */
 public class monDAO {
 
     private MyConnection conn;
@@ -229,7 +225,6 @@ public class monDAO {
         }
         return success;
     }
-
     public ArrayList<monDTO> TimKiem(String keyword) {
         ArrayList<monDTO> list = new ArrayList<>();
         try {

@@ -105,10 +105,8 @@ public class PnDSLopGV extends JPanel implements ActionListener {
         JPanel pnTable = new JPanel();
         pnTable.setLayout(new BorderLayout());
 
-        Object[][] data = {
-            {"L1", "CNTT", "Toán", "2024", "1"},};
+        Object[][] data = {};
 
-//        model = new DefaultTableModel(data, columns);
         table = new JTable(model) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -239,7 +237,6 @@ public class PnDSLopGV extends JPanel implements ActionListener {
     }
 
     public void loadDSLopGV(boolean isTeaching) throws SQLException {
-        System.out.println("há");
         model = new DefaultTableModel();
         for (Object x : columns) {
             model.addColumn(x);
@@ -247,7 +244,6 @@ public class PnDSLopGV extends JPanel implements ActionListener {
 
         for (lopDTO x : new lopBUS().layDanhSachLopTheoMaGV(maGV)) {
             if (x.getTrangThai() == isTeaching) {
-                System.out.println("A");
                 model.addRow(new Object[]{x.getMaLop().trim(), x.getNhomLop(), new monBUS().layTenMonTheoMaMon(x.getMaMon()), x.getNam(), x.getHocKy()});
                 System.out.println(model);
             }

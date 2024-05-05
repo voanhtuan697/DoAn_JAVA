@@ -126,6 +126,7 @@ public class lopDAO {
         }
         return list;
     }
+    
 
     public boolean ThemLop(lopDTO l) {
         boolean success = false;
@@ -333,7 +334,6 @@ public class lopDAO {
         }
         return list;
     }
-
     public ArrayList<lopDTO> DSLop1SV(String MaTK) {
         ArrayList<lopDTO> list = new ArrayList<>();
         try {

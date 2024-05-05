@@ -10,13 +10,10 @@ import DTO.lopDTO;
 import XULY.ShowDiaLog;
 import java.util.ArrayList;
 
-/**
- *
- * @author PHUNG
- */
 public class lopBUS {
 
     private lopDAO lop;
+
     public lopBUS() throws SQLException {
         lop = new lopDAO();
     }
@@ -38,7 +35,7 @@ public class lopBUS {
     public ArrayList<lopDTO> layDanhSachLopTheoMaGV(String maGV) throws SQLException {
         return lop.layDanhSachLopTheoMaGV(maGV);
     }
-    
+
     public ArrayList getList() {
         return lop.listLop();
     }
@@ -93,12 +90,24 @@ public class lopBUS {
     public int getNhomLop(String TenMon) {
         return lop.getNhomLop(TenMon);
     }
-    
-    public ArrayList<lopDTO> getListNam(){
+
+    public ArrayList<lopDTO> getListNam() {
         return lop.getListNam();
     }
+
+    public ArrayList<lopDTO> getMaByNamHKMon(int Nam, int HocKy, String TenMon) {
+        return lop.getMaByNamHKMon(Nam, HocKy, TenMon);
+    }
+
+    public ArrayList<lopDTO> DSLop1SV(String MaTK) {
+        return lop.DSLop1SV(MaTK);
+    }
+
+    public ArrayList<lopDTO> DSTrangThaiLop1SV(String MaTK, boolean Trangthai) {
+        return lop.DSTrangThaiLop1SV(MaTK, Trangthai);
+    }
     
-     public ArrayList<lopDTO> getMaByNamHKMon(int Nam, int HocKy, String TenMon) {
-         return lop.getMaByNamHKMon(Nam, HocKy, TenMon);
+     public ArrayList<lopDTO> TimKiemDS1SV(String MaTK, String keyword) {
+         return lop.TimKiemDS1SV(MaTK, keyword);
      }
 }

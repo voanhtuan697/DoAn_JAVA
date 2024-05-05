@@ -24,4 +24,11 @@ public class chiTietMonBUS {
     public ArrayList<chiTietMonDTO> layDanhSachChiTietMon() throws SQLException {
         return ctm.layDanhSachChiTietMon();
     }
+
+    public boolean ThemDS(String MaMon, String MaGV) {
+        chiTietMonDTO ct = new chiTietMonDTO();
+        ct.setMaMon(MaMon);
+        ct.setMaGV(MaGV);
+        return ctm.ThemDS(ct);
+    }
 }

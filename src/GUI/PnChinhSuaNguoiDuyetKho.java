@@ -17,10 +17,13 @@ import DTO.khoCauHoiDTO;
 import XULY.ShowDiaLog;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -56,6 +59,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
     private chiTietQuyenBUS ctqBUS;
     private monBUS monBUS;
     private Map<String, String> mapCBB_mon = new HashMap<>();
+    private JTextField txt_timKiem;
 
     public PnChinhSuaNguoiDuyetKho(String maTK) throws SQLException {
         tkBUS = new taiKhoanBUS();
@@ -86,7 +90,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
         pnHeader.setLayout(new FlowLayout(0, 10, 10));
 
         JLabel lb_timKiem = new JLabel("Tìm kiếm:");
-        JTextField txt_timKiem = new JTextField(15);
+        txt_timKiem = new JTextField(15);
 
         pnHeader.add(lb_timKiem);
         pnHeader.add(txt_timKiem);
@@ -129,6 +133,27 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
         this.add(pn_input, BorderLayout.SOUTH);
 
         this.setVisible(true);
+
+        txt_timKiem.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    try {
+                        search();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
     }
 
     public void loadData() throws SQLException {
@@ -150,7 +175,6 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
         }
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String btn = e.getActionCommand();
@@ -171,7 +195,7 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
                     String monSelect = (String) cbb_mon.getSelectedItem();
                     String maMon = mapCBB_mon.get(monSelect);
                     try {
-                        if (khoBUS.themTBMChoKhoCH(maTK,maMon)) {
+                        if (khoBUS.themTBMChoKhoCH(maTK, maMon)) {
                             new ShowDiaLog("Thêm người duyệt kho câu hỏi " + monSelect + "thành công!", ShowDiaLog.SUCCESS_DIALOG);
                             cbb_mon.removeAllItems();
                             loadCBBMon();
@@ -258,6 +282,31 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    private void search() throws SQLException {
+        String searchText = txt_timKiem.getText().toLowerCase();
+        model.setRowCount(0);
+        ArrayList<taiKhoanDTO> arr = this.tkBUS.getTaiKhoan();
+        for (taiKhoanDTO tk : arr) {
+            if (ctqBUS.kiemTraTKcoTonTaiCN(tk.getMaTK(), "CNDCH")) {
+                nguoiDungDTO nd = this.ndBUS.layNguoiDung(tk.getMaTK());
+                if (tk.getMaTK().toLowerCase().trim().contains(searchText) || nd.getHoTen().toLowerCase().trim().contains(searchText)) {
+                    model.addRow(new Object[]{tk.getMaTK(), nd.getHoTen(), nd.getNgSinh()});
+                } else if (txt_timKiem.getText().isEmpty()) {
+                    model.addRow(new Object[]{tk.getMaTK(), nd.getHoTen(), nd.getNgSinh()});
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
+        JFrame f = new JFrame();
+        f.setSize(800, 500);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        Component add = f.getContentPane().add(new PnChinhSuaNguoiDuyetKho("TK1"));
+        f.setVisible(true);
     }
 
 }

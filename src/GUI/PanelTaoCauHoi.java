@@ -756,6 +756,8 @@ public class PanelTaoCauHoi extends JPanel implements ActionListener {
 
         }
     }
+    
+    
 
     public static void main(String[] args) throws SQLException {
         JFrame f = new JFrame();

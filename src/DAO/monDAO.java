@@ -229,7 +229,6 @@ public class monDAO {
         }
         return success;
     }
-
     public ArrayList<monDTO> TimKiem(String keyword) {
         ArrayList<monDTO> list = new ArrayList<>();
         try {
@@ -273,9 +272,4 @@ public class monDAO {
         return list;
     }
 
-    public static void main(String[] args) throws SQLException {
-        monDAO m = new monDAO();
-        String ss = m.layTenMonBangMaDT("DTTH1");
-        System.out.println(ss);
-    }
 }

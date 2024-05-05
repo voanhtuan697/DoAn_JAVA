@@ -16,6 +16,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -40,7 +42,7 @@ import javax.swing.table.DefaultTableModel;
 public class PnDsDeThiDaTao extends JPanel implements ActionListener {
 
     private DefaultTableModel model;
-    private JTextField txt_mon;
+    private JTextField txt_seach;
     private JComboBox<String> cbb_trangThai;
     private String maTK;
     private JTable table;
@@ -65,14 +67,14 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
     public void init() {
         this.setLayout(new BorderLayout());
         JPanel pn_header = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        JLabel lb_mon = new JLabel("Tên môn:");
-        txt_mon = new JTextField(10);
+        JLabel lb_search = new JLabel("Tìm kiếm:");
+        txt_seach = new JTextField(10);
         cbb_trangThai = new JComboBox<>(new String[]{"Sắp diễn ra", "Đang diễn ra", "Đã diễn ra"});
         cbb_trangThai.setPreferredSize(new Dimension(100, cbb_trangThai.getPreferredSize().height));
         cbb_trangThai.addActionListener(this);
 
-        pn_header.add(lb_mon);
-        pn_header.add(txt_mon);
+        pn_header.add(lb_search);
+        pn_header.add(txt_seach);
 
         pn_header.add(cbb_trangThai);
 
@@ -103,6 +105,44 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
         this.add(pn_table, BorderLayout.CENTER);
         this.add(pn_btn, BorderLayout.SOUTH);
 
+        txt_seach.addKeyListener(new KeyListener() {
+            
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String selectedOption = (String) cbb_trangThai.getSelectedItem();
+                    if (selectedOption.equals("Sắp diễn ra")) {
+                        try {
+                            search(0);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    }else if (selectedOption.equals("Đang diễn ra")) {
+                        try {
+                            search(1);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    }else if (selectedOption.equals("Đã diễn ra")) {
+                        try {
+                            search(2);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
     }
 
     public void loadData(int trangThai) throws SQLException {
@@ -163,7 +203,26 @@ public class PnDsDeThiDaTao extends JPanel implements ActionListener {
             pn_btn.setVisible(false);
         }
     }
-    
+
+    private void search(int trangThai) throws SQLException {
+        String searchText = txt_seach.getText().toLowerCase();
+        model.setRowCount(0);
+//   -------------------------
+        ArrayList<deThiDTO> arr = this.deThi.layDSDeThiDaTao(maTK, trangThai);
+        for (deThiDTO dt : arr) {
+            lopBUS lopBUS = new lopBUS();
+            lopDTO lop = lopBUS.layLopBangMaDe(dt.getMaDT());
+            monBUS monBUS = new monBUS();
+            String tenMon = monBUS.layTenMonTheoMaMon(lop.getMaMon()).trim();
+            if (dt.getMaDT().toLowerCase().trim().contains(searchText) || dt.getTenDeThi().toLowerCase().trim().contains(searchText) || tenMon.toLowerCase().contains(searchText)) {
+                model.addRow(new Object[]{dt.getMaDT(), dt.getTenDeThi(), tenMon, lop.getNhomLop(), dt.getNgayThi(), dt.getThoiGianBatDauThi(), dt.getSLCauHoi(), dt.getThoiGianLamBai()});
+            } else if (searchText.isEmpty()) {
+                model.addRow(new Object[]{dt.getMaDT(), dt.getTenDeThi(), tenMon, lop.getNhomLop(), dt.getNgayThi(), dt.getThoiGianBatDauThi(), dt.getSLCauHoi(), dt.getThoiGianLamBai()});
+            }
+        }
+
+    }
+
     public static void main(String[] args) throws SQLException {
         JFrame f = new JFrame();
         f.setSize(900, 500);

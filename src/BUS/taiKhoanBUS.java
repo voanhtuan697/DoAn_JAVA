@@ -65,7 +65,7 @@ public class taiKhoanBUS {
         return arr;
     }
 
-    public taiKhoanDTO layTaiKhoan(String maTK) {
+    public taiKhoanDTO layTaiKhoan(String maTK) throws SQLException {
         taiKhoanDTO tk = this.acc.layTaiKhoan(maTK);
         return tk;
     }

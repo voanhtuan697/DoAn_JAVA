@@ -4,6 +4,7 @@ import BUS.deThiBUS;
 import BUS.ketQuaBUS;
 import BUS.lopBUS;
 import BUS.monBUS;
+import DAO.ketQuaDAO;
 import DTO.deThiDTO;
 import DTO.ketQuaDTO;
 import DTO.lopDTO;
@@ -29,6 +30,7 @@ import static GUI.BASE.font16;
 import static GUI.BASE.font14b;
 import static GUI.BASE.gray_bg;
 import XULY.ShowDiaLog;
+import XULY.writePDF;
 import XULY.xuLyFileExcel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,8 +55,10 @@ public class PnKetQua extends JPanel {
     private monBUS busMon;
     private deThiBUS busThi;
     private lopBUS busLop;
+    private ketQuaDAO ketQuaDAO;
 
     public PnKetQua() throws SQLException {
+        ketQuaDAO = new ketQuaDAO();
         busThi = new deThiBUS();
         busKQ = new ketQuaBUS();
         busMon = new monBUS();
@@ -139,6 +143,13 @@ public class PnKetQua extends JPanel {
         btnVe.setBorderPainted(false);
         btnVe.setFocusPainted(false);
         btnVe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnVe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Gọi phương thức writeKetQua khi người dùng click vào nút
+                writeKetQua();
+            }
+        });
 
         btnTimTheoDiem = new JButton("Tìm theo điểm");
         btnTimTheoDiem.setBackground(dark_green);
@@ -418,5 +429,19 @@ public class PnKetQua extends JPanel {
     private void xuatExcel() {
         xuLyFileExcel file = new xuLyFileExcel();
         file.xuatExcel(table);
+    }
+    
+    private void writeKetQua() {
+            String tenMon = cbMonthi.getSelectedItem().toString();
+            String maMon = busMon.getMaMonByName(tenMon);
+            String maDT = cbDeThi.getSelectedItem().toString();
+            String maLop = cbLop.getSelectedItem().toString();
+
+            int rowCount = model.getRowCount();
+            writePDF pdfWriter = new writePDF();
+            for (int i = 0; i < rowCount; i++) {
+                String maKetQua = model.getValueAt(i, 0).toString();
+                pdfWriter.writeKetQua(maKetQua, tenMon, maDT, maLop, ketQuaDAO);
+            }
     }
 }

@@ -8,6 +8,8 @@ package XULY;
  *
  * @author Minh Phuc
  */
+import DAO.ketQuaDAO;
+import DTO.ketQuaDTO;
 import com.itextpdf.text.Chunk;
 import java.awt.Desktop;
 import java.awt.FileDialog;
@@ -33,6 +35,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import javax.swing.JButton;
@@ -48,6 +51,9 @@ public class writePDF {
     Font font15b;
     Font font25b;
     Font font15i;
+    private Font fontBold25;
+    private Font fontNormal10;
+    private Font fontBold15;
 
     public writePDF() {
         try {
@@ -61,7 +67,7 @@ public class writePDF {
             Logger.getLogger(writePDF.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void exportPDF(String title, String content) {
         try {
             String url = getFile(title + ".pdf");
@@ -81,7 +87,7 @@ public class writePDF {
             ex.printStackTrace();
         }
     }
-    
+
     public void chooseURL(String url) {
         try {
             document.close();
@@ -90,9 +96,11 @@ public class writePDF {
             PdfWriter writer = PdfWriter.getInstance(document, file);
             document.open();
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Khong tim thay duong dan file " + url);
+            String errorMessage = "Không thể tìm thấy đường dẫn file " + url;
+            JOptionPane.showMessageDialog(null, errorMessage, "Lỗi khi ghi file", JOptionPane.ERROR_MESSAGE);
         } catch (DocumentException ex) {
-            JOptionPane.showMessageDialog(null, "Khong goi duoc document !");
+            String errorMessage = "Không thể tạo tài liệu PDF";
+            JOptionPane.showMessageDialog(null, errorMessage, "Lỗi khi ghi file", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -143,6 +151,106 @@ public class writePDF {
             builder.append(" ");
         }
         return new Chunk(builder.toString());
-    }   
-}
+    }
 
+    public void writeKetQua(String maKetQua, String tenMon, String maDT, String maLop, ketQuaDAO dao) {
+        String url = "";
+        try {
+            fd.setTitle("In kết quả thi");
+            fd.setLocationRelativeTo(null);
+            url = getFile(maKetQua + "");
+            if (url.equals("nullnull")) {
+                return;
+            }
+            url = url + ".pdf";
+            file = new FileOutputStream(url);
+            document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, file);
+            document.open();
+
+            Paragraph title = new Paragraph("KẾT QUẢ THI", fontBold25);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(Chunk.NEWLINE);
+
+            // Truy vấn danh sách kết quả từ DAO
+            ArrayList<ketQuaDTO> list = dao.DanhSach(tenMon, maDT, maLop);
+
+            if (list.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy thông tin kết quả thi");
+                return;
+            }
+
+            boolean userInfoAdded = false; // Biến để kiểm tra xem thông tin người dùng đã được thêm vào tài liệu chưa
+
+            // Thêm thông tin kết quả thi vào file PDF
+            for (ketQuaDTO ketQua : list) {
+                if (!userInfoAdded) { // Nếu thông tin người dùng chưa được thêm vào
+                    // Thêm thông tin người dùng vào file PDF
+                    Paragraph maNguoiDungPara = new Paragraph("Mã người dùng: " + ketQua.getNgDungDTO().getMaUser(), fontNormal10);
+                    document.add(maNguoiDungPara);
+
+                    Paragraph hoTenPara = new Paragraph("Họ tên: " + ketQua.getNgDungDTO().getHoTen(), fontNormal10);
+                    document.add(hoTenPara);
+
+                    Paragraph maLopPara = new Paragraph("Mã lớp: " + maLop, fontNormal10);
+                    document.add(maLopPara);
+                    document.add(Chunk.NEWLINE);
+
+                    userInfoAdded = true; // Đánh dấu là thông tin người dùng đã được thêm vào
+                }
+
+                // Thêm thông tin kết quả thi vào file PDF
+                Paragraph maKetQuaPara = new Paragraph("Mã kết quả: " + ketQua.getMaKQ(), fontNormal10);
+                document.add(maKetQuaPara);
+
+                Paragraph maDeThiPara = new Paragraph("Mã đề thi: " + ketQua.getMaDT(), fontNormal10);
+                document.add(maDeThiPara);
+
+                Paragraph monThiPara = new Paragraph("Môn thi: " + tenMon, fontNormal10);
+                document.add(monThiPara);
+
+                Paragraph ngayThiPara = new Paragraph("Thời gian thi: " + ketQua.getTGLamXong(), fontNormal10);
+                document.add(ngayThiPara);
+                document.add(Chunk.NEWLINE);
+
+                // Thêm bảng điểm vào file PDF
+                PdfPTable table = new PdfPTable(2);
+                table.setWidthPercentage(100);
+                table.setWidths(new float[]{50f, 50f});
+
+                PdfPCell cell;
+
+                cell = new PdfPCell(new Phrase("Số câu đúng", fontBold15));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setMinimumHeight(25f);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase("Điểm", fontBold15));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setMinimumHeight(25f);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(String.valueOf(ketQua.getSLCauDung()), fontNormal10));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setMinimumHeight(25f);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(String.valueOf(ketQua.getDiem()), fontNormal10));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setMinimumHeight(25f);
+                table.addCell(cell);
+
+                document.add(table);
+                document.add(Chunk.NEWLINE); // Add a new line between ketQuaDTO objects
+            }
+
+            document.close();
+            writer.close();
+            openFile(url);
+        } catch (DocumentException | FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi ghi file " + url);
+        }
+    }
+
+}

@@ -3,24 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
 import java.sql.*;
 import DTO.lopDTO;
 import java.time.Year;
 import java.util.ArrayList;
+
 /**
  *
  * @author PHUNG
  */
 public class lopDAO {
+
     private MyConnection conn;
     private lopDTO lop;
-    public lopDAO() throws SQLException{
+
+    public lopDAO() throws SQLException {
         this.conn = new MyConnection();
         conn.Connect();
     }
-    public ArrayList<String> layMaLopTheoMon(String tenMon) throws SQLException{
+
+    public ArrayList<String> layMaLopTheoMon(String tenMon) throws SQLException {
         ArrayList<String> arr = new ArrayList<>();
-        String sql="SELECT MaLop FROM lop, mon WHERE lop.MaMon = mon.MaMon AND TenMon=?";
+        String sql = "SELECT MaLop FROM lop, mon WHERE lop.MaMon = mon.MaMon AND TenMon=?";
         PreparedStatement stmt = conn.preparedStatement(sql);
         stmt.setString(1, tenMon);
         ResultSet rs = stmt.executeQuery();
@@ -29,7 +34,7 @@ public class lopDAO {
         }
         return arr;
     }
-    
+
     public lopDTO layLopBangMaDe(String maDT) {
         lopDTO lop = new lopDTO();
         try {
@@ -68,7 +73,7 @@ public class lopDAO {
                     + "join lop l on l.malop = ctl.malop\n"
                     + "join chitietdelop ctdl on ctdl.malop = l.malop\n"
                     + "join dethi dt on dt.madt = ctdl.madt\n"
-                    + "where tk.matk = '"+maTK+"' and dt.madt = '"+maDT+"'";
+                    + "where tk.matk = '" + maTK + "' and dt.madt = '" + maDT + "'";
 
             PreparedStatement pre = conn.preparedStatement(query);
             ResultSet rs = pre.executeQuery();
@@ -85,7 +90,27 @@ public class lopDAO {
             return 0;
         }
     }
-    
+
+    public ArrayList<lopDTO> layDanhSachLopTheoMaGV(String maGV) throws SQLException {
+        ArrayList<lopDTO> list = new ArrayList<>();
+        String sql = "SELECT * FROM LOP WHERE MaGV=?";
+        PreparedStatement stmt = conn.preparedStatement(sql);
+        stmt.setString(1, maGV);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            lopDTO x = new lopDTO();
+            x.setMaLop(rs.getString(1));
+            x.setSoLuong(rs.getInt(3));
+            x.setMaMon(rs.getString(4));
+            x.setNam(rs.getInt(5));
+            x.setHocKy(rs.getInt(6));
+            x.setTrangThai(rs.getBoolean(7));
+            x.setNhomLop(rs.getInt(8));
+            list.add(x);
+        }
+        return list;
+    }
+
     public ArrayList<lopDTO> listLop() {
         ArrayList<lopDTO> list = new ArrayList<>();
         try {
@@ -118,7 +143,7 @@ public class lopDAO {
             pre.setString(4, l.getMaMon());
             pre.setInt(5, l.getNam());
             pre.setInt(6, l.getHocKy());
-            pre.setBoolean(7, l.isTrangThai());
+            pre.setBoolean(7, l.getTrangThai());
             pre.setInt(8, l.getNhomLop());
             success = pre.executeUpdate() > 0;
             conn.disconnect();
@@ -312,6 +337,5 @@ public class lopDAO {
         }
         return list;
     }
-    
-    
+
 }

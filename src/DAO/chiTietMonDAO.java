@@ -61,4 +61,20 @@ public class chiTietMonDAO {
         }
         return success;
     }
+
+    public boolean ThemDS(chiTietMonDTO ct) {
+        boolean success = false;
+        try {
+            conn.Connect();
+            String sql = "INSERT INTO CHITIETMON(MaMon,MaGV) VALUES(?,?)";
+            PreparedStatement pre = conn.preparedStatement(sql);
+            pre.setString(1, ct.getMaMon());
+            pre.setString(2, ct.getMaGV());
+            success = pre.executeUpdate() > 0;
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.err.println("them lop cho gv that bai" + e.getMessage());
+        }
+        return success;
+    }
 }

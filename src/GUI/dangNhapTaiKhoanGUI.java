@@ -19,6 +19,7 @@ import static GUI.BASE.dark_green;
 import static GUI.BASE.font14;
 import static GUI.BASE.font14b;
 import static GUI.BASE.white;
+import XULY.ShowDiaLog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -128,7 +129,7 @@ public class dangNhapTaiKhoanGUI extends JFrame implements ActionListener {
                     this.dispose();
                     new GiaoDienUserGUI(tk.getMaTK());
                 }else{
-                    System.out.println("Khong");
+                    new ShowDiaLog("Tài khoản không tồn tại hoặc mật khẩu không đúng", ShowDiaLog.ERROR_DIALOG);
                     txtTenDN.setText("");
                     txtTenDN.requestFocus();
                     txtMatkhau.setText("");
@@ -146,7 +147,7 @@ public class dangNhapTaiKhoanGUI extends JFrame implements ActionListener {
                     this.dispose();
                     new GiaoDienUserGUI(tk.getMaTK());
                 }else{
-                    System.out.println("Khong");
+                    new ShowDiaLog("Tài khoản không tồn tại hoặc mật khẩu không đúng", ShowDiaLog.ERROR_DIALOG);
                     txtTenDN.setText("");
                     txtTenDN.requestFocus();
                     txtMatkhau.setText("");

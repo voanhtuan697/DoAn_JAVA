@@ -48,4 +48,8 @@ public class cauHoiBUS {
         cauHoiDTO cauHoi = ch.layCauHoiBangMaCH(maCH);
         return cauHoi;
     }
+    
+    public boolean chuyenTrangThaiCH(String maCH) {
+        return ch.chuyenTrangThaiCH(maCH);
+    }
 }

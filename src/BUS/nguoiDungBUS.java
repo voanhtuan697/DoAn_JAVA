@@ -64,5 +64,9 @@ public class nguoiDungBUS {
     public ArrayList<nguoiDungDTO> DSTenGV(String TenMon) {
         return user.DSTenGV(TenMon);
     }
+    
+     public ArrayList<nguoiDungDTO> DSGiaoVien() {
+         return user.DSGiaoVien();
+     }
 
 }

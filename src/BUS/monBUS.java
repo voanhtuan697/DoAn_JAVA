@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class monBUS {
 
     private monDAO mon;
-    
 
     public monBUS()  {
         this.mon = new monDAO();
@@ -67,6 +66,14 @@ public class monBUS {
 
     public String getNameByMaMon(String MaMon) {
         return mon.getNameByMaMon(MaMon);
+    }
+
+    public ArrayList<monDTO> TimKiem(String keyword) {
+        return mon.TimKiem(keyword);
+    }
+    
+    public ArrayList<monDTO> DSMonGVCHTT(String MaTK) {
+        return mon.DSMonGVCHTT(MaTK);
     }
 
     public boolean ThemMon(String MaMon, String TenMon) {

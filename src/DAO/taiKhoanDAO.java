@@ -44,6 +44,7 @@ public class taiKhoanDAO {
             System.out.println("Lay danh sach tai khoan khong thanh cong" + e.getMessage());
         }
         return arr;
+       
     }
 
     public int getSoLuongTaiKhoan() {

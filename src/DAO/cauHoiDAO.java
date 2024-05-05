@@ -217,5 +217,25 @@ public class cauHoiDAO {
             return null;
         }
     }
+    
+    public boolean chuyenTrangThaiCH(String maCH) {
+        try {
+            String query = "UPDATE CAUHOI SET TrangThai = 1 WHERE MaCH = ?";
+            PreparedStatement ps = conn.preparedStatement(query);
+            ps.setString(1, maCH);
+
+            int rowsAffected = ps.executeUpdate();
+            ps.close();
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                return false;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

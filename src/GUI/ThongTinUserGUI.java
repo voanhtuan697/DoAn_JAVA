@@ -194,8 +194,13 @@ public class ThongTinUserGUI extends JPanel {
             khoCauHoiBUS kchBUS = new khoCauHoiBUS();
             monBUS mon = new monBUS();
             khoCauHoiDTO kch = kchBUS.layKhoBangMaTK(maTK);
-            String tenMon = mon.layTenMonTheoMaMon(kch.getMaMon()).trim();
+            if(kch!=null){
+                String tenMon = mon.layTenMonTheoMaMon(kch.getMaMon()).trim();
             lblTrMon = new JLabel(tenMon);
+            }else{
+                lblTrMon = new JLabel("Chưa quản lý kho nào");
+            }
+            
             lblTrMon.setFont(font16);
             pnTrBM.add(lbTrBM);
             pnTrBM.add(lblTrMon);

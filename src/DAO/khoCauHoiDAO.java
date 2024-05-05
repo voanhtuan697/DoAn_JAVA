@@ -7,10 +7,7 @@ package DAO;
 import DTO.khoCauHoiDTO;
 import java.sql.*;
 
-/**
- *
- * @author PHUNG
- */
+
 public class khoCauHoiDAO {
 
     private MyConnection conn;
@@ -22,6 +19,8 @@ public class khoCauHoiDAO {
             System.out.println("Ket noi database khong thanh cong" + e.getMessage());
         }
     }
+    
+    
 
     public String layMaKhoCHTheoMaMon(String maMon) {
         try {
@@ -152,4 +151,5 @@ public class khoCauHoiDAO {
         }
         return success;
     }
+    
 }

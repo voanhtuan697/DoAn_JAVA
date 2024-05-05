@@ -5,10 +5,10 @@
 package GUI;
 
 import BUS.nguoiDungBUS;
-import BUS.quyenBUS;
 import BUS.chiTietQuyenBUS;
-import BUS.khoCauHoiBUS1;
-import BUS.monBUS1;
+import BUS.khoCauHoiBUS;
+import BUS.monBUS;
+import BUS.quyenBUS;
 import BUS.taiKhoanBUS;
 import DTO.khoCauHoiDTO;
 import DTO.nguoiDungDTO;
@@ -45,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import net.sourceforge.jdatepicker.JDateComponentFactory;
 import net.sourceforge.jdatepicker.JDatePanel;
 import net.sourceforge.jdatepicker.JDatePicker;
@@ -59,7 +60,8 @@ public class ThongTinUserGUI extends JPanel {
     private quyenBUS q;
     private JPanel pnLeft, pnRight;
     private JButton btnCapNhat, btnDoiMK;
-    private JTextField tfHoTen, tfMk, tfMKMoi, tfMkNL;
+    private JTextField tfHoTen;
+    private JPasswordField tfMk, tfMKMoi, tfMkNL;
     private JLabel lblTenDn, lblChucVu, lblTrMon;
     private final nguoiDungBUS u;
     private final quyenDTO quyen;
@@ -189,11 +191,10 @@ public class ThongTinUserGUI extends JPanel {
         if (chiTietQuyenBUS.kiemTraTKcoTonTaiCN(maTK, "CNDCH")) {
             lbTrBM = new JLabel("Trưởng bộ môn:");
             lbTrBM.setFont(font16);
-
-            khoCauHoiBUS1 kchBUS = new khoCauHoiBUS1();
-            monBUS1 mon = new monBUS1();
+            khoCauHoiBUS kchBUS = new khoCauHoiBUS();
+            monBUS mon = new monBUS();
             khoCauHoiDTO kch = kchBUS.layKhoBangMaTK(maTK);
-            String tenMon = mon.layTenMonBangMaMon(kch.getMaMon()).trim();
+            String tenMon = mon.layTenMonTheoMaMon(kch.getMaMon()).trim();
             lblTrMon = new JLabel(tenMon);
             lblTrMon.setFont(font16);
             pnTrBM.add(lbTrBM);
@@ -210,7 +211,7 @@ public class ThongTinUserGUI extends JPanel {
         pnMKcu.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbMKcu = new JLabel("Nhập mật khẩu cũ:");
         lbMKcu.setFont(font16);
-        tfMk = new JTextField(25);
+        tfMk = new JPasswordField(25);
         tfMk.setPreferredSize(new Dimension(tfMk.getPreferredSize().width, 30));
         pnMKcu.add(lbMKcu);
         pnMKcu.add(tfMk);
@@ -220,7 +221,7 @@ public class ThongTinUserGUI extends JPanel {
         pnMkMoi.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbMkmoi = new JLabel("Nhập mật khẩu mới:");
         lbMkmoi.setFont(font16);
-        tfMKMoi = new JTextField(25);
+        tfMKMoi = new JPasswordField(25);
         tfMKMoi.setPreferredSize(new Dimension(tfMKMoi.getPreferredSize().width, 30));
         pnMkMoi.add(lbMkmoi);
         pnMkMoi.add(tfMKMoi);
@@ -230,7 +231,7 @@ public class ThongTinUserGUI extends JPanel {
         pnNhapLai.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbNhapLai = new JLabel("Nhập lại mật khẩu:");
         lbNhapLai.setFont(font16);
-        tfMkNL = new JTextField(25);
+        tfMkNL = new JPasswordField(25);
         tfMkNL.setPreferredSize(new Dimension(tfMkNL.getPreferredSize().width, 30));
         pnNhapLai.add(lbNhapLai);
         pnNhapLai.add(tfMkNL);
@@ -260,13 +261,13 @@ public class ThongTinUserGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tfHoTen.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập họ tên!", ShowDiaLog.ERROR_DIALOG);
                     tfHoTen.requestFocus();
                     tfHoTen.selectAll();
                     return;
                 }
                 if (!isVietnamese(tfHoTen.getText())) {
-                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Họ tên không hợp lệ!", ShowDiaLog.ERROR_DIALOG);
                     tfHoTen.requestFocus();
                     tfHoTen.selectAll();
                     return;
@@ -280,12 +281,13 @@ public class ThongTinUserGUI extends JPanel {
                 if (a == JOptionPane.YES_OPTION) {
                     try {
                         if (nd.updateNguoiDung(hoTen, newNgaySinh, nd.layMaUserTheoMaTK(maTK))) {
-                            new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                            new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.ERROR_DIALOG);
                             pnLeft.revalidate();
                             pnLeft.repaint();
+                            
                             return;
                         } else {
-                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALOG);
                         }
 
                     } catch (SQLException ex) {
@@ -302,14 +304,14 @@ public class ThongTinUserGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tfMk.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập mật khẩu cũ!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập mật khẩu cũ!", ShowDiaLog.ERROR_DIALOG);
                     tfMk.requestFocus();
                     return;
                 }
                 try {
                     taiKhoanDTO x = new taiKhoanBUS().layTaiKhoan(maTK);
                     if (!tfMk.getText().trim().equalsIgnoreCase(x.getMatKhau())) {
-                        new ShowDiaLog("Mật khẩu cũ không đúng!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Mật khẩu cũ không đúng!", ShowDiaLog.ERROR_DIALOG);
                         tfMk.requestFocus();
                         tfMk.selectAll();
                         return;
@@ -318,36 +320,37 @@ public class ThongTinUserGUI extends JPanel {
                     ex.printStackTrace();
                 }
                 if (tfMKMoi.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập mật khẩu mới!", ShowDiaLog.ERROR_DIALOG);
                     tfMKMoi.requestFocus();
                     return;
                 }
                 if (tfMkNL.getText().trim().isEmpty()) {
-                    new ShowDiaLog("Vui lòng nhập lại mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Vui lòng nhập lại mật khẩu mới!", ShowDiaLog.ERROR_DIALOG);
                     tfMkNL.requestFocus();
                     return;
                 }
                 if (!tfMKMoi.getText().trim().equalsIgnoreCase(tfMkNL.getText().trim())) {
-                    new ShowDiaLog("Mật khẩu nhập lại không trùng với mật khẩu mới!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Mật khẩu nhập lại không trùng với mật khẩu mới!", ShowDiaLog.ERROR_DIALOG);
                     tfMkNL.requestFocus();
                     tfMkNL.selectAll();
                     return;
                 }
 
-//                String oldPw = tfMk.getText();
                 String newPw = tfMKMoi.getText();
-//                String rPw = tfMkNL.getText();
                 int a = JOptionPane.showConfirmDialog(null, "Bạn muốn cập nhật mật khẩu?", "Thông báo", JOptionPane.YES_NO_OPTION);
 
                 if (a == JOptionPane.YES_OPTION) {
                     try {
                         if (new taiKhoanBUS().updateMatKhau(newPw, maTK)) {
                             new ShowDiaLog("Cập nhật thành công!", ShowDiaLog.SUCCESS_DIALOG);
+                            tfMk.setText("");
+                            tfMKMoi.setText("");
+                            tfMkNL.setText("");
                             pnRight.revalidate();
                             pnRight.repaint();
                             return;
                         } else {
-                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Cập nhật thất bại!", ShowDiaLog.ERROR_DIALOG);
                         }
 
                     } catch (SQLException ex) {
@@ -364,18 +367,6 @@ public class ThongTinUserGUI extends JPanel {
     public boolean isVietnamese(String str) {
         String regex = "[a-zA-ZàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆđĐìÌỉỈĩĨíÍịỊòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢùÙủỦũŨúÚụỤưỪừỬữỮứỨựỰỳỲỷỶỹỸýÝỵỴ\\s]+$";
         return Pattern.matches(regex, str);
-
-    }
-
-    public static void main(String[] args) throws SQLException {
-        JFrame f = new JFrame();
-        f.setSize(950, 450);
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ThongTinUserGUI p = new ThongTinUserGUI("TK10");
-        f.getContentPane().setLayout(new BorderLayout());
-        f.add(p);
-        f.setVisible(true);
     }
 
 }

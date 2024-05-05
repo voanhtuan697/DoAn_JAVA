@@ -28,4 +28,19 @@ public class cauHoiBUS {
     public String layMaCHTheoNoiDung(String noiDung) throws SQLException {
         return ch.layMaCHTheoNoiDung(noiDung);
     }
+
+
+    public boolean themCauHoi(cauHoiDTO cauHoi) {
+        return ch.themCauHoi(cauHoi);
+    }
+
+
+    public boolean suaCauHoi(cauHoiDTO cauHoi) {
+        return ch.suaCauHoi(cauHoi);
+    }
+
+
+    public boolean xoaCauHoi(String maCH) {
+        return ch.xoaCauHoi(maCH);
+    }
 }

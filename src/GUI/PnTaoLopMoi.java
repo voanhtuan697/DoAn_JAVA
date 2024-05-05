@@ -4,237 +4,422 @@
  */
 package GUI;
 
+import BUS.lopBUS2;
+import BUS.monBUS2;
+import BUS.nguoiDungBUS2;
+import BUS.taiKhoanBUS2;
+import DTO.lopDTO;
+import DTO.monDTO;
+import DTO.nguoiDungDTO;
+import DTO.taiKhoanDTO;
+import static GUI.BASE.dark_green;
+import static GUI.BASE.font14;
+import static GUI.BASE.font14b;
+import static GUI.BASE.gray_bg;
+import XULY.ShowDiaLog;
+import XULY.xuLyFileExcel;
 import java.awt.BorderLayout;
-import java.awt.Color;
+import static java.awt.Color.white;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
-/**
- *
- * @author E7250
- */
+
 public class PnTaoLopMoi extends JPanel {
 
+    private JPanel pnTop, pnCenter, pnBottom;
+    private JComboBox cbb_TrThLop, cbb_HocKy, cbb_TrangThai, cb_GiaoVien, cb_Mon;
+    private JTextField tfSearch, tfTenLop, tfSL;
+    private JButton btnThem, btnLopKT, btnNhapE, btnXoa;
+    private JTable table;
     private DefaultTableModel model;
-    private JComboBox<String> cbb_trangThai;
-    private String maGV;
-    private Object[] columns = {"Mã lớp", "Tên lớp", "Tên giảng viên", "Tên môn", "Năm học", "Học kỳ", "Số lượng"};
+    private lopBUS2 bus = new lopBUS2();
+    private taiKhoanBUS2 busTK = new taiKhoanBUS2();
+    private monBUS2 busMon = new monBUS2();
+    private nguoiDungBUS2 busNg = new nguoiDungBUS2();
 
     public PnTaoLopMoi() {
         init();
-
+        initComponents();
+        loadData();
     }
 
     public void init() {
         this.setLayout(new BorderLayout());
-        JPanel pn_header = new JPanel();
-        pn_header.setBackground(new Color(0xB3, 0xBE, 0xCB));
-        pn_header.setPreferredSize(new Dimension(0, 40));
-        pn_header.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
+        pnTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        pnTop.setBackground(gray_bg);
+        pnCenter = new JPanel(new BorderLayout());
+        pnBottom = new JPanel();
+        pnBottom.setBackground(gray_bg);
+        this.add(pnTop, BorderLayout.NORTH);
+        this.add(pnCenter, BorderLayout.CENTER);
+        this.add(pnBottom, BorderLayout.SOUTH);
+    }
 
-        JLabel lb_trangThai = new JLabel("Trạng thái: ");
-        String[] cacTrangThai = new String[]{"Đang mở", "Đã kết thúc"};
-        cbb_trangThai = new JComboBox<>(cacTrangThai);
+    public void initComponents() {
+        JLabel lblTrangthai, lblSearch;
+        lblTrangthai = new JLabel("Trạng thái");
+        lblSearch = new JLabel("Tìm kiếm");
+        String[] cacTrangThai = new String[]{"Tất cả", "Đang mở", "Đã kết thúc"};
+        cbb_TrThLop = new JComboBox<>(cacTrangThai);
+        tfSearch = new JTextField(20);
+        pnTop.add(lblTrangthai);
+        pnTop.add(cbb_TrThLop);
+        pnTop.add(lblSearch);
+        pnTop.add(tfSearch);
 
-        JLabel lb_timKiem = new JLabel("Tìm kiếm:");
-        JTextField txt_timKiem = new JTextField(15);
-
-        pn_header.add(lb_trangThai);
-        pn_header.add(cbb_trangThai);
-        pn_header.add(lb_timKiem);
-        pn_header.add(txt_timKiem);
-
-//        pn table
-        JPanel pn_table = new JPanel();
-        pn_table.setLayout(new BorderLayout());
-
-        Object[][] data = {
-            {"L1", "CNTT", "Lý Mạc Sầu", "Toán", "2024", "1", "100"},};
-
-        model = new DefaultTableModel(data, columns);
-
-        JTable table = new JTable(model) {
+        Object[] columns = {"Mã lớp", "Nhóm lớp", "Tên giảng viên", "Mã môn", "Năm học", "Học kỳ", "Số lượng", "Trạng thái"};
+        model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+//<<<<<<< HEAD:src/GUI/PnThemLop.java
+        table = new JTable(model);
+        setTableFont(table);
+        JScrollPane scrlTable = new JScrollPane(table);
+        pnCenter.add(scrlTable, BorderLayout.CENTER);
 
-        JScrollPane scrollPane_table = new JScrollPane(table);
-        pn_table.add(scrollPane_table, BorderLayout.CENTER);
+        tfTenLop = new JTextField();
+        tfSL = new JTextField();
+//        JLabel lblTenLop, lblMon, lblHocKy, lblGv, lblSL, lblTThai;
+        String[] title = {"Tên lớp", "Tên môn:", "Học kỳ:", "Giảng viên:", "Số lượng:", "Trạng thái:"};
+        JLabel[] lbl = new JLabel[title.length]; // Đổi độ dài của mảng thành title.length
+        for (int i = 0; i < title.length; i++) {
+            lbl[i] = new JLabel(title[i]);
+            lbl[i].setFont(font14);
+        }
+        cb_GiaoVien = new JComboBox();
+        cb_Mon = new JComboBox();
+        cbb_HocKy = new JComboBox<>(new String[]{"1", "2"});
+        cbb_TrangThai = new JComboBox<>(new String[]{"Hoạt động", "Kết thúc"});
 
-        JPanel pn_input = new JPanel();
-        pn_input.setBackground(new Color(0xB3, 0xBE, 0xCB));
-        pn_input.setPreferredSize(new Dimension(0, 140));
+        btnThem = new JButton("Thêm");
+        btnThem.setBackground(dark_green);
+        btnThem.setFont(font14b);
+        btnThem.setForeground(white);
+        btnThem.setBorderPainted(false);
+        btnThem.setFocusPainted(false);
+        btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnThem.setMaximumSize(new Dimension(120, 25));
 
-        JPanel pn_input_left = new JPanel();
-        JPanel pn_input_center = new JPanel();
-        JPanel pn_input_right = new JPanel();
+        btnNhapE = new JButton("Nhập Excel");
+        btnNhapE.setBackground(dark_green);
+        btnNhapE.setForeground(white);
+        btnNhapE.setFont(font14b);
+        btnNhapE.setBorderPainted(false);
+        btnNhapE.setFocusPainted(false);
+        btnNhapE.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnNhapE.setMaximumSize(new Dimension(120, 25));
 
-        GroupLayout layout_input = new GroupLayout(pn_input);
-        pn_input.setLayout(layout_input);
+        btnXoa = new JButton("Xóa");
+        btnXoa.setBackground(dark_green);
+        btnXoa.setForeground(white);
+        btnXoa.setFont(font14b);
+        btnXoa.setBorderPainted(false);
+        btnXoa.setFocusPainted(false);
+        btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnXoa.setMaximumSize(new Dimension(120, 25));
 
-        layout_input.setHorizontalGroup(
-                layout_input.createSequentialGroup()
-                        .addComponent(pn_input_left)
-                        .addComponent(pn_input_center)
-                        .addComponent(pn_input_right)
+        btnLopKT = new JButton("Lớp kết thúc");
+        btnLopKT.setBackground(dark_green);
+        btnLopKT.setForeground(white);
+        btnLopKT.setFont(font14b);
+        btnLopKT.setBorderPainted(false);
+        btnLopKT.setFocusPainted(false);
+        btnLopKT.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnLopKT.setMaximumSize(new Dimension(106, 25));
+
+        GroupLayout layout = new GroupLayout(pnBottom);
+        pnBottom.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(lbl[1])
+                        .addComponent(lbl[2])
+                        .addComponent(lbl[3])
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(cb_Mon)
+                        .addComponent(cbb_HocKy)
+                        .addComponent(cb_GiaoVien)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(lbl[4])
+                        .addComponent(lbl[5])
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(tfSL)
+                        .addComponent(cbb_TrangThai)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(btnThem)
+                        .addComponent(btnXoa)
+                        .addComponent(btnNhapE)
+                )
         );
 
-        layout_input.setVerticalGroup(
-                layout_input.createSequentialGroup()
-                        .addGroup(layout_input.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(pn_input_left)
-                                .addComponent(pn_input_center)
-                                .addComponent(pn_input_right))
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl[1])
+                        .addComponent(cb_Mon)
+                        .addComponent(lbl[4])
+                        .addComponent(tfSL)
+                        .addComponent(btnThem)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl[2])
+                        .addComponent(cbb_HocKy)
+                        .addComponent(lbl[5])
+                        .addComponent(cbb_TrangThai)
+                        .addComponent(btnXoa)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl[3])
+                        .addComponent(cb_GiaoVien)
+                        .addComponent(btnNhapE)
+                )
         );
 
-        JLabel lb_lop = new JLabel("Ten lop:");
-        JLabel lb_mon = new JLabel("Mon:");
-        JLabel lb_empty1 = new JLabel("      ");
-        JLabel lb_nam = new JLabel("Nam:");
-        JLabel lb_hocKy = new JLabel("Hoc ky:");
-        JLabel lb_maGV = new JLabel("Giang vien:");
-        JLabel lb_empty2 = new JLabel("      ");
-        JLabel lb_soLuong = new JLabel("So luong:");
+        btnThem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String i = (String) cbb_TrangThai.getSelectedItem();
+                String soLuong = tfSL.getText();
 
-        JTextField txt_lop = new JTextField(10);
-        txt_lop.setPreferredSize(new Dimension(0, 25));
-        JTextField txt_mon = new JTextField(10);
-        txt_mon.setPreferredSize(new Dimension(0, 25));
-        JComboBox<String> cbb_mon = new JComboBox<>();
-        cbb_mon.setPreferredSize(new Dimension(150, cbb_mon.getPreferredSize().height));
-        JTextField txt_nam = new JTextField(20);
-        txt_nam.setPreferredSize(new Dimension(0, 25));
+                int number = Integer.parseInt(soLuong);
+                if (soLuong.isEmpty()) {
+                    new ShowDiaLog("Không được để rỗng", ShowDiaLog.ERROR_DIALOG);
+                    tfSL.requestFocus();
+                } else if (!soLuong.matches("^\\d+$")) {
+                    new ShowDiaLog("Vui lòng nhập số nguyên dương", ShowDiaLog.ERROR_DIALOG);
+                } else if (number > 100) {
+                    new ShowDiaLog("Số phải là số dương và nhỏ hơn hoặc bằng 100", ShowDiaLog.ERROR_DIALOG);
+                } else {
+                    themLop();
+                    tfSL.setText("");
+                }
+            }
 
-        JComboBox<String> cbb_hocKy = new JComboBox<>(new String[]{"1", "2"});
-        cbb_hocKy.setPreferredSize(new Dimension(150, cbb_hocKy.getPreferredSize().height));
-        JTextField txt_maGV = new JTextField(10);
-        txt_maGV.setPreferredSize(new Dimension(0, 25));
-        JComboBox<String> cbb_maGV = new JComboBox<>();
-        cbb_maGV.setPreferredSize(new Dimension(192, cbb_maGV.getPreferredSize().height));
-        JTextField txt_soLuong = new JTextField(10);
-        txt_soLuong.setPreferredSize(new Dimension(0, 25));
-        pn_input_left.setPreferredSize(new Dimension(300, 0));
-        GroupLayout layout_left = new GroupLayout(pn_input_left);
-        pn_input_left.setLayout(layout_left);
-        layout_left.setAutoCreateGaps(true);
-        layout_left.setAutoCreateContainerGaps(true);
+        });
 
-        layout_left.setHorizontalGroup(
-                layout_left.createSequentialGroup()
-                        .addGroup(layout_left.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(lb_lop)
-                                .addComponent(lb_mon)
-                                .addComponent(lb_empty1)
-                                .addComponent(lb_nam))
-                        .addGroup(layout_left.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_lop)
-                                .addComponent(txt_mon)
-                                .addComponent(cbb_mon)
-                                .addComponent(txt_nam))
-        );
+        btnXoa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                XoaLop();
+            }
+        });
 
-        layout_left.setVerticalGroup(
-                layout_left.createSequentialGroup()
-                        .addGroup(layout_left.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_lop)
-                                .addComponent(txt_lop))
-                        .addGroup(layout_left.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_mon)
-                                .addComponent(txt_mon))
-                        .addGroup(layout_left.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_empty1)
-                                .addComponent(cbb_mon))
-                        .addGroup(layout_left.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_nam)
-                                .addComponent(txt_nam))
-        );
+        tfSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String keyword = tfSearch.getText();
+                TimKiem(keyword);
+                tfSearch.setText("");
+            }
+        });
 
-        pn_input_center.setPreferredSize(new Dimension(300, 0));
-        GroupLayout layout_center = new GroupLayout(pn_input_center);
-        pn_input_center.setLayout(layout_center);
-        layout_center.setAutoCreateGaps(true);
-        layout_center.setAutoCreateContainerGaps(true);
+        cbb_TrThLop.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String selectedItem = (String) cbb_TrThLop.getSelectedItem();
+                    if ("Đang mở".equals(selectedItem)) {
+                        listTrangThai(1);
+                    } else if ("Đã kết thúc".equals(selectedItem)) {
+                        listTrangThai(0);
+                    } else if ("Tất cả".equals(selectedItem)) {
+                        loadData();
+                    }
+                }
+            }
+        });
 
-        layout_center.setHorizontalGroup(
-                layout_center.createSequentialGroup()
-                        .addGroup(layout_center.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(lb_hocKy)
-                                .addComponent(lb_maGV)
-                                .addComponent(lb_empty2)
-                                .addComponent(lb_soLuong))
-                        .addGroup(layout_center.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(cbb_hocKy)
-                                .addComponent(txt_maGV)
-                                .addComponent(cbb_maGV)
-                                .addComponent(txt_soLuong))
-        );
-        layout_center.setVerticalGroup(
-                layout_center.createSequentialGroup()
-                        .addGroup(layout_center.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_hocKy)
-                                .addComponent(cbb_hocKy))
-                        .addGroup(layout_center.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_maGV)
-                                .addComponent(txt_maGV))
-                        .addGroup(layout_center.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_empty2)
-                                .addComponent(cbb_maGV))
-                        .addGroup(layout_center.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lb_soLuong)
-                                .addComponent(txt_soLuong))
-        );
+        cb_Mon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String TenMon = cb_Mon.getSelectedItem() + "";
+                if (TenMon != "") {
+                    ArrayList<nguoiDungDTO> list = busNg.DSTenGV(TenMon);
+                    cb_GiaoVien.removeAllItems();
+                    for (nguoiDungDTO ng : list) {
+                        cb_GiaoVien.addItem(ng.getHoTen());
+                    }
+                }
+            }
+        });
 
-        pn_input_right.setMaximumSize(new Dimension(100, 0));
-        GroupLayout layout_right = new GroupLayout(pn_input_right);
-        pn_input_right.setLayout(layout_right);
-        layout_right.setAutoCreateGaps(true);
-        layout_right.setAutoCreateContainerGaps(true);
+        btnNhapE.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NhapExcel();
+            }
+        });
 
-        Font fontBtn = new Font("Arial", Font.BOLD, 10);
-        String[] name_btn = new String[]{"Thêm", "Xóa", "Sửa", "Lop ket thuc"};
-        JButton btn_them = new JButton("Them");
-        btn_them.setMaximumSize(new Dimension(106, 25));
-        JButton btn_xoa = new JButton("Xóa");
-        btn_xoa.setMaximumSize(new Dimension(106, 25));
-        JButton btn_sua = new JButton("Sửa");
-        btn_sua.setMaximumSize(new Dimension(106, 25));
-        JButton btn_ketThuc = new JButton("Lop ket thuc");
-        btn_ketThuc.setMaximumSize(new Dimension(106, 25));
+    }
 
+    private void loadData() {
 
-        layout_right.setHorizontalGroup(
-                layout_right.createSequentialGroup()
-                        .addGroup(layout_right.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(btn_them)
-                                .addComponent(btn_xoa)
-                                .addComponent(btn_sua)
-                                .addComponent(btn_ketThuc))
-        );
-        layout_right.setVerticalGroup(
-                layout_right.createSequentialGroup()
-                        .addComponent(btn_them)
-                        .addComponent(btn_xoa)
-                        .addComponent(btn_sua)
-                        .addComponent(btn_ketThuc)
-        );
+        ArrayList<monDTO> listMon = busMon.getList();
+        cb_Mon.removeAllItems();
+        for (monDTO m : listMon) {
+            cb_Mon.addItem(m.getTenMon());
+        }
 
-        this.add(pn_header, BorderLayout.NORTH);
-        this.add(pn_table, BorderLayout.CENTER);
-        this.add(pn_input, BorderLayout.SOUTH);
+        model.setRowCount(0);
+        lopBUS2 busLop = new lopBUS2();
+        ArrayList<lopDTO> listLop = busLop.getList();
+        for (lopDTO lop : listLop) {
+            String TenGv, TenMon;
+            TenGv = busTK.getNameByMaTk(lop.getMaGV());
+            TenMon = busMon.getNameByMaMon(lop.getMaMon());
+            String TrangThai = "";
+            if (lop.isTrangThai() == true) {
+                TrangThai = "Hoạt động";
+            } else if (lop.isTrangThai() == false) {
+                TrangThai = "Kết thúc";
+            }
+
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), TrangThai};
+            model.addRow(row);
+        }
+
+    }
+
+    private void setTableFont(JTable table) {
+        table.setFont(font14);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font14);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font14);
+        table.setDefaultRenderer(Object.class, renderer);
+    }
+
+    private void themLop() {
+
+        String TenMon = cb_Mon.getSelectedItem().toString();
+        String MaMon = busMon.getMaMonByName(TenMon);
+        String MaLop = getMaLop(TenMon);
+
+        String hocky = cbb_HocKy.getSelectedItem().toString();
+        int HocKy = Integer.parseInt(hocky);
+
+        String gv = cb_GiaoVien.getSelectedItem().toString();
+        String MaGv = busTK.getMaTkByName(gv);
+
+        int soLuong = Integer.parseInt(tfSL.getText());
+
+        LocalDate currentDate = LocalDate.now();
+        int Nam = currentDate.getYear();
+
+        int NhomLop = getNhomLop(TenMon);
+
+        String tt = cbb_TrangThai.getSelectedItem().toString();
+        boolean TrangThai = true;
+        if (tt == "Hoạt động") {
+            TrangThai = true;
+        } else if (tt == "Kết thúc") {
+            TrangThai = false;
+        }
+        boolean rs = bus.themLop(MaLop, MaGv, soLuong, MaMon, Nam, HocKy, TrangThai, NhomLop);
+        loadData();
+    }
+
+    private void XoaLop() {
+        int i = table.getSelectedRow();
+        if (i == -1) {
+            new ShowDiaLog("Vui lòng chọn 1 dòng để xóa", ShowDiaLog.ERROR_DIALOG);
+        } else {
+            String MaLop = table.getValueAt(i, 0) + "";
+            System.out.println(MaLop);
+            bus.XoaLop(MaLop);
+            loadData();
+        }
+    }
+
+    private void TimKiem(String keyword) {
+        ArrayList<lopDTO> list = bus.TimKiem(keyword);
+        model.setRowCount(0);
+        for (lopDTO lop : list) {
+            String TenGv, TenMon;
+            TenGv = busTK.getNameByMaTk(lop.getMaGV());
+            TenMon = busMon.getNameByMaMon(lop.getMaMon());
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.isTrangThai()};
+            model.addRow(row);
+        }
+        if (keyword == "") {
+            loadData();
+        }
+    }
+
+    private void listTrangThai(int i) {
+        ArrayList<lopDTO> list = bus.listTrangThaiLop(i);
+        model.setRowCount(0);
+        for (lopDTO lop : list) {
+            String TenGv, TenMon;
+            TenGv = busTK.getNameByMaTk(lop.getMaGV());
+            TenMon = busMon.getNameByMaMon(lop.getMaMon());
+            Object[] row = {lop.getMaLop(), lop.getNhomLop(), TenGv, TenMon, lop.getNam(), lop.getHocKy(), lop.getSoLuong(), lop.isTrangThai()};
+            model.addRow(row);
+        }
+    }
+
+    private void NhapExcel() {
+        xuLyFileExcel nhapFile = new xuLyFileExcel();
+        nhapFile.nhapExcel(table);
+    }
+
+    private String getMaLop(String TenMon) {
+        String tmp = bus.getMaLop(TenMon);
+
+        String result = "";
+        if (tmp != "") {
+            StringBuilder str = new StringBuilder();
+            StringBuilder num = new StringBuilder();
+            for (char c : tmp.toCharArray()) {
+                if (Character.isLetter(c)) {
+                    str.append(c);
+                } else if (Character.isDigit(c)) {
+                    num.append(c);
+                }
+            }
+            int number = Integer.parseInt(num.toString()) + 1;
+            result = str.toString() + number;
+        } else {
+            String Char = String.valueOf(TenMon.charAt(0)).toUpperCase();
+            for (int i = 1; i < TenMon.length(); i++) {
+                if (TenMon.charAt(i - 1) == ' ') {
+                    Char += String.valueOf(TenMon.charAt(i)).toUpperCase();
+                }
+            }
+            result = "L" + Char + "1";
+        }
+
+        return result;
+    }
+
+    private int getNhomLop(String TenMon) {
+        int id = bus.getNhomLop(TenMon);
+        return id + 1;
     }
 
     public static void main(String[] args) {
@@ -246,5 +431,4 @@ public class PnTaoLopMoi extends JPanel {
         f.setVisible(true);
         f.setLocationRelativeTo(null);
     }
-
 }

@@ -235,7 +235,7 @@ public class FrameThemCHVaoDe extends JFrame {
             String maCH = table_left.getValueAt(selectedRow, 0).toString();
             for (String x : dsMaCH) {
                 if (x.equalsIgnoreCase(maCH)) {
-                    new ShowDiaLog("Câu hỏi đã được chọn!", ShowDiaLog.ERROR_DIALONG);
+                    new ShowDiaLog("Câu hỏi đã được chọn!", ShowDiaLog.ERROR_DIALOG);
                     return;
                 }
             }

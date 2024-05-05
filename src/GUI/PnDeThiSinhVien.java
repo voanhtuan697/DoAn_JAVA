@@ -6,8 +6,8 @@ package GUI;
 
 import BUS.deThiBUS;
 import BUS.ketQuaBUS1;
-import BUS.lopBUS1;
-import BUS.monBUS1;
+import BUS.lopBUS;
+import BUS.monBUS;
 import BUS.nguoiDungBUS;
 import DTO.deThiDTO;
 import DTO.lopDTO;
@@ -181,10 +181,10 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
             nguoiDungDTO gv = gvBUS.layNguoiDung(dt.getMaGV());
             String tenGV = gv.getHoTen();
 
-            lopBUS1 lopBUS = new lopBUS1();
+            lopBUS lopBUS = new lopBUS();
             lopDTO lop = lopBUS.layLopBangMaDe(dt.getMaDT());
-            monBUS1 monBUS = new monBUS1();
-            String tenMon = monBUS.layTenMonBangMaMon(lop.getMaMon());
+            monBUS monBUS = new monBUS();
+            String tenMon = monBUS.layTenMonTheoMaMon(lop.getMaMon()).trim();
             model.addRow(new Object[]{dt.getMaDT(), tenMon, lop.getNhomLop(), tenGV, dt.getNgayThi(), dt.getThoiGianBatDauThi(), dt.getSLCauHoi(), dt.getThoiGianLamBai(), dt.getTrangThai()});
         }
         table.setModel(model);
@@ -204,7 +204,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
 
                     try {
                         if (kequaBUS.kiemTraSVDaLamDeChua(maTK, maDT)) {
-                            new ShowDiaLog("Bạn đã thi bài thi này rồi!!!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Bạn đã thi bài thi này rồi!!!", ShowDiaLog.ERROR_DIALOG);
                         } else {
                             try {
                                 new FrameDNVaoDeThi(maDT, maTK);
@@ -225,7 +225,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
                         String thoiGianLamXong = kq.getTGLamXong().substring(0, 8);
                         lb_thoiGianLam.setText("Thời gian làm: "+thoiGianLamXong);
                     } else {
-                        new ShowDiaLog("Bạn đã không thi bài thi này!!!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Bạn đã không thi bài thi này!!!", ShowDiaLog.ERROR_DIALOG);
                         lb_diem.setText("Điểm: ");
                         lb_soCauDung.setText("Số câu đúng: ");
                         lb_thoiGianLam.setText("Thời gian làm: ");
@@ -251,15 +251,5 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
     public void mouseExited(MouseEvent e) {
     }
 
-    public static void main(String[] args) throws SQLException {
-        JFrame f = new JFrame();
-        f.setSize(800, 500);
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PnDeThiSinhVien p = new PnDeThiSinhVien("TK12");
-        f.getContentPane().setLayout(new BorderLayout());
-        f.add(p);
-        f.setVisible(true);
-    }
 
 }

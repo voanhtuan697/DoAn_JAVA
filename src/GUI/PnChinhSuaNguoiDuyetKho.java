@@ -14,10 +14,15 @@ import DTO.monDTO;
 import DTO.nguoiDungDTO;
 import DTO.taiKhoanDTO;
 import DTO.khoCauHoiDTO;
+import static GUI.BASE.dark_green;
+import static GUI.BASE.font14b;
+import static GUI.BASE.font16;
 import XULY.ShowDiaLog;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import static java.awt.Color.white;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -42,6 +47,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -90,7 +96,9 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
         pnHeader.setLayout(new FlowLayout(0, 10, 10));
 
         JLabel lb_timKiem = new JLabel("Tìm kiếm:");
+        lb_timKiem.setFont(font16);
         txt_timKiem = new JTextField(15);
+        txt_timKiem.setPreferredSize(new Dimension(200, 30));
 
         pnHeader.add(lb_timKiem);
         pnHeader.add(txt_timKiem);
@@ -108,6 +116,9 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
                 return false;
             }
         };
+        JTableHeader header = new JTableHeader();
+        header.setFont(font16);
+        table.setRowHeight(30);
         table.addMouseListener(this);
 
         JScrollPane scrollPane_table = new JScrollPane(table);
@@ -115,11 +126,25 @@ public class PnChinhSuaNguoiDuyetKho extends JPanel implements MouseListener, Ac
 
         JPanel pn_input = new JPanel(new FlowLayout(0, 10, 10));
         JLabel lb_mon = new JLabel("Môn:");
+        lb_mon.setFont(font16);
         cbb_mon = new JComboBox<>();
+        cbb_mon.setFont(font16);
 //        cbb_mon.addActionListener(this);
         cbb_mon.setPreferredSize(new Dimension(150, cbb_mon.getPreferredSize().height));
         JButton btn_them = new JButton("Thêm");
+        btn_them.setBackground(dark_green);
+        btn_them.setFont(font14b);
+        btn_them.setForeground(white);
+        btn_them.setBorderPainted(false);
+        btn_them.setFocusPainted(false);
+        btn_them.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         JButton btn_xoa = new JButton("Xóa");
+        btn_xoa.setBackground(dark_green);
+        btn_xoa.setFont(font14b);
+        btn_xoa.setForeground(white);
+        btn_xoa.setBorderPainted(false);
+        btn_xoa.setFocusPainted(false);
+        btn_xoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_them.addActionListener(this);
         btn_xoa.addActionListener(this);
 

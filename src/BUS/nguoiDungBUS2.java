@@ -23,4 +23,8 @@ public class nguoiDungBUS2 {
     public ArrayList<nguoiDungDTO> DSTenGV(String TenMon) {
         return dao.DSTenGV(TenMon);
     }
+    
+     public ArrayList<nguoiDungDTO> DSGiaoVien(){
+         return dao.DSGiaoVien();
+     }
 }

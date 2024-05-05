@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import DTO.chiTietMonDTO;
 import DTO.monDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -126,6 +127,29 @@ public class monDAO2 {
         }
         return list;
     }
+
+    public ArrayList<monDTO> DSMonGVCHTT(String MaTK) {
+        ArrayList<monDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String sql = "SELECT TenMon, MaMon "
+                    + "FROM MON "
+                    + "WHERE MaMon NOT IN (SELECT DISTINCT MaMon FROM CHITIETMON WHERE MaGV = ?)";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, MaTK);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    monDTO m = new monDTO(rs.getString("MaMon"), rs.getString("TenMon"));
+                    list.add(m);
+                }
+            }
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.out.println("lay danh sach mon gv ch tt that bai" + e.getMessage());
+        }
+        return list;
+    }
+    
 
     public static void main(String[] args) {
         monDAO2 dao = new monDAO2();

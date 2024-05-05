@@ -251,6 +251,78 @@ public class lopDAO2 {
         return list;
     }
 
+    public ArrayList<lopDTO> DSLop1SV(String MaTK) {
+        ArrayList<lopDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String sql = "SELECT LOP.* "
+                    + "FROM LOP "
+                    + "JOIN CHITIETLOP ON LOP.MaLop = CHITIETLOP.MaLop "
+                    + "LEFT JOIN TAIKHOAN TK ON TK.MaTK = CHITIETLOP.MaSV "
+                    + "WHERE tk.MaTK = ?";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, MaTK);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    lop = new lopDTO(rs.getString("MaLop"), rs.getString("MaGV"), rs.getString("MaMon"), rs.getBoolean("TrangThai"), rs.getInt("SoLuong"), rs.getInt("Nam"), rs.getInt("HocKy"), rs.getInt("NhomLop"));
+                    list.add(lop);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lay ds lop 1 sv that bai" + e.getMessage());
+        }
+        return list;
+    }
+
+    public ArrayList<lopDTO> DSTrangThaiLop1SV(String MaTK, boolean Trangthai) {
+        ArrayList<lopDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String sql = "SELECT LOP.* "
+                    + "FROM LOP "
+                    + "JOIN CHITIETLOP ON LOP.MaLop = CHITIETLOP.MaLop "
+                    + "LEFT JOIN TAIKHOAN TK ON TK.MaTK = CHITIETLOP.MaSV "
+                    + "WHERE tk.MaTK = ? AND LOP.TrangThai = ?";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, MaTK);
+                pre.setBoolean(2, Trangthai);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    lop = new lopDTO(rs.getString("MaLop"), rs.getString("MaGV"), rs.getString("MaMon"), rs.getBoolean("TrangThai"), rs.getInt("SoLuong"), rs.getInt("Nam"), rs.getInt("HocKy"), rs.getInt("NhomLop"));
+                    list.add(lop);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lay ds lop 1 sv that bai" + e.getMessage());
+        }
+        return list;
+    }
+
+    public ArrayList<lopDTO> TimKiemDS1SV(String MaTK, String keyword) {
+        ArrayList<lopDTO> list = new ArrayList<>();
+        try {
+            conn.Connect();
+            String key = "%" + keyword + "%";
+            String sql = "SELECT LOP.* "
+                    + "FROM LOP "
+                    + "JOIN CHITIETLOP ON LOP.MaLop = CHITIETLOP.MaLop "
+                    + "LEFT JOIN TAIKHOAN TK ON TK.MaTK = CHITIETLOP.MaSV "
+                    + "WHERE tk.MaTK = ? AND LOP.MaLop LIKE ?";
+            try (PreparedStatement pre = conn.preparedStatement(sql)) {
+                pre.setString(1, MaTK);
+                pre.setString(2, key);
+                ResultSet rs = pre.executeQuery();
+                while (rs.next()) {
+                    lop = new lopDTO(rs.getString("MaLop"), rs.getString("MaGV"), rs.getString("MaMon"), rs.getBoolean("TrangThai"), rs.getInt("SoLuong"), rs.getInt("Nam"), rs.getInt("HocKy"), rs.getInt("NhomLop"));
+                    list.add(lop);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lay ds lop 1 sv that bai" + e.getMessage());
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         lopDAO2 dao = new lopDAO2();
         String x = dao.getMaLop("Toán rời rạc");

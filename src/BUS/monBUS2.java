@@ -35,4 +35,8 @@ public class monBUS2 {
     public ArrayList<monDTO> TimKiem(String keyword){
         return dao.TimKiem(keyword);
     }
+    
+     public ArrayList<monDTO> DSMonGVCHTT(String MaTK) {
+         return dao.DSMonGVCHTT(MaTK);
+     }
 }

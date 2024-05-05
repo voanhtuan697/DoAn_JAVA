@@ -77,12 +77,24 @@ public class lopBUS2 {
     public int getNhomLop(String TenMon) {
         return dao.getNhomLop(TenMon);
     }
-    
-    public ArrayList<lopDTO> getListNam(){
+
+    public ArrayList<lopDTO> getListNam() {
         return dao.getListNam();
     }
+
+    public ArrayList<lopDTO> getMaByNamHKMon(int Nam, int HocKy, String TenMon) {
+        return dao.getMaByNamHKMon(Nam, HocKy, TenMon);
+    }
+
+    public ArrayList<lopDTO> DSLop1SV(String MaTK) {
+        return dao.DSLop1SV(MaTK);
+    }
+
+    public ArrayList<lopDTO> DSTrangThaiLop1SV(String MaTK, boolean Trangthai) {
+        return dao.DSTrangThaiLop1SV(MaTK, Trangthai);
+    }
     
-     public ArrayList<lopDTO> getMaByNamHKMon(int Nam, int HocKy, String TenMon) {
-         return dao.getMaByNamHKMon(Nam, HocKy, TenMon);
-     }
+    public ArrayList<lopDTO> TimKiemDS1SV(String MaTK, String keyword) {
+        return dao.TimKiemDS1SV(MaTK, keyword);
+    }
 }

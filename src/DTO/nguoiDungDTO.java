@@ -9,6 +9,7 @@ package DTO;
  * @author PHUNG
  */
 public class nguoiDungDTO {
+
     private String MaUser;
     private String HoTen;
     private String NgSinh;
@@ -20,6 +21,15 @@ public class nguoiDungDTO {
         this.MaUser = MaUser;
         this.HoTen = HoTen;
         this.NgSinh = NgSinh;
+    }
+
+    public nguoiDungDTO(String MaUser, String HoTen) {
+        this.MaUser = MaUser;
+        this.HoTen = HoTen;
+    }
+
+    public nguoiDungDTO(String HoTen) {
+        this.HoTen = HoTen;
     }
 
     public String getMaUser() {

@@ -92,58 +92,66 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
             return "Tạo tài khoản";
         } else if (maCN.equals("CNDSDDT")) {
             return "Đề đã tạo";
-        }else if (maCN.equals("CNTCH")) {
+        } else if (maCN.equals("CNTCH")) {
             return "Tạo câu hỏi mới";
+        } else if (maCN.equals("CNCSNDK")) {
+            return "Chỉnh sửa người duyệt kho";
+        } else if (maCN.equals("CNXKQCDT")) {
+            return "Xem kết quả thi các đề thi";
         }
         return "";
     }
 
     public String layIconBtn(String maCN) {
         if (maCN.equals("CNDCH")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//success_icon.png";
         } else if (maCN.equals("CNPQ")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//account_icon.png";
         } else if (maCN.equals("CNTD")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//taoDeThi_icon.png";
         } else if (maCN.equals("CNTLM")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//class_icon.png";
         } else if (maCN.equals("CNTLSV")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//taoLopSV.png";
         } else if (maCN.equals("CNTMGV")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//taoMonGV.png";
         } else if (maCN.equals("CNTMM")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//make_new_subject.png";
         } else if (maCN.equals("CNTTT")) {
-            return "..//image//taoCauHoi_icon.png";
+            return "..//image//makeNewAcc.png";
         } else if (maCN.equals("CNDSDDT")) {
+            return "..//image//dsBKTDT.png";
+        } else if (maCN.equals("CNTCH")) {
             return "..//image//taoCauHoi_icon.png";
-        }else if (maCN.equals("CNTCH")) {
-            return "..//image//taoCauHoi_icon.png";
-        }else if (maCN.equals("Môn giảng viên")) {
-            return "..//image//taoCauHoi_icon.png";
-        }else if (maCN.equals("Lớp giảng viên")) {
-            return "..//image//taoCauHoi_icon.png";
-        }else if (maCN.equals("Lớp sinh viên")) {
-            return "..//image//taoCauHoi_icon.png";
-        }else if (maCN.equals("Đề thi")) {
-            return "..//image//taoCauHoi_icon.png";
-        }else if (maCN.equals("Thông tin")) {
-            return "..//image//taoCauHoi_icon.png";
-        }else if (maCN.equals("Đăng xuất")) {
-            return "..//image//taoCauHoi_icon.png";
+        } else if (maCN.equals("Môn giảng viên")) {
+            return "..//image//monGV.png";
+        } else if (maCN.equals("Lớp giảng viên")) {
+            return "..//image//lopGV.png";
+        } else if (maCN.equals("Lớp sinh viên")) {
+            return "..//image//lopSV.png";
+        } else if (maCN.equals("Đề thi")) {
+            return "..//image//lamDT.png";
+        } else if (maCN.equals("Thông tin")) {
+            return "..//image//information_icon.png";
+        } else if (maCN.equals("Đăng xuất")) {
+            return "..//image//dangXuat.png";
+        } else if (maCN.equals("CNCSNDK")) {
+            return "..//image//khCH.png";
+        } else if (maCN.equals("CNXKQCDT")) {
+            return "..//image//ketQuaBKT.png";
         }
         return "";
     }
-    
-    public ArrayList<String> layChucNangCoBan(String maTK){
-        taiKhoanDTO tk =  taiKhoan.layTaiKhoan(maTK);
+
+    public ArrayList<String> layChucNangCoBan(String maTK) throws SQLException {
+        taiKhoanDTO tk = taiKhoan.layTaiKhoan(maTK);
         String maQuyen = tk.getMaQuyen();
         ArrayList<String> arrCNCB = new ArrayList<>();
-        
-        if(maQuyen.equals("QGV")){
+
+        if (maQuyen.equals("QGV")) {
             arrCNCB.add("Môn giảng viên");
             arrCNCB.add("Lớp giảng viên");
-        }else if(maQuyen.equals("QSV")){
+        } else if (maQuyen.equals("QSV")) {
             arrCNCB.add("Lớp sinh viên");
             arrCNCB.add("Đề thi");
         }
@@ -154,7 +162,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
 
     public void init() throws SQLException {
         this.setTitle("Frame");
-        this.setSize(900, 600);
+        this.setSize(1200, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -176,15 +184,11 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         lb_tittle.setHorizontalAlignment(JLabel.CENTER);
         lb_tittle.setVerticalAlignment(JLabel.CENTER);
         pn_left.add(pn_tittle);
-        
+
         ArrayList<String> arrMaCN = taiKhoan.layDanhSachMaCN(maTK);
         ArrayList<String> arrCNCB = layChucNangCoBan(maTK);
-        
-        
-        //  String[] name_btn = new String[]{"Câu hỏi", "Môn", "Thêm lớp", "Đề thi", "Kết quả", "Tài khoản", "Phân quyền", "Thông tin"};
-        // String[] name_image = new String[]{"taoCauHoi_icon.png", "books_icon.png", "class_icon.png", "taoDeThi_icon.png", "ketQua_icon.png", "account_icon.png", "Secure_icon.png", "information_icon.png"};
+
         ArrayList<JButton> arrBtn = new ArrayList<>();
-        
 
         for (String maCN : arrMaCN) {
             JButton btn = new JButton(layTenBtn(maCN));
@@ -267,15 +271,13 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
             });
         }
 
-        for(JButton btn: arrBtn){
-            if(btn.getText().equals("Thông tin")){
+        for (JButton btn : arrBtn) {
+            if (btn.getText().equals("Thông tin")) {
                 btn.setBackground(dark_green);
                 btn.setSelected(true);
                 break;
             }
         }
-
-
 
 //panel right
         JPanel pn_right = new JPanel();
@@ -304,7 +306,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
 //------------------------------
         JPanel pnThongTin = new ThongTinUserGUI(maTK);
         cards.add(pnThongTin, "pnThongTin");
-        JPanel pnDuyetCauHoi = new PnDuyetCauHoi();
+        JPanel pnDuyetCauHoi = new PnDuyetCauHoi(maTK);
         cards.add(pnDuyetCauHoi, "pnDuyetCauHoi");
         JPanel pnPhanQuyen = new PnPhanQuyen();
         cards.add(pnPhanQuyen, "pnPhanQuyen");
@@ -320,27 +322,25 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         cards.add(pnThemMonGiangVien, "pnThemMonGiangVien");
         JPanel pnTaoTaiKhoan = new PnTaoTaiKhoan();
         cards.add(pnTaoTaiKhoan, "pnTaoTaiKhoan");
-        JPanel pnDSDDT = new PnDsDeThiDaTao("maTK");
+        JPanel pnDSDDT = new PnDsDeThiDaTao(maTK);
         cards.add(pnDSDDT, "pnDSDDT");
         JPanel pnKetQua = new PnKetQua();
         cards.add(pnKetQua, "pnKetQua");
-        JPanel pnTaoCauHoi = new PanelTaoCauHoi();
+        JPanel pnTaoCauHoi = new PanelTaoCauHoi(maTK);
         cards.add(pnTaoCauHoi, "pnTaoCauHoi");
         JPanel pnMonGV = new PnDanhSachMonGV(maTK);
         cards.add(pnMonGV, "pnMonGV");
         JPanel pnLopGV = new PnDSLopGV(maTK);
         cards.add(pnLopGV, "pnLopGV");
-        
+
         JPanel pnLopSV = new PnDSLopSV(maTK);
         cards.add(pnLopSV, "pnLopSV");
         JPanel pnDeThiSV = new PnDeThiSinhVien(maTK);
         cards.add(pnDeThiSV, "pnDeThiSV");
-        
-        
-        
-        
-//        cardLayout.show(cards, "pnDeThi");
+        JPanel pnCSNDK = new PnChinhSuaNguoiDuyetKho(maTK);
+        cards.add(pnCSNDK, "pnCSNDK");
 
+//        cardLayout.show(cards, "pnDeThi");
         pn_right.add(pn_header, BorderLayout.NORTH);
         pn_right.add(pn_content, BorderLayout.CENTER);
 
@@ -361,7 +361,7 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         } else if (btn_name.equals("Tạo đề")) {
             cardLayout.show(cards, "pnTaoDe");
             lb_Header.setText("Tạo đề");
-        }else if (btn_name.equals("Tạo lớp mới")) {
+        } else if (btn_name.equals("Tạo lớp mới")) {
             cardLayout.show(cards, "pnTaoLop");
             lb_Header.setText("Tạo lớp mới");
         } else if (btn_name.equals("Thêm lớp sinh viên")) {
@@ -376,10 +376,10 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         } else if (btn_name.equals("Tạo tài khoản")) {
             cardLayout.show(cards, "pnTaoTaiKhoan");
             lb_Header.setText("Tạo tài khoản");
-        } else if (btn_name.equals("Xem kết quả thi")) {
+        } else if (btn_name.equals("Xem kết quả thi các đề thi")) {
             cardLayout.show(cards, "pnKetQua");
-            lb_Header.setText("Xem kết quả thi");
-        }else if (btn_name.equals("Tạo câu hỏi mới")) {
+            lb_Header.setText("Xem kết quả thi các đề thi");
+        } else if (btn_name.equals("Tạo câu hỏi mới")) {
             cardLayout.show(cards, "pnTaoCauHoi");
             lb_Header.setText("Tạo câu hỏi mới");
         } else if (btn_name.equals("Môn giảng viên")) {
@@ -400,12 +400,11 @@ public class GiaoDienUserGUI extends JFrame implements ActionListener {
         } else if (btn_name.equals("Thông tin")) {
             cardLayout.show(cards, "pnThongTin");
             lb_Header.setText("Thông tin");
+        } else if (btn_name.equals("Chỉnh sửa người duyệt kho")) {
+            cardLayout.show(cards, "pnCSNDK");
+            lb_Header.setText("Chỉnh sửa người duyệt kho");
         } else if (btn_name.equals("Đăng xuất")) {
             System.exit(0);
-        } 
-    }
-
-    public static void main(String[] args) throws SQLException {
-        new GiaoDienUserGUI("TK11");
+        }
     }
 }

@@ -5,39 +5,45 @@
 package DAO;
 
 import DTO.hinhThucDTO;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import java.sql.*;
 
 public class hinhThucDAO {
 
-    private MyConnection conn;
-
+     private MyConnection myConnection;
+     
     public hinhThucDAO() {
         try {
-            conn = new MyConnection();
+            myConnection = new MyConnection();
+            myConnection.Connect();
         } catch (SQLException e) {
-            System.out.println("ket noi database that bai");
+            e.printStackTrace();
+            System.out.println("Khong the ket noi den co so du lieu");
         }
     }
-
-    public ArrayList<hinhThucDTO> ListHinhThuc() {
-        ArrayList<hinhThucDTO> list = new ArrayList<>();
+    
+    public void themHinhThuc(hinhThucDTO hinhThuc) {
+        String sql = "INSERT INTO HINHTHUC(MaHT, TenHT) VALUES (?, ?)";
         try {
-            conn.Connect();
-            String sql = "SELECT * FROM HINHTHUC";
-            try (PreparedStatement pre = conn.preparedStatement(sql)) {
-                ResultSet rs = pre.executeQuery();
-                while (rs.next()) {
-                    hinhThucDTO item = new hinhThucDTO(rs.getString("MaHT"), rs.getString("TenHT"));
-                    list.add(item);
-                }
-            }
+            PreparedStatement preparedStatement = myConnection.preparedStatement(sql);
+            preparedStatement.setString(1, hinhThuc.getMaHT());
+            preparedStatement.setString(2, hinhThuc.getTenHT());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Lay danh sach hinh thuc that bai" + e.getMessage());
+            e.printStackTrace();
         }
-        return list;
     }
 
+    public void suaHinhThuc(hinhThucDTO hinhThuc) {
+        String sql = "UPDATE HINHTHUC SET TenHT = ? WHERE MaHT = ?";
+        try {
+            PreparedStatement preparedStatement = myConnection.preparedStatement(sql);
+            preparedStatement.setString(1, hinhThuc.getTenHT());
+            preparedStatement.setString(2, hinhThuc.getMaHT());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

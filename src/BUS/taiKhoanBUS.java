@@ -22,7 +22,6 @@ public class taiKhoanBUS {
 
     }
 
-//   ArrayList<nguoiDungDTO> user = new ArrayList<>();
     public ArrayList<taiKhoanDTO> getTaiKhoan() throws SQLException {
         return acc.getTaiKhoan();
     }
@@ -47,6 +46,10 @@ public class taiKhoanBUS {
         return acc.updateTaiKhoan(maQuyen, tenDN);
     }
 
+    public boolean updateMatKhau(String matKhau, String maTK) throws SQLException {
+        return acc.updateMatKhau(matKhau, maTK);
+    }
+
     public taiKhoanDTO dangNhapTaiKhoan(String tenDN, String matKhau) throws SQLException {
         ArrayList<taiKhoanDTO> arr = acc.getTaiKhoan();
         for (taiKhoanDTO x : arr) {
@@ -57,13 +60,12 @@ public class taiKhoanBUS {
         return null;
     }
 
-
     public ArrayList<String> layDanhSachMaCN(String maTK) {
         ArrayList<String> arr = this.acc.layDanhSachMaCN(maTK);
         return arr;
     }
 
-    public taiKhoanDTO layTaiKhoan(String maTK) {
+    public taiKhoanDTO layTaiKhoan(String maTK) throws SQLException {
         taiKhoanDTO tk = this.acc.layTaiKhoan(maTK);
         return tk;
     }
@@ -71,4 +73,16 @@ public class taiKhoanBUS {
     public String layMaTKTheoTenDN(String tenDN) throws SQLException {
         return acc.layMaTKTheoTenDN(tenDN);
     }
+    
+    public String getMaTkByName(String name){
+        return acc.getMaTkByName(name);
+    }
+    
+    public String getNameByMaTk(String MaTK) {
+        return acc.getNameByMaTk(MaTK);
+    }
+    
+     public String getMaTkByTenDN(String TenDN){
+         return acc.getMaTkByTenDN(TenDN);
+     }
 }

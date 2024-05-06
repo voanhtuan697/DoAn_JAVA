@@ -5,9 +5,9 @@
 package GUI;
 
 import BUS.deThiBUS;
-import BUS.ketQuaBUS1;
-import BUS.lopBUS1;
-import BUS.monBUS1;
+import BUS.ketQuaBUS;
+import BUS.lopBUS;
+import BUS.monBUS;
 import BUS.nguoiDungBUS;
 import DTO.deThiDTO;
 import DTO.lopDTO;
@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static GUI.BASE.font14;
+import static GUI.BASE.font16;
 import static GUI.BASE.gray_bg;
 import XULY.ShowDiaLog;
 import java.awt.CardLayout;
@@ -41,6 +42,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseListener {
 
@@ -50,14 +53,14 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
     private JPanel pn_KetQua;
     private JTable table;
     private deThiBUS deThi;
-    private ketQuaBUS1 kequaBUS;
+    private ketQuaBUS kequaBUS;
     private JLabel lb_diem;
     private JLabel lb_soCauDung;
     private JLabel lb_thoiGianLam;
 
     public PnDeThiSinhVien(String maTK) throws SQLException {
         deThi = new deThiBUS();
-        kequaBUS = new ketQuaBUS1();
+        kequaBUS = new ketQuaBUS();
         this.maTK = maTK;
         init();
 //        model = (DefaultTableModel) table.getModel();
@@ -88,13 +91,17 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
         pnHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
         JLabel lb_trangThaiDeThi = new JLabel("Trạng thái:");
+        lb_trangThaiDeThi.setFont(font16);
         String[] cacTrangThai = new String[]{"Đề sắp diễn ra", "Đề đang diễn ra", "Đề đã diễn ra"};
         cbb_trangThai = new JComboBox<>(cacTrangThai);
+        cbb_trangThai.setFont(font16);
         cbb_trangThai.addActionListener(this);
         cbb_trangThai.setPreferredSize(new Dimension(150, cbb_trangThai.getPreferredSize().height));
 
         JLabel lb_timKiem = new JLabel("Tìm kiếm:");
+        lb_timKiem.setFont(font16);
         JTextField txt_timKiem = new JTextField(15);
+        txt_timKiem.setFont(font16);
 
         pnHeader.add(lb_trangThaiDeThi);
         pnHeader.add(cbb_trangThai);
@@ -104,17 +111,18 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
         JPanel pnTable = new JPanel();
         pnTable.setLayout(new BorderLayout());
 
-        Object[][] data = {};
         Object[] columns = {"Mã đề", "Môn", "Nhóm lớp", "Giảng viên", "Ngày thi", "Thời gian bắt đầu", "Số câu", "Thời gian làm bài(Phút)", "Trạng thái"};
-        model = new DefaultTableModel(data, columns);
-
-        table = new JTable(model) {
+        model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+
+        table = new JTable(model);
         table.addMouseListener(this);
+
+        setTableFont(table);
         JScrollPane scrollPane_table = new JScrollPane(table);
         pnTable.add(scrollPane_table, BorderLayout.CENTER);
 
@@ -122,9 +130,13 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
         pn_KetQua.setLayout(new FlowLayout(0, 10, 10));
 
         JLabel lb_ketQua = new JLabel("Kết quả");
+        lb_ketQua.setFont(font16);
         lb_diem = new JLabel("Điểm:");
+        lb_diem.setFont(font16);
         lb_soCauDung = new JLabel("Số câu đúng: ");
+        lb_soCauDung.setFont(font16);
         lb_thoiGianLam = new JLabel("Thời gian làm: ");
+        lb_thoiGianLam.setFont(font16);
         pn_KetQua.add(lb_ketQua);
         pn_KetQua.add(lb_diem);
         pn_KetQua.add(lb_soCauDung);
@@ -181,10 +193,10 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
             nguoiDungDTO gv = gvBUS.layNguoiDung(dt.getMaGV());
             String tenGV = gv.getHoTen();
 
-            lopBUS1 lopBUS = new lopBUS1();
+            lopBUS lopBUS = new lopBUS();
             lopDTO lop = lopBUS.layLopBangMaDe(dt.getMaDT());
-            monBUS1 monBUS = new monBUS1();
-            String tenMon = monBUS.layTenMonBangMaMon(lop.getMaMon());
+            monBUS monBUS = new monBUS();
+            String tenMon = monBUS.layTenMonTheoMaMon(lop.getMaMon()).trim();
             model.addRow(new Object[]{dt.getMaDT(), tenMon, lop.getNhomLop(), tenGV, dt.getNgayThi(), dt.getThoiGianBatDauThi(), dt.getSLCauHoi(), dt.getThoiGianLamBai(), dt.getTrangThai()});
         }
         table.setModel(model);
@@ -204,7 +216,7 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
 
                     try {
                         if (kequaBUS.kiemTraSVDaLamDeChua(maTK, maDT)) {
-                            new ShowDiaLog("Bạn đã thi bài thi này rồi!!!", ShowDiaLog.ERROR_DIALONG);
+                            new ShowDiaLog("Bạn đã thi bài thi này rồi!!!", ShowDiaLog.ERROR_DIALOG);
                         } else {
                             try {
                                 new FrameDNVaoDeThi(maDT, maTK);
@@ -223,9 +235,9 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
                         lb_diem.setText("Điểm: " + kq.getDiem());
                         lb_soCauDung.setText("Số câu đúng: " + kq.getSLCauDung());
                         String thoiGianLamXong = kq.getTGLamXong().substring(0, 8);
-                        lb_thoiGianLam.setText("Thời gian làm: "+thoiGianLamXong);
+                        lb_thoiGianLam.setText("Thời gian làm: " + thoiGianLamXong);
                     } else {
-                        new ShowDiaLog("Bạn đã không thi bài thi này!!!", ShowDiaLog.ERROR_DIALONG);
+                        new ShowDiaLog("Bạn đã không thi bài thi này!!!", ShowDiaLog.ERROR_DIALOG);
                         lb_diem.setText("Điểm: ");
                         lb_soCauDung.setText("Số câu đúng: ");
                         lb_thoiGianLam.setText("Thời gian làm: ");
@@ -251,15 +263,15 @@ public class PnDeThiSinhVien extends JPanel implements ActionListener, MouseList
     public void mouseExited(MouseEvent e) {
     }
 
-    public static void main(String[] args) throws SQLException {
-        JFrame f = new JFrame();
-        f.setSize(800, 500);
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PnDeThiSinhVien p = new PnDeThiSinhVien("TK12");
-        f.getContentPane().setLayout(new BorderLayout());
-        f.add(p);
-        f.setVisible(true);
+    private void setTableFont(JTable table) {
+        table.setFont(font16);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font16);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font16);
+        table.setDefaultRenderer(Object.class, renderer);
     }
 
 }

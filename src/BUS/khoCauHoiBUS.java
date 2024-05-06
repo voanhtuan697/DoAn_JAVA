@@ -5,6 +5,7 @@
 package BUS;
 
 import DAO.khoCauHoiDAO;
+import DTO.khoCauHoiDTO;
 import java.sql.*;
 
 /**
@@ -21,5 +22,29 @@ public class khoCauHoiBUS {
 
     public String layMaKhoCHTheoMaMon(String maMon) throws SQLException {
         return kho.layMaKhoCHTheoMaMon(maMon);
+    }
+    public khoCauHoiDTO layKhoBangMaTK(String maTK) {
+        khoCauHoiDTO k = kho.layKhoBangMaTK(maTK);
+        return k; 
+    }
+    
+    public boolean taoKhoCauHoi(khoCauHoiDTO kch) throws SQLException {
+        return kho.taoKhoCauHoi(kch);
+    }
+    
+    public boolean xoaMaTBMKhoiKhoCH(String maKho) throws SQLException {
+        return kho.xoaMaTBMKhoiKhoCH(maKho);
+    }
+    
+    public boolean themTBMChoKhoCH(String maTBM, String maMon) throws SQLException {
+        return kho.themTBMChoKhoCH(maTBM, maMon);
+    }
+    
+    public boolean ThemKho(String MaKho, String MaMon, String MaTBM) {
+        khoCauHoiDTO k = new khoCauHoiDTO();
+        k.setMaKho(MaKho);;
+        k.setMaMon(MaMon);
+        k.setMaTBM(MaTBM);
+        return kho.ThemKho(k);
     }
 }

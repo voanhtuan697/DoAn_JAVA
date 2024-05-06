@@ -4,10 +4,6 @@
  */
 package DTO;
 
-/**
- *
- * @author PHUNG
- */
 public class monDTO {
     private String MaMon;
     private String TenMon;
@@ -19,6 +15,11 @@ public class monDTO {
 
     public monDTO() {
     }
+
+    public monDTO(String TenMon) {
+        this.TenMon = TenMon;
+    }
+    
 
     public String getMaMon() {
         return MaMon;

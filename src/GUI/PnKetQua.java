@@ -1,5 +1,14 @@
 package GUI;
 
+import BUS.deThiBUS;
+import BUS.ketQuaBUS;
+import BUS.lopBUS;
+import BUS.monBUS;
+import DAO.ketQuaDAO;
+import DTO.deThiDTO;
+import DTO.ketQuaDTO;
+import DTO.lopDTO;
+import DTO.monDTO;
 import java.awt.BorderLayout;
 import static java.awt.Color.white;
 import java.awt.Cursor;
@@ -15,14 +24,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import static GUI.BASE.dark_green;
+import static GUI.BASE.font14;
 import static GUI.BASE.font16;
 import static GUI.BASE.font14b;
 import static GUI.BASE.gray_bg;
+import XULY.ShowDiaLog;
+import XULY.writePDF;
 import XULY.xuLyFileExcel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 public class PnKetQua extends JPanel {
 
@@ -35,15 +50,27 @@ public class PnKetQua extends JPanel {
     private String[] lblContent = {"Môn thi:", "Đề thi:", "Điểm từ:", "Điểm", "Lớp:"};
     private JComboBox cbMonthi, cbDeThi, cbLop;
     private JTable table;
+    private ButtonGroup group;
+    private ketQuaBUS busKQ;
+    private monBUS busMon;
+    private deThiBUS busThi;
+    private lopBUS busLop;
+    private ketQuaDAO ketQuaDAO;
 
-    public PnKetQua() {
+    public PnKetQua() throws SQLException {
+        ketQuaDAO = new ketQuaDAO();
+        busThi = new deThiBUS();
+        busKQ = new ketQuaBUS();
+        busMon = new monBUS();
+        busLop = new lopBUS();
         init();
         initComponent();
         showLayout();
+        loadData();
     }
 
     private void init() {
-
+        
         pnHeader = new JPanel();
         pnHeader.setBackground(gray_bg);
 
@@ -61,21 +88,17 @@ public class PnKetQua extends JPanel {
     private void initComponent() {
 
         Object[] columns = {"Mã thí sinh", "Họ và tên", "Điểm", "Lớp", "Môn"};
-        Object[][] data = {{"0921", "none", "10", "DCT123", "TA"}};
+        Object[][] data = {};
 
         model = new DefaultTableModel(data, columns) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // không cho phép chỉnh sửa dữ liệu
+                return false;
             }
         };
         table = new JTable(model);
-
-        int[] columnWidths = {100, 200, 80, 100, 100};
-        for (int i = 0; i < columnWidths.length; i++) {
-            TableColumn column = table.getColumnModel().getColumn(i);
-            column.setPreferredWidth(columnWidths[i]);
-        }
+        setTableFont(table);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         JScrollPane scrTabel = new JScrollPane(table);
         pnTable.add(scrTabel, BorderLayout.CENTER);
 
@@ -100,7 +123,7 @@ public class PnKetQua extends JPanel {
         rdThi = new JRadioButton("Thi lại");
         rdThi.setBackground(gray_bg);
         rdThi.setFont(font16);
-        ButtonGroup group = new ButtonGroup();
+        group = new ButtonGroup();
         group.add(rdMax);
         group.add(rdMin);
         group.add(rdThi);
@@ -113,13 +136,20 @@ public class PnKetQua extends JPanel {
         btnXuat.setFocusPainted(false);
         btnXuat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        btnVe = new JButton(" Vẽ biểu đồ ");
+        btnVe = new JButton("Xuất PDF     ");
         btnVe.setBackground(dark_green);
         btnVe.setForeground(white);
         btnVe.setFont(font14b);
         btnVe.setBorderPainted(false);
         btnVe.setFocusPainted(false);
         btnVe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnVe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Gọi phương thức writeKetQua khi người dùng click vào nút
+                writeKetQua();
+            }
+        });
 
         btnTimTheoDiem = new JButton("Tìm theo điểm");
         btnTimTheoDiem.setBackground(dark_green);
@@ -136,6 +166,82 @@ public class PnKetQua extends JPanel {
             }
         });
 
+        cbMonthi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String tenMon = cbMonthi.getSelectedItem() + "";
+                String MaMon = busMon.getMaMonByName(tenMon);
+                if (MaMon != null) {
+                    cbDeThi.removeAllItems();
+                    cbLop.removeAllItems();
+
+                    ArrayList<lopDTO> listLop = busLop.getDSMaLop(MaMon);
+                    for (lopDTO l : listLop) {
+                        cbLop.addItem(l.getMaLop());
+                    }
+
+                    ArrayList<deThiDTO> listDe = busThi.getDSMaDT(MaMon);
+                    for (deThiDTO d : listDe) {
+                        cbDeThi.addItem(d.getMaDT());
+                    }
+                    getDaTaTable();
+                }
+            }
+        });
+
+        cbDeThi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getDaTaTable();
+            }
+        });
+        cbLop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getDaTaTable();
+            }
+        });
+
+        rdMax.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getDanhSachMax();
+            }
+        });
+
+        rdMin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getDanhSachMin();
+            }
+        });
+
+        rdThi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getDanhSachTruot();
+            }
+        });
+
+        btnTimTheoDiem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getDanhSachKhoang();
+                txtDiem.setText("");
+                txtDiemTu.setText("");
+            }
+        });
+    }
+
+    private void setTableFont(JTable table) {
+        table.setFont(font14);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(font14);
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setFont(font14);
+        table.setDefaultRenderer(Object.class, renderer);
     }
 
     private void showLayout() {
@@ -207,19 +313,135 @@ public class PnKetQua extends JPanel {
         );
     }
 
+    private void loadData() {
+        setLoad();
+        cbMonthi.removeAllItems();
+        ArrayList<monDTO> listMon = busMon.getList();
+        for (monDTO m : listMon) {
+            cbMonthi.addItem(m.getTenMon());
+        }
+    }
+
+    private void getDaTaTable() {
+        String TenMon = cbMonthi.getSelectedItem() + "";
+        String MaDT = cbDeThi.getSelectedItem() + "";
+        String MaLop = cbLop.getSelectedItem() + "";
+
+        model.setRowCount(0);
+        ArrayList<ketQuaDTO> listTK = busKQ.DanhSach(TenMon, MaDT, MaLop);
+        for (ketQuaDTO k : listTK) {
+            Object[] row = {k.getNgDungDTO().getMaUser(), k.getNgDungDTO().getHoTen(), k.getDiem(), k.getLopDTO().getMaLop(), k.getLopDTO().getMonDTO().getTenMon()};
+            model.addRow(row);
+        }
+    }
+
+    private void getDanhSachMax() {
+        setLoad();
+        String TenMon = cbMonthi.getSelectedItem() + "";
+        String MaDT = cbDeThi.getSelectedItem() + "";
+        String MaLop = cbLop.getSelectedItem() + "";
+
+        model.setRowCount(0);
+        ArrayList<ketQuaDTO> listTK = busKQ.DanhSachMax(TenMon, MaDT, MaLop);
+        for (ketQuaDTO k : listTK) {
+            Object[] row = {k.getNgDungDTO().getMaUser(), k.getNgDungDTO().getHoTen(), k.getDiem(), k.getLopDTO().getMaLop(), k.getLopDTO().getMonDTO().getTenMon()};
+            model.addRow(row);
+        }
+    }
+
+    private void getDanhSachMin() {
+        setLoad();
+        String TenMon = cbMonthi.getSelectedItem() + "";
+        String MaDT = cbDeThi.getSelectedItem() + "";
+        String MaLop = cbLop.getSelectedItem() + "";
+
+        model.setRowCount(0);
+        ArrayList<ketQuaDTO> listTK = busKQ.DanhSachMin(TenMon, MaDT, MaLop);
+        for (ketQuaDTO k : listTK) {
+            Object[] row = {k.getNgDungDTO().getMaUser(), k.getNgDungDTO().getHoTen(), k.getDiem(), k.getLopDTO().getMaLop(), k.getLopDTO().getMonDTO().getTenMon()};
+            model.addRow(row);
+        }
+    }
+
+    private void getDanhSachTruot() {
+        setLoad();
+        String TenMon = cbMonthi.getSelectedItem() + "";
+        String MaDT = cbDeThi.getSelectedItem() + "";
+        String MaLop = cbLop.getSelectedItem() + "";
+
+        model.setRowCount(0);
+        ArrayList<ketQuaDTO> listTK = busKQ.DanhSachTruot(TenMon, MaDT, MaLop);
+        for (ketQuaDTO k : listTK) {
+            Object[] row = {k.getNgDungDTO().getMaUser(), k.getNgDungDTO().getHoTen(), k.getDiem(), k.getLopDTO().getMaLop(), k.getLopDTO().getMonDTO().getTenMon()};
+            model.addRow(row);
+        }
+    }
+
+    private void getDanhSachKhoang() {
+        String TenMon = cbMonthi.getSelectedItem() + "";
+        String MaDT = cbDeThi.getSelectedItem() + "";
+        String MaLop = cbLop.getSelectedItem() + "";
+        float start, end;
+
+        if (txtDiem.getText().isEmpty() && txtDiemTu.getText().isEmpty()) {
+            txtDiemTu.requestFocus();
+            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALOG);
+            return;
+        } else if (txtDiem.getText().isEmpty()) {
+            txtDiem.requestFocus();
+            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALOG);
+            return;
+        } else if (txtDiemTu.getText().isEmpty()) {
+            txtDiemTu.requestFocus();
+            new ShowDiaLog("Không được bỏ trống", ShowDiaLog.ERROR_DIALOG);
+            return;
+        }
+
+        try {
+            start = Float.parseFloat(txtDiemTu.getText());
+            end = Float.parseFloat(txtDiem.getText());
+        } catch (NumberFormatException e) {
+            new ShowDiaLog("Điểm phải là số", ShowDiaLog.ERROR_DIALOG);
+            return;
+        }
+
+        if (start < 0 || start > 10 || end < 0 || end > 10) {
+            txtDiemTu.requestFocus();
+            new ShowDiaLog("Điểm phải trong khoảng từ 0 đến 10", ShowDiaLog.ERROR_DIALOG);
+        } else if (start > end) {
+            new ShowDiaLog("Chọn khoảng không hợp lệ", ShowDiaLog.ERROR_DIALOG);
+            txtDiemTu.requestFocus();
+        } else {
+            model.setRowCount(0);
+            ArrayList<ketQuaDTO> listTK = busKQ.DanhSachKhoang(TenMon, MaDT, MaLop, start, end);
+            for (ketQuaDTO k : listTK) {
+                Object[] row = {k.getNgDungDTO().getMaUser(), k.getNgDungDTO().getHoTen(), k.getDiem(), k.getLopDTO().getMaLop(), k.getLopDTO().getMonDTO().getTenMon()};
+                model.addRow(row);
+            }
+        }
+    }
+
+    private void setLoad() {
+        txtDiem.setText("");
+        txtDiemTu.setText("");
+    }
+
     private void xuatExcel() {
         xuLyFileExcel file = new xuLyFileExcel();
         file.xuatExcel(table);
     }
+    
+    private void writeKetQua() {
+            String tenMon = cbMonthi.getSelectedItem().toString();
+            String maMon = busMon.getMaMonByName(tenMon);
+            String maDT = cbDeThi.getSelectedItem().toString();
+            String maLop = cbLop.getSelectedItem().toString();
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(950, 450);
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PnKetQua p = new PnKetQua();
-        f.getContentPane().setLayout(new BorderLayout());
-        f.add(p);
-        f.setVisible(true);
+            int rowCount = model.getRowCount();
+            writePDF pdfWriter = new writePDF();
+            for (int i = 0; i < rowCount; i++) {
+                String maKetQua = model.getValueAt(i, 0).toString();
+                pdfWriter.writeKetQua(maKetQua, tenMon, maDT, maLop, ketQuaDAO);
+            }
     }
 }

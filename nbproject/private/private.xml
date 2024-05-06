@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+<<<<<<< HEAD
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/PHUNG/Videos/NetBeansProjects/Javaa/DoAn_JAVA/src/GUI/PnTaoTaiKhoan.java</file>
-=======
+            <file>file:/D:/java/Doan_JAVA/src/GUI/PnKetQua.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/XULY/writePDF.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/DAO/ketQuaDAO.java</file>
+            <file>file:/D:/java/Doan_JAVA/src/GUI/PnPhanQuyen.java</file>
             <file>file:/D:/java/Doan_JAVA/src/Main/main.java</file>
-            <file>file:/D:/java/Doan_JAVA/src/GUI/GiaoDienUserGUI.java</file>
->>>>>>> 82720d0acfb5d36c03ab57b109ef0d5ab53879ff
         </group>
     </open-files>
+=======
+>>>>>>> b0c7ee4b2655c4f110c65cf9a141aff4048ca452
 </project-private>

@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
-
 import DTO.cauHoiDTO;
 import java.util.ArrayList;
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -51,8 +51,124 @@ public class cauHoiDAO {
         }
         return null;
     }
-//    public ArrayList<cauHoiDTO> layDanhSachCauHoiTheoMon(String tenMon) throws SQLException{
-//        
-//        String sql="";
-//    }
+    
+    public boolean themCauHoi(cauHoiDTO cauHoi) {
+        try {
+            String query = "INSERT INTO CAUHOI (MaCH, MaKho, MaHT, Noidung, DoKho, MaGV, TrangThai, Img) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = conn.preparedStatement(query);
+
+            ps.setString(1, cauHoi.getMaCH());
+            ps.setString(2, cauHoi.getMaKho());
+            ps.setString(3, cauHoi.getMaHT());
+            ps.setString(4, cauHoi.getNoidung());
+            ps.setString(5, cauHoi.getDoKho());
+            ps.setString(6, cauHoi.getMaGV());
+            ps.setBoolean(7, cauHoi.isTrangThai());
+            ps.setString(8, cauHoi.getImg());
+
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Khong the them");
+            return false;
+        }
+    }
+
+    // Sửa thông tin câu hỏi trong cơ sở dữ liệu
+    public boolean suaCauHoi(cauHoiDTO cauHoi) {
+        try {
+            String query = "UPDATE CAUHOI SET MaKho = ?, MaHT = ?, Noidung = ?, DoKho = ?, MaGV = ?, TrangThai = ?, Img = ? WHERE MaCH = ?";
+            PreparedStatement ps = conn.preparedStatement(query);
+
+            ps.setString(1, cauHoi.getMaKho());
+            ps.setString(2, cauHoi.getMaHT());
+            ps.setString(3, cauHoi.getNoidung());
+            ps.setString(4, cauHoi.getDoKho());
+            ps.setString(5, cauHoi.getMaGV());
+            ps.setBoolean(6, cauHoi.isTrangThai());
+            ps.setString(7, cauHoi.getImg());
+            ps.setString(8, cauHoi.getMaCH());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Cập nhật câu hỏi thành công.");
+                return true;
+            } else {
+                System.out.println("Không có câu hỏi nào được cập nhật.");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Không thể cập nhật câu hỏi.");
+            return false;
+        }
+    }
+
+    // Xóa câu hỏi khỏi cơ sở dữ liệu
+    public boolean xoaCauHoi(String maCH) {
+        try {
+            String query = "DELETE FROM CAUHOI WHERE MaCH = ?";
+            PreparedStatement ps = conn.preparedStatement(query);
+
+            ps.setString(1, maCH);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Khong the xoa");
+            return false;
+        }
+    }
+
+
+    
+    public cauHoiDTO layCauHoiBangMaCH(String maCH) throws SQLException{
+        cauHoiDTO cauHoi = new cauHoiDTO();
+        try {
+            String query = "select* from cauhoi where mach = '"+maCH+"'";
+
+            PreparedStatement pre = conn.preparedStatement(query);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                cauHoi.setMaCH(rs.getString(1));
+                cauHoi.setMaKho(rs.getString(2));
+                cauHoi.setMaHT(rs.getString(3));
+                cauHoi.setNoidung(rs.getString(4));
+                cauHoi.setDoKho(rs.getString(5));
+                cauHoi.setMaGV(rs.getString(6));
+                cauHoi.setTrangThai(rs.getBoolean(7));
+                cauHoi.setImg(rs.getString(8));
+                return cauHoi;
+            } else {
+                // Xử lý trường hợp không có dữ liệu phù hợp với điều kiện
+                System.out.println("Không có dữ liệu phù hợp với điều kiện.");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public boolean chuyenTrangThaiCH(String maCH) {
+        try {
+            String query = "UPDATE CAUHOI SET TrangThai = 1 WHERE MaCH = ?";
+            PreparedStatement ps = conn.preparedStatement(query);
+            ps.setString(1, maCH);
+
+            int rowsAffected = ps.executeUpdate();
+            ps.close();
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                return false;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

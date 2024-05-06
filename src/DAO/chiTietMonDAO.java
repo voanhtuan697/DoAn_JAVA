@@ -4,10 +4,10 @@
  */
 package DAO;
 
+import DTO.chiTietLopDTO;
 import DTO.chiTietMonDTO;
 import java.sql.*;
 import java.util.ArrayList;
-
 
 /**
  *
@@ -27,12 +27,44 @@ public class chiTietMonDAO {
         String sql = "SELECT * FROM chitietmon";
         PreparedStatement stmt = conn.preparedStatement(sql);
         ResultSet rs = stmt.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             chiTietMonDTO ctm = new chiTietMonDTO();
             ctm.setMaGV(rs.getString(2));
             ctm.setMaMon(rs.getString(1));
             arr.add(ctm);
         }
         return arr;
+    }
+
+    public boolean themSV(chiTietLopDTO t) {
+        boolean success = false;
+        try {
+            conn.Connect();
+            String sql = "INSERT INTO CHITIETLOP(MaLop,MaSV) VALUES(?,?)";
+            PreparedStatement pre = conn.preparedStatement(sql);
+            pre.setString(1, t.getMaLop());
+            pre.setString(2, t.getMaSV());
+            success = pre.executeUpdate() > 0;
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.err.println("Them sinh vao lop hoc that bai" + e.getMessage());
+        }
+        return success;
+    }
+
+    public boolean ThemDS(chiTietMonDTO ct) {
+        boolean success = false;
+        try {
+            conn.Connect();
+            String sql = "INSERT INTO CHITIETMON(MaMon,MaGV) VALUES(?,?)";
+            PreparedStatement pre = conn.preparedStatement(sql);
+            pre.setString(1, ct.getMaMon());
+            pre.setString(2, ct.getMaGV());
+            success = pre.executeUpdate() > 0;
+            conn.disconnect();
+        } catch (SQLException e) {
+            System.err.println("them lop cho gv that bai" + e.getMessage());
+        }
+        return success;
     }
 }

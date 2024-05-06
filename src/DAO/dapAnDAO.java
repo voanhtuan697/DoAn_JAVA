@@ -7,6 +7,7 @@ package DAO;
 import DTO.dapAnDTO;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class dapAnDAO {
 
     private MyConnection conn;
+    private List<dapAnDTO> danhSachDapAn;
 
     public dapAnDAO() throws SQLException {
         conn = new MyConnection();
@@ -49,4 +51,82 @@ public class dapAnDAO {
         return soLuong;
     }
 
+    public List<dapAnDTO> layDanhSachdapAnTheoMaCH(String maCH) {
+        danhSachDapAn = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM dapAn WHERE MaCH = ?";
+            PreparedStatement ps = conn.preparedStatement(query);
+            ps.setString(1, maCH);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String maDa = rs.getString("MaDa");
+                String noidung = rs.getString("Noidung");
+                boolean dungSai = rs.getBoolean("DungSai");
+                // Tạo đối tượng dapAnDTO và thêm vào danh sách
+                dapAnDTO dapAn = new dapAnDTO(maDa, maCH, noidung, dungSai);
+                danhSachDapAn.add(dapAn);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return danhSachDapAn;
+    }
+
+    public void themdapAn(dapAnDTO dapAn) {
+        try {
+            String query = "INSERT INTO dapAn(MaDa, MaCH, Noidung, DungSai) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = conn.preparedStatement(query);
+            ps.setString(1, dapAn.getMaDa());
+            ps.setString(2, dapAn.getMaCH());
+            ps.setString(3, dapAn.getNoidung());
+            ps.setBoolean(4, dapAn.isDungSai());
+
+            int rowsAffected = ps.executeUpdate(); // Thực thi truy vấn INSERT
+
+            if (rowsAffected > 0) {
+                // Hiển thị thông báo nếu thêm thành công
+                System.out.println("Thong cong");
+            } else {
+                System.out.println("That bai");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("error");
+        }
+    }
+
+    public void suadapAn(dapAnDTO dapAn) {
+        try {
+            String query = "UPDATE dapAn SET Noidung = ?, DungSai = ? WHERE MaDa = ?";
+            PreparedStatement ps = conn.preparedStatement(query);
+            ps.setString(1, dapAn.getNoidung());
+            ps.setBoolean(2, dapAn.isDungSai());
+            ps.setString(3, dapAn.getMaDa());
+            ps.executeUpdate();
+
+            // Sau khi sửa trong cơ sở dữ liệu thành công, cập nhật lại danh sách
+            for (dapAnDTO da : danhSachDapAn) {
+                if (da.getMaDa().equals(dapAn.getMaDa())) {
+                    da.setNoidung(dapAn.getNoidung());
+                    da.setDungSai(dapAn.isDungSai());
+                    break;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void xoadapAn(String mach) {
+        try {
+            String query = "DELETE FROM dapAn WHERE MaCH = ?";
+            PreparedStatement ps = conn.preparedStatement(query);
+            ps.setString(1, mach);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
 }

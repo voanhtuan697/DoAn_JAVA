@@ -21,7 +21,6 @@ public class nguoiDungBUS {
         this.user = new nguoiDungDAO();
     }
 
-//   ArrayList<nguoiDungDTO> user = new ArrayList<>();
     public ArrayList<nguoiDungDTO> getNguoiDung() throws SQLException {
         return user.getNguoiDung();
     }
@@ -50,5 +49,25 @@ public class nguoiDungBUS {
     public String layTenNguoiDungTheoMaTK(String maTK) {
         return user.layTenNguoiDungTheoMaTK(maTK);
     }
+
+    public String layMaUserTheoMaTK(String maTK) {
+        return user.layMaUserTheoMaTK(maTK);
+    }
+    
+    public ArrayList<nguoiDungDTO> getThongTinSV(int Nam, int HocKy, String TenMon, String MaLop) {
+        return user.getThongTinSV(Nam, HocKy, TenMon, MaLop);
+    }
+
+    public ArrayList<nguoiDungDTO> TimKiem(int Nam, int HocKy, String TenMon, String MaLop, String key) {
+        return user.TimKiem(Nam, HocKy, TenMon, MaLop, key);
+    }
+
+    public ArrayList<nguoiDungDTO> DSTenGV(String TenMon) {
+        return user.DSTenGV(TenMon);
+    }
+    
+     public ArrayList<nguoiDungDTO> DSGiaoVien() {
+         return user.DSGiaoVien();
+     }
 
 }

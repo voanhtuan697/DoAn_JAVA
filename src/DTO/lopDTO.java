@@ -4,19 +4,24 @@
  */
 package DTO;
 
-/**
- *
- * @author TK
- */
 public class lopDTO {
-    private String MaLop,  MaGV, MaMon;
+//<<<<<<< HEAD
+
+    private String MaLop, MaGV, MaMon;
     private int SoLuong, Nam, HocKy, NhomLop;
-    private boolean TrangThai;
+    boolean TrangThai;
+    private monDTO monDTO = new monDTO();
+
+//=======
+//    private String MaLop,  MaGV, MaMon;
+//    private int SoLuong, Nam, HocKy, NhomLop;
+//    private boolean TrangThai;
 
     public lopDTO() {
     }
   
     
+//>>>>>>> 07c12653363da382cbb6a76cff52188243b95a34
     public lopDTO(String MaLop, String MaGV, String MaMon, boolean TrangThai, int SoLuong, int Nam, int HocKy, int NhomLop) {
         this.MaLop = MaLop;
         this.MaGV = MaGV;
@@ -26,6 +31,14 @@ public class lopDTO {
         this.Nam = Nam;
         this.HocKy = HocKy;
         this.NhomLop = NhomLop;
+    }
+
+    public lopDTO(int Nam) {
+        this.Nam = Nam;
+    }
+
+    public lopDTO(String MaLop) {
+        this.MaLop = MaLop;
     }
 
     public String getMaLop() {
@@ -52,7 +65,7 @@ public class lopDTO {
         this.MaMon = MaMon;
     }
 
-    public boolean isTrangThai() {
+    public boolean getTrangThai() {
         return TrangThai;
     }
 
@@ -92,6 +105,14 @@ public class lopDTO {
 
     public void setNhomLop(int NhomLop) {
         this.NhomLop = NhomLop;
+    }
+
+    public monDTO getMonDTO() {
+        return monDTO;
+    }
+
+    public void setMonDTO(monDTO monDTO) {
+        this.monDTO = monDTO;
     }
 
 }
